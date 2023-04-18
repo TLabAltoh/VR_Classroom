@@ -6,13 +6,17 @@ public class TLabVRGrabbable : MonoBehaviour
 {
     public const int PARENT_LENGTH = 2;
 
-    [Tooltip("Rigidbody")]
+    [Header("Rigidbody")]
     [SerializeField] private bool m_useRigidbody = true;
     [SerializeField] private bool m_useGravity = false;
 
-    [Tooltip("Transform fix")]
+    [Header("Transform fix")]
     [SerializeField] private bool m_positionFixed = true;
     [SerializeField] private bool m_rotateFixed = true;
+    [SerializeField] private bool m_scaling = true;
+
+    [Header("Scaling Factor")]
+    [SerializeField, Range(0.0f, 0.25f)] private float m_scalingFactor;
 
     private GameObject m_mainParent;
     private GameObject m_subParent;
@@ -24,6 +28,10 @@ public class TLabVRGrabbable : MonoBehaviour
     private Quaternion m_thisQuaternionStart;
 
     private Rigidbody m_rb;
+
+    private float m_scaleInitialDistance = -1.0f;
+    private float m_parentScalingFactor;
+    private Vector3 m_scaleInitial;
 
     private void EnableGravity(bool active)
     {
@@ -131,6 +139,8 @@ public class TLabVRGrabbable : MonoBehaviour
 
             EnableGravity(m_useGravity);
         }
+
+        m_parentScalingFactor = 1 - m_scalingFactor;
     }
 
     void Update()
@@ -139,10 +149,45 @@ public class TLabVRGrabbable : MonoBehaviour
         {
             if(m_subParent != null)
             {
+                if(m_scaling == true)
+                {
+                    Vector3 positionMain = m_mainParent.transform.TransformPoint(m_mainPositionOffset);
+                    Vector3 positionSub = m_subParent.transform.TransformPoint(m_subPositionOffset);
 
+                    // この処理の最初の実行時，必ずpositionMainとpositionSubは同じ座標になる
+                    // 拡縮の基準が小さくなりすぎてしまい，不都合
+                    // ---> 手の位置に座標を補間して，2つの座標を意図的にずらす
+
+                    float ratioParent = 1 - m_scalingFactor;
+                    Vector3 scalingPositionMain = m_mainParent.transform.position * m_parentScalingFactor + positionMain * m_scalingFactor;
+                    Vector3 scalingPositionSub = m_subParent.transform.position * m_parentScalingFactor + positionSub * m_scalingFactor;
+
+                    if (m_scaleInitialDistance == -1.0f)
+                    {
+                        m_scaleInitialDistance = (scalingPositionMain - scalingPositionSub).magnitude;
+                        m_scaleInitial = this.transform.localScale;
+                    }
+                    else
+                    {
+                        float scaleRatio = (scalingPositionMain - scalingPositionSub).magnitude / m_scaleInitialDistance;
+
+                        this.transform.localScale = scaleRatio * m_scaleInitial;
+
+                        if (m_useRigidbody == true)
+                        {
+                            m_rb.MovePosition(positionMain * 0.5f + positionSub * 0.5f);
+                        }
+                        else
+                        {
+                            this.transform.position = positionMain * 0.5f + positionSub * 0.5f;
+                        }
+                    }
+                }
             }
             else
             {
+                m_scaleInitialDistance = -1.0f;
+
                 if (m_useRigidbody == true)
                 {
                     if (m_positionFixed == true)
@@ -154,7 +199,7 @@ public class TLabVRGrabbable : MonoBehaviour
                     {
                         // https://qiita.com/yaegaki/items/4d5a6af1d1738e102751
                         Quaternion deltaQuaternion = Quaternion.identity * m_mainParent.transform.rotation * Quaternion.Inverse(m_mainQuaternionStart);
-                        m_rb.MoveRotation(this.transform.rotation = deltaQuaternion * m_thisQuaternionStart);
+                        m_rb.MoveRotation(deltaQuaternion * m_thisQuaternionStart);
                     }
                 }
                 else
@@ -172,6 +217,10 @@ public class TLabVRGrabbable : MonoBehaviour
                     }
                 }
             }
+        }
+        else
+        {
+            m_scaleInitialDistance = -1.0f;
         }
     }
 }

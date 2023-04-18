@@ -5,6 +5,7 @@ using UnityEngine;
 public class TLabVRHand : MonoBehaviour
 {
     public OVRInput.Controller m_controller;
+    public LaserPointer m_laserPointer;
     public OVRInput.Axis1D m_grip;
     public float m_maxDistance = 10.0f;
     public LayerMask m_layerMask;
@@ -60,6 +61,8 @@ public class TLabVRHand : MonoBehaviour
             {
                 GameObject target = hit.collider.gameObject;
 
+                m_laserPointer.maxLength = (m_anchor.position - hit.point).magnitude;
+
                 bool grip = OVRInput.Get(m_grip, m_controller) > 0.5f;
                 if (grip)
                 {
@@ -74,6 +77,10 @@ public class TLabVRHand : MonoBehaviour
 
                     m_grabbable = grabbable;
                 }
+            }
+            else
+            {
+                m_laserPointer.maxLength = this.m_maxDistance;
             }
         }
     }
