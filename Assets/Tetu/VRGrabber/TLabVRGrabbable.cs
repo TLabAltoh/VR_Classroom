@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TLabVRGrabbable : MonoBehaviour
@@ -7,33 +5,33 @@ public class TLabVRGrabbable : MonoBehaviour
     public const int PARENT_LENGTH = 2;
 
     [Header("Rigidbody")]
-    [SerializeField] private bool m_useRigidbody = true;
-    [SerializeField] private bool m_useGravity = false;
+    [SerializeField] protected bool m_useRigidbody = true;
+    [SerializeField] protected bool m_useGravity = false;
 
     [Header("Transform fix")]
-    [SerializeField] private bool m_positionFixed = true;
-    [SerializeField] private bool m_rotateFixed = true;
-    [SerializeField] private bool m_scaling = true;
+    [SerializeField] protected bool m_positionFixed = true;
+    [SerializeField] protected bool m_rotateFixed = true;
+    [SerializeField] protected bool m_scaling = true;
 
     [Header("Scaling Factor")]
-    [SerializeField, Range(0.0f, 0.25f)] private float m_scalingFactor;
+    [SerializeField, Range(0.0f, 0.25f)] protected float m_scalingFactor;
 
-    private GameObject m_mainParent;
-    private GameObject m_subParent;
+    protected GameObject m_mainParent;
+    protected GameObject m_subParent;
 
-    private Vector3 m_mainPositionOffset;
-    private Vector3 m_subPositionOffset;
+    protected Vector3 m_mainPositionOffset;
+    protected Vector3 m_subPositionOffset;
 
-    private Quaternion m_mainQuaternionStart;
-    private Quaternion m_thisQuaternionStart;
+    protected Quaternion m_mainQuaternionStart;
+    protected Quaternion m_thisQuaternionStart;
 
-    private Rigidbody m_rb;
+    protected Rigidbody m_rb;
 
-    private float m_scaleInitialDistance = -1.0f;
-    private float m_parentScalingFactor;
-    private Vector3 m_scaleInitial;
+    protected float m_scaleInitialDistance = -1.0f;
+    protected float m_parentScalingFactor;
+    protected Vector3 m_scaleInitial;
 
-    private void EnableGravity(bool active)
+    protected virtual void EnableGravity(bool active)
     {
         if (active == true)
         {
@@ -48,7 +46,7 @@ public class TLabVRGrabbable : MonoBehaviour
         }
     }
 
-    private void RbGripSwitch(bool grip)
+    protected virtual void RbGripSwitch(bool grip)
     {
         if (m_useGravity == true)
         {
@@ -56,7 +54,7 @@ public class TLabVRGrabbable : MonoBehaviour
         }
     }
 
-    private void MainParentGrabbStart()
+    protected virtual void MainParentGrabbStart()
     {
         m_mainPositionOffset = m_mainParent.transform.InverseTransformPoint(this.transform.position);
 
@@ -64,12 +62,12 @@ public class TLabVRGrabbable : MonoBehaviour
         m_thisQuaternionStart = this.transform.rotation;
     }
 
-    private void SubParentGrabStart()
+    protected virtual void SubParentGrabStart()
     {
         m_subPositionOffset = m_subParent.transform.InverseTransformPoint(this.transform.position);
     }
 
-    public bool AddParent(GameObject parent)
+    public virtual bool AddParent(GameObject parent)
     {
         if (m_mainParent == null)
         {
@@ -96,7 +94,7 @@ public class TLabVRGrabbable : MonoBehaviour
         return false;
     }
 
-    public bool RemoveParent(GameObject parent)
+    public virtual bool RemoveParent(GameObject parent)
     {
         if(m_mainParent == parent)
         {
@@ -136,7 +134,7 @@ public class TLabVRGrabbable : MonoBehaviour
         return false;
     }
 
-    void Start()
+    protected virtual void Start()
     {
         if(m_useRigidbody == true)
         {
@@ -152,7 +150,7 @@ public class TLabVRGrabbable : MonoBehaviour
         m_parentScalingFactor = 1 - m_scalingFactor;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if(m_mainParent != null)
         {
