@@ -61,7 +61,7 @@ public class TLabVRHand : MonoBehaviour
             {
                 GameObject target = hit.collider.gameObject;
 
-                m_laserPointer.maxLength = (m_anchor.position - hit.point).magnitude;
+                // m_laserPointer.maxLength = (m_anchor.position - hit.point).magnitude;
 
                 bool grip = OVRInput.Get(m_grip, m_controller) > 0.5f;
                 if (grip)
@@ -80,7 +80,7 @@ public class TLabVRHand : MonoBehaviour
             }
             else
             {
-                m_laserPointer.maxLength = this.m_maxDistance;
+                // m_laserPointer.maxLength = this.m_maxDistance;
             }
         }
     }

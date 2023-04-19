@@ -56,6 +56,19 @@ public class TLabVRGrabbable : MonoBehaviour
         }
     }
 
+    private void MainParentGrabbStart()
+    {
+        m_mainPositionOffset = m_mainParent.transform.InverseTransformPoint(this.transform.position);
+
+        m_mainQuaternionStart = m_mainParent.transform.rotation;
+        m_thisQuaternionStart = this.transform.rotation;
+    }
+
+    private void SubParentGrabStart()
+    {
+        m_subPositionOffset = m_subParent.transform.InverseTransformPoint(this.transform.position);
+    }
+
     public bool AddParent(GameObject parent)
     {
         if (m_mainParent == null)
@@ -64,10 +77,7 @@ public class TLabVRGrabbable : MonoBehaviour
 
             m_mainParent = parent;
 
-            m_mainPositionOffset = parent.transform.InverseTransformPoint(this.transform.position);
-
-            m_mainQuaternionStart = parent.transform.rotation;
-            m_thisQuaternionStart = this.transform.rotation;
+            MainParentGrabbStart();
 
             Debug.Log("tlabvrhand:" + parent.ToString() + " mainParent added");
             return true;
@@ -76,7 +86,7 @@ public class TLabVRGrabbable : MonoBehaviour
         {
             m_subParent = parent;
 
-            m_subPositionOffset = parent.transform.InverseTransformPoint(this.transform.position);
+            SubParentGrabStart();
 
             Debug.Log("tlabvrhand:" + parent.ToString() + " subParent added");
             return true;
@@ -95,10 +105,7 @@ public class TLabVRGrabbable : MonoBehaviour
                 m_mainParent = m_subParent;
                 m_subParent = null;
 
-                m_mainPositionOffset = m_mainParent.transform.InverseTransformPoint(this.transform.position);
-
-                m_mainQuaternionStart = m_mainParent.transform.rotation;
-                m_thisQuaternionStart = this.transform.rotation;
+                MainParentGrabbStart();
 
                 Debug.Log("tlabvrhand:" + "m_main released and m_sub added");
 
@@ -118,6 +125,8 @@ public class TLabVRGrabbable : MonoBehaviour
         else if(m_subParent == parent)
         {
             m_subParent = null;
+
+            MainParentGrabbStart();
 
             Debug.Log("m_sub released");
 
