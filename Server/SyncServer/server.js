@@ -103,7 +103,7 @@ ws.on("connection", function (socket) {
 		ws.clients.forEach(client => {
 			if (client != socket) {
 				client.send(message);
-            }
+			}
         });
 	});
 
