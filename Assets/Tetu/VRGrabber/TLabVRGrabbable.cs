@@ -5,16 +5,16 @@ public class TLabVRGrabbable : MonoBehaviour
     public const int PARENT_LENGTH = 2;
 
     [Header("Rigidbody")]
-    [SerializeField] protected bool m_useRigidbody = true;
-    [SerializeField] protected bool m_useGravity = false;
+    [SerializeField] public bool m_useRigidbody = true;
+    [SerializeField] public bool m_useGravity = false;
 
     [Header("Transform fix")]
-    [SerializeField] protected bool m_positionFixed = true;
-    [SerializeField] protected bool m_rotateFixed = true;
-    [SerializeField] protected bool m_scaling = true;
+    [SerializeField] public bool m_positionFixed = true;
+    [SerializeField] public bool m_rotateFixed = true;
+    [SerializeField] public bool m_scaling = true;
 
     [Header("Scaling Factor")]
-    [SerializeField, Range(0.0f, 0.25f)] protected float m_scalingFactor;
+    [SerializeField, Range(0.0f, 0.25f)] public float m_scalingFactor;
 
     protected GameObject m_mainParent;
     protected GameObject m_subParent;

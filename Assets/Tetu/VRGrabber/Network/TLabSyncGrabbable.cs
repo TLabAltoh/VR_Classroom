@@ -3,6 +3,7 @@ using UnityEngine;
 public class TLabSyncGrabbable : TLabVRGrabbable
 {
     [SerializeField] public bool m_enableSync = false;
+    [SerializeField] public bool m_autoSync = false;
 
     // https://www.fenet.jp/dotnet/column/language/4836/
 
@@ -46,20 +47,29 @@ public class TLabSyncGrabbable : TLabVRGrabbable
             role = "student",
             action = "sync transform",
 
-            id = this.gameObject.name,
-
-            positionX = this.transform.position.x,
-            positionY = this.transform.position.y,
-            positionZ = this.transform.position.z,
-
-            rotationX = this.transform.rotation.x,
-            rotationY = this.transform.rotation.y,
-            rotationZ = this.transform.rotation.z,
-
-            scaleX = this.transform.localScale.x,
-            scaleY = this.transform.localScale.y,
-            scaleZ = this.transform.localScale.z,
-
+            transform = new WebObjectInfo
+            {
+                id = this.gameObject.name,
+                position = new WebVector3
+                {
+                    x = this.transform.position.x,
+                    y = this.transform.position.y,
+                    z = this.transform.position.z
+                },
+                rotation = new WebVector4
+                {
+                    x = this.transform.rotation.x,
+                    y = this.transform.rotation.y,
+                    z = this.transform.rotation.z,
+                    w = this.transform.rotation.w,
+                },
+                scale = new WebVector3
+                {
+                    x = this.transform.localScale.x,
+                    y = this.transform.localScale.y,
+                    z = this.transform.localScale.z
+                }
+            }
         };
 
         string json = JsonUtility.ToJson(obj);
@@ -154,6 +164,11 @@ public class TLabSyncGrabbable : TLabVRGrabbable
         else
         {
             m_scaleInitialDistance = -1.0f;
+
+            if(m_enableSync == true && m_autoSync == true)
+            {
+
+            }
         }
     }
 }

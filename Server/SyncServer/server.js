@@ -55,47 +55,50 @@ ws.on("connection", function (socket) {
 
 		const parse = JSON.parse(message);
 
-		if (parse.action === "regist" && parse.role === "student") {
-			console.log("\nclient registed " + bar);
+		if(parse.role === "student"){
+			if (parse.action === "sync transform") {
+				console.log("sync transform");
+				syncObjects[parse.transform.id] = message;
+			}
+			else if (parse.action === "regist") {
+				console.log("\nclient registed " + bar);
 
-			for (var i = 0; i < seatLength; i++) {
-				if (seats[i] === false) {
-					seatIndex = i;
-					seats[i] = true;
-					console.log(seats);
-					break;
+				for (var i = 0; i < seatLength; i++) {
+					if (seats[i] === false) {
+						seatIndex = i;
+						seats[i] = true;
+						console.log(seats);
+						break;
+					}
+				}
+
+				if (seatIndex === -1) {
+					console.log("student rejected");
+					var obj = {
+						role: "server",
+						action: "reject"
+					};
+					var json = JSON.stringify(obj);
+					socket.send(json);
+				} else {
+					console.log("student acepted " + seats);
+					var obj = {
+						role: "server",
+						action: "acept",
+						seatIndex: seatIndex
+					};
+					var json = JSON.stringify(obj);
+					socket.send(json);
+
+					console.log("load current world data");
+
+					// https://pisuke-code.com/javascript-dictionary-foreach/
+					Object.values(syncObjects).forEach(function (value) {
+						socket.send(value);
+					});
 				}
 			}
-
-			if (seatIndex === -1) {
-				console.log("student rejected");
-				var obj = {
-					role: "server",
-					action: "reject"
-				};
-				var json = JSON.stringify(obj);
-				socket.send(json);
-			} else {
-				console.log("student acepted " + seats);
-				var obj = {
-					role: "server",
-					action: "acept",
-					seatIndex: seatIndex
-				};
-				var json = JSON.stringify(obj);
-				socket.send(json);
-
-				console.log("load current world data");
-
-				// https://pisuke-code.com/javascript-dictionary-foreach/
-				Object.values(syncObjects).forEach(function (value) {
-					socket.send(value);
-				});
-			}
-		} else if (parse.action === "sync transform") {
-			console.log("sync transform");
-			syncObjects[parse.id] = message;
-        }
+		}
 
 		ws.clients.forEach(client => {
 			if (client != socket) {
@@ -110,6 +113,19 @@ ws.on("connection", function (socket) {
 		if(seatIndex !== -1){
 			seats[seatIndex] = false;
 			console.log(seats);
+
+			ws.clients.forEach(client => {
+				var obj = {
+					"role": "server",
+					"action": "disconnect",
+					"seatIndex": seatIndex
+				};
+				var json = JSON.stringify(obj);
+
+				if (client != socket) {
+					client.send(json);
+				}
+			});
 		}
 	});
 });

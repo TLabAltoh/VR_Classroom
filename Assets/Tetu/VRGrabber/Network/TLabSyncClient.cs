@@ -1,6 +1,34 @@
 using UnityEngine;
 using NativeWebSocket;
 
+// https://kazupon.org/unity-jsonutility/#i-2
+[System.Serializable]
+public class WebVector3
+{
+    public float x;
+    public float y;
+    public float z;
+}
+
+[System.Serializable]
+public class WebVector4
+{
+    public float x;
+    public float y;
+    public float z;
+    public float w;
+}
+
+[System.Serializable]
+public class WebObjectInfo
+{
+    public string id;
+    public WebVector3 position;
+    public WebVector4 rotation;
+    public WebVector3 scale;
+}
+
+[System.Serializable]
 public class TLabSyncJson
 {
     // .js code
@@ -16,21 +44,9 @@ public class TLabSyncJson
     public string role;
     public string action;
 
-    public int seatIndex;
+    public int seatIndex = -1;
 
-    public string id;
-
-    public float positionX;
-    public float positionY;
-    public float positionZ;
-
-    public float rotationX;
-    public float rotationY;
-    public float rotationZ;
-
-    public float scaleX;
-    public float scaleY;
-    public float scaleZ;
+    public WebObjectInfo transform;
 }
 
 public class TLabSyncClient : MonoBehaviour
@@ -99,15 +115,38 @@ public class TLabSyncClient : MonoBehaviour
 
             Debug.Log("tlabwebsocket: OnMessage - " + message);
 
-            if(obj.role == "server" && obj.action == "acept")
+            if(obj.role == "server")
             {
-                m_seatIndex = obj.seatIndex;
-
-                if(m_seatIndex == 0)
+                if (obj.action == "acept")
                 {
-                    TLabSyncGrabbable[] grabbables = FindObjectsOfType<TLabSyncGrabbable>();
-                    foreach(TLabSyncGrabbable grabbable in grabbables)
-                        grabbable.SyncTransform();
+                    m_seatIndex = obj.seatIndex;
+
+                    if (m_seatIndex == 0)
+                    {
+                        TLabSyncGrabbable[] grabbables = FindObjectsOfType<TLabSyncGrabbable>();
+                        foreach (TLabSyncGrabbable grabbable in grabbables)
+                            grabbable.SyncTransform();
+                    }
+                }
+                else if (obj.action == "disconnect")
+                {
+                    Debug.Log("tlabwebsocket: " + "other player disconncted . " + obj.seatIndex.ToString());
+                }
+            }
+            else if(obj.role == "student")
+            {
+                if (obj.action == "sync transform")
+                {
+                    WebObjectInfo webTransform = obj.transform;
+
+                    GameObject target = GameObject.Find(webTransform.id);
+
+                    if (target != null)
+                    {
+                        target.transform.position = new Vector3(webTransform.position.x, webTransform.position.y, webTransform.position.z);
+                        target.transform.rotation = new Quaternion(webTransform.rotation.x, webTransform.rotation.y, webTransform.rotation.z, webTransform.rotation.w);
+                        target.transform.position = new Vector3(webTransform.position.x, webTransform.position.y, webTransform.position.z);
+                    }
                 }
             }
         };
