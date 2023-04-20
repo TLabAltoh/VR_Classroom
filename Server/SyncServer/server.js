@@ -42,6 +42,7 @@ for(var i = 0; i < seatLength; i++){
 }
 
 var syncObjects = { };
+var rbAllocationTable = { };
 
 ws.on("connection", function (socket) {
 	console.log("\nclient connected " + bar);

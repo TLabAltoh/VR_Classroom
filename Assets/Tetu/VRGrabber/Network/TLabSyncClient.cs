@@ -23,6 +23,8 @@ public class WebVector4
 public class WebObjectInfo
 {
     public string id;
+    public bool rigidbody;
+    public bool gravity;
     public WebVector3 position;
     public WebVector4 rotation;
     public WebVector3 scale;
@@ -132,6 +134,22 @@ public class TLabSyncClient : MonoBehaviour
                 {
                     Debug.Log("tlabwebsocket: " + "other player disconncted . " + obj.seatIndex.ToString());
                 }
+                else if(obj.action == "rb allocation")
+                {
+                    WebObjectInfo webTransform = obj.transform;
+
+                    GameObject target = GameObject.Find(webTransform.id);
+
+                    if (target != null)
+                    {
+                        TLabSyncGrabbable grabbable = target.GetComponent<TLabSyncGrabbable>();
+
+                        if(grabbable != null)
+                        {
+                            grabbable.RbAllocation(webTransform.gravity);
+                        }
+                    }
+                }
             }
             else if(obj.role == "student")
             {
@@ -143,9 +161,12 @@ public class TLabSyncClient : MonoBehaviour
 
                     if (target != null)
                     {
-                        target.transform.position = new Vector3(webTransform.position.x, webTransform.position.y, webTransform.position.z);
-                        target.transform.rotation = new Quaternion(webTransform.rotation.x, webTransform.rotation.y, webTransform.rotation.z, webTransform.rotation.w);
-                        target.transform.position = new Vector3(webTransform.position.x, webTransform.position.y, webTransform.position.z);
+                        TLabSyncGrabbable grabbable = target.GetComponent<TLabSyncGrabbable>();
+
+                        if(grabbable != null)
+                        {
+                            grabbable.SyncFromServer(webTransform);
+                        }
                     }
                 }
             }

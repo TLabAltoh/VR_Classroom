@@ -7,6 +7,34 @@ public class TLabSyncGrabbable : TLabVRGrabbable
 
     // https://www.fenet.jp/dotnet/column/language/4836/
 
+    public void RbAllocation(bool active)
+    {
+        if(m_rb != null)
+        {
+            EnableGravity(active);
+        }
+    }
+
+    public void SyncFromServer(WebObjectInfo transform)
+    {
+        WebVector3 position = transform.position;
+        WebVector3 scale = transform.scale;
+        WebVector4 rotation = transform.rotation;
+
+        this.transform.localScale = new Vector3(scale.x, scale.y, scale.z);
+
+        if (m_useRigidbody == true)
+        {
+            m_rb.MovePosition(new Vector3(position.x, position.y, position.z));
+            m_rb.MoveRotation(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
+        }
+        else
+        {
+            this.transform.position = new Vector3(position.x, position.y, position.z);
+            this.transform.rotation = new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w);
+        }
+    }
+
     protected override void EnableGravity(bool active)
     {
         base.EnableGravity(active);
@@ -50,6 +78,10 @@ public class TLabSyncGrabbable : TLabVRGrabbable
             transform = new WebObjectInfo
             {
                 id = this.gameObject.name,
+
+                rigidbody = m_useRigidbody,
+                gravity = m_useGravity,
+
                 position = new WebVector3
                 {
                     x = this.transform.position.x,
@@ -165,9 +197,9 @@ public class TLabSyncGrabbable : TLabVRGrabbable
         {
             m_scaleInitialDistance = -1.0f;
 
-            if(m_enableSync == true && m_autoSync == true)
+            if(m_enableSync == true && m_autoSync == true && m_useGravity == true)
             {
-
+                SyncTransform();
             }
         }
     }
