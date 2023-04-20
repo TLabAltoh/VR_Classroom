@@ -5,16 +5,16 @@ public class TLabVRGrabbable : MonoBehaviour
     public const int PARENT_LENGTH = 2;
 
     [Header("Rigidbody")]
-    [SerializeField] public bool m_useRigidbody = true;
-    [SerializeField] public bool m_useGravity = false;
+    [SerializeField] protected bool m_useRigidbody = true;
+    [SerializeField] protected bool m_useGravity = false;
 
     [Header("Transform fix")]
-    [SerializeField] public bool m_positionFixed = true;
-    [SerializeField] public bool m_rotateFixed = true;
-    [SerializeField] public bool m_scaling = true;
+    [SerializeField] protected bool m_positionFixed = true;
+    [SerializeField] protected bool m_rotateFixed = true;
+    [SerializeField] protected bool m_scaling = true;
 
     [Header("Scaling Factor")]
-    [SerializeField, Range(0.0f, 0.25f)] public float m_scalingFactor;
+    [SerializeField, Range(0.0f, 0.25f)] protected float m_scalingFactor;
 
     protected GameObject m_mainParent;
     protected GameObject m_subParent;
@@ -49,9 +49,7 @@ public class TLabVRGrabbable : MonoBehaviour
     protected virtual void RbGripSwitch(bool grip)
     {
         if (m_useGravity == true)
-        {
             EnableGravity(!grip);
-        }
     }
 
     protected virtual void MainParentGrabbStart()
@@ -77,7 +75,7 @@ public class TLabVRGrabbable : MonoBehaviour
 
             MainParentGrabbStart();
 
-            Debug.Log("tlabvrhand:" + parent.ToString() + " mainParent added");
+            Debug.Log("tlabvrhand: " + parent.ToString() + " mainParent added");
             return true;
         }
         else if(m_subParent == null)
@@ -86,7 +84,7 @@ public class TLabVRGrabbable : MonoBehaviour
 
             SubParentGrabStart();
 
-            Debug.Log("tlabvrhand:" + parent.ToString() + " subParent added");
+            Debug.Log("tlabvrhand: " + parent.ToString() + " subParent added");
             return true;
         }
 
@@ -105,7 +103,7 @@ public class TLabVRGrabbable : MonoBehaviour
 
                 MainParentGrabbStart();
 
-                Debug.Log("tlabvrhand:" + "m_main released and m_sub added");
+                Debug.Log("tlabvrhand: " + "m_main released and m_sub added");
 
                 return true;
             }
@@ -115,7 +113,7 @@ public class TLabVRGrabbable : MonoBehaviour
 
                 m_mainParent = null;
 
-                Debug.Log("tlabvrhand:" + "m_main released");
+                Debug.Log("tlabvrhand: " + "m_main released");
 
                 return true;
             }
@@ -126,7 +124,7 @@ public class TLabVRGrabbable : MonoBehaviour
 
             MainParentGrabbStart();
 
-            Debug.Log("m_sub released");
+            Debug.Log("tlabvrhand: m_sub released");
 
             return true;
         }
@@ -140,9 +138,7 @@ public class TLabVRGrabbable : MonoBehaviour
         {
             m_rb = GetComponent<Rigidbody>();
             if(m_rb == null)
-            {
                 m_rb = this.gameObject.AddComponent<Rigidbody>();
-            }
 
             EnableGravity(m_useGravity);
         }
@@ -181,13 +177,9 @@ public class TLabVRGrabbable : MonoBehaviour
                         this.transform.localScale = scaleRatio * m_scaleInitial;
 
                         if (m_useRigidbody == true)
-                        {
                             m_rb.MovePosition(positionMain * 0.5f + positionSub * 0.5f);
-                        }
                         else
-                        {
                             this.transform.position = positionMain * 0.5f + positionSub * 0.5f;
-                        }
                     }
                 }
             }
@@ -198,9 +190,7 @@ public class TLabVRGrabbable : MonoBehaviour
                 if (m_useRigidbody == true)
                 {
                     if (m_positionFixed == true)
-                    {
                         m_rb.MovePosition(m_mainParent.transform.TransformPoint(m_mainPositionOffset));
-                    }
 
                     if (m_rotateFixed == true)
                     {
@@ -212,9 +202,7 @@ public class TLabVRGrabbable : MonoBehaviour
                 else
                 {
                     if (m_positionFixed == true)
-                    {
                         this.transform.position = m_mainParent.transform.TransformPoint(m_mainPositionOffset);
-                    }
 
                     if (m_rotateFixed == true)
                     {

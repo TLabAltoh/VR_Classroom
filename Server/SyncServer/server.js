@@ -4,6 +4,10 @@ const websocket = require("ws");
 const port = 5000;
 const bar = "----------------";
 
+//
+// Start HTTPS Server
+//
+
 /*
 const https = require("https");
 const fs = require("fs");
@@ -20,6 +24,10 @@ const server = https.createServer(options, (req, res) => {
 });
 */
 
+//
+// Start HTTP Server
+//
+
 const http = require("http");
 const server = http.createServer((req, res) => {
 	res.writeHead(200);
@@ -35,14 +43,25 @@ let ws = new websocket.Server({server: server});
 
 console.log("\nserver start " + bar);
 
+//
+// Player Data
+//
+
 const seatLength = 3;
+var seatFilled = 0;
 var seats = [];
+var socketTable = [];
 for(var i = 0; i < seatLength; i++){
 	seats.push(false);
+	socketTable.push(null);
 }
 
+//
+// Sync Objects
+//
+
 var syncObjects = { };
-var rbAllocationTable = { };
+var rbTable = {};
 
 ws.on("connection", function (socket) {
 	console.log("\nclient connected " + bar);
@@ -63,12 +82,12 @@ ws.on("connection", function (socket) {
 			}
 			else if (parse.action === "regist") {
 				console.log("\nclient registed " + bar);
-
 				for (var i = 0; i < seatLength; i++) {
 					if (seats[i] === false) {
 						seatIndex = i;
 						seats[i] = true;
-						console.log(seats);
+						socketTable[i] = socket;
+						console.log(seats + "\n" + socketTable);
 						break;
 					}
 				}
@@ -82,7 +101,10 @@ ws.on("connection", function (socket) {
 					var json = JSON.stringify(obj);
 					socket.send(json);
 				} else {
-					console.log("student acepted " + seats);
+					seatFilled += 1;
+
+					console.log("student acepted " + seats + " - " + currentPlayerNum);
+
 					var obj = {
 						role: "server",
 						action: "acept",
@@ -91,10 +113,50 @@ ws.on("connection", function (socket) {
 					var json = JSON.stringify(obj);
 					socket.send(json);
 
+					console.log("allocate rigidbody");
+
+					var syncObjValues = Object.values(syncObjects);
+
+					var i = 0;
+					syncObjValues.forEach(function (value) {
+						if (value.transform.rigidbody === true && value.transform.gravity === true) {
+							if (seats[i] === false) {
+								// no one in the seat
+								continue;
+							} else {
+								rbTable[value.transform.id] = i;
+								i = (i + 1) % seatFilled;
+                            }
+						}
+					});
+
+					for (var j = 0; j < seatLength; j++) {
+						if (seats[i] === false) {
+							// no one in the seat
+							continue;
+						}
+
+						syncObjValues.forEach(function (value) {
+							if (rbTable[value.transform.id] !== seatIndex) {
+								// Set useGravity to Off for rigidbodies that you are not in charge of
+								var obj = {
+									role: "server",
+									action: "set gravity",
+									active = false,
+									transform: {
+										id: value.transform.id
+									}
+								};
+								var json = JSON.stringify(obj);
+								socket.send(json);
+							}
+						});
+                    }
+
 					console.log("load current world data");
 
 					// https://pisuke-code.com/javascript-dictionary-foreach/
-					Object.values(syncObjects).forEach(function (value) {
+					syncObjValues.forEach(function (value) {
 						socket.send(value);
 					});
 				}
@@ -111,9 +173,12 @@ ws.on("connection", function (socket) {
 	socket.on('close', function close() {
 		console.log("\nclient closed " + bar);
 
-		if(seatIndex !== -1){
+		if (seatIndex !== -1) {
+			seatFilled -= 1;
 			seats[seatIndex] = false;
-			console.log(seats);
+			socketTable[seatIndex] = null;
+
+			console.log(seats + "\n" + socketTable);
 
 			ws.clients.forEach(client => {
 				var obj = {

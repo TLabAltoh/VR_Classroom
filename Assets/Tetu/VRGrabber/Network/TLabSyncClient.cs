@@ -48,6 +48,8 @@ public class TLabSyncJson
 
     public int seatIndex = -1;
 
+    public bool active = false;
+
     public WebObjectInfo transform;
 }
 
@@ -59,6 +61,16 @@ public class TLabSyncClient : MonoBehaviour
 
     private WebSocket websocket;
     private int m_seatIndex = -1;
+
+    private TLabSyncGrabbable GetTargetGrabbable(WebObjectInfo webTransform)
+    {
+        GameObject target = GameObject.Find(webTransform.id);
+
+        if (target != null)
+            return target.GetComponent<TLabSyncGrabbable>();
+        else
+            return null;
+    }
 
     async void Start()
     {
@@ -117,6 +129,10 @@ public class TLabSyncClient : MonoBehaviour
 
             Debug.Log("tlabwebsocket: OnMessage - " + message);
 
+            //
+            // Switch by role
+            //
+
             if(obj.role == "server")
             {
                 if (obj.action == "acept")
@@ -129,26 +145,13 @@ public class TLabSyncClient : MonoBehaviour
                         foreach (TLabSyncGrabbable grabbable in grabbables)
                             grabbable.SyncTransform();
                     }
+
+                    return;
                 }
                 else if (obj.action == "disconnect")
                 {
                     Debug.Log("tlabwebsocket: " + "other player disconncted . " + obj.seatIndex.ToString());
-                }
-                else if(obj.action == "rb allocation")
-                {
-                    WebObjectInfo webTransform = obj.transform;
-
-                    GameObject target = GameObject.Find(webTransform.id);
-
-                    if (target != null)
-                    {
-                        TLabSyncGrabbable grabbable = target.GetComponent<TLabSyncGrabbable>();
-
-                        if(grabbable != null)
-                        {
-                            grabbable.RbAllocation(webTransform.gravity);
-                        }
-                    }
+                    return;
                 }
             }
             else if(obj.role == "student")
@@ -156,19 +159,35 @@ public class TLabSyncClient : MonoBehaviour
                 if (obj.action == "sync transform")
                 {
                     WebObjectInfo webTransform = obj.transform;
+                    TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
+                    if (grabbable != null)
+                        grabbable.SyncFromServer(webTransform);
 
-                    GameObject target = GameObject.Find(webTransform.id);
-
-                    if (target != null)
-                    {
-                        TLabSyncGrabbable grabbable = target.GetComponent<TLabSyncGrabbable>();
-
-                        if(grabbable != null)
-                        {
-                            grabbable.SyncFromServer(webTransform);
-                        }
-                    }
+                    return;
                 }
+            }
+
+            //
+            // Default
+            //
+
+            if (obj.action == "set gravity")
+            {
+                WebObjectInfo webTransform = obj.transform;
+                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
+                if (grabbable != null)
+                    grabbable.SetGravity(obj.active);
+
+                return;
+            }
+            else if(obj.action == "allocate gravity")
+            {
+                WebObjectInfo webTransform = obj.transform;
+                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
+                if (grabbable != null)
+                    grabbable.SetGravity(obj.active);
+
+                return;
             }
         };
 

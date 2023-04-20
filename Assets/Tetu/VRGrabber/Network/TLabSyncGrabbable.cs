@@ -4,16 +4,9 @@ public class TLabSyncGrabbable : TLabVRGrabbable
 {
     [SerializeField] public bool m_enableSync = false;
     [SerializeField] public bool m_autoSync = false;
+    private bool m_rbAllocated = true;
 
     // https://www.fenet.jp/dotnet/column/language/4836/
-
-    public void RbAllocation(bool active)
-    {
-        if(m_rb != null)
-        {
-            EnableGravity(active);
-        }
-    }
 
     public void SyncFromServer(WebObjectInfo transform)
     {
@@ -35,6 +28,19 @@ public class TLabSyncGrabbable : TLabVRGrabbable
         }
     }
 
+    public void SetGravity(bool active)
+    {
+        if (m_rb != null)
+            EnableGravity(active);
+    }
+
+    public void AllocateGravity(bool active)
+    {
+        m_rbAllocated = active;
+
+        SetGravity(active);
+    }
+
     protected override void EnableGravity(bool active)
     {
         base.EnableGravity(active);
@@ -42,7 +48,26 @@ public class TLabSyncGrabbable : TLabVRGrabbable
 
     protected override void RbGripSwitch(bool grip)
     {
+        if (m_rbAllocated == false)
+            return;
+
         base.RbGripSwitch(grip);
+
+        if (m_enableSync == true && m_useRigidbody == true && m_useGravity == true)
+        {
+            TLabSyncJson obj = new TLabSyncJson
+            {
+                role = "student",
+                action = "set gravity",
+                active = !grip,
+                transform = new WebObjectInfo
+                {
+                    id = this.gameObject.name
+                }
+            };
+            string json = JsonUtility.ToJson(obj);
+            TLabSyncClient.Instalce.SendWsMessage(json);
+        }
     }
 
     protected override void MainParentGrabbStart()
@@ -57,12 +82,69 @@ public class TLabSyncGrabbable : TLabVRGrabbable
 
     public override bool AddParent(GameObject parent)
     {
-        return base.AddParent(parent);
+        if (m_mainParent == null)
+        {
+            RbGripSwitch(true);
+
+            m_mainParent = parent;
+
+            MainParentGrabbStart();
+
+            Debug.Log("tlabvrhand: " + parent.ToString() + " mainParent added");
+            return true;
+        }
+        else if (m_subParent == null)
+        {
+            m_subParent = parent;
+
+            SubParentGrabStart();
+
+            Debug.Log("tlabvrhand: " + parent.ToString() + " subParent added");
+            return true;
+        }
+
+        Debug.Log("tlabvrhand: cannot add parent");
+        return false;
     }
 
     public override bool RemoveParent(GameObject parent)
     {
-        return base.RemoveParent(parent);
+        if (m_mainParent == parent)
+        {
+            if (m_subParent != null)
+            {
+                m_mainParent = m_subParent;
+                m_subParent = null;
+
+                MainParentGrabbStart();
+
+                Debug.Log("tlabvrhand: " + "m_main released and m_sub added");
+
+                return true;
+            }
+            else
+            {
+                RbGripSwitch(false);
+
+                m_mainParent = null;
+
+                Debug.Log("tlabvrhand: " + "m_main released");
+
+                return true;
+            }
+        }
+        else if (m_subParent == parent)
+        {
+            m_subParent = null;
+
+            MainParentGrabbStart();
+
+            Debug.Log("tlabvrhand: m_sub released");
+
+            return true;
+        }
+
+        return false;
     }
 
     public void SyncTransform()
@@ -145,13 +227,9 @@ public class TLabSyncGrabbable : TLabVRGrabbable
                         this.transform.localScale = scaleRatio * m_scaleInitial;
 
                         if (m_useRigidbody == true)
-                        {
                             m_rb.MovePosition(positionMain * 0.5f + positionSub * 0.5f);
-                        }
                         else
-                        {
                             this.transform.position = positionMain * 0.5f + positionSub * 0.5f;
-                        }
 
                         SyncTransform();
                     }
@@ -164,9 +242,7 @@ public class TLabSyncGrabbable : TLabVRGrabbable
                 if (m_useRigidbody == true)
                 {
                     if (m_positionFixed == true)
-                    {
                         m_rb.MovePosition(m_mainParent.transform.TransformPoint(m_mainPositionOffset));
-                    }
 
                     if (m_rotateFixed == true)
                     {
@@ -178,9 +254,7 @@ public class TLabSyncGrabbable : TLabVRGrabbable
                 else
                 {
                     if (m_positionFixed == true)
-                    {
                         this.transform.position = m_mainParent.transform.TransformPoint(m_mainPositionOffset);
-                    }
 
                     if (m_rotateFixed == true)
                     {
@@ -197,7 +271,7 @@ public class TLabSyncGrabbable : TLabVRGrabbable
         {
             m_scaleInitialDistance = -1.0f;
 
-            if(m_enableSync == true && m_autoSync == true && m_useGravity == true)
+            if(m_enableSync == true && (m_autoSync == true || m_rbAllocated == true))
             {
                 SyncTransform();
             }
