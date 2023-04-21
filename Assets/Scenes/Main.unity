@@ -443,6 +443,8 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableSync: 1
+  m_autoSync: 0
+  m_locked: 0
 --- !u!4 &988536157 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3027792353846302975, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
@@ -498,6 +500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_serverAddr: ws://192.168.11.10:5000
+  m_registWorldData: 0
 --- !u!1001 &1684156241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -720,6 +723,8 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0.25
   m_enableSync: 1
+  m_autoSync: 0
+  m_locked: 0
 --- !u!1 &2029850385
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,6 +843,8 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableSync: 1
+  m_autoSync: 0
+  m_locked: 0
 --- !u!1001 &3027792354008155554
 PrefabInstance:
   m_ObjectHideFlags: 0

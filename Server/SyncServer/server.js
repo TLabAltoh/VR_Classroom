@@ -63,6 +63,61 @@ for(var i = 0; i < seatLength; i++){
 var syncObjects = { };
 var rbTable = {};
 
+function allocateRigidbody(){
+	var syncObjValues = Object.values(syncObjects);
+
+	var check = false;
+	for(var j = 0; j < seatLength; j++){
+		if(seats[j] === true){
+			check = true;
+		}
+	}
+
+	if(check === false){
+		return;
+	}
+
+	var i = 0;
+	syncObjValues.forEach(function (value) {
+		if (value.transform.rigidbody === true && value.transform.gravity === true) {
+			var live = true;
+			while(live === true){
+				if (seats[i] === true) {
+					rbTable[value.transform.id] = i;
+					i = (i + 1) % seatLength;
+					live = false;
+					break;
+				} else {
+					// no one in the seat
+					i = (i + 1) % seatLength;
+					continue;
+				}
+			}
+		}
+	});
+
+	for (var j = 0; j < seatLength; j++) {
+		if (seats[j] === false) {
+			// no one in the seat
+			continue;
+		}
+
+		syncObjValues.forEach(function (value) {
+			// Set useGravity to Off for rigidbodies that you are not in charge of
+			var obj = {
+				role: "server",
+				action: "allocate gravity",
+				active: (rbTable[value.transform.id] === j),
+				transform: {
+					id: value.transform.id
+				}
+			};
+			var json = JSON.stringify(obj);
+			socketTable[j].send(json);
+		});
+	}
+}
+
 ws.on("connection", function (socket) {
 	console.log("\nclient connected " + bar);
 
@@ -78,7 +133,7 @@ ws.on("connection", function (socket) {
 		if(parse.role === "student"){
 			if (parse.action === "sync transform") {
 				console.log("sync transform");
-				syncObjects[parse.transform.id] = message;
+				syncObjects[parse.transform.id] = parse;
 			}
 			else if (parse.action === "regist") {
 				console.log("\nclient registed " + bar);
@@ -87,7 +142,6 @@ ws.on("connection", function (socket) {
 						seatIndex = i;
 						seats[i] = true;
 						socketTable[i] = socket;
-						console.log(seats + "\n" + socketTable);
 						break;
 					}
 				}
@@ -103,7 +157,8 @@ ws.on("connection", function (socket) {
 				} else {
 					seatFilled += 1;
 
-					console.log("student acepted " + seats + " - " + currentPlayerNum);
+					console.log("student acepted ");
+					console.log(seats);
 
 					var obj = {
 						role: "server",
@@ -113,53 +168,28 @@ ws.on("connection", function (socket) {
 					var json = JSON.stringify(obj);
 					socket.send(json);
 
-					console.log("allocate rigidbody");
+					console.log("load current world data");
 
 					var syncObjValues = Object.values(syncObjects);
 
-					var i = 0;
-					syncObjValues.forEach(function (value) {
-						if (value.transform.rigidbody === true && value.transform.gravity === true) {
-							if (seats[i] === false) {
-								// no one in the seat
-								continue;
-							} else {
-								rbTable[value.transform.id] = i;
-								i = (i + 1) % seatFilled;
-                            }
-						}
-					});
-
-					for (var j = 0; j < seatLength; j++) {
-						if (seats[i] === false) {
-							// no one in the seat
-							continue;
-						}
-
-						syncObjValues.forEach(function (value) {
-							if (rbTable[value.transform.id] !== seatIndex) {
-								// Set useGravity to Off for rigidbodies that you are not in charge of
-								var obj = {
-									role: "server",
-									action: "set gravity",
-									active = false,
-									transform: {
-										id: value.transform.id
-									}
-								};
-								var json = JSON.stringify(obj);
-								socket.send(json);
-							}
-						});
-                    }
-
-					console.log("load current world data");
-
 					// https://pisuke-code.com/javascript-dictionary-foreach/
 					syncObjValues.forEach(function (value) {
-						socket.send(value);
+						var json = JSON.stringify(value);
+						socket.send(json);
 					});
+
+					console.log("allocate rigidbody");
+
+					allocateRigidbody();
 				}
+			}else if(parse.action == "set gravity"){
+				var targetIndex = rbTable[parse.transform.id];
+				console.log("rb gravity switched: " + socketTable[targetIndex]);
+				if(targetIndex !== seatIndex && targetIndex !== undefined){
+					socketTable[targetIndex].send(message);
+				}
+
+				return;
 			}
 		}
 
@@ -178,7 +208,7 @@ ws.on("connection", function (socket) {
 			seats[seatIndex] = false;
 			socketTable[seatIndex] = null;
 
-			console.log(seats + "\n" + socketTable);
+			console.log(seats);
 
 			ws.clients.forEach(client => {
 				var obj = {
@@ -193,5 +223,7 @@ ws.on("connection", function (socket) {
 				}
 			});
 		}
+
+		allocateRigidbody();
 	});
 });

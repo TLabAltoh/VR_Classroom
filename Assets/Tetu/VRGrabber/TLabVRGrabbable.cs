@@ -49,7 +49,9 @@ public class TLabVRGrabbable : MonoBehaviour
     protected virtual void RbGripSwitch(bool grip)
     {
         if (m_useGravity == true)
+        {
             EnableGravity(!grip);
+        }
     }
 
     protected virtual void MainParentGrabbStart()

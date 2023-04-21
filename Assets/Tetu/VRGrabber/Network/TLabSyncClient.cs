@@ -56,6 +56,7 @@ public class TLabSyncJson
 public class TLabSyncClient : MonoBehaviour
 {
     [SerializeField] private string m_serverAddr = "ws://192.168.11.10:5000";
+    [SerializeField] private bool m_registWorldData = false;
 
     [System.NonSerialized] public static TLabSyncClient Instalce;
 
@@ -67,9 +68,13 @@ public class TLabSyncClient : MonoBehaviour
         GameObject target = GameObject.Find(webTransform.id);
 
         if (target != null)
+        {
             return target.GetComponent<TLabSyncGrabbable>();
+        }
         else
+        {
             return null;
+        }
     }
 
     async void Start()
@@ -139,11 +144,13 @@ public class TLabSyncClient : MonoBehaviour
                 {
                     m_seatIndex = obj.seatIndex;
 
-                    if (m_seatIndex == 0)
+                    if (m_registWorldData == true)
                     {
                         TLabSyncGrabbable[] grabbables = FindObjectsOfType<TLabSyncGrabbable>();
                         foreach (TLabSyncGrabbable grabbable in grabbables)
+                        {
                             grabbable.SyncTransform();
+                        }
                     }
 
                     return;
@@ -161,7 +168,9 @@ public class TLabSyncClient : MonoBehaviour
                     WebObjectInfo webTransform = obj.transform;
                     TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
                     if (grabbable != null)
+                    {
                         grabbable.SyncFromServer(webTransform);
+                    }
 
                     return;
                 }
@@ -176,7 +185,9 @@ public class TLabSyncClient : MonoBehaviour
                 WebObjectInfo webTransform = obj.transform;
                 TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
                 if (grabbable != null)
+                {
                     grabbable.SetGravity(obj.active);
+                }
 
                 return;
             }
@@ -185,9 +196,20 @@ public class TLabSyncClient : MonoBehaviour
                 WebObjectInfo webTransform = obj.transform;
                 TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
                 if (grabbable != null)
-                    grabbable.SetGravity(obj.active);
+                {
+                    grabbable.AllocateGravity(obj.active);
+                }
 
                 return;
+            }
+            else if(obj.action == "grabb lock")
+            {
+                WebObjectInfo webTransform = obj.transform;
+                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
+                if (grabbable != null)
+                {
+                    grabbable.GrabbLock(obj.active);
+                }
             }
         };
 
