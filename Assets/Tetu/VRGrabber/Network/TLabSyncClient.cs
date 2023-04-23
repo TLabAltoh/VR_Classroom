@@ -132,7 +132,9 @@ public class TLabSyncClient : MonoBehaviour
 
             TLabSyncJson obj = JsonUtility.FromJson<TLabSyncJson>(message);
 
+#if UNITY_EDITOR
             Debug.Log("tlabwebsocket: OnMessage - " + message);
+#endif
 
             //
             // Switch by role
@@ -158,19 +160,6 @@ public class TLabSyncClient : MonoBehaviour
                 else if (obj.action == "disconnect")
                 {
                     Debug.Log("tlabwebsocket: " + "other player disconncted . " + obj.seatIndex.ToString());
-                    return;
-                }
-            }
-            else if(obj.role == "student")
-            {
-                if (obj.action == "sync transform")
-                {
-                    WebObjectInfo webTransform = obj.transform;
-                    TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
-                    if (grabbable != null)
-                    {
-                        grabbable.SyncFromServer(webTransform);
-                    }
 
                     return;
                 }
@@ -180,7 +169,16 @@ public class TLabSyncClient : MonoBehaviour
             // Default
             //
 
-            if (obj.action == "set gravity")
+            if (obj.action == "sync transform")
+            {
+                WebObjectInfo webTransform = obj.transform;
+                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
+                if (grabbable != null)
+                {
+                    grabbable.SyncRemote(webTransform);
+                }
+            }
+            else if (obj.action == "set gravity")
             {
                 WebObjectInfo webTransform = obj.transform;
                 TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
@@ -190,6 +188,15 @@ public class TLabSyncClient : MonoBehaviour
                 }
 
                 return;
+            }
+            else if (obj.action == "grabb lock")
+            {
+                WebObjectInfo webTransform = obj.transform;
+                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
+                if (grabbable != null)
+                {
+                    grabbable.GrabbLockRemote(obj.active);
+                }
             }
             else if(obj.action == "allocate gravity")
             {
@@ -202,14 +209,16 @@ public class TLabSyncClient : MonoBehaviour
 
                 return;
             }
-            else if(obj.action == "grabb lock")
+            else if(obj.action == "force release")
             {
                 WebObjectInfo webTransform = obj.transform;
                 TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
                 if (grabbable != null)
                 {
-                    grabbable.GrabbLock(obj.active);
+                    grabbable.ForceReleaseRemote();
                 }
+
+                return;
             }
         };
 

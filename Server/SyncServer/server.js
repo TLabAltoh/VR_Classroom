@@ -51,9 +51,11 @@ const seatLength = 3;
 var seatFilled = 0;
 var seats = [];
 var socketTable = [];
+var grabbTable = [];
 for(var i = 0; i < seatLength; i++){
 	seats.push(false);
 	socketTable.push(null);
+	grabbTable.push([]);
 }
 
 //
@@ -126,16 +128,54 @@ ws.on("connection", function (socket) {
 	socket.on("message", function (data, isBinary) {
 		const message = isBinary ? data : data.toString();
 
-		console.log("\nrecv message: " + message);
+		// console.log("\nrecv message: " + message);
 
 		const parse = JSON.parse(message);
 
-		if(parse.role === "student"){
-			if (parse.action === "sync transform") {
-				console.log("sync transform");
-				syncObjects[parse.transform.id] = parse;
+		if (parse.action === "sync transform") {
+
+			//
+			// sync transfrom
+			//
+
+			//console.log("sync transform");
+			syncObjects[parse.transform.id] = parse;
+		} else if (parse.action == "set gravity") {
+
+			//
+			// set rigidbody gravity on / off
+			//
+
+			console.log("set gravity");
+			console.log(grabbTable[seatIndex]);
+
+			var targetIndex = rbTable[parse.transform.id];
+			if (targetIndex !== seatIndex && targetIndex !== undefined) {
+				socketTable[targetIndex].send(message);
 			}
-			else if (parse.action === "regist") {
+
+			return;
+		} else if (parse.action == "grabb lock") {
+
+			//
+			// Register/unregister objects grabbed by the player in the Grabb Table
+			//
+
+			if (parse.active === false) {
+				grabbTable[seatIndex].push(parse.transform);
+			} else {
+				grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.id !== parse.transform.id });
+			}
+        }
+
+		if (parse.role === "student") {
+
+			if (parse.action === "regist") {
+
+				//
+				// regist client to seat table
+				//
+
 				console.log("\nclient registed " + bar);
 				for (var i = 0; i < seatLength; i++) {
 					if (seats[i] === false) {
@@ -155,10 +195,10 @@ ws.on("connection", function (socket) {
 					var json = JSON.stringify(obj);
 					socket.send(json);
 				} else {
-					seatFilled += 1;
-
 					console.log("student acepted ");
 					console.log(seats);
+
+					seatFilled += 1;
 
 					var obj = {
 						role: "server",
@@ -182,14 +222,6 @@ ws.on("connection", function (socket) {
 
 					allocateRigidbody();
 				}
-			}else if(parse.action == "set gravity"){
-				var targetIndex = rbTable[parse.transform.id];
-				console.log("rb gravity switched: " + socketTable[targetIndex]);
-				if(targetIndex !== seatIndex && targetIndex !== undefined){
-					socketTable[targetIndex].send(message);
-				}
-
-				return;
 			}
 		}
 
@@ -204,24 +236,36 @@ ws.on("connection", function (socket) {
 		console.log("\nclient closed " + bar);
 
 		if (seatIndex !== -1) {
-			seatFilled -= 1;
-			seats[seatIndex] = false;
-			socketTable[seatIndex] = null;
-
-			console.log(seats);
+			var obj = {
+				"role": "server",
+				"action": "disconnect",
+				"seatIndex": seatIndex
+			};
+			var json = JSON.stringify(obj);
 
 			ws.clients.forEach(client => {
-				var obj = {
-					"role": "server",
-					"action": "disconnect",
-					"seatIndex": seatIndex
-				};
-				var json = JSON.stringify(obj);
-
 				if (client != socket) {
 					client.send(json);
+
+					grabbTable[seatIndex].forEach(function (value) {
+						var obj1 = {
+							"role": "server",
+							"action": "set gravity",
+							"transform": value
+						};
+						var json1 = JSON.stringify(obj1);
+
+						client.send(json1);
+					});
 				}
 			});
+
+			seats[seatIndex] = false;
+			socketTable[seatIndex] = null;
+			grabbTable[seatIndex] = [];
+			seatFilled -= 1;
+
+			console.log(seats);
 		}
 
 		allocateRigidbody();

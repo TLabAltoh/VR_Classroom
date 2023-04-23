@@ -4,16 +4,39 @@ using UnityEngine;
 
 public class TLabVRHand : MonoBehaviour
 {
-    public OVRInput.Controller m_controller;
-    public LaserPointer m_laserPointer;
-    public OVRInput.Axis1D m_grip;
-    public float m_maxDistance = 10.0f;
-    public LayerMask m_layerMask;
+    [SerializeField] private OVRInput.Controller m_controller;
+    [SerializeField] private LaserPointer m_laserPointer;
+    [SerializeField] private OVRInput.Axis1D m_grip;
+    [SerializeField] private float m_maxDistance = 10.0f;
+    [SerializeField] private LayerMask m_layerMask;
 
     private Transform m_anchor;
     private OVRCameraRig m_cameraRig;
     private TLabVRGrabbable m_grabbable;
     private bool m_handInitialized = false;
+
+    //
+    // Raycast Info
+    //
+
+    private GameObject m_raycastResult = null;
+    private RaycastHit m_raycastHit;
+
+    public GameObject RaycstResult
+    {
+        get
+        {
+            return m_raycastResult;
+        }
+    }
+
+    public RaycastHit RaycastHit
+    {
+        get
+        {
+            return m_raycastHit;
+        }
+    }
 
     void Start()
     {
@@ -54,12 +77,13 @@ public class TLabVRHand : MonoBehaviour
         }
         else
         {
-            RaycastHit hit;
             Ray ray = new Ray(m_anchor.position, m_anchor.forward);
 
-            if (Physics.Raycast(ray, out hit, m_maxDistance, m_layerMask))
+            if (Physics.Raycast(ray, out m_raycastHit, m_maxDistance, m_layerMask))
             {
-                GameObject target = hit.collider.gameObject;
+                GameObject target = m_raycastHit.collider.gameObject;
+
+                m_raycastResult = target;
 
                 // m_laserPointer.maxLength = (m_anchor.position - hit.point).magnitude;
 
@@ -73,13 +97,15 @@ public class TLabVRHand : MonoBehaviour
                         return;
                     }
 
-                    grabbable.AddParent(this.gameObject);
-
-                    m_grabbable = grabbable;
+                    if (grabbable.AddParent(this.gameObject) == true)
+                    {
+                        m_grabbable = grabbable;
+                    }
                 }
             }
             else
             {
+                m_raycastResult = null;
                 // m_laserPointer.maxLength = this.m_maxDistance;
             }
         }

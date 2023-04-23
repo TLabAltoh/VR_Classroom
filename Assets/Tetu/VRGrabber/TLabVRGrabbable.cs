@@ -31,6 +31,14 @@ public class TLabVRGrabbable : MonoBehaviour
     protected float m_parentScalingFactor;
     protected Vector3 m_scaleInitial;
 
+    public bool Grabbed
+    {
+        get
+        {
+            return m_mainParent != null;
+        }
+    }
+
     protected virtual void EnableGravity(bool active)
     {
         if (active == true)
@@ -134,6 +142,69 @@ public class TLabVRGrabbable : MonoBehaviour
         return false;
     }
 
+    protected virtual void UpdateScale()
+    {
+        Vector3 positionMain = m_mainParent.transform.TransformPoint(m_mainPositionOffset);
+        Vector3 positionSub = m_subParent.transform.TransformPoint(m_subPositionOffset);
+
+        // この処理の最初の実行時，必ずpositionMainとpositionSubは同じ座標になる
+        // 拡縮の基準が小さくなりすぎてしまい，不都合
+        // ---> 手の位置に座標を補間して，2つの座標を意図的にずらす
+
+        float ratioParent = 1 - m_scalingFactor;
+        Vector3 scalingPositionMain = m_mainParent.transform.position * m_parentScalingFactor + positionMain * m_scalingFactor;
+        Vector3 scalingPositionSub = m_subParent.transform.position * m_parentScalingFactor + positionSub * m_scalingFactor;
+
+        if (m_scaleInitialDistance == -1.0f)
+        {
+            m_scaleInitialDistance = (scalingPositionMain - scalingPositionSub).magnitude;
+            m_scaleInitial = this.transform.localScale;
+        }
+        else
+        {
+            float scaleRatio = (scalingPositionMain - scalingPositionSub).magnitude / m_scaleInitialDistance;
+
+            this.transform.localScale = scaleRatio * m_scaleInitial;
+
+            if (m_useRigidbody == true)
+                m_rb.MovePosition(positionMain * 0.5f + positionSub * 0.5f);
+            else
+                this.transform.position = positionMain * 0.5f + positionSub * 0.5f;
+        }
+    }
+
+    protected virtual void UpdatePosition()
+    {
+        if (m_useRigidbody == true)
+        {
+            if (m_positionFixed == true)
+            {
+                m_rb.MovePosition(m_mainParent.transform.TransformPoint(m_mainPositionOffset));
+            }
+
+            if (m_rotateFixed == true)
+            {
+                // https://qiita.com/yaegaki/items/4d5a6af1d1738e102751
+                Quaternion deltaQuaternion = Quaternion.identity * m_mainParent.transform.rotation * Quaternion.Inverse(m_mainQuaternionStart);
+                m_rb.MoveRotation(deltaQuaternion * m_thisQuaternionStart);
+            }
+        }
+        else
+        {
+            if (m_positionFixed == true)
+            {
+                this.transform.position = m_mainParent.transform.TransformPoint(m_mainPositionOffset);
+            }
+
+            if (m_rotateFixed == true)
+            {
+                // https://qiita.com/yaegaki/items/4d5a6af1d1738e102751
+                Quaternion deltaQuaternion = Quaternion.identity * m_mainParent.transform.rotation * Quaternion.Inverse(m_mainQuaternionStart);
+                this.transform.rotation = deltaQuaternion * m_thisQuaternionStart;
+            }
+        }
+    }
+
     protected virtual void Start()
     {
         if(m_useRigidbody == true)
@@ -152,67 +223,15 @@ public class TLabVRGrabbable : MonoBehaviour
     {
         if(m_mainParent != null)
         {
-            if(m_subParent != null)
+            if(m_subParent != null && m_scaling == true)
             {
-                if(m_scaling == true)
-                {
-                    Vector3 positionMain = m_mainParent.transform.TransformPoint(m_mainPositionOffset);
-                    Vector3 positionSub = m_subParent.transform.TransformPoint(m_subPositionOffset);
-
-                    // この処理の最初の実行時，必ずpositionMainとpositionSubは同じ座標になる
-                    // 拡縮の基準が小さくなりすぎてしまい，不都合
-                    // ---> 手の位置に座標を補間して，2つの座標を意図的にずらす
-
-                    float ratioParent = 1 - m_scalingFactor;
-                    Vector3 scalingPositionMain = m_mainParent.transform.position * m_parentScalingFactor + positionMain * m_scalingFactor;
-                    Vector3 scalingPositionSub = m_subParent.transform.position * m_parentScalingFactor + positionSub * m_scalingFactor;
-
-                    if (m_scaleInitialDistance == -1.0f)
-                    {
-                        m_scaleInitialDistance = (scalingPositionMain - scalingPositionSub).magnitude;
-                        m_scaleInitial = this.transform.localScale;
-                    }
-                    else
-                    {
-                        float scaleRatio = (scalingPositionMain - scalingPositionSub).magnitude / m_scaleInitialDistance;
-
-                        this.transform.localScale = scaleRatio * m_scaleInitial;
-
-                        if (m_useRigidbody == true)
-                            m_rb.MovePosition(positionMain * 0.5f + positionSub * 0.5f);
-                        else
-                            this.transform.position = positionMain * 0.5f + positionSub * 0.5f;
-                    }
-                }
+                UpdateScale();
             }
             else
             {
                 m_scaleInitialDistance = -1.0f;
 
-                if (m_useRigidbody == true)
-                {
-                    if (m_positionFixed == true)
-                        m_rb.MovePosition(m_mainParent.transform.TransformPoint(m_mainPositionOffset));
-
-                    if (m_rotateFixed == true)
-                    {
-                        // https://qiita.com/yaegaki/items/4d5a6af1d1738e102751
-                        Quaternion deltaQuaternion = Quaternion.identity * m_mainParent.transform.rotation * Quaternion.Inverse(m_mainQuaternionStart);
-                        m_rb.MoveRotation(deltaQuaternion * m_thisQuaternionStart);
-                    }
-                }
-                else
-                {
-                    if (m_positionFixed == true)
-                        this.transform.position = m_mainParent.transform.TransformPoint(m_mainPositionOffset);
-
-                    if (m_rotateFixed == true)
-                    {
-                        // https://qiita.com/yaegaki/items/4d5a6af1d1738e102751
-                        Quaternion deltaQuaternion = Quaternion.identity * m_mainParent.transform.rotation * Quaternion.Inverse(m_mainQuaternionStart);
-                        this.transform.rotation = deltaQuaternion * m_thisQuaternionStart;
-                    }
-                }
+                UpdatePosition();
             }
         }
         else
