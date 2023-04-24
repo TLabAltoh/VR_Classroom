@@ -57,15 +57,17 @@ public class TLabSyncClient : MonoBehaviour
 {
     [SerializeField] private string m_serverAddr = "ws://192.168.11.10:5000";
     [SerializeField] private bool m_registWorldData = false;
+    [SerializeField] private GameObject m_rightHand;
+    [SerializeField] private GameObject m_leftHand;
 
     [System.NonSerialized] public static TLabSyncClient Instalce;
 
     private WebSocket websocket;
     private int m_seatIndex = -1;
 
-    private TLabSyncGrabbable GetTargetGrabbable(WebObjectInfo webTransform)
+    private TLabSyncGrabbable GetTargetGrabbable(string id)
     {
-        GameObject target = GameObject.Find(webTransform.id);
+        GameObject target = GameObject.Find(id);
 
         if (target != null)
         {
@@ -146,6 +148,14 @@ public class TLabSyncClient : MonoBehaviour
                 {
                     m_seatIndex = obj.seatIndex;
 
+                    if (m_leftHand != null && m_rightHand != null)
+                    {
+                        m_rightHand.name = "OVRControllerPrefab." + obj.seatIndex.ToString() + ".RTouch";
+                        m_leftHand.name = "OVRControllerPrefab." + obj.seatIndex.ToString() + ".LTouch";
+                        m_rightHand.GetComponent<TLabSyncGrabbable>().m_enableSync = true;
+                        m_leftHand.GetComponent<TLabSyncGrabbable>().m_enableSync = true;
+                    }
+
                     if (m_registWorldData == true)
                     {
                         TLabSyncGrabbable[] grabbables = FindObjectsOfType<TLabSyncGrabbable>();
@@ -157,9 +167,44 @@ public class TLabSyncClient : MonoBehaviour
 
                     return;
                 }
-                else if (obj.action == "disconnect")
+                else if (obj.action == "guest disconnect")
                 {
-                    Debug.Log("tlabwebsocket: " + "other player disconncted . " + obj.seatIndex.ToString());
+                    // now managed by prefab instancing
+
+                    TLabSyncGrabbable grabbableR = GetTargetGrabbable("OVRControllerPrefab." + obj.seatIndex.ToString() + ".RTouch");
+                    TLabSyncGrabbable grabbableL = GetTargetGrabbable("OVRControllerPrefab." + obj.seatIndex.ToString() + ".LTouch");
+                    if (grabbableR != null && grabbableL != null)
+                    {
+                        //grabbableR.gameObject.GetComponent<Renderer>().enabled = false;
+                        //grabbableL.gameObject.GetComponent<Renderer>().enabled = false;
+                    }
+
+                    Debug.Log("tlabwebsocket: guest disconncted . " + obj.seatIndex.ToString());
+
+                    return;
+                }
+                else if (obj.action == "guest participation")
+                {
+                    TLabSyncGrabbable grabbableR = GetTargetGrabbable("OVRControllerPrefab." + obj.seatIndex.ToString() + ".RTouch");
+                    TLabSyncGrabbable grabbableL = GetTargetGrabbable("OVRControllerPrefab." + obj.seatIndex.ToString() + ".LTouch");
+                    if (grabbableR != null && grabbableL != null)
+                    {
+                        //grabbableR.gameObject.GetComponent<Renderer>().enabled = true;
+                        //grabbableL.gameObject.GetComponent<Renderer>().enabled = true;
+                    }
+
+                    Debug.Log("tlabwebsokcet: guest participated . " + obj.seatIndex.ToString());
+
+                    return;
+                }
+                else if (obj.action == "allocate gravity")
+                {
+                    WebObjectInfo webTransform = obj.transform;
+                    TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform.id);
+                    if (grabbable != null)
+                    {
+                        grabbable.AllocateGravity(obj.active);
+                    }
 
                     return;
                 }
@@ -172,7 +217,7 @@ public class TLabSyncClient : MonoBehaviour
             if (obj.action == "sync transform")
             {
                 WebObjectInfo webTransform = obj.transform;
-                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
+                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform.id);
                 if (grabbable != null)
                 {
                     grabbable.SyncRemote(webTransform);
@@ -181,7 +226,7 @@ public class TLabSyncClient : MonoBehaviour
             else if (obj.action == "set gravity")
             {
                 WebObjectInfo webTransform = obj.transform;
-                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
+                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform.id);
                 if (grabbable != null)
                 {
                     grabbable.SetGravity(obj.active);
@@ -192,27 +237,16 @@ public class TLabSyncClient : MonoBehaviour
             else if (obj.action == "grabb lock")
             {
                 WebObjectInfo webTransform = obj.transform;
-                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
+                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform.id);
                 if (grabbable != null)
                 {
                     grabbable.GrabbLockRemote(obj.active);
                 }
             }
-            else if(obj.action == "allocate gravity")
+            else if (obj.action == "force release")
             {
                 WebObjectInfo webTransform = obj.transform;
-                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
-                if (grabbable != null)
-                {
-                    grabbable.AllocateGravity(obj.active);
-                }
-
-                return;
-            }
-            else if(obj.action == "force release")
-            {
-                WebObjectInfo webTransform = obj.transform;
-                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform);
+                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform.id);
                 if (grabbable != null)
                 {
                     grabbable.ForceReleaseRemote();

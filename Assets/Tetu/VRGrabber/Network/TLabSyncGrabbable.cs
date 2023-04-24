@@ -27,6 +27,14 @@ public class TLabSyncGrabbable : TLabVRGrabbable
         }
     }
 
+    public bool UseGravity
+    {
+        get
+        {
+            return m_useGravity;
+        }
+    }
+
     public void SyncRemote(WebObjectInfo transform)
     {
         WebVector3 position = transform.position;
@@ -112,7 +120,20 @@ public class TLabSyncGrabbable : TLabVRGrabbable
 
     public void GrabbLockRemote(bool active)
     {
-        m_locked = active;
+        if (active == true)
+        {
+            if (m_mainParent != null)
+            {
+                m_mainParent = null;
+                m_subParent = null;
+            }
+
+            m_locked = true;
+        }
+        else
+        {
+            m_locked = false;
+        }
     }
 
     public void GrabbLock(bool active)

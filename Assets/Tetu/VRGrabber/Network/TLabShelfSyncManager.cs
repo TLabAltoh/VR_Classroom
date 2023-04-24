@@ -33,18 +33,40 @@ public class TLabShelfSyncManager : TLabShelfManager
             grabbable.GrabbLockSelf(true);
         }
 
-        base.FadeIn(shelfObjInfo, target);
+        GameObject shelfObj = shelfObjInfo.obj;
+
+        shelfObj.transform.position = target.transform.position;
+
+        float remain = 2.0f;
+
+        while (remain > 0.0f)
+        {
+            remain -= Time.deltaTime;
+
+            shelfObj.transform.rotation = Quaternion.AngleAxis(10.0f * Time.deltaTime, Vector3.up) * shelfObj.transform.rotation;
+
+            if (grabbable != null)
+            {
+                grabbable.SyncTransform();
+            }
+
+            yield return null;
+        }
 
         if (grabbable != null)
         {
+            grabbable.SyncTransform();
+
             grabbable.GrabbLock(false);
             grabbable.GrabbLockSelf(false);
         }
 
+        shelfObjInfo.currentTask = null;
+
         yield break;
     }
 
-    protected override IEnumerator FadeOut(TLabShelfObjInfo shelfObjInfo, Transform targetEnd, Transform targetStart)
+    protected override IEnumerator FadeOut(TLabShelfObjInfo shelfObjInfo, Transform target)
     {
         TLabSyncGrabbable grabbable = GetTargetGrabbable(shelfObjInfo.obj.gameObject.name);
         if (grabbable != null)
@@ -54,13 +76,37 @@ public class TLabShelfSyncManager : TLabShelfManager
             grabbable.GrabbLockSelf(true);
         }
 
-        base.FadeOut(shelfObjInfo, targetEnd, targetStart);
+        GameObject shelfObj = shelfObjInfo.obj;
+
+        float remain = 2.0f;
+
+        while (remain > 0.0f)
+        {
+            remain -= Time.deltaTime;
+
+            shelfObj.transform.rotation = Quaternion.AngleAxis(10.0f * Time.deltaTime, Vector3.up) * shelfObj.transform.rotation;
+
+            if(grabbable != null)
+            {
+                grabbable.SyncTransform();
+            }
+
+            yield return null;
+        }
+
+        shelfObj.transform.position = target.transform.position;
+        shelfObj.transform.rotation = target.transform.rotation;
+        shelfObj.transform.localScale = target.transform.localScale;
 
         if (grabbable != null)
         {
+            grabbable.SyncTransform();
+
             grabbable.GrabbLock(false);
             grabbable.GrabbLockSelf(false);
         }
+
+        shelfObjInfo.currentTask = null;
 
         yield break;
     }
@@ -76,7 +122,7 @@ public class TLabShelfSyncManager : TLabShelfManager
 
         if (shelfObjInfo.isShelf == false)
         {
-            shelfObjInfo.currentTask = FadeOut(shelfObjInfo, shelfObjInfo.start.transform, target);
+            shelfObjInfo.currentTask = FadeOut(shelfObjInfo, shelfObjInfo.start.transform);
             StartCoroutine(shelfObjInfo.currentTask);
             shelfObjInfo.isShelf = true;
         }
@@ -101,5 +147,19 @@ public class TLabShelfSyncManager : TLabShelfManager
     protected override void Start()
     {
         base.Start();
+
+        for (int i = 0; i < m_shelfObjInfos.Length; i++)
+        {
+            TLabSyncGrabbable grabbable = GetTargetGrabbable(m_shelfObjInfos[i].obj.gameObject.name);
+            if (grabbable != null)
+            {
+                if(grabbable.UseGravity == true)
+                {
+                    Debug.LogError("tlabshelfsyncmanager: Objects with UseGravity enabled cannot be used");
+                    m_shelfObjInfos[i] = null;
+                    return;
+                }
+            }
+        }
     }
 }

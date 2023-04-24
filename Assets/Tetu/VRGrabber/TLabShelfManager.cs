@@ -34,13 +34,11 @@ public class TLabShelfManager : MonoBehaviour
         yield break;
     }
 
-    protected virtual IEnumerator FadeOut(TLabShelfObjInfo shelfObjInfo, Transform targetEnd, Transform targetStart)
+    protected virtual IEnumerator FadeOut(TLabShelfObjInfo shelfObjInfo, Transform target)
     {
         GameObject shelfObj = shelfObjInfo.obj;
 
         float remain = 2.0f;
-
-        shelfObj.transform.position = targetStart.transform.position;
 
         while (remain > 0.0f)
         {
@@ -51,9 +49,9 @@ public class TLabShelfManager : MonoBehaviour
             yield return null;
         }
 
-        shelfObj.transform.position = targetEnd.transform.position;
-        shelfObj.transform.rotation = targetEnd.transform.rotation;
-        shelfObj.transform.localScale = targetEnd.transform.localScale;
+        shelfObj.transform.position = target.transform.position;
+        shelfObj.transform.rotation = target.transform.rotation;
+        shelfObj.transform.localScale = target.transform.localScale;
 
         shelfObjInfo.currentTask = null;
 
@@ -71,7 +69,7 @@ public class TLabShelfManager : MonoBehaviour
 
         if (shelfObjInfo.isShelf == false)
         {
-            shelfObjInfo.currentTask = FadeOut(shelfObjInfo, shelfObjInfo.start.transform, target);
+            shelfObjInfo.currentTask = FadeOut(shelfObjInfo, shelfObjInfo.start.transform);
             StartCoroutine(shelfObjInfo.currentTask);
             shelfObjInfo.isShelf = true;
         }

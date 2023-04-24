@@ -147,7 +147,6 @@ ws.on("connection", function (socket) {
 			//
 
 			console.log("set gravity");
-			console.log(grabbTable[seatIndex]);
 
 			var targetIndex = rbTable[parse.transform.id];
 			if (targetIndex !== seatIndex && targetIndex !== undefined) {
@@ -161,12 +160,22 @@ ws.on("connection", function (socket) {
 			// Register/unregister objects grabbed by the player in the Grabb Table
 			//
 
-			if (parse.active === false) {
+			console.log("grabb lock");
+
+			if (parse.active === true) {
 				grabbTable[seatIndex].push(parse.transform);
 			} else {
 				grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.id !== parse.transform.id });
 			}
-        }
+
+			console.log(grabbTable[seatIndex]);
+        } else if(parse.action == "force release"){
+			console.log("force release");
+
+			grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.id !== parse.transform.id });
+
+			console.log(grabbTable[seatIndex]);
+		}
 
 		if (parse.role === "student") {
 
@@ -194,6 +203,8 @@ ws.on("connection", function (socket) {
 					};
 					var json = JSON.stringify(obj);
 					socket.send(json);
+
+					return;
 				} else {
 					console.log("student acepted ");
 					console.log(seats);
@@ -210,17 +221,45 @@ ws.on("connection", function (socket) {
 
 					console.log("load current world data");
 
+					// Remove transforms for controllers that already exist
+
+					delete syncObjects["OVRControllerPrefab"];
+					delete syncObjects["OVRControllerPrefab." + seatIndex.toString() + ".RTouch"];
+					delete syncObjects["OVRControllerPrefab." + seatIndex.toString() + ".LTouch"];
+
 					var syncObjValues = Object.values(syncObjects);
 
 					// https://pisuke-code.com/javascript-dictionary-foreach/
 					syncObjValues.forEach(function (value) {
-						var json = JSON.stringify(value);
+						json = JSON.stringify(value);
 						socket.send(json);
 					});
 
 					console.log("allocate rigidbody");
 
 					allocateRigidbody();
+
+					console.log("notify guest participation");
+
+					for(var index = 0; index < seatLength; index++){
+						var target = socketTable[index];
+						if(target !== null){
+							obj = {
+								role: "server",
+								action: "guest participation",
+								seatIndex: index
+							};
+							json = JSON.stringify(obj);
+
+							ws.clients.forEach(client => {
+								if (client != target) {
+									client.send(json);
+								}
+							});
+						}
+					}
+
+					return;
 				}
 			}
 		}
@@ -238,7 +277,7 @@ ws.on("connection", function (socket) {
 		if (seatIndex !== -1) {
 			var obj = {
 				"role": "server",
-				"action": "disconnect",
+				"action": "guest disconnect",
 				"seatIndex": seatIndex
 			};
 			var json = JSON.stringify(obj);
