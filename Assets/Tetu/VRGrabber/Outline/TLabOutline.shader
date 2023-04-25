@@ -98,20 +98,18 @@ Shader "TLab/TLabOutline"
             v2f vert(appdata v)
             {
                 v2f o;
-				o.pos = UnityObjectToClipPos(v.vertex);
 
-				float3 norm = normalize(mul((float3x3)UNITY_MATRIX_IT_MV, v.color.rgb));
-                // float3 norm = normalize(mul((float3x3)UNITY_MATRIX_IT_MV, v.normal));
-				float2 offset = normalize(TransformViewToProjection(norm.xy));
+				//o.pos = UnityObjectToClipPos(v.vertex);
+
+				//float3 norm = normalize(mul((float3x3)UNITY_MATRIX_IT_MV, v.color.rgb));
+				//float2 offset = TransformViewToProjection(norm.xy);
 
 				//o.pos.xy += offset * UNITY_Z_0_FAR_FROM_CLIPSPACE(o.pos.z) * _OutlineWidth;
-                o.pos.xy += offset * _OutlineWidth;
+                //o.pos.xy += offset * _OutlineWidth;
 
-                //v2f o;
-                //float3 normalWS = UnityObjectToWorldNormal( color.rgb );
-                //float3 positionWS = mul( unity_ObjectToWorld, position );
-                //o.pos = UnityWorldToClipPos( positionWS + normalWS * _OutlineWidth );
-                //return o;
+                float3 normalWS = UnityObjectToWorldNormal( v.color.rgb );
+                float3 positionWS = mul( unity_ObjectToWorld, v.vertex );
+                o.pos = UnityWorldToClipPos( positionWS + normalWS * _OutlineWidth );
 
                 return o;
             }

@@ -1,11 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TLabShelfSyncManager : TLabShelfManager
 {
-    [SerializeField] protected Transform[] m_gests;
-
     private TLabSyncGrabbable GetTargetGrabbable(string targetName)
     {
         GameObject target = GameObject.Find(targetName);
@@ -141,12 +138,12 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     public override void TakeOut(int index)
     {
-        TakeOut(index, m_host);
+        TakeOut(index, m_anchors[0]);
     }
 
-    public override void CursorOn(int index)
+    public override void LoopTask(int index)
     {
-        base.CursorOn(index);
+        base.LoopTask(index);
     }
 
     protected override void Start()

@@ -248,6 +248,8 @@ public class TLabSyncClient : MonoBehaviour
                 {
                     grabbable.SyncRemote(webTransform);
                 }
+
+                return;
             }
             else if (obj.action == "set gravity")
             {
@@ -268,6 +270,8 @@ public class TLabSyncClient : MonoBehaviour
                 {
                     grabbable.GrabbLockRemote(obj.active);
                 }
+
+                return;
             }
             else if (obj.action == "force release")
             {

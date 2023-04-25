@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TLabShelfManager : MonoBehaviour
@@ -7,8 +6,11 @@ public class TLabShelfManager : MonoBehaviour
     [Header("Shelf Obj Info")]
     [SerializeField] protected TLabShelfObjInfo[] m_shelfObjInfos;
 
-    [Header("Player Anchor")]
-    [SerializeField] protected Transform m_host;
+    [Header("Loop Task")]
+    [SerializeField] protected TLabShelfTask[] m_tasks;
+
+    [Header("Transport Anchor")]
+    [SerializeField] protected Transform[] m_anchors;
 
     protected virtual IEnumerator FadeIn(TLabShelfObjInfo shelfObjInfo, Transform target)
     {
@@ -88,12 +90,28 @@ public class TLabShelfManager : MonoBehaviour
 
     public virtual void TakeOut(int index)
     {
-        TakeOut(index, m_host);
+        TakeOut(index, m_anchors[0]);
     }
 
-    public virtual void CursorOn(int index)
+    public virtual void LoopTask(int index)
     {
+        TLabShelfTask task = m_tasks[index];
 
+        if (task.action == TLabShelfAction.takeOut)
+        {
+            int current = task.objStart;
+            for (int i = task.anchorStart; i <  task.anchorStart + task.loop; i++)
+            {
+                TakeOut(current++, m_anchors[i]);
+            }
+        }
+        else if(task.action == TLabShelfAction.putAway)
+        {
+            for (int i = task.objStart; i < task.objStart + task.loop; i++)
+            {
+                PutAway(i);
+            }
+        }
     }
 
     protected virtual void Start()
@@ -117,4 +135,20 @@ public class TLabShelfObjInfo
     public GameObject obj;
     public float speed;
     public IEnumerator currentTask = null;
+}
+
+[System.Serializable]
+public class TLabShelfTask
+{
+    public int objStart;
+    public int anchorStart;
+    public int loop;
+    public TLabShelfAction action;
+}
+
+[System.Serializable]
+public enum TLabShelfAction
+{
+    takeOut,
+    putAway
 }

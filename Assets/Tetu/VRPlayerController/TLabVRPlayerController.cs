@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TLabVRPlayerController : MonoBehaviour
@@ -15,7 +13,6 @@ public class TLabVRPlayerController : MonoBehaviour
     [Header("Move")]
     [SerializeField] private float m_runSpeed = 1.5f;
     [SerializeField] private float m_moveSpeed = 1.0f;
-    [SerializeField] private float m_floatSpeed = 1.0f;
 
     [Header("Jump")]
     [SerializeField] private float m_jumpHeight = 1.5f;
