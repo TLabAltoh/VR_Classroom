@@ -15,7 +15,7 @@ C:/Users/Tetu/source/GameDev/UnityProjects/VR_Kensyu
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-56111
+59206
 Successfully changed project path to: C:/Users/Tetu/source/GameDev/UnityProjects/VR_Kensyu
 C:/Users/Tetu/source/GameDev/UnityProjects/VR_Kensyu
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,12 +47,12 @@ C:/Users/Tetu/source/GameDev/UnityProjects/VR_Kensyu
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [21772] Host "[IP] 192.168.11.10 [Port] 0 [Flags] 2 [Guid] 2755973780 [EditorId] 2755973780 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-61JNUCP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [28588] Host "[IP] 192.168.11.10 [Port] 0 [Flags] 2 [Guid] 1805448510 [EditorId] 1805448510 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-61JNUCP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [21772] Host "[IP] 192.168.11.10 [Port] 0 [Flags] 2 [Guid] 2755973780 [EditorId] 2755973780 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-61JNUCP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [28588] Host "[IP] 192.168.11.10 [Port] 0 [Flags] 2 [Guid] 1805448510 [EditorId] 1805448510 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-61JNUCP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 113.75 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.62 ms.
+Refreshing native plugins compatible for Editor in 120.70 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.60 ms.
 Initialize engine version: 2021.3.23f1 (213b516bf396)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/Resources/UnitySubsystems
 [Subsystems] Discovering subsystems at path C:/Users/Tetu/source/GameDev/UnityProjects/VR_Kensyu/Assets
@@ -75,45 +75,45 @@ Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll
-Registered in 0.009013 seconds.
+Registered in 0.008433 seconds.
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 239 ms
+Android Extension - Scanning For ADB Devices 222 ms
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 105.30 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.11 ms.
+Refreshing native plugins compatible for Editor in 98.81 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.12 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.821 seconds
+- Completed reload, in  0.785 seconds
 Domain Reload Profiling:
-	ReloadAssembly (822ms)
-		BeginReloadAssembly (68ms)
+	ReloadAssembly (786ms)
+		BeginReloadAssembly (78ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (668ms)
-			LoadAssemblies (67ms)
+		EndReloadAssembly (626ms)
+			LoadAssemblies (77ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (88ms)
+			SetupTypeCache (87ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (23ms)
-			SetupLoadedEditorAssemblies (511ms)
+			SetupLoadedEditorAssemblies (473ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (293ms)
+				InitializePlatformSupportModulesInManaged (274ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (106ms)
+				RefreshPlugins (99ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (72ms)
-				ProcessInitializeOnLoadMethodAttributes (38ms)
+				ProcessInitializeOnLoadAttributes (69ms)
+				ProcessInitializeOnLoadMethodAttributes (29ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.012384 seconds.
+Registered in 0.011264 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
@@ -121,8 +121,8 @@ Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 114.06 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.10 ms.
+Refreshing native plugins compatible for Editor in 113.89 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.08 ms.
 Package Manager log level set to [2]
 [XR] OculusXRPlugin: registering subsystems
 [XR] Unable to register display lifecyle provider: [1]
@@ -130,1379 +130,44 @@ Package Manager log level set to [2]
 [XR] Unable to register input lifecyle provider: [1]
 [XR] OVRP version 1.82.0
 Mono: successfully reloaded assembly
-- Completed reload, in  1.550 seconds
+- Completed reload, in  1.237 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1551ms)
-		BeginReloadAssembly (152ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (24ms)
-		EndReloadAssembly (1258ms)
-			LoadAssemblies (141ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (401ms)
-			ReleaseScriptCaches (2ms)
-			RebuildScriptCaches (126ms)
-			SetupLoadedEditorAssemblies (549ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (22ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (114ms)
-				BeforeProcessingInitializeOnLoad (101ms)
-				ProcessInitializeOnLoadAttributes (288ms)
-				ProcessInitializeOnLoadMethodAttributes (17ms)
-				AfterProcessingInitializeOnLoad (7ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (4ms)
-Platform modules already initialized, skipping
-========================================================================
-Worker process is ready to serve import requests
-Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 1.13 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.09 ms.
-Unloading 5661 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 86 unused Assets / (237.8 KB). Loaded Objects now: 6078.
-Memory consumption went from 211.3 MB to 211.1 MB.
-Total: 3.909600 ms (FindLiveObjects: 0.415900 ms CreateObjectMapping: 0.427000 ms MarkObjects: 2.804200 ms  DeleteObjects: 0.261600 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 444449.803398 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c13cc85691f421bf0d1727595b2f1d6c') in 0.185439 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.796315 seconds.
-  path: Assets/Tetu/ClassRoom/classroom.fbx
-  artifactKey: Guid(7bb0e5e3182a40143a54b519745625c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/ClassRoom/classroom.fbx using Guid(7bb0e5e3182a40143a54b519745625c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5aaacb02e75356e6709b16624b124c75') in 0.140827 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 297.314946 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5659952ae48bcdd07986e158e47d4c56') in 0.047405 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 10.591041 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b5cd774bdcf839ccf923de662c05b810') in 0.052105 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.339857 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a0b2db7a85503fcc592d30def874ce5') in 0.048132 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.759825 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d2289877882842f2f003f6ed7e069c5') in 0.048553 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.369962 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71e7db44ee946c47a46eb836d7cd3752') in 0.048960 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.798121 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6c700351216f97eddf0c94fa1344727') in 0.046305 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.366086 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '057b52ff695db08ea073cea29c290134') in 0.044417 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 18.296039 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a53a0c0833f59a5d4784d253b414301') in 0.045545 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.710884 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eaff63860a27babdc32246f01f4a6f87') in 0.043115 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.411964 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '587104ceac87e0ac0760beb25f6a4013') in 0.050554 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 8.708866 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e471d6d7393ddd3acc3bfa539b9a7e82') in 0.046295 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 7.825512 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd9c3572fa39fab8f3d04364a7eba55c0') in 0.049522 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 8.033658 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dabd33c3a3d99c6d04c26a79417e163f') in 0.049411 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 9.641206 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56398cc43031ff26942038a41e451b6a') in 0.054813 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.388746 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70c9fdacb6cf67a502b0dd409a0310f6') in 0.047398 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.370247 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0358dd4367e890ed58584b4290dc3a7a') in 0.051026 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.984748 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68dbe8bfacf89b2fbce34987dd803cd3') in 0.051082 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.944322 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9323ec6b282e43a4d0ae5f09117372a4') in 0.050405 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.347596 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f1329d37b819b68f1420baeeff044af') in 0.049609 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 51.589503 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e72e220176f15bb1ad3e8a44c5b7f74') in 0.046009 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 18.072359 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37d5500449b85def2340817009d380a0') in 0.053194 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 10.243539 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e129c53e3a9ee74ebe9fffe3b7cb681b') in 0.056338 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 24.534132 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '444dfc54601d64d623b8088dccb109b5') in 0.044281 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 8.304673 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd367885a56c7edf4b2c2f0910796ff5e') in 0.046281 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 10.222634 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2211f6708dbbd6b02eb18b29751d2221') in 0.056599 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 9.841293 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '892542c0180450174f1a597c63f88ec4') in 0.053653 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.728926 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a48d4d75e66b71b7c254c936845215a') in 0.048752 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.164067 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6822c7c13404e1cfbd05992af70ba0ae') in 0.048793 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.955461 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62775572b7360558209ea88862611fd8') in 0.048648 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 9.112547 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '27b96e163424cc9c9bd768a462074fe8') in 0.052144 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.130731 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bf2221f9c991ebff2bf7eaa0d5c51336') in 0.045298 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.382137 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30e9e4c0182457ec077a4bdc70d10ec6') in 0.067026 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.551422 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd1917698a542dc8d1b3875117198f9a') in 0.046572 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.558392 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f811fa5dafcbe8566036a5667497d500') in 0.047280 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.585384 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b49393f3ebf9abf8808156c1cd52e7e9') in 0.045776 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.574880 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '585aaadc39527a0419e6a552e7bdd26e') in 0.046923 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.354404 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec225b2aa56e6dc97d50f5f5acb2f689') in 0.049334 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 34.367801 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9aa2633f152ff9fa9de172d553fe343f') in 0.044771 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.168973 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b9c5388d97c3904afe37573d29c76af') in 0.047887 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.569921 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01e3d7022981f7fc9031daf654a01d44') in 0.047395 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.609414 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '42ecab26255724f67a273cab9e815a3c') in 0.045402 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.609548 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e88faab3082c5637a9efaab0e56ec90f') in 0.043387 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.375228 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'acd8d1794b73b77abbdaa0fe58054612') in 0.046160 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.962440 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6de2c91ee86332b2f76a0720b8c92c1a') in 0.050936 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 8.816561 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9dc935890358ce74424bd1898c04108e') in 0.052252 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.166983 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '051107baaf318edab7baa0c8ea089536') in 0.049227 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 9.439265 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39ca764ed429f35e549a574b1c4c15e0') in 0.050051 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.757764 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b2b949ca39d811d36f6b7a087597661') in 0.051807 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 12.205437 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a16756ee5bfc776e63ac391cf457fc6') in 0.046131 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 17.892619 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c573c28811107e6cc73c2fe7ba53302') in 0.047316 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.772828 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5671f29e405f2a947d272d588bdede8d') in 0.049975 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.764976 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd89cf8b0115f244fb677e2af01734856') in 0.043924 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 8.023966 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4b8c936bff4b0907f8dc041e97a2f19') in 0.049088 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.768066 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b926d9a5fd3ffef852fe9ee539106ef') in 0.046797 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.759895 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58614923f26cd4580e922526a9d54043') in 0.040637 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.057568 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b99b6a5bef35e7a1a94c58598562aef3') in 0.046900 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.363805 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd262c60c7cb537c1a7f974790ebccb9c') in 0.046214 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.023284 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c6964e41109dcf0e3c817e48ee40ebe') in 0.044171 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.480099 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f2343879796802e4f550eaccf7ada9c') in 0.047922 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.984245 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c1dd9f6bbd156f1b79b4944a0b09fca') in 0.046963 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.007248 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f448b9b109e1a60eb4a51b8dc7504c16') in 0.042855 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.199747 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a0e38296e63dc782737491e81ca3ecb') in 0.049756 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.955185 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b5222bcd56100110c9ea8463c236a9f') in 0.045443 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.572244 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6951f710f6caffc47d99b1869c4915ac') in 0.050685 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.378129 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd5d7fc9af29c9ae7a458ab058245042d') in 0.045596 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.370235 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0282cfbc6a7c07516607fb7b1ee7502d') in 0.052749 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.555123 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3444d1a9fd7af011bccd49d9043dbf47') in 0.048039 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.598502 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '764e5331c01b54abd6249069c40f5e28') in 0.045892 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.556278 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '383f78b175e342bc299ead4e1f7ca301') in 0.047359 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.385986 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57a4b126aca079e20c223ec74b1fc527') in 0.042973 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.957928 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b23088cbacf8a78babb05801627cf857') in 0.045345 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 15.298757 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a9a4a55d0f62fd8abca0fff22ed3d8f') in 0.049343 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 7.262267 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '33910917a690364b1487ce556d5d030b') in 0.045324 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.993419 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3a0e4c86f28bfadc24a8f23ce1a0950') in 0.049141 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.000183 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '81ac0e5de03522eca899a2326fb3e9a6') in 0.049736 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 17.711539 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58ac1dca6af327c8be81212084c23819') in 0.046146 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.576374 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7ffddcf7919c89aa4ca117cb56aef2a4') in 0.048856 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.579534 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ddc0d7e499ccdac91f0644bc77036db8') in 0.057315 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.345930 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78d1d96e44dfd2ac8d768b916c227510') in 0.046032 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.157755 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6bf597810f4a95096d07008e5702b46') in 0.048496 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.770685 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5fd97613b963dd7941d476b2260b6ab5') in 0.045295 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.560166 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '695c54557831853b00ef72cac2057fdb') in 0.045483 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.567207 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9cc0312140546fbf58c02b29ec22a602') in 0.049268 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.971934 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4bf22a72190aab41e8b45b90a2bbd46c') in 0.047053 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.971035 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7a7fbf1060264c73ff692682ce14f48') in 0.050366 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.566875 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8e2695d0b240cc0bf29b5fe8d2299bd5') in 0.048800 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.561155 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd9bcd8490f5ec36b512038eec83cf9d') in 0.045818 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 30.802701 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c37211f33e53ce49c7aad5e0c800f18') in 0.045165 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 10.500497 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8244d2927dbd9674d6089e420db9a96') in 0.049257 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.570339 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2620405b933087ea7fdfd69852ce305') in 0.051275 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.816435 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd4440d427c26981592461ccf24669f29') in 0.050877 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.752387 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c863962658cf1bf690e80328e2f89927') in 0.049421 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.157961 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52040b0ec68dce25dff76e6d40117fca') in 0.041427 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 16.507978 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fdb8cc3de8b732d05ecd21098718c2e0') in 0.045323 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.951462 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '470cf6acb3c406eff16e003c6947ae60') in 0.050216 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 10.624588 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5dfe025572295efc490928212cbde2d3') in 0.046107 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.363237 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59999392eb319394c6d6d4ef69e91ff9') in 0.046044 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.174340 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'adcff6435c6d8c98c29f99e91dc15771') in 0.049706 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.187876 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d23792c4d7d12ecbf2604f230761dbd') in 0.045831 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.220390 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45aec1c6eb340d9bc24f5992616ff58f') in 0.049735 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 60.041135 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57741f8f453ee9e8badd28f88c2ac80c') in 0.044476 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 20.528431 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6bca0348116b439c19bb675b99abdbe') in 0.064008 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 10.824787 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '89f5de6b0ca554d59b376174f1d8a6f5') in 0.053914 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.377076 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '938f5ee0613fd6d0107cfec10056be85') in 0.047584 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.611484 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '10b87e3ae09f46058400ffa5a53eade6') in 0.050012 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.373834 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6897807571504ed6429cf1db840efc78') in 0.055637 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.195479 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f950ef1906e5c1d6d1d176dff499713') in 0.054807 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.589266 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f67b4c787dc188ef66edf95b4e0e6d9b') in 0.048695 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 7.203343 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39032a408e4a8d648e5317d5a1c023b5') in 0.048308 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 8.603714 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40896d2f6982968efdd0e094d0b9098c') in 0.063324 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.577093 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2a6188d3b58949b43143e0129f60961') in 0.049169 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 28.801036 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e58cb3e4bd407b35fab06dff7138858') in 0.048278 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 11.438660 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '673c47e4258254e6f25f6e6146319bd6') in 0.059657 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.755041 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0165f1754365210e5eb8732559d13c7e') in 0.042990 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.225762 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ec7da58aaa41797cb389e3142bc8684') in 0.055296 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.961526 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68c9021b5bb629c180a53be9a2ee4641') in 0.061719 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.736933 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30059325612251b053eba690b6fd86f7') in 0.048930 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.154911 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '50c39dfc3321a32171f7972a931c8acd') in 0.046825 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 22.123542 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d9371f4acae3963a14a86da85a4a8c9') in 0.058200 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.385663 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8312b1b2f9ffe6cbbcbadd8b064802ad') in 0.045317 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.761826 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c993751bd6f97182723417e176c16f8') in 0.065034 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.939598 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd274185b9e0880a9ab98a2374e2e03c') in 0.044080 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 13.464804 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2cb72c4381e468808751d93cf3a9cdda') in 0.049107 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.563813 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1587195ac3fea3e72cca48967afc0b3a') in 0.062546 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.532462 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '755aa3922f47e221e3feaf6735ae6e34') in 0.049688 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.769214 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '476197642ec4b8b5caaac8b3b5378871') in 0.065797 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.137730 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a684b8e947aa804981013d69262f6381') in 0.046582 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.156337 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b770ceca4e0f6506b7cd5cba70d9d88') in 0.058180 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.749626 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd9880ea71644c430cc03c7d695a4c194') in 0.045317 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 10.643338 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a423c1391968bd4d3193873534363fe') in 0.055996 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.735349 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '28ececc626df48f6dc4dc963c161c815') in 0.066900 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 18.293444 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ab6d67acf9986963e087971e73f1d1c') in 0.048820 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 20.741238 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd3bb9e9abf247ddbf736faa758d127d8') in 0.055744 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 14.258597 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a081073458fd35f756e4c22618e12a2') in 0.059223 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.743727 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8129197f59825e350d0cbcfb05ed99bd') in 0.046151 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.822158 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cea58a1decf2fac54bade96556d4a21d') in 0.047808 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.764982 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '916f55b66f0c78ef7dbc559d14535732') in 0.046490 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.761873 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa21acf788f4f5188890188534f50967') in 0.046392 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.172772 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d396bf5e7d239786ae99ace5e7feea8') in 0.049659 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.551359 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '060fe9f374731e0e25603bc8b9ec3c64') in 0.048241 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.966054 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8507fc520ced7115e2ec2f68acf4dcd') in 0.047008 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.600337 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f892cfbf393265c0d9101f6a4d052b9a') in 0.057608 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.732673 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67ecd8ac368c87fdd598c868b18e1b87') in 0.046238 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 12.680368 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c61c96912b422f0786aa5308794f47cd') in 0.055130 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.342897 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1241fbc3563db22cb88bcd0705f38371') in 0.049972 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.382691 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b4c316d9aec414ddcda8a7708b221ea') in 0.045693 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 10.040745 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b906d13873147b071be08094b96a8b02') in 0.055999 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.775065 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9f474a97ddaa226fc9058aaed1875a6') in 0.046282 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.816580 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ad93858cfe0e1141a9ae73574f5eeb1') in 0.057737 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.176998 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f82979c466277ed176d2dba2ff0bf4bd') in 0.045016 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.787766 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '058b0fa0ff5ca717aaa8406deda4074f') in 0.050814 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.388647 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce292e0aa41f29a183cb4c28abe0a9dd') in 0.062997 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.987369 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40ed24ca04326f1c6475d63b1554c116') in 0.044589 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 8.195145 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1cd1dbea71df1a964f7420a0d4ee647') in 0.044760 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.997472 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c73299782393e22bcf671371f3a6c405') in 0.044586 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.986948 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbf0f916cb58d49d5a049f44de997822') in 0.047116 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.159191 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '119cfa753148a7223d9997a10b3fda2d') in 0.049957 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.774271 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc48e23f12d89e41ac3f3a39dc82264e') in 0.048541 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 8.154796 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc8cb1e9a2c30843e9626367112e3f26') in 0.044537 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 17.687861 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce3ad59bc7ef0d8014fb986660aed074') in 0.048537 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.355610 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd852fce78dfb95b2f7d06a82e6609eee') in 0.048910 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.979518 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fce322ae016560e85259fe4737e87d37') in 0.043298 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 13.460055 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af35e57e92174e863b4f238da850be6a') in 0.047876 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 23.939155 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2bfc59a4317bb3d2820b581bb9c638cb') in 0.048146 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.769641 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f2dd38083e3a612d9b54599bd140aa4') in 0.046322 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 12.308038 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ca02b95a121ba997a1f625a8b9f76bd') in 0.048898 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.949112 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ee7a69f86462c8d3c2a363a91d250b3') in 0.047926 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.569581 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9655765af1a151436743cb9b95495a0a') in 0.063750 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.760016 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57dce3189fccccd20adb09497a5b216c') in 0.046212 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.744321 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f09de29d417d4ec85306a403ccb29ece') in 0.051520 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.542715 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f557979c81c7552cb3e5ed165f94068') in 0.052977 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 7.395870 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '459435c9b5ef8e5c79eba6ab10423d33') in 0.057122 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 9.398733 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fbceeda1e1c5399cb2f5012a317effe7') in 0.045527 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 7.997174 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '570bfd7f03e2889b2dd495595ad86234') in 0.047512 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.586082 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08366a4792fb9b55602165367ab8126e') in 0.050118 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.762439 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc6b154de96aa2ffcf5fcc88720915c5') in 0.060264 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.347070 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b3657c7818c0cdccb943a5656fc865e6') in 0.045758 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.954022 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc925988db6ff361506d76ff7090e09c') in 0.063714 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 10.405618 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff67d13ee18c81ec0472e12923f8113d') in 0.044786 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 9.431697 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b5d92b734ff56b0212f45f33fcc1a45e') in 0.048502 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.564669 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5f2060c794b8db63264eb6451f51d84') in 0.046808 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.984960 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5309a74a3fd080d3fa412e5ca14fc1ee') in 0.047568 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.959091 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '55e0f045f93b48422e4271f63bf18fd2') in 0.045807 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 13.666597 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4996d2862c45752e07ede290b89eb47f') in 0.047912 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.789972 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '04ed2de68774e3058db3707cb6f7994c') in 0.047311 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 8.005087 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d503c49c9ad7c2d3606b2ff9c046419') in 0.048354 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.589256 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6686ce61ad70da3e3242ef0317446f3') in 0.046169 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.154771 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2158e5b4ca76fdac95643922649971ae') in 0.048438 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.162509 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22e038a250c3bdadc4ffc5a0e3f8fabb') in 0.047520 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.560336 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce6c458c1f0fa5ac16c8443402b1e339') in 0.046803 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.351024 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '982cb7dadd185f6294f854d88fea168b') in 0.042984 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.991642 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6b0b3d56e2c594863aac01b37f3c6bd') in 0.049074 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.771490 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64ef73ca10a54c3dd96eefe5d11c7103') in 0.045566 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.803576 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12a9d3b040d6d8a8ebb8ab0e4e4352f8') in 0.046018 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.352753 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ace39a5caa60305bb1ee76b1ac6e1e0a') in 0.046911 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 50.425572 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45dccb61b41fa75b1f234bd2d825dd29') in 0.046807 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.934069 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '347d70dad76fc022f4fdd2b9511fce45') in 0.042265 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.581221 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ccff09469ed193bd3378a2a1b729a55b') in 0.048099 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.143575 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97537b317140ae412b66d2a9b4ca5d97') in 0.045459 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.996169 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97fb6c5d5a73be547c4db1804d2040a2') in 0.044101 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.754177 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b59725e3d73222a37801e0fcdcd7cf5a') in 0.060116 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.385477 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3c9fbc945dcfd769a027f0c645fa7f1') in 0.060889 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.740432 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71b9e4eb397e89e03aab6a1048bd354e') in 0.054322 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.557246 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6bf8c0364909312b270873144df6ec2e') in 0.046721 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.158023 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f7f39d3bcb9d3e01b15c91e4a789f23') in 0.048331 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 9.204534 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '69420531f109e4a98a29d77e444093e7') in 0.044626 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.608601 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a3735497c11b3f4f7af7930d301d551') in 0.047996 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.163469 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '50ccec13f3ac0e608ed5f054241c40bf') in 0.048381 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 121.155043 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9aca1b8a49c955c358f3f00b2d89ce19') in 0.047429 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.012882 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Native extension for UWP target not found
-Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.65 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.10 ms.
-[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] Cannot connect to Unity Package Manager local server
-[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] Cannot connect to Unity Package Manager local server
-[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] Cannot connect to Unity Package Manager local server
-[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] Cannot connect to Unity Package Manager local server
-Mono: successfully reloaded assembly
-- Completed reload, in  1.270 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1271ms)
-		BeginReloadAssembly (283ms)
+	ReloadAssembly (1237ms)
+		BeginReloadAssembly (103ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (4ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (49ms)
-		EndReloadAssembly (897ms)
+			CreateAndSetChildDomain (19ms)
+		EndReloadAssembly (1043ms)
 			LoadAssemblies (110ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (284ms)
-			ReleaseScriptCaches (2ms)
-			RebuildScriptCaches (59ms)
-			SetupLoadedEditorAssemblies (403ms)
+			SetupTypeCache (242ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (80ms)
+			SetupLoadedEditorAssemblies (554ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (22ms)
+				InitializePlatformSupportModulesInManaged (24ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (88ms)
-				ProcessInitializeOnLoadAttributes (265ms)
-				ProcessInitializeOnLoadMethodAttributes (20ms)
+				RefreshPlugins (114ms)
+				BeforeProcessingInitializeOnLoad (98ms)
+				ProcessInitializeOnLoadAttributes (293ms)
+				ProcessInitializeOnLoadMethodAttributes (19ms)
 				AfterProcessingInitializeOnLoad (7ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (5ms)
 Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
 Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
-Refreshing native plugins compatible for Editor in 8.99 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.09 ms.
-Unloading 5533 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 78 unused Assets / (222.3 KB). Loaded Objects now: 6102.
-Memory consumption went from 264.1 MB to 263.9 MB.
-Total: 4.360300 ms (FindLiveObjects: 0.408700 ms CreateObjectMapping: 0.337800 ms MarkObjects: 3.385300 ms  DeleteObjects: 0.227400 ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 1.12 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.06 ms.
+Unloading 5661 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 86 unused Assets / (259.1 KB). Loaded Objects now: 6081.
+Memory consumption went from 211.8 MB to 211.6 MB.
+Total: 3.405100 ms (FindLiveObjects: 0.410000 ms CreateObjectMapping: 0.211800 ms MarkObjects: 2.535600 ms  DeleteObjects: 0.247000 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -1516,57 +181,9 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
-Received Import Request.
-  Time since last request: 99.331045 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fcbe1b0b47566675ceea480eeb11c1a0') in 0.137689 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.371430 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70a38e8267e4e583405c1a4645a36761') in 0.046523 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 7.313080 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e36d3fce697d168661b77e8754a641d') in 0.044387 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.358571 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c3b7e498fa65770abc7fdf80b0616b3') in 0.051725 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 14.299790 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c3c246fd6c39b5af6f1d8e4318c4d63') in 0.047450 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.792318 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e73f3acde1aba5589d11b0071477d858') in 0.050121 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.001306 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef187e074de168392f3916d1cd21e31b') in 0.048514 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 12.993465 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '216c64406ca8726e131ff7f09e375096') in 0.044073 seconds 
-========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.013731 seconds.
+Registered in 0.011739 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
@@ -1574,8 +191,10 @@ Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.38 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.10 ms.
+Refreshing native plugins compatible for Editor in 1.96 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.09 ms.
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] Cannot connect to Unity Package Manager local server
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
@@ -1583,28 +202,28 @@ Preloading 1 native plugins for Editor in 0.10 ms.
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Completed reload, in  1.207 seconds
+- Completed reload, in  1.095 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1207ms)
-		BeginReloadAssembly (177ms)
+	ReloadAssembly (1096ms)
+		BeginReloadAssembly (167ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (55ms)
-		EndReloadAssembly (928ms)
-			LoadAssemblies (119ms)
+			CreateAndSetChildDomain (49ms)
+		EndReloadAssembly (836ms)
+			LoadAssemblies (134ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (316ms)
-			ReleaseScriptCaches (2ms)
-			RebuildScriptCaches (47ms)
-			SetupLoadedEditorAssemblies (391ms)
+			SetupTypeCache (258ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (38ms)
+			SetupLoadedEditorAssemblies (375ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (20ms)
+				InitializePlatformSupportModulesInManaged (18ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (79ms)
-				ProcessInitializeOnLoadAttributes (262ms)
+				BeforeProcessingInitializeOnLoad (77ms)
+				ProcessInitializeOnLoadAttributes (250ms)
 				ProcessInitializeOnLoadMethodAttributes (19ms)
 				AfterProcessingInitializeOnLoad (8ms)
 				EditorAssembliesLoaded (0ms)
@@ -1612,12 +231,12 @@ Domain Reload Profiling:
 			AwakeInstancesAfterBackupRestoration (6ms)
 Platform modules already initialized, skipping
 Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
-Refreshing native plugins compatible for Editor in 9.66 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.06 ms.
+Refreshing native plugins compatible for Editor in 11.78 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.09 ms.
 Unloading 5533 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 78 unused Assets / (206.7 KB). Loaded Objects now: 6106.
-Memory consumption went from 264.2 MB to 264.0 MB.
-Total: 4.137300 ms (FindLiveObjects: 0.891600 ms CreateObjectMapping: 0.296200 ms MarkObjects: 2.704800 ms  DeleteObjects: 0.243300 ms)
+Unloading 76 unused Assets / (210.9 KB). Loaded Objects now: 6085.
+Memory consumption went from 200.6 MB to 200.4 MB.
+Total: 4.144700 ms (FindLiveObjects: 0.386300 ms CreateObjectMapping: 0.260500 ms MarkObjects: 3.301000 ms  DeleteObjects: 0.195600 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -1631,63 +250,9 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
-Received Import Request.
-  Time since last request: 197.571455 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '216c64406ca8726e131ff7f09e375096') in 0.136116 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.161882 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b466a6088db7d09e05734ee45e86f74') in 0.048417 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 23.462898 seconds.
-  path: Assets/Tetu/VRGrabber/Material/Blue.mat
-  artifactKey: Guid(c59c496c2ff81e645981109aeedccbfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Material/Blue.mat using Guid(c59c496c2ff81e645981109aeedccbfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c285bb2b31bc2929c8e9352472f65426') in 0.031725 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000027 seconds.
-  path: Assets/Tetu/VRGrabber/Material/Ground.mat
-  artifactKey: Guid(febdebabb6ac3b04daff0b0e317cbf31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Material/Ground.mat using Guid(febdebabb6ac3b04daff0b0e317cbf31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f7a074a3fcce9121571b87e2d7b110d5') in 0.013933 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 10.853937 seconds.
-  path: Assets/Tetu/VRGrabber/Material/BlackBorad.mat
-  artifactKey: Guid(e44cbbaa24ca1c44d8590671ff4daf78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Material/BlackBorad.mat using Guid(e44cbbaa24ca1c44d8590671ff4daf78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8afa47b5b83ad443d20f4914fe8295b7') in 0.011623 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 12.304055 seconds.
-  path: Assets/Tetu/VRGrabber/Material/BlackBorad.mat
-  artifactKey: Guid(e44cbbaa24ca1c44d8590671ff4daf78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Material/BlackBorad.mat using Guid(e44cbbaa24ca1c44d8590671ff4daf78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06442d1a0981dc9ab498c63e2a7640e0') in 0.010319 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.192881 seconds.
-  path: Assets/Tetu/VRGrabber/Material/BlackBorad.mat
-  artifactKey: Guid(e44cbbaa24ca1c44d8590671ff4daf78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Material/BlackBorad.mat using Guid(e44cbbaa24ca1c44d8590671ff4daf78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '74eac7efaf17a2e4a924c272f4ca8f7f') in 0.009558 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 28.117185 seconds.
-  path: Assets/Tetu/VRGrabber/Material/BlackBoradEdge.mat
-  artifactKey: Guid(5389306d976eca646a1a757087cb8fa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Material/BlackBoradEdge.mat using Guid(5389306d976eca646a1a757087cb8fa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0859dbb48e6547526565599d1e9ba85e') in 0.012875 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 29.170263 seconds.
-  path: Assets/Tetu/VRGrabber/Material/BlackBoradEdge.mat
-  artifactKey: Guid(5389306d976eca646a1a757087cb8fa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Material/BlackBoradEdge.mat using Guid(5389306d976eca646a1a757087cb8fa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c309f1f1bd835586f12d09d8e4d28db1') in 0.010137 seconds 
-========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.010997 seconds.
+Registered in 0.018273 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
@@ -1695,8 +260,8 @@ Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.23 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.09 ms.
+Refreshing native plugins compatible for Editor in 1.41 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.10 ms.
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] Cannot connect to Unity Package Manager local server
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
@@ -1704,114 +269,41 @@ Preloading 1 native plugins for Editor in 0.09 ms.
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Completed reload, in  1.156 seconds
+- Completed reload, in  1.589 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1157ms)
-		BeginReloadAssembly (144ms)
+	ReloadAssembly (1589ms)
+		BeginReloadAssembly (241ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (3ms)
+			DisableScriptedObjects (7ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (41ms)
-		EndReloadAssembly (888ms)
-			LoadAssemblies (111ms)
+			CreateAndSetChildDomain (63ms)
+		EndReloadAssembly (1202ms)
+			LoadAssemblies (172ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (287ms)
-			ReleaseScriptCaches (2ms)
-			RebuildScriptCaches (40ms)
-			SetupLoadedEditorAssemblies (417ms)
+			SetupTypeCache (459ms)
+			ReleaseScriptCaches (3ms)
+			RebuildScriptCaches (79ms)
+			SetupLoadedEditorAssemblies (481ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (18ms)
+				InitializePlatformSupportModulesInManaged (21ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (77ms)
-				ProcessInitializeOnLoadAttributes (291ms)
-				ProcessInitializeOnLoadMethodAttributes (22ms)
-				AfterProcessingInitializeOnLoad (7ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (106ms)
+				ProcessInitializeOnLoadAttributes (321ms)
+				ProcessInitializeOnLoadMethodAttributes (21ms)
+				AfterProcessingInitializeOnLoad (9ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (6ms)
 Platform modules already initialized, skipping
 Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
-Refreshing native plugins compatible for Editor in 9.90 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.06 ms.
-Unloading 5533 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 78 unused Assets / (230.4 KB). Loaded Objects now: 6143.
-Memory consumption went from 264.4 MB to 264.2 MB.
-Total: 3.326500 ms (FindLiveObjects: 0.527300 ms CreateObjectMapping: 0.303900 ms MarkObjects: 2.260500 ms  DeleteObjects: 0.234200 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 114.381453 seconds.
-  path: Assets/Tetu/VRGrabber/Network/SyncSample.prefab
-  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Tetu/VRGrabber/Network/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7fce6d2b56c79928e1ece9761fac1afc') in 0.129547 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.017756 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Native extension for UWP target not found
-Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.55 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.09 ms.
-[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] Cannot connect to Unity Package Manager local server
-[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] Cannot connect to Unity Package Manager local server
-[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] Cannot connect to Unity Package Manager local server
-Mono: successfully reloaded assembly
-- Completed reload, in  1.248 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1249ms)
-		BeginReloadAssembly (156ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (4ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (42ms)
-		EndReloadAssembly (1000ms)
-			LoadAssemblies (122ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (356ms)
-			ReleaseScriptCaches (2ms)
-			RebuildScriptCaches (52ms)
-			SetupLoadedEditorAssemblies (432ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (24ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (95ms)
-				ProcessInitializeOnLoadAttributes (283ms)
-				ProcessInitializeOnLoadMethodAttributes (20ms)
-				AfterProcessingInitializeOnLoad (8ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (5ms)
-Platform modules already initialized, skipping
-Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
-Refreshing native plugins compatible for Editor in 10.56 ms, found 14 plugins.
+Refreshing native plugins compatible for Editor in 12.16 ms, found 14 plugins.
 Preloading 1 native plugins for Editor in 0.07 ms.
 Unloading 5533 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 78 unused Assets / (222.5 KB). Loaded Objects now: 6147.
-Memory consumption went from 264.6 MB to 264.3 MB.
-Total: 3.049300 ms (FindLiveObjects: 0.404200 ms CreateObjectMapping: 0.225300 ms MarkObjects: 2.195600 ms  DeleteObjects: 0.223400 ms)
+Unloading 76 unused Assets / (226.4 KB). Loaded Objects now: 6089.
+Memory consumption went from 200.6 MB to 200.4 MB.
+Total: 3.466500 ms (FindLiveObjects: 0.409500 ms CreateObjectMapping: 0.243000 ms MarkObjects: 2.612200 ms  DeleteObjects: 0.201000 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -1827,7 +319,7 @@ AssetImportParameters requested are different than current active one (requested
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.017329 seconds.
+Registered in 0.011119 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
@@ -1835,7 +327,7 @@ Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.42 ms, found 14 plugins.
+Refreshing native plugins compatible for Editor in 1.24 ms, found 14 plugins.
 Preloading 1 native plugins for Editor in 0.08 ms.
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] Cannot connect to Unity Package Manager local server
@@ -1844,41 +336,41 @@ Preloading 1 native plugins for Editor in 0.08 ms.
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Completed reload, in  1.194 seconds
+- Completed reload, in  1.106 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1195ms)
-		BeginReloadAssembly (165ms)
+	ReloadAssembly (1106ms)
+		BeginReloadAssembly (166ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (4ms)
+			DisableScriptedObjects (3ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (42ms)
-		EndReloadAssembly (936ms)
-			LoadAssemblies (137ms)
+			CreateAndSetChildDomain (54ms)
+		EndReloadAssembly (848ms)
+			LoadAssemblies (145ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (322ms)
+			SetupTypeCache (279ms)
 			ReleaseScriptCaches (2ms)
-			RebuildScriptCaches (47ms)
-			SetupLoadedEditorAssemblies (409ms)
+			RebuildScriptCaches (37ms)
+			SetupLoadedEditorAssemblies (364ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (20ms)
+				InitializePlatformSupportModulesInManaged (18ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (82ms)
-				ProcessInitializeOnLoadAttributes (277ms)
-				ProcessInitializeOnLoadMethodAttributes (20ms)
-				AfterProcessingInitializeOnLoad (9ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (72ms)
+				ProcessInitializeOnLoadAttributes (242ms)
+				ProcessInitializeOnLoadMethodAttributes (23ms)
+				AfterProcessingInitializeOnLoad (7ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (5ms)
 Platform modules already initialized, skipping
 Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
-Refreshing native plugins compatible for Editor in 9.80 ms, found 14 plugins.
-Preloading 1 native plugins for Editor in 0.07 ms.
+Refreshing native plugins compatible for Editor in 11.98 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.08 ms.
 Unloading 5533 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 76 unused Assets / (229.6 KB). Loaded Objects now: 6151.
-Memory consumption went from 264.6 MB to 264.3 MB.
-Total: 4.066000 ms (FindLiveObjects: 0.443300 ms CreateObjectMapping: 0.242600 ms MarkObjects: 2.786800 ms  DeleteObjects: 0.591600 ms)
+Unloading 76 unused Assets / (210.9 KB). Loaded Objects now: 6093.
+Memory consumption went from 200.6 MB to 200.4 MB.
+Total: 3.220600 ms (FindLiveObjects: 0.374500 ms CreateObjectMapping: 0.216100 ms MarkObjects: 2.431000 ms  DeleteObjects: 0.197900 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -1891,3 +383,436 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.014445 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Native extension for UWP target not found
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.24 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.08 ms.
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Completed reload, in  1.195 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1196ms)
+		BeginReloadAssembly (179ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (4ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (41ms)
+		EndReloadAssembly (895ms)
+			LoadAssemblies (158ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (267ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (46ms)
+			SetupLoadedEditorAssemblies (415ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (23ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (77ms)
+				ProcessInitializeOnLoadAttributes (279ms)
+				ProcessInitializeOnLoadMethodAttributes (24ms)
+				AfterProcessingInitializeOnLoad (10ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (7ms)
+Platform modules already initialized, skipping
+Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
+Refreshing native plugins compatible for Editor in 16.49 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.11 ms.
+Unloading 5533 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 76 unused Assets / (226.7 KB). Loaded Objects now: 6097.
+Memory consumption went from 200.6 MB to 200.4 MB.
+Total: 4.027400 ms (FindLiveObjects: 0.498100 ms CreateObjectMapping: 0.266200 ms MarkObjects: 2.907200 ms  DeleteObjects: 0.354300 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.022511 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Native extension for UWP target not found
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 3.06 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.17 ms.
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Completed reload, in  1.881 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1883ms)
+		BeginReloadAssembly (233ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (76ms)
+		EndReloadAssembly (1516ms)
+			LoadAssemblies (165ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (492ms)
+			ReleaseScriptCaches (3ms)
+			RebuildScriptCaches (78ms)
+			SetupLoadedEditorAssemblies (704ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (50ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (3ms)
+				BeforeProcessingInitializeOnLoad (139ms)
+				ProcessInitializeOnLoadAttributes (455ms)
+				ProcessInitializeOnLoadMethodAttributes (39ms)
+				AfterProcessingInitializeOnLoad (16ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (8ms)
+Platform modules already initialized, skipping
+Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
+Refreshing native plugins compatible for Editor in 12.94 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.07 ms.
+Unloading 5533 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 76 unused Assets / (213.0 KB). Loaded Objects now: 6101.
+Memory consumption went from 200.5 MB to 200.3 MB.
+Total: 6.179800 ms (FindLiveObjects: 0.812700 ms CreateObjectMapping: 0.564900 ms MarkObjects: 4.456400 ms  DeleteObjects: 0.344000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.013192 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Native extension for UWP target not found
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.16 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.08 ms.
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Completed reload, in  1.159 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1160ms)
+		BeginReloadAssembly (189ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (4ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (51ms)
+		EndReloadAssembly (850ms)
+			LoadAssemblies (147ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (240ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (35ms)
+			SetupLoadedEditorAssemblies (424ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (18ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (74ms)
+				ProcessInitializeOnLoadAttributes (288ms)
+				ProcessInitializeOnLoadMethodAttributes (32ms)
+				AfterProcessingInitializeOnLoad (11ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (6ms)
+Platform modules already initialized, skipping
+Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
+Refreshing native plugins compatible for Editor in 12.23 ms, found 14 plugins.
+Preloading 1 native plugins for Editor in 0.08 ms.
+Unloading 5533 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 76 unused Assets / (213.8 KB). Loaded Objects now: 6105.
+Memory consumption went from 200.5 MB to 200.3 MB.
+Total: 3.951300 ms (FindLiveObjects: 0.470700 ms CreateObjectMapping: 0.310200 ms MarkObjects: 2.935100 ms  DeleteObjects: 0.234300 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 519526.587877 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8eccb7f18cb39861659b214634adb4c0') in 0.220958 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 44.673276 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '042bfd5292f001b955fbe20fcf4e4fce') in 0.058317 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 10.289006 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd9cae4a2dd54fff8ee8bcc58c65e3e1') in 0.056314 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.371496 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88e64be4efb2ff03d817092be83f631a') in 0.051209 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 11.719439 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff93e2d8487054a0c4cfe7ad6ec51b35') in 0.052826 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 25.439684 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94af27fc45744b745ba0882eac2894b4') in 0.055332 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 13.445230 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d677b0aa34b604cd2bc8328200a798b') in 0.065733 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.359343 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c59eb8e8cb4e0c173b0cd6c2cb61edc1') in 0.062207 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.583645 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c93f716e07d67bfd6dfcadce3e7c002') in 0.053876 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 21.553304 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aeed7e5a3647b1adbdb1328e4b3cff60') in 0.053206 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 14.659040 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bb1c76c92f4b27919217d277250b072') in 0.050477 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.782788 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0cbe0b4cb410e0f6b28c1a8b32358f57') in 0.055564 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 14.673466 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '17f4594a37e998e3c14e005b00f86af9') in 0.050617 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.068761 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be7dea1a14ad16a83998c3a591c92e28') in 0.053040 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.782059 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64c3da8fad1527adbd05908227ed3e81') in 0.051962 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 6.206950 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6eb08ec9fd8a511f7b9f6b1fd697b9c9') in 0.061109 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.553570 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '02055dddf52b51cf4a8cef13488a680e') in 0.061753 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.779846 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0a956e706bf71469962f1eed8a2b2bc') in 0.051124 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 6.404877 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67ec57f4758d9309d6b335f0ff101d07') in 0.053010 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.570663 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf7be4766db831c2d11f36ffa7a058de') in 0.050074 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.762623 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '765c303234a36fa1c79ffe2a614586fa') in 0.051164 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.384583 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be2bec2ab59a7a5b3f0e304b2e3f0c61') in 0.052329 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.596219 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25c000adfa7641bb60b3e75791980b08') in 0.060578 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.586349 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6b6ab65acd857b24a006365dc3bc11b') in 0.049350 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.830482 seconds.
+  path: Assets/Oculus/SampleFramework/Core/DebugUI/Textures/slider_slider.png
+  artifactKey: Guid(871600bbe5c92eb45a948fe73ff8b1a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/SampleFramework/Core/DebugUI/Textures/slider_slider.png using Guid(871600bbe5c92eb45a948fe73ff8b1a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03cc7fb0dc6c20b11daf04941c6c15c6') in 0.088274 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Oculus/VR/Textures/windowgui.png
+  artifactKey: Guid(a26663690a6580440963aa46e582c35b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/VR/Textures/windowgui.png using Guid(a26663690a6580440963aa46e582c35b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5ad5644e4cf1fd88114d4a7e00d4ae6') in 0.051863 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000085 seconds.
+  path: Assets/Oculus/SampleFramework/Usage/Passthrough/Materials/UIelement.png
+  artifactKey: Guid(1f040466d664f6d4698a177ddcf0608c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/SampleFramework/Usage/Passthrough/Materials/UIelement.png using Guid(1f040466d664f6d4698a177ddcf0608c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2cb546f86ffd4c8b0d7328b0b5de7c7') in 0.037290 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.528002 seconds.
+  path: Assets/Oculus/Interaction/Samples/Textures/RoundCorners.png
+  artifactKey: Guid(af8d87acee795ed4192fa36233eec7d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/Interaction/Samples/Textures/RoundCorners.png using Guid(af8d87acee795ed4192fa36233eec7d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '49e70f6fce0fc69974398648d886e501') in 0.038160 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Oculus/Interaction/Samples/Textures/Passed.png
+  artifactKey: Guid(689fbbf121969704bb7d556d8a07eb60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/Interaction/Samples/Textures/Passed.png using Guid(689fbbf121969704bb7d556d8a07eb60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58861ae5e58615550ae54aa90dede4f6') in 0.032099 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Oculus/SampleFramework/Core/DebugUI/Textures/radio_disabled.png
+  artifactKey: Guid(bdbd8a3ecf4a241499b36f4c13ded10b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/SampleFramework/Core/DebugUI/Textures/radio_disabled.png using Guid(bdbd8a3ecf4a241499b36f4c13ded10b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88dea29889a2f4908d0079c2133d8d4c') in 0.025650 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000057 seconds.
+  path: Assets/Oculus/Interaction/Runtime/Textures/Reticle-Dot.png
+  artifactKey: Guid(aa3a2b3718100f84fb5d8ff9adb8ccb7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/Interaction/Runtime/Textures/Reticle-Dot.png using Guid(aa3a2b3718100f84fb5d8ff9adb8ccb7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7bea3980f736871cc98fe319cf964d66') in 0.032017 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Oculus/SampleFramework/Core/DebugUI/Textures/radio_on.png
+  artifactKey: Guid(5aeca7df47eecc94bb7fbb5d79cf2036) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/SampleFramework/Core/DebugUI/Textures/radio_on.png using Guid(5aeca7df47eecc94bb7fbb5d79cf2036) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bf0f05af93dd161053ceef2ce8b9837d') in 0.022591 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Oculus/SampleFramework/Core/DebugUI/Textures/radio_off.png
+  artifactKey: Guid(9a7a1aee5662d8e439db9465d2c3e3fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/SampleFramework/Core/DebugUI/Textures/radio_off.png using Guid(9a7a1aee5662d8e439db9465d2c3e3fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '538301eb9c00eee320724c99de87e74f') in 0.024730 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.078689 seconds.
+  path: Assets/Oculus/Interaction/Samples/Textures/Active.png
+  artifactKey: Guid(dc71c444d9062474fb77b4171c1a4a03) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/Interaction/Samples/Textures/Active.png using Guid(dc71c444d9062474fb77b4171c1a4a03) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c1c9b4abf2864e9eb100a6ba259350e') in 0.023953 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Oculus/SampleFramework/Core/DebugUI/Textures/button9slice.png
+  artifactKey: Guid(eec623c29607b1447ac4dc6de3cdda6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/SampleFramework/Core/DebugUI/Textures/button9slice.png using Guid(eec623c29607b1447ac4dc6de3cdda6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84d6e81ea13fc2fd203076119d56c973') in 0.021103 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Assets/Oculus/Interaction/Samples/ThirdParty/Textures/ComprehensiveGrabMapTexture.png
+  artifactKey: Guid(1b30196ca66ece04f80c3809a3133644) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/Interaction/Samples/ThirdParty/Textures/ComprehensiveGrabMapTexture.png using Guid(1b30196ca66ece04f80c3809a3133644) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6f48fd0913c56cc81a92b94c0b68ba5') in 0.117163 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000038 seconds.
+  path: Assets/Oculus/VR/Textures/handle.png
+  artifactKey: Guid(ce8f78b2b9292484e97f36ad9568fc4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Oculus/VR/Textures/handle.png using Guid(ce8f78b2b9292484e97f36ad9568fc4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df6b8622aa4f8cce4b2377da4d6d7fb4') in 0.026676 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.165997 seconds.
+  path: Assets/Tetu/SyncSample.prefab
+  artifactKey: Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tetu/SyncSample.prefab using Guid(c26856fcc0fbd244982fcaa34364e616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6308170558f934ad4008f64de53fecc6') in 0.053586 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

@@ -111,6 +111,20 @@ public class TLabShelfSyncManager : TLabShelfManager
         yield break;
     }
 
+    public override void PutAway(int index)
+    {
+        TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
+
+        if (shelfObjInfo.currentTask != null)
+        {
+            StopCoroutine(shelfObjInfo.currentTask);
+        }
+
+        shelfObjInfo.currentTask = FadeOut(shelfObjInfo, shelfObjInfo.start.transform);
+        StartCoroutine(shelfObjInfo.currentTask);
+        shelfObjInfo.isShelf = true;
+    }
+
     public override void TakeOut(int index, Transform target)
     {
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
@@ -120,28 +134,19 @@ public class TLabShelfSyncManager : TLabShelfManager
             StopCoroutine(shelfObjInfo.currentTask);
         }
 
-        if (shelfObjInfo.isShelf == false)
-        {
-            shelfObjInfo.currentTask = FadeOut(shelfObjInfo, shelfObjInfo.start.transform);
-            StartCoroutine(shelfObjInfo.currentTask);
-            shelfObjInfo.isShelf = true;
-        }
-        else
-        {
-            shelfObjInfo.currentTask = FadeIn(shelfObjInfo, target);
-            StartCoroutine(shelfObjInfo.currentTask);
-            shelfObjInfo.isShelf = false;
-        }
-    }
-
-    public void Share()
-    {
-
+        shelfObjInfo.currentTask = FadeIn(shelfObjInfo, target);
+        StartCoroutine(shelfObjInfo.currentTask);
+        shelfObjInfo.isShelf = false;
     }
 
     public override void TakeOut(int index)
     {
         TakeOut(index, m_host);
+    }
+
+    public override void CursorOn(int index)
+    {
+        base.CursorOn(index);
     }
 
     protected override void Start()

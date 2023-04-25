@@ -85,11 +85,21 @@ public class TLabVRHand : MonoBehaviour
 
                 m_raycastResult = target;
 
+                if (m_raycastResult.GetComponent<Renderer>().material.HasProperty("_OutlineWidth"))
+                {
+                    m_raycastResult.GetComponent<Renderer>().material.SetFloat("_OutlineWidth", 0.025f);
+                }
+
                 // m_laserPointer.maxLength = (m_anchor.position - hit.point).magnitude;
 
                 bool grip = OVRInput.Get(m_grip, m_controller) > 0.5f;
                 if (grip)
                 {
+                    if (m_raycastResult.GetComponent<Renderer>().material.HasProperty("_OutlineWidth"))
+                    {
+                        m_raycastResult.GetComponent<Renderer>().material.SetFloat("_OutlineWidth", 0.0f);
+                    }
+
                     TLabVRGrabbable grabbable = target.GetComponent<TLabVRGrabbable>();
 
                     if (grabbable == null)
@@ -105,6 +115,14 @@ public class TLabVRHand : MonoBehaviour
             }
             else
             {
+                if(m_raycastResult != null)
+                {
+                    if (m_raycastResult.GetComponent<Renderer>().material.HasProperty("_OutlineWidth"))
+                    {
+                        m_raycastResult.GetComponent<Renderer>().material.SetFloat("_OutlineWidth", 0.0f);
+                    }
+                }
+
                 m_raycastResult = null;
                 // m_laserPointer.maxLength = this.m_maxDistance;
             }

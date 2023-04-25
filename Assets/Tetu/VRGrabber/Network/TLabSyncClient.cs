@@ -60,6 +60,11 @@ public class TLabSyncClient : MonoBehaviour
     [SerializeField] private GameObject m_rightHand;
     [SerializeField] private GameObject m_leftHand;
 
+    [Header("Guest Avator")]
+    [SerializeField] private GameObject m_guestRTouch;
+    [SerializeField] private GameObject m_guestLTouch;
+    [SerializeField] private GameObject m_guestHead;
+
     [System.NonSerialized] public static TLabSyncClient Instalce;
 
     private WebSocket websocket;
@@ -171,12 +176,23 @@ public class TLabSyncClient : MonoBehaviour
                 {
                     // now managed by prefab instancing
 
-                    TLabSyncGrabbable grabbableR = GetTargetGrabbable("OVRControllerPrefab." + obj.seatIndex.ToString() + ".RTouch");
-                    TLabSyncGrabbable grabbableL = GetTargetGrabbable("OVRControllerPrefab." + obj.seatIndex.ToString() + ".LTouch");
-                    if (grabbableR != null && grabbableL != null)
+                    GameObject guestRTouch = GameObject.Find("OVRControllerPrefab." + obj.seatIndex.ToString() + ".RTouch");
+                    GameObject guestLTouch = GameObject.Find("OVRControllerPrefab." + obj.seatIndex.ToString() + ".LTouch");
+                    GameObject guestHead = GameObject.Find("OVRControllerPrefab." + obj.seatIndex.ToString() + ".Head");
+
+                    if(guestRTouch != null)
                     {
-                        //grabbableR.gameObject.GetComponent<Renderer>().enabled = false;
-                        //grabbableL.gameObject.GetComponent<Renderer>().enabled = false;
+                        Object.Destroy(guestRTouch);
+                    }
+
+                    if (guestLTouch != null)
+                    {
+                        Object.Destroy(guestLTouch);
+                    }
+
+                    if (guestHead != null)
+                    {
+                        Object.Destroy(guestHead);
                     }
 
                     Debug.Log("tlabwebsocket: guest disconncted . " + obj.seatIndex.ToString());
@@ -185,12 +201,22 @@ public class TLabSyncClient : MonoBehaviour
                 }
                 else if (obj.action == "guest participation")
                 {
-                    TLabSyncGrabbable grabbableR = GetTargetGrabbable("OVRControllerPrefab." + obj.seatIndex.ToString() + ".RTouch");
-                    TLabSyncGrabbable grabbableL = GetTargetGrabbable("OVRControllerPrefab." + obj.seatIndex.ToString() + ".LTouch");
-                    if (grabbableR != null && grabbableL != null)
+                    if(m_guestRTouch != null)
                     {
-                        //grabbableR.gameObject.GetComponent<Renderer>().enabled = true;
-                        //grabbableL.gameObject.GetComponent<Renderer>().enabled = true;
+                        GameObject guestRTouch = Instantiate(m_guestRTouch, new Vector3(0.0f, -0.5f, 0.0f), Quaternion.identity);
+                        guestRTouch.name = "OVRControllerPrefab." + obj.seatIndex.ToString() + ".RTouch";
+                    }
+
+                    if(m_guestLTouch != null)
+                    {
+                        GameObject guestLTouch = Instantiate(m_guestLTouch, new Vector3(0.0f, -0.5f, 0.0f), Quaternion.identity);
+                        guestLTouch.name = "OVRControllerPrefab." + obj.seatIndex.ToString() + ".LTouch";
+                    }
+
+                    if(m_guestHead != null)
+                    {
+                        GameObject guestHead = Instantiate(m_guestHead, new Vector3(0.0f, -0.5f, 0.0f), Quaternion.identity);
+                        guestHead.name = "OVRControllerPrefab." + obj.seatIndex.ToString() + ".Head";
                     }
 
                     Debug.Log("tlabwebsokcet: guest participated . " + obj.seatIndex.ToString());

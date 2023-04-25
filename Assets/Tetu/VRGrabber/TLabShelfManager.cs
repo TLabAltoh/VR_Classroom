@@ -58,6 +58,20 @@ public class TLabShelfManager : MonoBehaviour
         yield break;
     }
 
+    public virtual void PutAway(int index)
+    {
+        TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
+
+        if (shelfObjInfo.currentTask != null)
+        {
+            StopCoroutine(shelfObjInfo.currentTask);
+        }
+
+        shelfObjInfo.currentTask = FadeOut(shelfObjInfo, shelfObjInfo.start.transform);
+        StartCoroutine(shelfObjInfo.currentTask);
+        shelfObjInfo.isShelf = true;
+    }
+
     public virtual void TakeOut(int index, Transform target)
     {
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
@@ -67,23 +81,19 @@ public class TLabShelfManager : MonoBehaviour
             StopCoroutine(shelfObjInfo.currentTask);
         }
 
-        if (shelfObjInfo.isShelf == false)
-        {
-            shelfObjInfo.currentTask = FadeOut(shelfObjInfo, shelfObjInfo.start.transform);
-            StartCoroutine(shelfObjInfo.currentTask);
-            shelfObjInfo.isShelf = true;
-        }
-        else
-        {
-            shelfObjInfo.currentTask = FadeIn(shelfObjInfo, target);
-            StartCoroutine(shelfObjInfo.currentTask);
-            shelfObjInfo.isShelf = false;
-        }
+        shelfObjInfo.currentTask = FadeIn(shelfObjInfo, target);
+        StartCoroutine(shelfObjInfo.currentTask);
+        shelfObjInfo.isShelf = false;
     }
 
     public virtual void TakeOut(int index)
     {
         TakeOut(index, m_host);
+    }
+
+    public virtual void CursorOn(int index)
+    {
+
     }
 
     protected virtual void Start()
