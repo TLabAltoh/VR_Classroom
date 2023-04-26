@@ -89,7 +89,7 @@ public class TLabVRHand : MonoBehaviour
 
                 TLabOutlineSelectable selectable = target.GetComponent<TLabOutlineSelectable>();
 
-                if (selectable == null)
+                if (selectable != null)
                 {
                     selectable.Selected = true;
                 }

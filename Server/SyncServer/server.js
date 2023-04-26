@@ -140,6 +140,14 @@ ws.on("connection", function (socket) {
 
 			//console.log("sync transform");
 			syncObjects[parse.transform.id] = parse;
+
+			ws.clients.forEach(client => {
+				if (client != socket) {
+					client.send(message);
+				}
+			});
+
+			return;
 		} else if (parse.action == "set gravity") {
 
 			//
@@ -169,12 +177,28 @@ ws.on("connection", function (socket) {
 			}
 
 			console.log(grabbTable[seatIndex]);
+
+			ws.clients.forEach(client => {
+				if (client != socket) {
+					client.send(message);
+				}
+			});
+
+			return;
         } else if(parse.action == "force release"){
 			console.log("force release");
 
 			grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.id !== parse.transform.id });
 
 			console.log(grabbTable[seatIndex]);
+
+			ws.clients.forEach(client => {
+				if (client != socket) {
+					client.send(message);
+				}
+			});
+
+			return;
 		}
 
 		if (parse.role === "student") {
@@ -263,12 +287,6 @@ ws.on("connection", function (socket) {
 				}
 			}
 		}
-
-		ws.clients.forEach(client => {
-			if (client != socket) {
-				client.send(message);
-			}
-        });
 	});
 
 	socket.on('close', function close() {

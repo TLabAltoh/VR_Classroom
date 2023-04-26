@@ -389,7 +389,6 @@ GameObject:
   - component: {fileID: 2421129429844362039}
   - component: {fileID: 2421129429851368647}
   - component: {fileID: 6002565149845516791}
-  - component: {fileID: 881693723277667132}
   m_Layer: 8
   m_Name: OVRControllerPrefab.LTouch
   m_TagString: Untagged
@@ -457,19 +456,3 @@ MonoBehaviour:
   m_enableSync: 0
   m_autoSync: 0
   m_locked: 1
---- !u!114 &881693723277667132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2421129429844074263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a379efb6a575e489678c7e098e2cd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_raycastDistance: 10
-  m_outline:
-    serializedVersion: 2
-    m_Bits: 512
