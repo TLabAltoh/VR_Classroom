@@ -1,14 +1,19 @@
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
+#if UNITY_EDITOR
 public class TLabOutlineManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] m_outlineTarget;
+    [SerializeField] private string m_savePath;
 
     const float error = 1e-8f;
 
     // https://blog.syn-sophia.co.jp/articles/2022/10/17/outline_rendering_01
 
-    public static void BakeNormal(GameObject obj)
+    public void BakeNormal(GameObject obj)
     {
         var meshFilters = obj.GetComponentsInChildren<MeshFilter>();
 
@@ -42,6 +47,23 @@ public class TLabOutlineManager : MonoBehaviour
                 softEdges[i] = new Color(softEdge.x, softEdge.y, softEdge.z, 0);
             }
             mesh.colors = softEdges;
+
+            string path = m_savePath + "/" + mesh.name + ".asset";
+            Mesh copyMesh = GameObject.Instantiate(mesh);
+            Mesh asset = AssetDatabase.LoadAssetAtPath<Mesh>(path);
+            if (asset != null)
+            {
+                EditorUtility.CopySerialized(asset, copyMesh);
+            }
+            else
+            {
+                AssetDatabase.CreateAsset(copyMesh, path);
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            meshFilter.sharedMesh = copyMesh;
         }
     }
 
@@ -52,4 +74,19 @@ public class TLabOutlineManager : MonoBehaviour
             BakeNormal(m_outlineTarget[i]);
         }
     }
+
+    public void SelectSavePath()
+    {
+        string path = EditorUtility.SaveFolderPanel("Save Path", "Assets", "");
+
+        if (path == null)
+        {
+            return;
+        }
+
+        string fullPath = System.IO.Directory.GetCurrentDirectory();
+
+        m_savePath = path.Remove(0, fullPath.Length + 1);
+    }
 }
+#endif

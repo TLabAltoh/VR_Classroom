@@ -58,37 +58,10 @@
   <ItemGroup>
     <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupXRTasks.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupUpdater.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupStatusIcon.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupSettings.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupMovementSDK.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Utils\ConsoleLinkEventHandler.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Processors\OVRConfigurationTaskProcessor.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRScreenshotWizard.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Utils\SerializableDictionary.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRBuild.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Processors\OVRConfigurationTaskProcessorQueue.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\OVRConfigurationTaskSourceCode.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRPluginUpdater.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupUtils.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupSettingItem.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupCompatibilityTasks.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\AssemblyInfo.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupDrawer.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupPhysicsTasks.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRSystemProfilerPanel.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRBundleManager.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\OVRConfigurationTaskRegistry.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupRenderingTasks.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Processors\OVRConfigurationTaskFixer.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRDeviceSelector.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRPluginInfoOpenXR.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupPassthrough.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\OVRConfigurationTask.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRExpansionFileGenerator.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupSceneTasks.cs" />
-    <Compile Include="Assets\Oculus\VR\Editor\OVRPlatformToolSettings.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Processors\OVRConfigurationTaskUpdaterSummary.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRPlatformToolSettings.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\OVRConfigurationTaskException.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupStatusIcon.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupSettingsProvider.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupBuildValidator.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRPlatformTool.cs" />
@@ -96,19 +69,46 @@
     <Compile Include="Assets\Oculus\VR\Editor\PathHelper.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRADBTool.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRLint.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupSettings.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupMovementSDK.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupQualityTasks.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRGradleGeneration.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Utils\ConsoleLinkEventHandler.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Processors\OVRConfigurationTaskProcessor.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRScreenshotWizard.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Processors\OVRConfigurationTaskUpdater.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Utils\SerializableDictionary.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRBuild.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Processors\OVRConfigurationTaskProcessorQueue.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRBundleTool.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\OVRConfigurationTaskSourceCode.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRPluginUpdater.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupUtils.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupSettingItem.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRLayerAttributeEditor.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupCompatibilityTasks.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\AssemblyInfo.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\OVRProjectSetupDrawer.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRProjectConfig.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupPhysicsTasks.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRShaderBuildProcessor.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Utils\OptionalLambdaType.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRSystemProfilerPanel.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRBundleManager.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\OVRConfigurationTaskRegistry.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupRenderingTasks.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Processors\OVRConfigurationTaskFixer.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRDeviceSelector.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRPluginInfoOpenXR.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRManifestPreprocessor.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupPassthrough.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRPluginInfo.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\OVRConfigurationTask.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRExpansionFileGenerator.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVREngineConfigurationUpdater.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRConfig.cs" />
     <Compile Include="Assets\Oculus\VR\Editor\OVRDirectorySyncer.cs" />
+    <Compile Include="Assets\Oculus\VR\Editor\OVRProjectSetup\Tasks\Implementations\OVRProjectSetupSceneTasks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Oculus\VR\Editor\Oculus.VR.Editor.asmdef" />
@@ -380,6 +380,9 @@
     <Reference Include="UnityEditor.UWP.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.23f1\Editor\Data\PlaybackEngines\MetroSupport\UnityEditor.UWP.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VisualScripting.IonicZip">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
@@ -392,20 +395,17 @@
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.TextureAssets">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.IonicZip">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VisualScripting.TextureAssets">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+    </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>

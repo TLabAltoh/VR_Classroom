@@ -57,8 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\Configuration\WitParameterValidator.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\PropertyDrawers\ConfidenceRangeDrawer.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\WitDataCreation.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Utility\AssetDatabaseUtility.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\CallbackHandlers\SimpleStringEntityHandlerEditor.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\Configuration\WitConfigurationPostprocessor.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\Configuration\WitEndpointConfigDrawer.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\Configuration\WitConfigurationUtility.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\WitWindowUtility.cs" />
@@ -70,34 +73,31 @@
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\FieldGUI.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\Configuration\IApplicationDetailProvider.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\Configuration\WitApplicationDetailProvider.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\PropertyDrawers\WitEntityRolePropertyDrawer.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\WitConfigurationWindow.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\CallbackHandlers\ValuePathMatcherPropertyDrawer.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\PropertyDrawers\WitApplicationPropertyDrawer.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\WitTexts.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\PropertyDrawers\WitPropertyDrawer.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Drawers\DynamicRangeAttributeDrawer.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\Components\WitMultiSelectionPopup.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\CallbackHandlers\SimpleIntentHandlerEditor.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\PropertyDrawers\WitTraitPropertyDrawer.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Inspectors\WitServiceInspector.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\WitStyles.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Inspectors\EventPropertyDrawer.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\BaseWitWindow.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Utility\WitUnderstandingViewer.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\PropertyDrawers\WitIntentPropertyDrawer.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\WitScriptableWizard.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Lib\Mic\MicEditor.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\Configuration\WitWindow.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\PropertyDrawers\WitTraitValuePropertyDrawer.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\Components\WitMultiSelectionPopupContent.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\WitConfigurationEditorUI.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\PropertyDrawers\ConfidenceRangeDrawer.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\WitDataCreation.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\Configuration\WitConfigurationPostprocessor.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\PropertyDrawers\WitEntityRolePropertyDrawer.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\WitConfigurationWindow.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\PropertyDrawers\WitApplicationPropertyDrawer.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\Components\WitMultiSelectionPopup.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\CallbackHandlers\SimpleIntentHandlerEditor.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Inspectors\WitServiceInspector.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\WitStyles.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Inspectors\EventPropertyDrawer.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\BaseWitWindow.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\Configuration\WitParameterFilter.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Data\Configuration\WitConfigurationEditor.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Windows\Components\WitMultiSelectionPopupContent.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\Inspectors\VoiceEventPropertyDrawer.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\WitConfigurationEditorUI.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\WitEditorUI.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Scripts\Editor\CallbackHandlers\WitIntentMatcherEditor.cs" />
   </ItemGroup>
@@ -369,6 +369,9 @@
     <Reference Include="UnityEditor.UWP.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.23f1\Editor\Data\PlaybackEngines\MetroSupport\UnityEditor.UWP.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VisualScripting.IonicZip">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
@@ -381,20 +384,17 @@
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.TextureAssets">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.IonicZip">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VisualScripting.TextureAssets">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+    </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>

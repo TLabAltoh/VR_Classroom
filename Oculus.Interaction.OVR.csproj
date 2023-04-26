@@ -57,7 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\SetDisplayRefresh.cs" />
+    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\AnimatedHandOVR.cs" />
+    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRButton.cs" />
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\HandSkeletonOVR.cs" />
+    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRControllerUtility.cs" />
+    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\UnityCanvas\OVRRenderingMode.cs" />
+    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRControllerMatchesProfileActiveState.cs" />
+    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRButtonAxis1D.cs" />
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRSkeletonData.cs" />
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\FromOVRControllerDataSource.cs" />
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\FromOVRHandDataSource.cs" />
@@ -67,16 +73,10 @@
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\UnityCanvas\OVRCanvasMeshRenderer.cs" />
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRControllerVisual.cs" />
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\FromOVRHmdDataSource.cs" />
+    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRCameraRigRef.cs" />
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRAxis1D.cs" />
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRAxis2D.cs" />
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\FromOVRControllerHandDataSource.cs" />
-    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\AnimatedHandOVR.cs" />
-    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRButton.cs" />
-    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRControllerUtility.cs" />
-    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\UnityCanvas\OVRRenderingMode.cs" />
-    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRControllerMatchesProfileActiveState.cs" />
-    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRButtonAxis1D.cs" />
-    <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\OVRCameraRigRef.cs" />
     <Compile Include="Assets\Oculus\Interaction\OVRIntegration\Runtime\Scripts\Input\TrackingToWorldTransformerOVR.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +348,9 @@
     <Reference Include="UnityEditor.UWP.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.23f1\Editor\Data\PlaybackEngines\MetroSupport\UnityEditor.UWP.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VisualScripting.IonicZip">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
@@ -360,20 +363,17 @@
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.TextureAssets">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.IonicZip">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VisualScripting.TextureAssets">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+    </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Android.Types">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.23f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>

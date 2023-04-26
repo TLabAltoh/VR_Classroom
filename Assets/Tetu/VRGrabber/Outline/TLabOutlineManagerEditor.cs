@@ -16,6 +16,13 @@ public class TLabOutlineManagerEditor : Editor
         if (GUILayout.Button("Process"))
         {
             manager.BakeVertexColor();
+            EditorUtility.SetDirty(manager);
+        }
+
+        if (GUILayout.Button("Select Save Path"))
+        {
+            manager.SelectSavePath();
+            EditorUtility.SetDirty(manager);
         }
     }
 }

@@ -56,44 +56,44 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IConduitAssembly.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitTrainingStatus.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\SyncWitEntitiesStep.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitEntity.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\SourceCodeMapper.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\EntitiesDelta.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IFileIo.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitTrainingUtterance.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitRole.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IAssemblyMiner.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\WitTrainer.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\EnsureWitIntentsStep.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IAssemblyWalker.cs" />
-    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitIncomingEntity.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IWitHttp.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IConduitAssembly.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\AssemblyMiner.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\IProcessStep.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitTrainingStatus.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\TrainUtterances.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\Payload.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\SyncWitEntitiesStep.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\FileIo.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitEntity.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\SourceCodeMapper.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\WitHttp.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\EnumCodeWrapper.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\AssemblyWalker.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\AssemblyInfo.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitTrainingEntity.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\EntitiesDelta.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IParameterValidator.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\StepRunner.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IFileIo.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitTrainingUtterance.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitRole.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IAssemblyMiner.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\KeywordsDelta.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\WitTrainer.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\ManifestGenerator.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\EnsureWitIntentsStep.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\EnumSynchronizer.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitOutgoingEntity.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\ConduitStatistics.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\PersistenceLayer.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\ConduitAssembly.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IAssemblyWalker.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IParameterFilter.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\ObtainIdmData.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\IPersistenceLayer.cs" />
     <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Training\ProcessStep.cs" />
+    <Compile Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Data\WitIncomingEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Oculus\Voice\Lib\Wit.ai\Lib\Conduit\Editor\Facebook.Wit.Conduit.Editor.asmdef" />
@@ -363,6 +363,9 @@
     <Reference Include="UnityEditor.UWP.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.23f1\Editor\Data\PlaybackEngines\MetroSupport\UnityEditor.UWP.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VisualScripting.IonicZip">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
@@ -375,20 +378,17 @@
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.TextureAssets">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.IonicZip">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VisualScripting.TextureAssets">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+    </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
