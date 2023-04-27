@@ -201,7 +201,7 @@ ws.on("connection", function (socket) {
 			return;
 		}
 
-		if (parse.role === "student") {
+		if (parse.role === "guest") {
 
 			if (parse.action === "regist") {
 
@@ -220,7 +220,7 @@ ws.on("connection", function (socket) {
 				}
 
 				if (seatIndex === -1) {
-					console.log("student rejected");
+					console.log("guest rejected");
 					var obj = {
 						role: "server",
 						action: "reject"
@@ -230,7 +230,7 @@ ws.on("connection", function (socket) {
 
 					return;
 				} else {
-					console.log("student acepted ");
+					console.log("guest acepted ");
 					console.log(seats);
 
 					seatFilled += 1;

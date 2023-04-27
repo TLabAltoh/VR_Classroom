@@ -101,7 +101,7 @@ public class TLabSyncClient : MonoBehaviour
 
             TLabSyncJson obj = new TLabSyncJson
             {
-                role = "student",
+                role = "guest",
                 action = "regist"
             };
 

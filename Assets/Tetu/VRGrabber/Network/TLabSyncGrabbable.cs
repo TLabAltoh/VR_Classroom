@@ -100,7 +100,7 @@ public class TLabSyncGrabbable : TLabVRGrabbable
 
         TLabSyncJson obj = new TLabSyncJson
         {
-            role = "student",
+            role = "",
             action = "force release",
             transform = new WebObjectInfo
             {
@@ -140,7 +140,7 @@ public class TLabSyncGrabbable : TLabVRGrabbable
     {
         TLabSyncJson obj = new TLabSyncJson
         {
-            role = "student",
+            role = "",
             action = "grabb lock",
             active = active,
             transform = new WebObjectInfo
@@ -170,7 +170,7 @@ public class TLabSyncGrabbable : TLabVRGrabbable
         {
             TLabSyncJson obj = new TLabSyncJson
             {
-                role = "student",
+                role = "",
                 action = "set gravity",
                 active = !grip,
                 transform = new WebObjectInfo
@@ -279,7 +279,7 @@ public class TLabSyncGrabbable : TLabVRGrabbable
 
         TLabSyncJson obj = new TLabSyncJson
         {
-            role = "student",
+            role = "",
             action = "sync transform",
 
             transform = new WebObjectInfo
