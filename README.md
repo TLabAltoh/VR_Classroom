@@ -10,6 +10,7 @@ Image is an example of a project using this asset
 - Unity 2021.3.23f1  
 - Oculus Integration (Install from asset store)  
 - ProBuilder (Install from asset store)  
+- node (v16.15.0)
 ## How to run locally
 1. For multiplayer execution, execute the following commands from the Server/SyncServer/server.js
 ```
