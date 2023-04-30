@@ -1,5 +1,5 @@
 # VR_Kensyu
-所属する研究室の研修プロジェクト
+Multiplayer using UnityVR and WebSockets
 
 # Screenshot
 Image is an example of a project using this asset  
