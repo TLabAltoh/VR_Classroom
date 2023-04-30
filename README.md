@@ -23,5 +23,5 @@ npm start
 ## Build Method
 Change the UnityEditor platform to Windows or Android and build a scene named "Host"
 
-### TLabVRGrabber
+## TLabVRGrabber
 [TLabVRGrabber can be used on its own at the following link](TLabVRGrabber can be used on its own at the following link)
