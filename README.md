@@ -11,7 +11,7 @@ Image is an example of a project using this asset
 - Oculus Integration (Install from asset store)  
 - ProBuilder (Install from asset store)  
 ## How to run locally
-1. For multiplayer execution, execute the following commands from the Server℠SyncServer
+1. For multiplayer execution, execute the following commands from the Server/SyncServer/server.js
 ```
 npm start
 ```
