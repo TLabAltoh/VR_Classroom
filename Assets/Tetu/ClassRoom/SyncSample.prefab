@@ -7074,7 +7074,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1992072394669093083}
   - component: {fileID: 1992072394669093082}
-  - component: {fileID: 1992072394669093085}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -7116,20 +7115,6 @@ MonoBehaviour:
   m_guestRTouch: {fileID: 4027050243225435791, guid: 0017addf5b996b9449dea0c8d4e2f764, type: 3}
   m_guestLTouch: {fileID: 2421129429844074263, guid: be237b8bedbab0b458a68c6ca8fdbef9, type: 3}
   m_guestHead: {fileID: 0}
---- !u!114 &1992072394669093085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1992072394669093087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 696a953b43638064388ba2999d628adf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_animInfos:
-  - animation: {fileID: 0}
 --- !u!1 &1992072394777886530
 GameObject:
   m_ObjectHideFlags: 0
