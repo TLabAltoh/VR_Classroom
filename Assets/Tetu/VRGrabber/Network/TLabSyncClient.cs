@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using NativeWebSocket;
 
@@ -31,26 +33,97 @@ public class WebObjectInfo
 }
 
 [System.Serializable]
+public class WebAnimInfo
+{
+    public string id;
+    public string parameter;
+    public int type;
+
+    public float floatVal;
+    public int intVal;
+    public bool boolVal;
+    public string triggerVal;
+}
+
+[System.Serializable]
 public class TLabSyncJson
 {
-    // .js code
-    //var obj = {
-    //    role: "host",
-    //    action: "update obj",
-    //    id: id,
-    //    position: position,
-    //    scale: scale,
-    //    rotation: rotation
-    //};
-
-    public string role;
-    public string action;
+    public int role;
+    public int action;
 
     public int seatIndex = -1;
 
     public bool active = false;
 
     public WebObjectInfo transform;
+
+    public WebAnimInfo animator;
+}
+
+public enum WebAnimValueType
+{
+    typeFloat,
+    typeInt,
+    typeBool,
+    typeTrigger
+}
+
+public enum WebRole
+{
+    server,
+    host,
+    guest
+}
+
+public enum WebAction
+{
+    regist,
+    regect,
+    acept,
+    guestDisconnect,
+    guestParticipation,
+    allocateGravity,
+    setGravity,
+    grabbLock,
+    forceRelease,
+    syncTransform,
+    syncAnim
+}
+
+public static class TLabSyncClientConst
+{
+    // Top
+    public const string COMMA       = ",";
+    public const string ROLE        = "\"role\":";
+    public const string ACTION      = "\"action\":";
+    public const string SEATINDEX   = "\"seatIndex\":";
+    public const string ACTIVE      = "\"active\":";
+    public const string TRANSFORM   = "\"transform\":";
+    public const string ANIMATOR    = "\"animator\":";
+
+    // Transform
+    public const string TRANSFORM_ID    = "\"id\":";
+    public const string RIGIDBODY       = "\"rigidbody\":";
+    public const string GRAVITY         = "\"gravity\":";
+    public const string POSITION        = "\"position\":";
+    public const string ROTATION        = "\"rotation\":";
+    public const string SCALE           = "\"scale\":";
+
+    // Animator
+    public const string ANIMATOR_ID     = "\"id\":";
+    public const string PARAMETER       = "\"parameter\":";
+    public const string TYPE            = "\"type\":";
+
+    public const string FLOATVAL        = "\"floatVal\":";
+    public const string INTVAL          = "\"intVal\":";
+    public const string BOOLVAL         = "\"boolVal\":";
+    public const string TRIGGERVAL      = "\"triggerVal\":";
+
+    // WebVector
+    public const string X = "\"x\":";
+    public const string Y = "\"y\":";
+    public const string Z = "\"z\":";
+    public const string W = "\"w\":";
 }
 
 public class TLabSyncClient : MonoBehaviour
@@ -70,17 +143,16 @@ public class TLabSyncClient : MonoBehaviour
     private WebSocket websocket;
     private int m_seatIndex = -1;
 
-    private TLabSyncGrabbable GetTargetGrabbable(string id)
-    {
-        GameObject target = GameObject.Find(id);
+    private Hashtable m_grabbables = new Hashtable();
+    private Hashtable m_animators = new Hashtable();
 
-        if (target != null)
+    private const string prefabName = "OVRControllerPrefab.";
+
+    public Hashtable Grabbables
+    {
+        get
         {
-            return target.GetComponent<TLabSyncGrabbable>();
-        }
-        else
-        {
-            return null;
+            return m_grabbables;
         }
     }
 
@@ -90,22 +162,11 @@ public class TLabSyncClient : MonoBehaviour
 
         websocket.OnOpen += () =>
         {
-            // .js code
-            //console.log("socket connected");
-            //var obj = {
-            //    role: "host",
-            //    action: "regist"
-            //};
-            //var json = JSON.stringify(obj);
-            //sock.send(json);
-
-            TLabSyncJson obj = new TLabSyncJson
-            {
-                role = "guest",
-                action = "regist"
-            };
-
-            string json = JsonUtility.ToJson(obj);
+            string json =
+                "{" +
+                    TLabSyncClientConst.ROLE + ((int)WebRole.guest).ToString() + TLabSyncClientConst.COMMA +
+                    TLabSyncClientConst.ACTION + ((int)WebAction.regist).ToString() +
+                "}";
 
             Debug.Log("tlabwebsocket: " + json);
 
@@ -126,15 +187,6 @@ public class TLabSyncClient : MonoBehaviour
 
         websocket.OnMessage += (bytes) =>
         {
-            // .js code
-            //if (obj.action === "update obj")
-            //{
-            //    var target = document.getElementById(obj.id);
-            //    target.setAttribute("position", obj.position);
-            //    target.setAttribute("scale", obj.scale);
-            //    target.setAttribute("rotation", obj.rotation);
-            //}
-
             string message = System.Text.Encoding.UTF8.GetString(bytes);
 
             TLabSyncJson obj = JsonUtility.FromJson<TLabSyncJson>(message);
@@ -147,86 +199,125 @@ public class TLabSyncClient : MonoBehaviour
             // Switch by role
             //
 
-            if(obj.role == "server")
+            if(obj.role == (int)WebRole.server)
             {
-                if (obj.action == "acept")
+                //
+                // from server
+                //
+
+                if (obj.action == (int)WebAction.acept)
                 {
                     m_seatIndex = obj.seatIndex;
 
                     if (m_leftHand != null && m_rightHand != null)
                     {
-                        m_rightHand.name = "OVRControllerPrefab." + obj.seatIndex.ToString() + ".RTouch";
-                        m_leftHand.name = "OVRControllerPrefab." + obj.seatIndex.ToString() + ".LTouch";
+                        m_rightHand.name = prefabName + obj.seatIndex.ToString() + ".RTouch";
+                        m_leftHand.name = prefabName + obj.seatIndex.ToString() + ".LTouch";
                         m_rightHand.GetComponent<TLabSyncGrabbable>().m_enableSync = true;
                         m_leftHand.GetComponent<TLabSyncGrabbable>().m_enableSync = true;
                     }
 
+                    //
+                    // TLabSyncGrabbable
+                    //
+
+                    TLabSyncGrabbable[] grabbables = FindObjectsOfType<TLabSyncGrabbable>();
+                    foreach (TLabSyncGrabbable grabbable in grabbables)
+                    {
+                        m_grabbables[grabbable.gameObject.name] = grabbable;
+                    }
+
                     if (m_registWorldData == true)
                     {
-                        TLabSyncGrabbable[] grabbables = FindObjectsOfType<TLabSyncGrabbable>();
                         foreach (TLabSyncGrabbable grabbable in grabbables)
                         {
                             grabbable.SyncTransform();
                         }
                     }
 
+                    //
+                    // Animator
+                    //
+
+                    Animator[] animators = FindObjectsOfType<Animator>();
+                    foreach (Animator animator in animators)
+                    {
+                        m_animators[animator.gameObject.name] = animator;
+                    }
+
                     return;
                 }
-                else if (obj.action == "guest disconnect")
+                else if (obj.action == (int)WebAction.guestDisconnect)
                 {
                     // now managed by prefab instancing
 
-                    GameObject guestRTouch = GameObject.Find("OVRControllerPrefab." + obj.seatIndex.ToString() + ".RTouch");
-                    GameObject guestLTouch = GameObject.Find("OVRControllerPrefab." + obj.seatIndex.ToString() + ".LTouch");
-                    GameObject guestHead = GameObject.Find("OVRControllerPrefab." + obj.seatIndex.ToString() + ".Head");
+                    string guestName = prefabName + obj.seatIndex.ToString();
+
+                    GameObject guestRTouch = GameObject.Find(guestName + ".RTouch");
+                    GameObject guestLTouch = GameObject.Find(guestName + ".LTouch");
+                    GameObject guestHead = GameObject.Find(guestName + ".Head");
 
                     if(guestRTouch != null)
                     {
-                        Object.Destroy(guestRTouch);
+                        m_grabbables.Remove(guestRTouch.name);
+                        UnityEngine.GameObject.Destroy(guestRTouch);
                     }
 
                     if (guestLTouch != null)
                     {
-                        Object.Destroy(guestLTouch);
+                        m_grabbables.Remove(guestLTouch.name);
+                        UnityEngine.GameObject.Destroy(guestLTouch);
                     }
 
                     if (guestHead != null)
                     {
-                        Object.Destroy(guestHead);
+                        m_grabbables.Remove(guestHead.name);
+                        UnityEngine.GameObject.Destroy(guestHead);
                     }
 
                     Debug.Log("tlabwebsocket: guest disconncted . " + obj.seatIndex.ToString());
 
                     return;
                 }
-                else if (obj.action == "guest participation")
+                else if (obj.action == (int)WebAction.guestParticipation)
                 {
-                    if(m_guestRTouch != null)
+                    Vector3 respownPos = new Vector3(0.0f, -0.5f, 0.0f);
+                    Quaternion respownRot = Quaternion.identity;
+
+                    string guestName = prefabName + obj.seatIndex.ToString();
+
+                    if (m_guestRTouch != null)
                     {
-                        GameObject guestRTouch = Instantiate(m_guestRTouch, new Vector3(0.0f, -0.5f, 0.0f), Quaternion.identity);
-                        guestRTouch.name = "OVRControllerPrefab." + obj.seatIndex.ToString() + ".RTouch";
+                        GameObject guestRTouch = Instantiate(m_guestRTouch, respownPos, respownRot);
+                        guestRTouch.name = guestName + ".RTouch";
+
+                        m_grabbables[guestRTouch.name] = guestRTouch.GetComponent<TLabSyncGrabbable>();
                     }
 
                     if(m_guestLTouch != null)
                     {
-                        GameObject guestLTouch = Instantiate(m_guestLTouch, new Vector3(0.0f, -0.5f, 0.0f), Quaternion.identity);
-                        guestLTouch.name = "OVRControllerPrefab." + obj.seatIndex.ToString() + ".LTouch";
+                        GameObject guestLTouch = Instantiate(m_guestLTouch, respownPos, respownRot);
+                        guestLTouch.name = guestName + ".LTouch";
+
+                        m_grabbables[guestLTouch.name] = guestLTouch.GetComponent<TLabSyncGrabbable>();
                     }
 
                     if(m_guestHead != null)
                     {
-                        GameObject guestHead = Instantiate(m_guestHead, new Vector3(0.0f, -0.5f, 0.0f), Quaternion.identity);
-                        guestHead.name = "OVRControllerPrefab." + obj.seatIndex.ToString() + ".Head";
+                        GameObject guestHead = Instantiate(m_guestHead, respownPos, respownRot);
+                        guestHead.name = guestName + ".Head";
+
+                        m_grabbables[guestHead.name] = guestHead.GetComponent<TLabSyncGrabbable>();
                     }
 
                     Debug.Log("tlabwebsokcet: guest participated . " + obj.seatIndex.ToString());
 
                     return;
                 }
-                else if (obj.action == "allocate gravity")
+                else if (obj.action == (int)WebAction.allocateGravity)
                 {
                     WebObjectInfo webTransform = obj.transform;
-                    TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform.id);
+                    TLabSyncGrabbable grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
                     if (grabbable != null)
                     {
                         grabbable.AllocateGravity(obj.active);
@@ -237,47 +328,65 @@ public class TLabSyncClient : MonoBehaviour
             }
 
             //
-            // Default
+            // default
             //
 
-            if (obj.action == "sync transform")
+            if(obj.action == (int)WebAction.syncAnim)
             {
+                //
+                // aniamtor is not null
+                //
+
+                WebAnimInfo webAnimator = obj.animator;
+                Animator animator = m_animators[webAnimator.id] as Animator;
+
+                if (animator == null)
+                    return;
+
+                if (webAnimator.type == (int)WebAnimValueType.typeFloat)
+                {
+                    animator.SetFloat(webAnimator.parameter, webAnimator.floatVal);
+                }
+                else if (webAnimator.type == (int)WebAnimValueType.typeInt)
+                {
+                    animator.SetInteger(webAnimator.parameter, webAnimator.intVal);
+                }
+                else if (webAnimator.type == (int)WebAnimValueType.typeBool)
+                {
+                    animator.SetBool(webAnimator.parameter, webAnimator.boolVal);
+                }
+                else if (webAnimator.type == (int)WebAnimValueType.typeTrigger)
+                {
+                    animator.SetTrigger(webAnimator.parameter);
+                }
+
+                return;
+            }
+            else
+            {
+                //
+                // transform is not null
+                //
+
                 WebObjectInfo webTransform = obj.transform;
-                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform.id);
-                if (grabbable != null)
+                TLabSyncGrabbable grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
+
+                if (grabbable == null)
+                    return;
+
+                if (obj.action == (int)WebAction.syncTransform)
                 {
                     grabbable.SyncRemote(webTransform);
                 }
-
-                return;
-            }
-            else if (obj.action == "set gravity")
-            {
-                WebObjectInfo webTransform = obj.transform;
-                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform.id);
-                if (grabbable != null)
+                else if (obj.action == (int)WebAction.setGravity)
                 {
                     grabbable.SetGravity(obj.active);
                 }
-
-                return;
-            }
-            else if (obj.action == "grabb lock")
-            {
-                WebObjectInfo webTransform = obj.transform;
-                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform.id);
-                if (grabbable != null)
+                else if (obj.action == (int)WebAction.grabbLock)
                 {
                     grabbable.GrabbLockRemote(obj.active);
                 }
-
-                return;
-            }
-            else if (obj.action == "force release")
-            {
-                WebObjectInfo webTransform = obj.transform;
-                TLabSyncGrabbable grabbable = GetTargetGrabbable(webTransform.id);
-                if (grabbable != null)
+                else if (obj.action == (int)WebAction.forceRelease)
                 {
                     grabbable.ForceReleaseRemote();
                 }
@@ -317,5 +426,4 @@ public class TLabSyncClient : MonoBehaviour
     {
         await websocket.Close();
     }
-
 }

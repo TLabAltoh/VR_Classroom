@@ -65,6 +65,45 @@ for(var i = 0; i < seatLength; i++){
 var syncObjects = { };
 var rbTable = {};
 
+//
+// Const values
+//
+
+//public enum WebRole {
+//	server,
+//	host,
+//	guest
+//}
+
+//public enum WebAction {
+//	regist,
+//	regect,
+//	acept,
+//	guestDisconnect,
+//	guestParticipation,
+//	allocateGravity,
+//	setGravity,
+//	grabbLock,
+//	forceRelease,
+//	syncTransform
+//}
+
+const SERVER = 0;
+const HOST = 1;
+const GUEST = 2;
+
+const REGIST = 0;
+const REGECT = 1;
+const ACEPT = 2;
+const GUESTDISCONNECT = 3;
+const GUESTPARTICIPATION = 4;
+const ALLOCATEGRAVITY = 5;
+const SETGRAVITY = 6;
+const GRABBLOCK = 7;
+const FORCERELEASE = 8;
+const SYNCTRANSFORM = 9;
+const SYNCANIM = 10;
+
 function allocateRigidbody(){
 	var syncObjValues = Object.values(syncObjects);
 
@@ -107,8 +146,8 @@ function allocateRigidbody(){
 		syncObjValues.forEach(function (value) {
 			// Set useGravity to Off for rigidbodies that you are not in charge of
 			var obj = {
-				role: "server",
-				action: "allocate gravity",
+				role: SERVER,
+				action: ALLOCATEGRAVITY,
 				active: (rbTable[value.transform.id] === j),
 				transform: {
 					id: value.transform.id
@@ -132,7 +171,7 @@ ws.on("connection", function (socket) {
 
 		const parse = JSON.parse(message);
 
-		if (parse.action === "sync transform") {
+		if (parse.action === SYNCTRANSFORM) {
 
 			//
 			// sync transfrom
@@ -148,7 +187,7 @@ ws.on("connection", function (socket) {
 			});
 
 			return;
-		} else if (parse.action == "set gravity") {
+		} else if (parse.action == SETGRAVITY) {
 
 			//
 			// set rigidbody gravity on / off
@@ -162,7 +201,7 @@ ws.on("connection", function (socket) {
 			}
 
 			return;
-		} else if (parse.action == "grabb lock") {
+		} else if (parse.action == GRABBLOCK) {
 
 			//
 			// Register/unregister objects grabbed by the player in the Grabb Table
@@ -185,7 +224,7 @@ ws.on("connection", function (socket) {
 			});
 
 			return;
-        } else if(parse.action == "force release"){
+		} else if (parse.action == FORCERELEASE) {
 			console.log("force release");
 
 			grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.id !== parse.transform.id });
@@ -199,11 +238,19 @@ ws.on("connection", function (socket) {
 			});
 
 			return;
-		}
+		} else if (parse.action == SYNCANIM) {
+			ws.clients.forEach(client => {
+				if (client != socket) {
+					client.send(message);
+				}
+			});
 
-		if (parse.role === "guest") {
+			return;
+        }
 
-			if (parse.action === "regist") {
+		if (parse.role === GUEST) {
+
+			if (parse.action === REGIST) {
 
 				//
 				// regist client to seat table
@@ -222,8 +269,8 @@ ws.on("connection", function (socket) {
 				if (seatIndex === -1) {
 					console.log("guest rejected");
 					var obj = {
-						role: "server",
-						action: "reject"
+						role: SERVER,
+						action: REGECT
 					};
 					var json = JSON.stringify(obj);
 					socket.send(json);
@@ -236,8 +283,8 @@ ws.on("connection", function (socket) {
 					seatFilled += 1;
 
 					var obj = {
-						role: "server",
-						action: "acept",
+						role: SERVER,
+						action: ACEPT,
 						seatIndex: seatIndex
 					};
 					var json = JSON.stringify(obj);
@@ -269,8 +316,8 @@ ws.on("connection", function (socket) {
 						var target = socketTable[index];
 						if(target !== null){
 							obj = {
-								role: "server",
-								action: "guest participation",
+								role: SERVER,
+								action: GUESTPARTICIPATION,
 								seatIndex: index
 							};
 							json = JSON.stringify(obj);
@@ -294,8 +341,8 @@ ws.on("connection", function (socket) {
 
 		if (seatIndex !== -1) {
 			var obj = {
-				"role": "server",
-				"action": "guest disconnect",
+				"role": SERVER,
+				"action": GUESTDISCONNECT,
 				"seatIndex": seatIndex
 			};
 			var json = JSON.stringify(obj);
@@ -306,8 +353,8 @@ ws.on("connection", function (socket) {
 
 					grabbTable[seatIndex].forEach(function (value) {
 						var obj1 = {
-							"role": "server",
-							"action": "set gravity",
+							"role": SERVER,
+							"action": SETGRAVITY,
 							"transform": value
 						};
 						var json1 = JSON.stringify(obj1);

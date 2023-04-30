@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class TLabSyncGrabbable : TLabVRGrabbable
@@ -11,6 +12,8 @@ public class TLabSyncGrabbable : TLabVRGrabbable
     private bool m_rbAllocated = true;
 
     // https://www.fenet.jp/dotnet/column/language/4836/
+
+    private StringBuilder builder = new StringBuilder();
 
     private bool CanRbSync
     {
@@ -100,8 +103,8 @@ public class TLabSyncGrabbable : TLabVRGrabbable
 
         TLabSyncJson obj = new TLabSyncJson
         {
-            role = "",
-            action = "force release",
+            role = (int)WebRole.guest,
+            action = (int)WebAction.forceRelease,
             transform = new WebObjectInfo
             {
                 id = this.gameObject.name
@@ -140,8 +143,8 @@ public class TLabSyncGrabbable : TLabVRGrabbable
     {
         TLabSyncJson obj = new TLabSyncJson
         {
-            role = "",
-            action = "grabb lock",
+            role = (int)WebRole.guest,
+            action = (int)WebAction.grabbLock,
             active = active,
             transform = new WebObjectInfo
             {
@@ -170,8 +173,8 @@ public class TLabSyncGrabbable : TLabVRGrabbable
         {
             TLabSyncJson obj = new TLabSyncJson
             {
-                role = "",
-                action = "set gravity",
+                role = (int)WebRole.guest,
+                action = (int)WebAction.setGravity,
                 active = !grip,
                 transform = new WebObjectInfo
                 {
@@ -277,41 +280,122 @@ public class TLabSyncGrabbable : TLabVRGrabbable
         if (m_enableSync == false)
             return;
 
-        TLabSyncJson obj = new TLabSyncJson
-        {
-            role = "",
-            action = "sync transform",
+        // Optimized to reduce the amount of data
 
-            transform = new WebObjectInfo
-            {
-                id = this.gameObject.name,
+        builder.Clear();
 
-                rigidbody = m_useRigidbody,
-                gravity = m_useGravity,
+        builder.Append("{");
+            builder.Append(TLabSyncClientConst.ROLE);
+            builder.Append(((int)WebRole.guest).ToString());
+            builder.Append(TLabSyncClientConst.COMMA);
+            
+            builder.Append(TLabSyncClientConst.ACTION);
+            builder.Append(((int)WebAction.syncTransform).ToString());
+            builder.Append(TLabSyncClientConst.COMMA);
+            
+            builder.Append(TLabSyncClientConst.TRANSFORM);
+            builder.Append("{");
+                builder.Append(TLabSyncClientConst.TRANSFORM_ID);
+                builder.Append("\"");
+                builder.Append(this.gameObject.name);
+                builder.Append("\"");
+                builder.Append(TLabSyncClientConst.COMMA);
+                
+                builder.Append(TLabSyncClientConst.RIGIDBODY);
+                builder.Append((m_useRigidbody ? "true" : "false"));
+                builder.Append(TLabSyncClientConst.COMMA);
 
-                position = new WebVector3
-                {
-                    x = this.transform.position.x,
-                    y = this.transform.position.y,
-                    z = this.transform.position.z
-                },
-                rotation = new WebVector4
-                {
-                    x = this.transform.rotation.x,
-                    y = this.transform.rotation.y,
-                    z = this.transform.rotation.z,
-                    w = this.transform.rotation.w,
-                },
-                scale = new WebVector3
-                {
-                    x = this.transform.localScale.x,
-                    y = this.transform.localScale.y,
-                    z = this.transform.localScale.z
-                }
-            }
-        };
+                builder.Append(TLabSyncClientConst.GRAVITY);
+                builder.Append((m_useGravity ? "true" : "false"));
+                builder.Append(TLabSyncClientConst.COMMA);
 
-        string json = JsonUtility.ToJson(obj);
+                builder.Append(TLabSyncClientConst.POSITION);
+                builder.Append("{");
+                    builder.Append(TLabSyncClientConst.X);
+                    builder.Append((this.transform.position.x).ToString());
+                    builder.Append(TLabSyncClientConst.COMMA);
+
+                    builder.Append(TLabSyncClientConst.Y);
+                    builder.Append((this.transform.position.y).ToString());
+                    builder.Append(TLabSyncClientConst.COMMA);
+
+                    builder.Append(TLabSyncClientConst.Z);
+                    builder.Append((this.transform.position.z).ToString());
+                builder.Append("}");
+                builder.Append(TLabSyncClientConst.COMMA);
+
+                builder.Append(TLabSyncClientConst.ROTATION);
+                builder.Append("{");
+                    builder.Append(TLabSyncClientConst.X);
+                    builder.Append((this.transform.rotation.x).ToString());
+                    builder.Append(TLabSyncClientConst.COMMA);
+
+                    builder.Append(TLabSyncClientConst.Y);
+                    builder.Append((this.transform.rotation.y).ToString());
+                    builder.Append(TLabSyncClientConst.COMMA);
+
+                    builder.Append(TLabSyncClientConst.Z);
+                    builder.Append((this.transform.rotation.z).ToString());
+                    builder.Append(TLabSyncClientConst.COMMA);
+
+                    builder.Append(TLabSyncClientConst.W);
+                    builder.Append((this.transform.rotation.w).ToString());
+                builder.Append("}");
+                builder.Append(TLabSyncClientConst.COMMA);
+
+                builder.Append(TLabSyncClientConst.SCALE);
+                builder.Append("{");
+                    builder.Append(TLabSyncClientConst.X);
+                    builder.Append((this.transform.localScale.x).ToString());
+                    builder.Append(TLabSyncClientConst.COMMA);
+
+                    builder.Append(TLabSyncClientConst.Y);
+                    builder.Append((this.transform.localScale.y).ToString());
+                    builder.Append(TLabSyncClientConst.COMMA);
+
+                    builder.Append(TLabSyncClientConst.Z);
+                    builder.Append((this.transform.localScale.z).ToString());
+                builder.Append("}");
+            builder.Append("}");
+        builder.Append("}");
+
+        string json = builder.ToString();
+
+        //TLabSyncJson obj = new TLabSyncJson
+        //{
+        //    role = (int)WebRole.guest,
+        //    action = (int)WebAction.syncTransform,
+
+        //    transform = new WebObjectInfo
+        //    {
+        //        id = this.gameObject.name,
+
+        //        rigidbody = m_useRigidbody,
+        //        gravity = m_useGravity,
+
+        //        position = new WebVector3
+        //        {
+        //            x = this.transform.position.x,
+        //            y = this.transform.position.y,
+        //            z = this.transform.position.z
+        //        },
+        //        rotation = new WebVector4
+        //        {
+        //            x = this.transform.rotation.x,
+        //            y = this.transform.rotation.y,
+        //            z = this.transform.rotation.z,
+        //            w = this.transform.rotation.w,
+        //        },
+        //        scale = new WebVector3
+        //        {
+        //            x = this.transform.localScale.x,
+        //            y = this.transform.localScale.y,
+        //            z = this.transform.localScale.z
+        //        }
+        //    }
+        //};
+
+        //string json = JsonUtility.ToJson(obj);
 
         TLabSyncClient.Instalce.SendWsMessage(json);
     }

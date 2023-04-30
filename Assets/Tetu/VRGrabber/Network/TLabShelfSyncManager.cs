@@ -3,23 +3,9 @@ using UnityEngine;
 
 public class TLabShelfSyncManager : TLabShelfManager
 {
-    private TLabSyncGrabbable GetTargetGrabbable(string targetName)
-    {
-        GameObject target = GameObject.Find(targetName);
-
-        if (target != null)
-        {
-            return target.GetComponent<TLabSyncGrabbable>();
-        }
-        else
-        {
-            return null;
-        }
-    }
-
     protected override IEnumerator FadeIn(TLabShelfObjInfo shelfObjInfo, Transform target)
     {
-        TLabSyncGrabbable grabbable = GetTargetGrabbable(shelfObjInfo.obj.gameObject.name);
+        TLabSyncGrabbable grabbable = TLabSyncClient.Instalce.Grabbables[shelfObjInfo.obj.gameObject.name] as TLabSyncGrabbable;
         if (grabbable != null)
         {
             grabbable.ForceRelease();
@@ -65,7 +51,7 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     protected override IEnumerator FadeOut(TLabShelfObjInfo shelfObjInfo, Transform target)
     {
-        TLabSyncGrabbable grabbable = GetTargetGrabbable(shelfObjInfo.obj.gameObject.name);
+        TLabSyncGrabbable grabbable = TLabSyncClient.Instalce.Grabbables[shelfObjInfo.obj.gameObject.name] as TLabSyncGrabbable;
         if (grabbable != null)
         {
             grabbable.ForceRelease();
@@ -152,15 +138,12 @@ public class TLabShelfSyncManager : TLabShelfManager
 
         for (int i = 0; i < m_shelfObjInfos.Length; i++)
         {
-            TLabSyncGrabbable grabbable = GetTargetGrabbable(m_shelfObjInfos[i].obj.gameObject.name);
-            if (grabbable != null)
+            TLabSyncGrabbable grabbable = TLabSyncClient.Instalce.Grabbables[m_shelfObjInfos[i].obj.gameObject.name] as TLabSyncGrabbable;
+            if (grabbable != null && grabbable.UseGravity == true)
             {
-                if(grabbable.UseGravity == true)
-                {
-                    Debug.LogError("tlabshelfsyncmanager: Objects with UseGravity enabled cannot be used");
-                    m_shelfObjInfos[i] = null;
-                    return;
-                }
+                Debug.LogError("tlabshelfsyncmanager: Objects with UseGravity enabled cannot be used");
+                m_shelfObjInfos[i] = null;
+                return;
             }
         }
     }
