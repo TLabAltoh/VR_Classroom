@@ -9,13 +9,16 @@ Image is an example of a project using this asset
 ## Prerequisites
 - Unity 2021.3.23f1  
 - Oculus Integration (Install from asset store)  
-## Installing
-Clone the repository to any directory under Assets in the Unity project that will use the assets with the following command  
+- ProBuilder (Install from asset store)  
+## How to run locally
+1. For multiplayer execution, execute the following commands from the Server℠SyncServer
 ```
-git clone https://github.com/TLabAltoh/TLabVRGrabber.git
+npm start
 ```
-If you are adding to an existing git project, use the following command instead
-```
-git submodule add https://github.com/TLabAltoh/TLabVRGrabber.git
-```
-## 
+2. Launch the game from UnityEditor or the built file
+## How to play
+- IndexTrigger: Select UI
+- handTrigger: Manipulating objects in the scene (grip, expand)
+
+# Build Method
+Change the UnityEditor platform to Windows or Android and build a scene named "Host
