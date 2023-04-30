@@ -20,5 +20,5 @@ npm start
 - IndexTrigger: Select UI
 - handTrigger: Manipulating objects in the scene (grip, expand)
 
-# Build Method
+## Build Method
 Change the UnityEditor platform to Windows or Android and build a scene named "Host
