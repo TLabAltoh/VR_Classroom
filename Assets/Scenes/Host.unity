@@ -5420,12 +5420,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3027792354540167659, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+      propertyPath: m_gripAxis
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027792354540167659, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+      propertyPath: m_gripButton
+      value: 16384
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027792354540167659, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_laserPointer
       value: 
       objectReference: {fileID: 1691692990}
     - target: {fileID: 3027792354540167659, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_layerMask.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027792355451918128, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+      propertyPath: m_gripButton
+      value: 16384
       objectReference: {fileID: 0}
     - target: {fileID: 3027792355451918128, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_laserPointer
