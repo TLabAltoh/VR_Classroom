@@ -27,4 +27,5 @@ npm start
 Change the UnityEditor platform to Windows or Android and build a scene named "Host"
 
 ## TLabVRGrabber
-[TLabVRGrabber can be used on its own at the following link](https://github.com/TLabAltoh/TLabVRGrabber)
+[TLabVRGrabber can be used on its own at the following link](https://github.com/TLabAltoh/TLabVRGrabber)  
+[TLabVRPlayerController can be used on its own at the followint link](https://github.com/TLabAltoh/TLabVRPlayerController)
