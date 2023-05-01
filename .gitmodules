@@ -1,3 +1,6 @@
 [submodule "Assets/Tetu/TLabVRGrabber"]
 	path = Assets/TLab/TLabVRGrabber
 	url = https://github.com/TLabAltoh/TLabVRGrabber.git
+[submodule "Assets/TLab/TLabVRPlayerController"]
+	path = Assets/TLab/TLabVRPlayerController
+	url = https://github.com/TLabAltoh/TLabVRPlayerController.git
