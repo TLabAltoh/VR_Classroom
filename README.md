@@ -29,4 +29,5 @@ Change the UnityEditor platform to Windows or Android and build a scene named "H
 
 ## TLabVRGrabber
 [TLabVRGrabber can be used on its own at the following link](https://github.com/TLabAltoh/TLabVRGrabber)  
+## TLabPlayerController
 [TLabVRPlayerController can be used on its own at the followint link](https://github.com/TLabAltoh/TLabVRPlayerController)
