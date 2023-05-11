@@ -43,3 +43,6 @@ Change the UnityEditor platform to Windows or Android and build a scene named "H
 ## Link
 [TLabVRGrabber can be used on its own at the following link](https://github.com/TLabAltoh/TLabVRGrabber)  
 [TLabVRPlayerController can be used on its own at the followint link](https://github.com/TLabAltoh/TLabVRPlayerController)
+
+## TODO
+- Supports voice chat
