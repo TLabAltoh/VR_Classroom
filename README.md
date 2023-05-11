@@ -14,6 +14,19 @@ Image is an example of a project using this asset
 - [NativeWebsocket](https://github.com/endel/NativeWebSocket)
 ### How to run locally  
 ![VRGrabber Capture 1](https://user-images.githubusercontent.com/121733943/235403254-baff2580-169c-4595-aeab-efb95d4054e1.png)
+### Installing
+Clone the repository to any directory with the following command  
+```
+git clone https://github.com/TLabAltoh/VR_Kensyu.git
+```
+Execute the following commands in the cloned project (install necessary submodules)
+
+```
+git submodule init
+git submodule update
+```
+
+### Set Up
 1. Specify the address of the PC on which to start the server (port 5000)
 2. For multiplayer execution, execute the following commands from the Server/SyncServer/server.js
 ```
