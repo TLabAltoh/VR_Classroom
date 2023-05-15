@@ -4582,7 +4582,7 @@ PrefabInstance:
       objectReference: {fileID: 1339136974}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.11.10:5000
+      value: ws://192.168.11.12:5000
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394852758912, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
