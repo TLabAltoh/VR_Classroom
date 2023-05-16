@@ -257,7 +257,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4544604219346837580}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
         m_MethodName: PutAway
         m_Mode: 3
@@ -278,7 +278,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 604577750376105287}
-  - component: {fileID: 4544604219346837580}
+  - component: {fileID: 5755384349333693403}
   m_Layer: 0
   m_Name: Shelf
   m_TagString: Untagged
@@ -304,7 +304,7 @@ Transform:
   m_Father: {fileID: 1992072394535383979}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4544604219346837580
+--- !u!114 &5755384349333693403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -313,48 +313,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 726154496194920985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2517901ae16ae714dbd205775e2668e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 1094d7c013e9d7e40af7998f48b411f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_shelfObjInfos:
-  - obj: {fileID: 1992072393566755561}
-    speed: 10
-  - obj: {fileID: 1992072394514737793}
-    speed: 10
-  - obj: {fileID: 4375575101123163892}
-    speed: 10
-  - obj: {fileID: 5086492557231371446}
-    speed: 10
-  - obj: {fileID: 1586186694590209264}
-    speed: 10
-  - obj: {fileID: 3744005973629440436}
-    speed: 10
-  - obj: {fileID: 4256962613915889184}
-    speed: 10
-  - obj: {fileID: 6290352835197654581}
-    speed: 10
-  m_tasks:
-  - objStart: 2
-    anchorStart: 1
-    loop: 3
-    action: 0
-  - objStart: 2
-    anchorStart: 1
-    loop: 3
-    action: 1
-  - objStart: 5
-    anchorStart: 1
-    loop: 3
-    action: 0
-  - objStart: 5
-    anchorStart: 1
-    loop: 3
-    action: 1
+  m_shelfObjInfos: []
+  m_tasks: []
   m_anchors:
-  - {fileID: 1992072393675170862}
-  - {fileID: 6333577597745751774}
-  - {fileID: 6441956610176949711}
-  - {fileID: 8617865302753864229}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &954131682228171617
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +445,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4544604219346837580}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
         m_MethodName: TakeOut
         m_Mode: 3
@@ -611,7 +579,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4544604219346837580}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
         m_MethodName: PutAway
         m_Mode: 3
@@ -7933,7 +7901,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4544604219346837580}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
         m_MethodName: LoopTask
         m_Mode: 3
@@ -15178,7 +15146,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4544604219346837580}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
         m_MethodName: LoopTask
         m_Mode: 3
@@ -15776,7 +15744,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4544604219346837580}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
         m_MethodName: TakeOut
         m_Mode: 3
@@ -16973,7 +16941,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4544604219346837580}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
         m_MethodName: LoopTask
         m_Mode: 3
@@ -17977,7 +17945,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4544604219346837580}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
         m_MethodName: LoopTask
         m_Mode: 3
