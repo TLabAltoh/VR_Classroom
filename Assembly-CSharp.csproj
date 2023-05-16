@@ -238,7 +238,6 @@
     <Compile Include="Assets\TLab\TLabVRGrabber\TLabVRGrabbable.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Usage\HandsTrainExample\Scripts\TrackSegment.cs" />
     <Compile Include="Assets\TLab\TLabVRGrabber\TLabVRTrackingHand.cs" />
-    <Compile Include="Assets\TLab\TLabVRGrabber\TLabVRTrackingHandVisibility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Oculus\SampleFramework\Usage\HandsTrainExample\Shaders\XingLightShader.shader" />
