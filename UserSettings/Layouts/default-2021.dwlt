@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 43
+  controlID: 50
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 44
+  controlID: 106
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 45
+  controlID: 107
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -189,8 +189,8 @@ MonoBehaviour:
     y: 0
     width: 355
     height: 544
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -270,8 +270,8 @@ MonoBehaviour:
     y: 0
     width: 444
     height: 947
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_VSyncEnabled: 0
   m_Gizmos: 0
   m_Stats: 0
-  m_SelectedSizes: 0c000000000000000000000017000000000000000000000000000000000000000000000000000000
+  m_SelectedSizes: 07000000000000000000000012000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
@@ -402,23 +402,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: aa6e0000
-      m_LastClickedID: 28330
-      m_ExpandedIDs: 8e60ffff2efbffff066f00000c6f00000e6f0000126f0000c86f0000ca6f0000fc6f0000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: bcfbfdffb4fefdffbefefdffb601feffc001feffdc01feffea01feffec01feffe49afeffda9dfeffe49dfeffdaa0feffe4a0feff00a1feff0ea1feff10a1feffb2adfeffb6adfeffe2b3feff32befeff86c8feff4ca7ffff10b8ffff66faffff4c7300005273000054730000587300001e740000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: OVRHandPrefab
+        m_OriginalName: OVRHandPrefab
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -1436
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 8}
       m_SearchString: 
@@ -687,9 +687,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -2.6292508, y: -0.6796472, z: 5.5715113}
+    m_Target: {x: -10.526627, y: -1.72014, z: 3.6032915}
     speed: 2
-    m_Value: {x: -2.6292508, y: -0.6796472, z: 5.5715113}
+    m_Value: {x: -10.526627, y: -1.72014, z: 3.6032915}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -736,13 +736,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.15666826, y: -0.07781355, z: 0.012396731, w: 0.984518}
+    m_Target: {x: -0.11514289, y: 0.6312169, z: -0.09575915, w: -0.7611408}
     speed: 2
-    m_Value: {x: 0.15666598, y: -0.07781242, z: 0.012396551, w: 0.9845037}
+    m_Value: {x: -0.11513151, y: 0.63115454, z: -0.09574969, w: -0.7610656}
   m_Size:
-    m_Target: 4.142575
+    m_Target: 7.6759768
     speed: 2
-    m_Value: 4.3377748
+    m_Value: 7.6759768
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -891,22 +891,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/TLab/TLabVRGrabber
+    - Assets/ClassRoom/GuestPrefab
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/TLab/TLabVRGrabber
+  - Assets/ClassRoom/GuestPrefab
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: C:\Users\no name boy\source\GameDev\TLabUnityProject\VR_Kensyu
+  m_LastProjectPath: C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 139}
-    m_SelectedIDs: 847b0000
-    m_LastClickedID: 31620
-    m_ExpandedIDs: 000000005c7b00005e7b0000607b0000627b0000647b0000667b0000687b0000787b0000847b00006c7f000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: 547e0000
+    m_LastClickedID: 32340
+    m_ExpandedIDs: 00000000427e0000447e0000487e00004a7e00004c7e00004e7e00006a7e000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -934,7 +934,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000005c7b00005e7b0000607b0000627b0000647b0000667b0000687b0000
+    m_ExpandedIDs: 00000000427e0000447e0000467e0000487e00004a7e00004c7e00004e7e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -961,7 +961,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

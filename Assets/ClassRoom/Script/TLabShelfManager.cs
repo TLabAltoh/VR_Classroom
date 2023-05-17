@@ -119,6 +119,7 @@ public class TLabShelfManager : MonoBehaviour
         for(int i = 0; i < m_shelfObjInfos.Length; i++)
         {
             m_shelfObjInfos[i].start = new GameObject();
+            m_shelfObjInfos[i].start.name = m_shelfObjInfos[i].obj.gameObject.name + " ResetAnchor";
             m_shelfObjInfos[i].start.transform.position = m_shelfObjInfos[i].obj.transform.position;
             m_shelfObjInfos[i].start.transform.rotation = m_shelfObjInfos[i].obj.transform.rotation;
             m_shelfObjInfos[i].start.transform.localScale = m_shelfObjInfos[i].obj.transform.localScale;
