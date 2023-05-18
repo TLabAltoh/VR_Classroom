@@ -4,9 +4,7 @@ const websocket = require("ws");
 const port = 5000;
 const bar = "----------------";
 
-//
-// Start HTTPS Server
-//
+// #region Create HTTPS Server
 
 /*
 const https = require("https");
@@ -24,9 +22,9 @@ const server = https.createServer(options, (req, res) => {
 });
 */
 
-//
-// Start HTTP Server
-//
+// #endregion Create HTTPS Server
+
+// #region Create HTTP Server
 
 const http = require("http");
 const server = http.createServer((req, res) => {
@@ -35,6 +33,8 @@ const server = http.createServer((req, res) => {
 	res.end();
 });
 
+
+
 console.log("\ncreate server " + bar);
 
 server.listen(port);
@@ -42,6 +42,8 @@ server.listen(port);
 let ws = new websocket.Server({server: server});
 
 console.log("\nserver start " + bar);
+
+// #endregion Create HTTP Server
 
 //
 // Player Data
@@ -62,14 +64,20 @@ for(var i = 0; i < seatLength; i++){
 // Sync Objects
 //
 
+// list of updated transforms
 var syncObjects = {};
+
+// List of updated animations
+var syncAnims = {};
+
+// A dictionary of players responsible for computing rigidbody gravity per object
 var rbTable = {};
-var gravityTable = {};
 
 //
 // Const values
 //
 
+// #region Definition on the c# side
 //public enum WebRole {
 //	server,
 //	host,
@@ -88,6 +96,7 @@ var gravityTable = {};
 //	forceRelease,
 //	syncTransform
 //}
+// #endregion Definition on the c# side
 
 const SERVER = 0;
 const HOST = 1;
@@ -105,11 +114,13 @@ const FORCERELEASE = 8;
 const SYNCTRANSFORM = 9;
 const SYNCANIM = 10;
 
-// Reassign rigidbody with current member
+// #region Reassign rigidbody with current member
 function allocateRigidbody(){
 	var syncObjValues = Object.values(syncObjects);
 
 	// player existence check
+
+	console.log("start allocate rigidbody");
 
 	var check = false;
 	for (var j = 0; j < seatLength; j++)
@@ -122,6 +133,7 @@ function allocateRigidbody(){
 	var seatIndex = 0;
 
 	syncObjValues.forEach(function (value) {
+		console.log("check1");
 		if (value.transform.rigidbody === true && value.transform.gravity === true) {
 			while (true) {
 				// Check if someone is in the seat
@@ -137,12 +149,18 @@ function allocateRigidbody(){
 		}
 	});
 
-	for (seatIndex = 0; j < seatLength; seatIndex++) {
+	console.log("check1.2" + " " + seatIndex);
+
+	for (seatIndex = 0; seatIndex < seatLength; seatIndex++) {
+
+		console.log("check1.5");
+
 		// Check if someone is in the seat
 		if (seats[seatIndex] === false)
 			continue;
 
 		syncObjValues.forEach(function (value) {
+			console.log("check2");
 			// Set useGravity to Off for rigidbodies that you are not in charge of
 			var obj = {
 				role: SERVER,
@@ -153,23 +171,13 @@ function allocateRigidbody(){
 				}
 			};
 			var json = JSON.stringify(obj);
-			socketTable[j].send(json);
+			socketTable[seatIndex].send(json);
+
+			console.log("allocate rigidbody");
 		});
-
-		var obj = {
-			role: SERVER,
-			action: ALLOCATEGRAVITY,
-			active: (rbTable[value.transform.id] === seatIndex),
-			transform: {
-				id: value.transform.id
-			}
-		};
-		var json = JSON.stringify(obj);
-		socketTable[j].send(json);
 	}
-
-	// Turn on all setgrabity on the player side and turn off only the object you are grabbing
 }
+// #endregion Reassign rigidbody with current member
 
 ws.on("connection", function (socket) {
 	console.log("\nclient connected " + bar);
@@ -208,7 +216,6 @@ ws.on("connection", function (socket) {
 
 			var targetIndex = rbTable[parse.transform.id];
 			if (targetIndex !== seatIndex && targetIndex !== undefined) {
-				gravityTable[parse.transform.id] = message;
 				socketTable[targetIndex].send(message);
             }
 
@@ -235,6 +242,11 @@ ws.on("connection", function (socket) {
 
 			return;
 		} else if (parse.action == FORCERELEASE) {
+
+			//
+			// force release object from player
+			//
+
 			console.log("force release");
 
 			grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.id !== parse.transform.id });
@@ -248,7 +260,14 @@ ws.on("connection", function (socket) {
 
 			return;
 		} else if (parse.action == SYNCANIM) {
+
+			//
+			// sync animation
+			//
+
 			console.log("sync animation");
+
+			syncAnims[parse.animator.id] = parse;
 
 			ws.clients.forEach(client => {
 				if (client != socket)
@@ -259,11 +278,12 @@ ws.on("connection", function (socket) {
         }
 
 		if (parse.action === REGIST) {
+			//
+			// regist client to seat table
+			//
 			if (parse.role === GUEST) {
 
-				//
-				// regist client to seat table
-				//
+				// #region Guest participation approval process
 
 				console.log("\nreceived a request to join " + bar);
 
@@ -311,9 +331,15 @@ ws.on("connection", function (socket) {
 					delete syncObjects["OVRControllerPrefab." + seatIndex.toString() + ".LTouch"];
 
 					var syncObjValues = Object.values(syncObjects);
+					var syncAnimValues = Object.values(syncAnims);
 
 					// https://pisuke-code.com/javascript-dictionary-foreach/
 					syncObjValues.forEach(function (value) {
+						json = JSON.stringify(value);
+						socket.send(json);
+					});
+
+					syncAnimValues.forEach(function (value) {
 						json = JSON.stringify(value);
 						socket.send(json);
 					});
@@ -343,7 +369,13 @@ ws.on("connection", function (socket) {
 
 					return;
 				}
+
+				// #endregion Guest participation approval process
+
 			} else if (parse.role === HOST) {
+
+				// #region Host participation approval process
+
 				if (seats[0] === true) {
 					console.log("declined to participate");
 
@@ -383,9 +415,15 @@ ws.on("connection", function (socket) {
 					delete syncObjects["OVRControllerPrefab." + seatIndex.toString() + ".LTouch"];
 
 					var syncObjValues = Object.values(syncObjects);
+					var syncAnimValues = Object.values(syncAnims);
 
 					// https://pisuke-code.com/javascript-dictionary-foreach/
 					syncObjValues.forEach(function (value) {
+						json = JSON.stringify(value);
+						socket.send(json);
+					});
+
+					syncAnimValues.forEach(function (value) {
 						json = JSON.stringify(value);
 						socket.send(json);
 					});
@@ -415,6 +453,8 @@ ws.on("connection", function (socket) {
 
 					return;
 				}
+
+				// #endregion Host participation approval process
             }
         }
 	});
