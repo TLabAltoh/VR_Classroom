@@ -133,7 +133,6 @@ function allocateRigidbody(){
 	var seatIndex = 0;
 
 	syncObjValues.forEach(function (value) {
-		console.log("check1");
 		if (value.transform.rigidbody === true && value.transform.gravity === true) {
 			while (true) {
 				// Check if someone is in the seat
@@ -149,18 +148,12 @@ function allocateRigidbody(){
 		}
 	});
 
-	console.log("check1.2" + " " + seatIndex);
-
 	for (seatIndex = 0; seatIndex < seatLength; seatIndex++) {
-
-		console.log("check1.5");
-
 		// Check if someone is in the seat
 		if (seats[seatIndex] === false)
 			continue;
 
 		syncObjValues.forEach(function (value) {
-			console.log("check2");
 			// Set useGravity to Off for rigidbodies that you are not in charge of
 			var obj = {
 				role: SERVER,
@@ -172,8 +165,6 @@ function allocateRigidbody(){
 			};
 			var json = JSON.stringify(obj);
 			socketTable[seatIndex].send(json);
-
-			console.log("allocate rigidbody");
 		});
 	}
 }
