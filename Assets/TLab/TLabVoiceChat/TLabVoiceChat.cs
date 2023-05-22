@@ -16,7 +16,9 @@ public class TLabVoiceChat : MonoBehaviour
         m_microphoneSource = gameObject.AddComponent<AudioSource>();
 
         if (m_microphoneClip == null)
-            Debug.Log("Failed to recording");
+            Debug.Log("TLabVoiceChat: Failed to recording");
+        else
+            Debug.Log("TLabVoiceChat: Start recording");
     }
 
     void Update()

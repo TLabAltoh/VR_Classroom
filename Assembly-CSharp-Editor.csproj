@@ -65,6 +65,7 @@
     <Compile Include="Assets\Oculus\SampleFramework\Core\Video\Editor\AndroidVideoEditorUtil.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Core\Locomotion\Scripts\Editor\TeleportTransitionWarpInspector.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Core\Video\Editor\MediaPlayerImageEditor.cs" />
+    <Compile Include="Assets\TLab\TLabVRGrabber\Editor\TLabInspectorTransform.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -1,13 +1,10 @@
 # VR_Kensyu
-Multiplayer using UnityVR and WebSockets  
+Multiplayer Sample using UnityVR and WebSockets  
 Hand tracking support
 
 ## Screenshot
-Image is an example of a project using this asset  
 ![TLabGrabbable Capture Trim](https://user-images.githubusercontent.com/121733943/235363804-01b50f49-674e-40d4-a11e-39ed3ced5600.gif)  
-Supports manipulation of objects by hand tracking  
 ![HandTracking](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/7757588c-9163-46dc-94c9-60a8e0c715e4)
-
 
 ## Getting Started
 ### Prerequisites
@@ -15,6 +12,7 @@ Supports manipulation of objects by hand tracking
 - Oculus Integration (Install from asset store)  
 - ProBuilder (Install from asset store)  
 - node (v16.15.0)
+- Android Logcat
 - [NativeWebsocket](https://github.com/endel/NativeWebSocket)
 ### How to run locally  
 ![VRGrabber Capture 1](https://user-images.githubusercontent.com/121733943/235403254-baff2580-169c-4595-aeab-efb95d4054e1.png)

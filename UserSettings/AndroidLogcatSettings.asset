@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "1WMHHA6GVR2205",
+    "m_SelectedDeviceId": "1WMHHA494Z2021",
     "m_SelectedPackage": {
-        "deviceId": "1WMHHA6GVR2205",
-        "name": "com.TLabAltoh.VR_Kensyu",
-        "processId": 19906,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -42,6 +42,12 @@
             "deviceId": "1WMHHA6GVR2205",
             "name": "com.TLabAltoh.VR_Kensyu",
             "processId": 19906,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHHA494Z2021",
+            "name": "com.oculus.shellenv",
+            "processId": 1910,
             "exited": false
         }
     ],
