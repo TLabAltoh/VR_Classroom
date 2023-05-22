@@ -4,5 +4,7 @@
     },
     "scripts": {
         "start": "node server.js"
-    }
+    },
+    "author": "tlabaltoh",
+    "license": "MIT"
 }

@@ -317,9 +317,9 @@ ws.on("connection", function (socket) {
 
 					// Remove transforms for controllers that already exist
 
-					delete syncObjects["OVRControllerPrefab"];
-					delete syncObjects["OVRControllerPrefab." + seatIndex.toString() + ".RTouch"];
-					delete syncObjects["OVRControllerPrefab." + seatIndex.toString() + ".LTouch"];
+					delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".RTouch"];
+					delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".LTouch"];
+					delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".Head"];
 
 					var syncObjValues = Object.values(syncObjects);
 					var syncAnimValues = Object.values(syncAnims);
@@ -401,9 +401,9 @@ ws.on("connection", function (socket) {
 
 					// Remove transforms for controllers that already exist
 
-					delete syncObjects["OVRControllerPrefab"];
-					delete syncObjects["OVRControllerPrefab." + seatIndex.toString() + ".RTouch"];
-					delete syncObjects["OVRControllerPrefab." + seatIndex.toString() + ".LTouch"];
+					delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".RTouch"];
+					delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".LTouch"];
+					delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".Head"];
 
 					var syncObjValues = Object.values(syncObjects);
 					var syncAnimValues = Object.values(syncAnims);
