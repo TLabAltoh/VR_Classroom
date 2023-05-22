@@ -4,7 +4,7 @@ Hand tracking support
 
 ## Screenshot
 ![TLabGrabbable Capture Trim](https://user-images.githubusercontent.com/121733943/235363804-01b50f49-674e-40d4-a11e-39ed3ced5600.gif)  
-![HandTracking](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/7757588c-9163-46dc-94c9-60a8e0c715e4)
+![TLabGrabbable HandTracking Capture](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/73a9d223-436b-489b-9d47-78a38f38c70f)
 
 ## Getting Started
 ### Prerequisites
@@ -13,11 +13,7 @@ Hand tracking support
 - ProBuilder (Install from asset store)  
 - node (v16.15.0)
 - Android Logcat
-- [NativeWebsocket](https://github.com/endel/NativeWebSocket)
-### How to run locally  
-![image](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/41132a00-540c-4833-8b60-99348667f5cc)
-
-![VRGrabber Capture 1](https://user-images.githubusercontent.com/121733943/235403254-baff2580-169c-4595-aeab-efb95d4054e1.png)
+- [NativeWebsocket](https://github.com/endel/NativeWebSocket)  
 ### Installing
 Clone the repository to any directory with the following command  
 ```
@@ -31,6 +27,7 @@ git submodule update
 ```
 
 ### Set Up
+![image](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/41132a00-540c-4833-8b60-99348667f5cc)
 1. Specify the address of the PC on which to start the server (port 5000)
 2. For multiplayer execution, execute the following commands from the Server/SyncServer/server.js
 ```
