@@ -15,6 +15,8 @@ Hand tracking support
 - Android Logcat
 - [NativeWebsocket](https://github.com/endel/NativeWebSocket)
 ### How to run locally  
+![image](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/41132a00-540c-4833-8b60-99348667f5cc)
+
 ![VRGrabber Capture 1](https://user-images.githubusercontent.com/121733943/235403254-baff2580-169c-4595-aeab-efb95d4054e1.png)
 ### Installing
 Clone the repository to any directory with the following command  
