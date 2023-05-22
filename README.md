@@ -5,7 +5,8 @@ Hand tracking support
 ## Screenshot
 Image is an example of a project using this asset  
 ![TLabGrabbable Capture Trim](https://user-images.githubusercontent.com/121733943/235363804-01b50f49-674e-40d4-a11e-39ed3ced5600.gif)  
-
+Supports manipulation of objects by hand tracking　　
+![HandTracking](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/7757588c-9163-46dc-94c9-60a8e0c715e4)
 
 
 ## Getting Started
