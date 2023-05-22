@@ -26,20 +26,23 @@ git submodule init
 git submodule update
 ```
 
-### Set Up
-![image](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/41132a00-540c-4833-8b60-99348667f5cc)
-1. Specify the address of the PC on which to start the server (port 5000)
-2. For multiplayer execution, execute the following commands from the Server/SyncServer/server.js
+### Sync Server Start
+Set up a server to synchronize worlds
+1. Execute the following commands from the Server/SyncServer/server.js
 ```
 npm start
 ```
+![image](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/41132a00-540c-4833-8b60-99348667f5cc)
+2. Specify the address of the PC on which to start the server (port 5000)
 3. Launch the game from UnityEditor or the built file
+
 ### How to play
+#### Controller
 - IndexTrigger: Select UI
 - handTrigger: Manipulating objects in the scene (grip, expand)
-
-### Build Method
-Change the UnityEditor platform to Windows or Android and build a scene named "Host"
+#### HandTracking
+- Pinch of index finger and thumb: Select UI
+- Hand-holding gesture: Manipulating objects in the scene (grip, expand)
 
 ## Link
 [TLabVRGrabber can be used on its own at the following link](https://github.com/TLabAltoh/TLabVRGrabber)  
