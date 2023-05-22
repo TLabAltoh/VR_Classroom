@@ -120,7 +120,7 @@ function allocateRigidbody(){
 
 	// player existence check
 
-	console.log("start allocate rigidbody");
+	console.log("re allocate rigidbody");
 
 	var check = false;
 	for (var j = 0; j < seatLength; j++)
@@ -219,7 +219,7 @@ ws.on("connection", function (socket) {
 
 			console.log("grabb lock");
 
-			if (parse.active === true)
+			if (parse.seatIndex !== -1)
 				grabbTable[seatIndex].push(parse.transform);
 			else
 				grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.id !== parse.transform.id });
