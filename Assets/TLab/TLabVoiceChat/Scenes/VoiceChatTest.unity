@@ -458,11 +458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9a56fda45093964993567df9b507ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lineRenderer: {fileID: 1452626501}
-  m_waveLength: 20
-  m_yLength: 10
-  m_loopBackSelf: 0
-  m_isStreaming: 0
+  m_loopBackSelf: 1
+  m_isStreaming: 1
 --- !u!1 &1760259391
 GameObject:
   m_ObjectHideFlags: 0

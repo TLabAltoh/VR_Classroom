@@ -1,22 +1,21 @@
-using System;
+using NativeWebSocket;
 using UnityEngine;
+
+[System.Serializable]
+public class TLabVoiceJson
+{
+    public string audio;
+}
 
 [RequireComponent(typeof(AudioSource))]
 public class TLabVoiceChat : MonoBehaviour
 {
-    [SerializeField] private LineRenderer m_lineRenderer;
-    [SerializeField] private float m_waveLength = 20.0f;
-    [SerializeField] private float m_yLength = 10f;
     [SerializeField] public bool m_loopBackSelf = false;
     [SerializeField] public bool m_isStreaming = false;
 
     private AudioSource m_microphoneSource;
     private AudioClip m_microphoneClip;
     private string m_microphoneName;
-
-    private float[] m_data = default;
-    private int m_sampleStep = default;
-    private Vector3[] m_samplingLinePoints = default;
 
     private int m_writeHead;
     private int m_readHead;
@@ -25,6 +24,16 @@ public class TLabVoiceChat : MonoBehaviour
 
     public delegate void MicCallbackDelegate(float[] buf);
     public MicCallbackDelegate floatsInDelegate;
+
+    private float[] m_packetBuffer = new float[PACKET_BUFFER_SIZE];
+    private int m_pbWriteHead = 0;
+    private const int PACKET_BUFFER_SIZE = 1024;
+    private const int SIZE_OF_FLOAT = 32;
+
+    /*
+     * Obtain microphone input in real time
+     * https://forum.unity.com/threads/real-time-audio-from-microphone.145686/
+     */
 
     private class POTBuf
     {
@@ -64,11 +73,42 @@ public class TLabVoiceChat : MonoBehaviour
         }
     }
 
-    private void Render(Vector3[] points)
+    private void SetupBuffers()
     {
-        if (points == null) return;
-        m_lineRenderer.positionCount = points.Length;
-        m_lineRenderer.SetPositions(points);
+        for (int k = POTBuf.POT_min; k <= POTBuf.POT_max; k++)
+            potBuffers[k] = new POTBuf(k);
+    }
+
+    private unsafe void LongCopy(byte* src, byte* dst, int count)
+    {
+        // https://github.com/neuecc/MessagePack-CSharp/issues/117
+        // Define it as an internal function in the thread to avoid method brute force.
+
+        while (count >= 8)
+        {
+            *(ulong*)dst = *(ulong*)src;
+            dst += 8;
+            src += 8;
+            count -= 8;
+        }
+        if (count >= 4)
+        {
+            *(uint*)dst = *(uint*)src;
+            dst += 4;
+            src += 4;
+            count -= 4;
+        }
+        if (count >= 2)
+        {
+            *(ushort*)dst = *(ushort*)src;
+            dst += 2;
+            src += 2;
+            count -= 2;
+        }
+        if (count >= 1)
+        {
+            *dst = *src;
+        }
     }
 
     private void FixedUpdate()
@@ -87,14 +127,11 @@ public class TLabVoiceChat : MonoBehaviour
         {
             POTBuf B = potBuffers[k];
 
-            int n = B.buf.Length; // i.e.  1 << k;
+            // 1 << k;
+            int n = B.buf.Length;
 
             while (nFloatsToGet >= n)
             {
-
-                // If the read length from the offset is longer than the clip length,
-                //   the read will wrap around and read the remaining samples
-                //   from the start of the clip.
                 m_microphoneClip.GetData(B.buf, m_readHead);
                 m_readHead = (m_readHead + n) % m_microphoneClip.samples;
 
@@ -105,39 +142,6 @@ public class TLabVoiceChat : MonoBehaviour
                 nFloatsToGet -= n;
             }
         }
-
-        if (m_microphoneSource.isPlaying)
-        {
-            var startIndex = m_microphoneSource.timeSamples;
-            var endIndex = m_microphoneSource.timeSamples + m_sampleStep;
-
-            var samples = Math.Max(endIndex - startIndex, 1f);
-            var xStep = m_waveLength / samples;
-            var j = 0;
-
-            for (var i = startIndex; i < endIndex; i++, j++)
-            {
-                var x = (-m_waveLength / 2f) + xStep * j;
-                var y = i < m_data.Length ? m_data[i] * m_yLength : 0f;
-                var p = new Vector3(x, y, 0) + this.transform.position;
-                m_samplingLinePoints[j] = p;
-            }
-
-            Render(m_samplingLinePoints);
-        }
-        else
-            Reset();
-    }
-
-    private void Reset()
-    {
-        var x = -m_waveLength / 2;
-        Render(new[]
-        {
-            new Vector3(-x, 0, 0) + this.transform.position,
-            this.transform.position,
-            new Vector3(x, 0, 0) + this.transform.position,
-        });
     }
 
     void Start()
@@ -157,23 +161,74 @@ public class TLabVoiceChat : MonoBehaviour
         if (m_microphoneClip == null)
             Debug.Log("TLabVoiceChat: Failed to recording, using " + m_microphoneName);
         else
-            Debug.Log("TLabVoiceChat: Start recording, using " + m_microphoneName);
-
-        m_microphoneSource.clip = m_microphoneClip;
-        m_microphoneSource.loop = true;
+            Debug.Log("TLabVoiceChat: Start recording, using " + m_microphoneName + ", samples: " + m_microphoneClip.samples + ", channels: " + m_microphoneClip.channels);
 
         if (m_loopBackSelf)
         {
             while (!(Microphone.GetPosition(m_microphoneName) > 0)) { }
+            m_microphoneSource.clip = m_microphoneClip;
+            m_microphoneSource.loop = true;
             m_microphoneSource.Play();
 
             Debug.Log("TLabVoiceChat: Sart Loop Back");
         }
 
-        m_data = new float[m_microphoneClip.channels * m_microphoneClip.samples];
-        m_microphoneSource.clip.GetData(m_data, 0);
+        SetupBuffers();
 
-        m_sampleStep = (int)(m_microphoneClip.frequency / Mathf.Max(60f, 1f / Time.fixedDeltaTime));
-        m_samplingLinePoints = new Vector3[m_sampleStep];
+        floatsInDelegate += (float[] buffer) =>
+        {
+            int sum = m_pbWriteHead + buffer.Length;
+
+            if (sum > PACKET_BUFFER_SIZE)
+            {
+                unsafe
+                {
+                    int size = PACKET_BUFFER_SIZE - m_pbWriteHead;
+                    fixed(float* root = &(m_packetBuffer[0]), src = &buffer[0])
+                    {
+                        LongCopy((byte*)(src + m_pbWriteHead), (byte*)(root + m_pbWriteHead), size * sizeof(float));
+
+                        // transmission process
+                        string encBuffer = System.Text.Encoding.UTF8.GetString((byte*)root, PACKET_BUFFER_SIZE * sizeof(float));
+                        Debug.Log("Send Audio Packet 0");
+
+                        m_pbWriteHead = (m_pbWriteHead + size) % PACKET_BUFFER_SIZE;
+                    }
+                    size = buffer.Length - size;
+                    fixed (float* dst = &(m_packetBuffer[m_pbWriteHead]), src = &buffer[size])
+                    {
+                        LongCopy((byte*)src, (byte*)dst, size * sizeof(float));
+                        m_pbWriteHead = (m_pbWriteHead + size) % PACKET_BUFFER_SIZE;
+                    }
+                }
+            }
+            else if (sum == PACKET_BUFFER_SIZE)
+            {
+                unsafe
+                {
+                    fixed (float* root = &(m_packetBuffer[0]), src = &buffer[0])
+                    {
+                        LongCopy((byte*)(src + m_pbWriteHead), (byte*)(root + m_pbWriteHead), buffer.Length * sizeof(float));
+
+                        // transmission process
+                        string encBuffer = System.Text.Encoding.UTF8.GetString((byte*)root, PACKET_BUFFER_SIZE * sizeof(float));
+                        Debug.Log("Send Audio Packet 1");
+
+                        m_pbWriteHead = (m_pbWriteHead + buffer.Length) % PACKET_BUFFER_SIZE;
+                    }
+                }
+            }
+            else
+            {
+                unsafe
+                {
+                    fixed (float* dst = &(m_packetBuffer[m_pbWriteHead]), src = &buffer[0])
+                    {
+                        LongCopy((byte*)src, (byte*)dst, buffer.Length * sizeof(float));
+                        m_pbWriteHead = (m_pbWriteHead + buffer.Length) % PACKET_BUFFER_SIZE;
+                    }
+                }
+            }
+        };
     }
 }
