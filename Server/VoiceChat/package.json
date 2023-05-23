@@ -2,10 +2,13 @@
   "name": "voicechat",
   "version": "1.0.0",
   "description": "\"a voice chat server for unity\"",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "tlabaltoh",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.13.0"
+  }
 }

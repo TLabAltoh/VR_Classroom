@@ -1,17 +1,34 @@
-using NativeWebSocket;
+using System.Collections;
+using System.Text;
 using UnityEngine;
+using NativeWebSocket;
 
 [System.Serializable]
-public class TLabVoiceJson
+public class TLabVoiceChatJson
 {
-    public string audio;
+    public string name;
+    public string voice;
 }
 
 [RequireComponent(typeof(AudioSource))]
 public class TLabVoiceChat : MonoBehaviour
 {
-    [SerializeField] public bool m_loopBackSelf = false;
+    [Header("Server Info")]
+
+    [Tooltip("Server address. The default server has the port set to 5500")]
+    [SerializeField] private string m_serverAddr;
+
+    [Tooltip("Playback the sound recorded from the microphone yourself or")]
+    [SerializeField] private bool m_loopBackSelf = false;
+
+    [Tooltip("Delivering input from the microphone or")]
     [SerializeField] public bool m_isStreaming = false;
+
+    public static TLabVoiceChat Instance;
+
+    //
+    // Own sound
+    //
 
     private AudioSource m_microphoneSource;
     private AudioClip m_microphoneClip;
@@ -20,15 +37,23 @@ public class TLabVoiceChat : MonoBehaviour
     private int m_writeHead;
     private int m_readHead;
 
-    POTBuf[] potBuffers = new POTBuf[POTBuf.POT_max + 1];
+    private POTBuf[] potBuffers = new POTBuf[POTBuf.POT_max + 1];
 
     public delegate void MicCallbackDelegate(float[] buf);
     public MicCallbackDelegate floatsInDelegate;
 
-    private float[] m_packetBuffer = new float[PACKET_BUFFER_SIZE];
-    private int m_pbWriteHead = 0;
-    private const int PACKET_BUFFER_SIZE = 1024;
-    private const int SIZE_OF_FLOAT = 32;
+    private byte[] m_voiceBuffer = new byte[PACKET_BUFFER_SIZE];
+    private int m_vbWriteHead = 0;
+    private const int PACKET_BUFFER_SIZE = VOICE_BUFFER_SIZE << SIZE_OF_FLOAT_LOG2;
+    private const int VOICE_BUFFER_SIZE = 1024;
+    private const int SIZE_OF_FLOAT_LOG2 = 5;
+
+    //
+    // Other's sound
+    //
+
+    private WebSocket m_websocket;
+    private Hashtable m_voicePlayers = new Hashtable();
 
     /*
      * Obtain microphone input in real time
@@ -67,10 +92,18 @@ public class TLabVoiceChat : MonoBehaviour
         public POTBuf(int POT)
         {
             for (int r = 0; r < redundancy; r++)
-            {
                 internalBuffers[r] = new float[1 << POT];
-            }
         }
+    }
+
+    public void RegistClient(string name, TLabVoiceChatPlayer player)
+    {
+        m_voicePlayers[name] = player;
+    }
+
+    public void ReleaseClient(string name)
+    {
+        m_voicePlayers.Remove(name);
     }
 
     private void SetupBuffers()
@@ -111,6 +144,21 @@ public class TLabVoiceChat : MonoBehaviour
         }
     }
 
+    public async void SendVoice(string voice)
+    {
+        if (m_websocket.State == WebSocketState.Open)
+        {
+            TLabVoiceChatJson obj = new TLabVoiceChatJson
+            {
+                name = this.gameObject.name,
+                voice = voice
+            };
+            string json = JsonUtility.ToJson(obj);
+
+            await m_websocket.SendText(json);
+        }
+    }
+
     private void FixedUpdate()
     {
         m_writeHead = Microphone.GetPosition(m_microphoneName);
@@ -144,7 +192,12 @@ public class TLabVoiceChat : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    async void Start()
     {
         m_microphoneSource = GetComponent<AudioSource>();
 
@@ -175,30 +228,51 @@ public class TLabVoiceChat : MonoBehaviour
 
         SetupBuffers();
 
+        //
+        // 
+        //
+
         floatsInDelegate += (float[] buffer) =>
         {
-            int sum = m_pbWriteHead + buffer.Length;
+            // Byte Scale
+
+            //if (Mathf.Abs(buffer[0]) > 0.1)
+            //    Debug.Log(buffer[0]);
+
+            //return;
+
+            int buffSizeInByte = buffer.Length << SIZE_OF_FLOAT_LOG2;
+            int sum = m_vbWriteHead + buffSizeInByte;
 
             if (sum > PACKET_BUFFER_SIZE)
             {
                 unsafe
                 {
-                    int size = PACKET_BUFFER_SIZE - m_pbWriteHead;
-                    fixed(float* root = &(m_packetBuffer[0]), src = &buffer[0])
+                    fixed(byte* root = &(m_voiceBuffer[0]))
+                    fixed(float* src = &(buffer[0]))
                     {
-                        LongCopy((byte*)(src + m_pbWriteHead), (byte*)(root + m_pbWriteHead), size * sizeof(float));
+                        //if (Mathf.Abs(*(src)) > 0.1)
+                        //    Debug.Log(*(src));
 
-                        // transmission process
-                        string encBuffer = System.Text.Encoding.UTF8.GetString((byte*)root, PACKET_BUFFER_SIZE * sizeof(float));
-                        Debug.Log("Send Audio Packet 0");
+                        int size = PACKET_BUFFER_SIZE - m_vbWriteHead;
 
-                        m_pbWriteHead = (m_pbWriteHead + size) % PACKET_BUFFER_SIZE;
-                    }
-                    size = buffer.Length - size;
-                    fixed (float* dst = &(m_packetBuffer[m_pbWriteHead]), src = &buffer[size])
-                    {
-                        LongCopy((byte*)src, (byte*)dst, size * sizeof(float));
-                        m_pbWriteHead = (m_pbWriteHead + size) % PACKET_BUFFER_SIZE;
+                        byte* srcTmp = (byte*)src;
+                        byte* dstTmp = root + m_vbWriteHead;
+
+                        LongCopy(srcTmp, dstTmp, buffSizeInByte);
+
+                        SendVoice(Encoding.Unicode.GetString(m_voiceBuffer));
+
+                        m_vbWriteHead = (m_vbWriteHead + size) % PACKET_BUFFER_SIZE;
+
+                        int remain = buffSizeInByte - size;
+
+                        dstTmp = root + m_vbWriteHead;
+
+                        // src is incremented with a pointer in LongCopy() (+= size)
+                        LongCopy(srcTmp, dstTmp, remain);
+
+                        m_vbWriteHead = (m_vbWriteHead + remain) % PACKET_BUFFER_SIZE;
                     }
                 }
             }
@@ -206,15 +280,17 @@ public class TLabVoiceChat : MonoBehaviour
             {
                 unsafe
                 {
-                    fixed (float* root = &(m_packetBuffer[0]), src = &buffer[0])
+                    fixed (byte* root = &(m_voiceBuffer[0]))
+                    fixed (float* src = &(buffer[0]))
                     {
-                        LongCopy((byte*)(src + m_pbWriteHead), (byte*)(root + m_pbWriteHead), buffer.Length * sizeof(float));
+                        byte* srcTmp = (byte*)src;
+                        byte* dstTmp = root + m_vbWriteHead;
 
-                        // transmission process
-                        string encBuffer = System.Text.Encoding.UTF8.GetString((byte*)root, PACKET_BUFFER_SIZE * sizeof(float));
-                        Debug.Log("Send Audio Packet 1");
+                        LongCopy(srcTmp, dstTmp, buffSizeInByte);
 
-                        m_pbWriteHead = (m_pbWriteHead + buffer.Length) % PACKET_BUFFER_SIZE;
+                        SendVoice(Encoding.Unicode.GetString(m_voiceBuffer));
+
+                        m_vbWriteHead = (m_vbWriteHead + buffSizeInByte) % PACKET_BUFFER_SIZE;
                     }
                 }
             }
@@ -222,13 +298,69 @@ public class TLabVoiceChat : MonoBehaviour
             {
                 unsafe
                 {
-                    fixed (float* dst = &(m_packetBuffer[m_pbWriteHead]), src = &buffer[0])
+                    fixed (byte* root = &(m_voiceBuffer[0]))
+                    fixed (float* src = &(buffer[0]))
                     {
-                        LongCopy((byte*)src, (byte*)dst, buffer.Length * sizeof(float));
-                        m_pbWriteHead = (m_pbWriteHead + buffer.Length) % PACKET_BUFFER_SIZE;
+                        byte* srcTmp = (byte*)src;
+                        byte* dstTmp = root + m_vbWriteHead;
+
+                        LongCopy(srcTmp, dstTmp, buffSizeInByte);
+
+                        m_vbWriteHead = (m_vbWriteHead + buffSizeInByte) % PACKET_BUFFER_SIZE;
                     }
                 }
             }
         };
+
+        //
+        //
+        //
+
+        m_websocket = new WebSocket(m_serverAddr);
+
+        m_websocket.OnOpen += () =>
+        {
+            Debug.Log("tlabvoicechat: Connection open!");
+        };
+
+        m_websocket.OnError += (e) =>
+        {
+            Debug.Log("Error! " + e);
+        };
+
+        m_websocket.OnClose += (e) =>
+        {
+            Debug.Log("tlabvoicechat: Connection closed!");
+        };
+
+        m_websocket.OnMessage += (bytes) =>
+        {
+            string message = Encoding.UTF8.GetString(bytes);
+
+            TLabVoiceChatJson obj = JsonUtility.FromJson<TLabVoiceChatJson>(message);
+
+            TLabVoiceChatPlayer player = m_voicePlayers[obj.name] as TLabVoiceChatPlayer;
+
+            if (player == null)
+                return;
+
+            byte[] voiceBuffer = Encoding.Unicode.GetBytes(obj.voice);
+            float[] voice = new float[VOICE_BUFFER_SIZE];
+
+            unsafe
+            {
+                fixed(byte* src = &(voiceBuffer[0]))
+                fixed(float* dst = &(voice[0]))
+                {
+                    byte* srcTmp = src;
+                    byte* dstTmp = (byte*)dst;
+                    LongCopy(srcTmp, dstTmp, PACKET_BUFFER_SIZE);
+                }
+            }
+
+            player.PlayVoice(voice);
+        };
+
+        await m_websocket.Connect();
     }
 }
