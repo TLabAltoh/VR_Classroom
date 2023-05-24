@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Text;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class TLabVoiceChat : MonoBehaviour
 
     [Tooltip("Server address. The default server has the port set to 5500")]
     [SerializeField] private string m_serverAddr;
+
+    [Header("Audio Info")]
 
     [Tooltip("Playback the sound recorded from the microphone yourself or")]
     [SerializeField] private bool m_loopBackSelf = false;
@@ -46,7 +49,7 @@ public class TLabVoiceChat : MonoBehaviour
     private int m_vbWriteHead = 0;
     private const int PACKET_BUFFER_SIZE = VOICE_BUFFER_SIZE << SIZE_OF_FLOAT_LOG2;
     private const int VOICE_BUFFER_SIZE = 1024;
-    private const int SIZE_OF_FLOAT_LOG2 = 5;
+    private const int SIZE_OF_FLOAT_LOG2 = 2;
 
     //
     // Other's sound
@@ -239,8 +242,6 @@ public class TLabVoiceChat : MonoBehaviour
             //if (Mathf.Abs(buffer[0]) > 0.1)
             //    Debug.Log(buffer[0]);
 
-            //return;
-
             int buffSizeInByte = buffer.Length << SIZE_OF_FLOAT_LOG2;
             int sum = m_vbWriteHead + buffSizeInByte;
 
@@ -265,7 +266,8 @@ public class TLabVoiceChat : MonoBehaviour
 
                         LongCopy(srcTmp, dstTmp, size);
 
-                        SendVoice(Encoding.Unicode.GetString(root, PACKET_BUFFER_SIZE));
+                        // Use Base64 encoding for lossless conversion
+                        SendVoice(Convert.ToBase64String(m_voiceBuffer));
 
                         m_vbWriteHead = (m_vbWriteHead + size) % PACKET_BUFFER_SIZE;
 
@@ -292,7 +294,7 @@ public class TLabVoiceChat : MonoBehaviour
 
                         LongCopy(srcTmp, dstTmp, buffSizeInByte);
 
-                        SendVoice(Encoding.Unicode.GetString(root, PACKET_BUFFER_SIZE));
+                        SendVoice(Convert.ToBase64String(m_voiceBuffer));
 
                         m_vbWriteHead = (m_vbWriteHead + buffSizeInByte) % PACKET_BUFFER_SIZE;
                     }
@@ -339,9 +341,7 @@ public class TLabVoiceChat : MonoBehaviour
 
         m_websocket.OnMessage += (bytes) =>
         {
-            Debug.Log("tlabvoicechat: On Message");
-
-            string message = Encoding.Unicode.GetString(bytes);
+            string message = Encoding.UTF8.GetString(bytes);
 
             TLabVoiceChatJson obj = JsonUtility.FromJson<TLabVoiceChatJson>(message);
 
@@ -350,7 +350,8 @@ public class TLabVoiceChat : MonoBehaviour
             if (player == null)
                 return;
 
-            byte[] voiceBuffer = Encoding.Unicode.GetBytes(obj.voice);
+            byte[] voiceBuffer = Convert.FromBase64String(obj.voice);
+
             float[] voice = new float[VOICE_BUFFER_SIZE];
 
             unsafe
@@ -369,5 +370,17 @@ public class TLabVoiceChat : MonoBehaviour
         };
 
         await m_websocket.Connect();
+    }
+
+    void Update()
+    {
+#if !UNITY_WEBGL || UNITY_EDITOR
+        m_websocket.DispatchMessageQueue();
+#endif
+    }
+
+    private async void OnApplicationQuit()
+    {
+        await m_websocket.Close();
     }
 }
