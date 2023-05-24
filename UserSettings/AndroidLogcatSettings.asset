@@ -1,5 +1,5 @@
 {
-    "m_SelectedDeviceId": "1WMHHA6GVR2205",
+    "m_SelectedDeviceId": "1WMHHA494Z2021",
     "m_SelectedPackage": {
         "deviceId": "",
         "name": "",
@@ -102,7 +102,7 @@
         "Behavior": 0
     },
     "m_FilterOptions": {
-        "m_Filter": "",
+        "m_Filter": "TLabVoiceChat:",
         "m_UseRegularExpressions": false,
         "m_MatchCase": false
     },

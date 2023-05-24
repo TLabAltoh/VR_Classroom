@@ -209,8 +209,8 @@ public class TLabVoiceChat : MonoBehaviour
             deviceList += "\t" + deveice + "\n";
         Debug.Log(deviceList);
 
-        //m_microphoneName = Microphone.devices[0];
-        m_microphoneName = "エコー キャンセル スピーカーフォン (Jabra Speak 710)";
+        m_microphoneName = Microphone.devices[0];
+        //m_microphoneName = "エコー キャンセル スピーカーフォン (Jabra Speak 710)";
 
         m_microphoneClip = Microphone.Start(m_microphoneName, true, 1, AudioSettings.outputSampleRate);
 
