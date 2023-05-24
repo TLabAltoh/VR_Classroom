@@ -459,7 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9a56fda45093964993567df9b507ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_serverAddr: ws://192.168.11.12:5500
+  m_serverAddr: ws://192.168.3.7:5500
   m_loopBackSelf: 0
   m_isStreaming: 1
 --- !u!114 &1452626504
