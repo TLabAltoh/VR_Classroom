@@ -12,6 +12,12 @@ public class TLabShelfManager : MonoBehaviour
     [Header("Transport Anchor")]
     [SerializeField] protected Transform[] m_anchors;
 
+    /// <summary>
+    /// Summons an object from a ledge in front of the player with a spinning animation for 2 seconds
+    /// </summary>
+    /// <param name="shelfObjInfo"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
     protected virtual IEnumerator FadeIn(TLabShelfObjInfo shelfObjInfo, Transform target)
     {
         // https://docs.unity3d.com/ja/2018.4/Manual/Coroutines.html
@@ -36,6 +42,12 @@ public class TLabShelfManager : MonoBehaviour
         yield break;
     }
 
+    /// <summary>
+    /// Picks up an object from the player onto a shelf with a 2 second spinning animation.
+    /// </summary>
+    /// <param name="shelfObjInfo"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
     protected virtual IEnumerator FadeOut(TLabShelfObjInfo shelfObjInfo, Transform target)
     {
         GameObject shelfObj = shelfObjInfo.obj;
@@ -101,16 +113,12 @@ public class TLabShelfManager : MonoBehaviour
         {
             int current = task.objStart;
             for (int i = task.anchorStart; i <  task.anchorStart + task.loop; i++)
-            {
                 TakeOut(current++, m_anchors[i]);
-            }
         }
         else if(task.action == TLabShelfAction.putAway)
         {
             for (int i = task.objStart; i < task.objStart + task.loop; i++)
-            {
                 PutAway(i);
-            }
         }
     }
 

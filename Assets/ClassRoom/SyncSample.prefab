@@ -5532,7 +5532,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992072393675170849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.542, y: 1.567, z: 0.021}
+  m_LocalPosition: {x: -1.918, y: 1.567, z: 0.021}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6258,8 +6258,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1992072394316410012}
   - {fileID: 1992072394669093083}
+  - {fileID: 1992072394316410012}
   - {fileID: 1992072394535383979}
   - {fileID: 1992072394342552600}
   - {fileID: 1992072394229303402}
@@ -6554,7 +6554,7 @@ Transform:
   - {fileID: 6441956610176949711}
   - {fileID: 8617865302753864229}
   m_Father: {fileID: 1992072394097134739}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1992072394342552603
 GameObject:
@@ -7094,7 +7094,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1992072394097134739}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1992072394669093082
 MonoBehaviour:
@@ -7109,7 +7109,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_serverAddr: ws://192.168.11.10:5000
-  m_registWorldData: 1
+  m_isHost: 0
+  m_regist: 0
+  m_cameraRig: {fileID: 0}
   m_rightHand: {fileID: 0}
   m_leftHand: {fileID: 0}
   m_guestRTouch: {fileID: 4027050243225435791, guid: 0017addf5b996b9449dea0c8d4e2f764, type: 3}

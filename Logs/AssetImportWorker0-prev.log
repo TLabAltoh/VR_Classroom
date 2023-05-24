@@ -1,0 +1,234 @@
+Using pre-set license
+Built from '2021.3/staging' branch; Version is '2021.3.23f1 (213b516bf396) revision 2177873'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19044) 64bit Core' Language: 'ja' Physical Memory: 15985 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2021.3.23f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/nao/Desktop/wataru/VR_Kensyu
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+54577
+Successfully changed project path to: C:/Users/nao/Desktop/wataru/VR_Kensyu
+C:/Users/nao/Desktop/wataru/VR_Kensyu
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [24300] Host "[IP] 192.168.11.14 [Port] 0 [Flags] 2 [Guid] 2547231396 [EditorId] 2547231396 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-70F5AN0) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [24300] Host "[IP] 192.168.11.14 [Port] 0 [Flags] 2 [Guid] 2547231396 [EditorId] 2547231396 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-70F5AN0) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+Refreshing native plugins compatible for Editor in 117.40 ms, found 10 plugins.
+Preloading 1 native plugins for Editor in 0.42 ms.
+Initialize engine version: 2021.3.23f1 (213b516bf396)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/nao/Desktop/wataru/VR_Kensyu/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 3060 Ti (ID=0x2486)
+    Vendor:   NVIDIA
+    VRAM:     8038 MB
+    Driver:   31.0.15.2824
+Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56548
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.005458 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Android Extension - Scanning For ADB Devices 194 ms
+Refreshing native plugins compatible for Editor in 96.50 ms, found 10 plugins.
+Preloading 1 native plugins for Editor in 0.07 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.747 seconds
+Domain Reload Profiling:
+	ReloadAssembly (748ms)
+		BeginReloadAssembly (66ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (602ms)
+			LoadAssemblies (65ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (77ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (24ms)
+			SetupLoadedEditorAssemblies (460ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (245ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (97ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (80ms)
+				ProcessInitializeOnLoadMethodAttributes (37ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.005416 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\nao\Desktop\wataru\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\nao\Desktop\wataru\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 0.98 ms, found 10 plugins.
+Preloading 1 native plugins for Editor in 0.08 ms.
+Package Manager log level set to [2]
+[XR] OculusXRPlugin: registering subsystems
+[XR] Unable to register display lifecyle provider: [1]
+[XR] Oculus Input lifecycle provider registered.
+[XR] Unable to register input lifecyle provider: [1]
+[XR] OVRP version 1.82.0
+Mono: successfully reloaded assembly
+- Completed reload, in  0.998 seconds
+Domain Reload Profiling:
+	ReloadAssembly (999ms)
+		BeginReloadAssembly (93ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (4ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (18ms)
+		EndReloadAssembly (826ms)
+			LoadAssemblies (82ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (243ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (63ms)
+			SetupLoadedEditorAssemblies (391ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (12ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (81ms)
+				ProcessInitializeOnLoadAttributes (244ms)
+				ProcessInitializeOnLoadMethodAttributes (40ms)
+				AfterProcessingInitializeOnLoad (12ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (11ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 0.95 ms, found 10 plugins.
+Preloading 1 native plugins for Editor in 0.07 ms.
+Unloading 5412 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 61 unused Assets / (200.3 KB). Loaded Objects now: 5848.
+Memory consumption went from 199.8 MB to 199.6 MB.
+Total: 3.411700 ms (FindLiveObjects: 0.376700 ms CreateObjectMapping: 0.235500 ms MarkObjects: 2.639100 ms  DeleteObjects: 0.159600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 19262.997882 seconds.
+  path: Assets/OVRCameraRig.prefab
+  artifactKey: Guid(d997ea1304c2a0147abe1f5e81b83dca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OVRCameraRig.prefab using Guid(d997ea1304c2a0147abe1f5e81b83dca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43f15a18a6357069a2af82912d25e264') in 0.073217 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 14.853086 seconds.
+  path: Assets/ClassRoom/Scenes/Host/LightingData.asset
+  artifactKey: Guid(b2cfb8b715315a2429be70003b374e48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ClassRoom/Scenes/Host/LightingData.asset using Guid(b2cfb8b715315a2429be70003b374e48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43994d49c5bbe34203bf27102ffd2e28') in 0.009691 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/ClassRoom/Scenes/Host/Lightmap-0_comp_shadowmask.png
+  artifactKey: Guid(7805706cb291a2f489dc042d8eef3d07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ClassRoom/Scenes/Host/Lightmap-0_comp_shadowmask.png using Guid(7805706cb291a2f489dc042d8eef3d07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88723fffd1034e65bebea0d0bac8a117') in 0.104770 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/ClassRoom/Scenes/Host/ReflectionProbe-0.exr
+  artifactKey: Guid(83a3ad867b6e55a49a052d2d7fe0e267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ClassRoom/Scenes/Host/ReflectionProbe-0.exr using Guid(83a3ad867b6e55a49a052d2d7fe0e267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb280b51d1747e677b6c3dabac69551c') in 0.049673 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.704802 seconds.
+  path: Assets/ClassRoom/Scenes/Guest/LightingData.asset
+  artifactKey: Guid(77f62ff9edf3143448770afa05d34d0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ClassRoom/Scenes/Guest/LightingData.asset using Guid(77f62ff9edf3143448770afa05d34d0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '05362ec5dc8f70392c6ac2f5708a230f') in 0.003312 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/ClassRoom/Scenes/Guest/Lightmap-0_comp_shadowmask.png
+  artifactKey: Guid(1f8eceb3d608ee44dbfa9fb4ff99f98d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ClassRoom/Scenes/Guest/Lightmap-0_comp_shadowmask.png using Guid(1f8eceb3d608ee44dbfa9fb4ff99f98d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd02c38a1bbeb8303c4af5d9f93017abe') in 0.029215 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/ClassRoom/Scenes/Guest/ReflectionProbe-0.exr
+  artifactKey: Guid(fef5e44f91bbf15479d0bc2fcc0c5d63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ClassRoom/Scenes/Guest/ReflectionProbe-0.exr using Guid(fef5e44f91bbf15479d0bc2fcc0c5d63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '90e6b098f3bf9b7b896d13111f740cfb') in 0.018286 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 12.191368 seconds.
+  path: Assets/ClassRoom/Material/Black.mat
+  artifactKey: Guid(b2aae128c2664ef4a9d0c0a4402de279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ClassRoom/Material/Black.mat using Guid(b2aae128c2664ef4a9d0c0a4402de279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab4836f1104f66c89159d6b8bca9e323') in 0.044291 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/ClassRoom/Material/Flooring.mat
+  artifactKey: Guid(75eb4df0ebc999f40be32b204d4beae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ClassRoom/Material/Flooring.mat using Guid(75eb4df0ebc999f40be32b204d4beae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a92796e3995b528ce2055fe974a7793c') in 0.261837 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

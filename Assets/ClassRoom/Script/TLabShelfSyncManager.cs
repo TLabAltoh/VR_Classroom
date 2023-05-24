@@ -13,7 +13,7 @@ public class TLabShelfSyncManager : TLabShelfManager
             // System locks objects, not players.
 
             grabbable.GrabbLock(true);
-            grabbable.GrabbLockSelf(true);
+            grabbable.GrabbLockSelf(TLabSyncClient.Instalce.SeatIndex);
         }
 
         GameObject shelfObj = shelfObjInfo.obj;
@@ -31,6 +31,9 @@ public class TLabShelfSyncManager : TLabShelfManager
             if (grabbable != null)
             {
                 grabbable.SyncTransform();
+
+                grabbable.ForceRelease();
+                grabbable.GrabbLock(true);
             }
 
             yield return null;
@@ -39,9 +42,9 @@ public class TLabShelfSyncManager : TLabShelfManager
         if (grabbable != null)
         {
             grabbable.SyncTransform();
-
+            // Since other players may participate during the update, always continue to release the parent relationship and lock the object.
             grabbable.GrabbLock(false);
-            grabbable.GrabbLockSelf(false);
+            grabbable.GrabbLockSelf(TLabSyncClient.Instalce.SeatIndex);
         }
 
         shelfObjInfo.currentTask = null;
@@ -56,7 +59,7 @@ public class TLabShelfSyncManager : TLabShelfManager
         {
             grabbable.ForceRelease();
             grabbable.GrabbLock(true);
-            grabbable.GrabbLockSelf(true);
+            grabbable.GrabbLockSelf(TLabSyncClient.Instalce.SeatIndex);
         }
 
         GameObject shelfObj = shelfObjInfo.obj;
@@ -72,6 +75,8 @@ public class TLabShelfSyncManager : TLabShelfManager
             if(grabbable != null)
             {
                 grabbable.SyncTransform();
+                grabbable.ForceRelease();
+                grabbable.GrabbLock(true);
             }
 
             yield return null;
@@ -86,7 +91,7 @@ public class TLabShelfSyncManager : TLabShelfManager
             grabbable.SyncTransform();
 
             grabbable.GrabbLock(false);
-            grabbable.GrabbLockSelf(false);
+            grabbable.GrabbLockSelf(TLabSyncClient.Instalce.SeatIndex);
         }
 
         shelfObjInfo.currentTask = null;
@@ -99,9 +104,7 @@ public class TLabShelfSyncManager : TLabShelfManager
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
 
         if (shelfObjInfo.currentTask != null)
-        {
             StopCoroutine(shelfObjInfo.currentTask);
-        }
 
         shelfObjInfo.currentTask = FadeOut(shelfObjInfo, shelfObjInfo.start.transform);
         StartCoroutine(shelfObjInfo.currentTask);
@@ -113,9 +116,7 @@ public class TLabShelfSyncManager : TLabShelfManager
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
 
         if (shelfObjInfo.currentTask != null)
-        {
             StopCoroutine(shelfObjInfo.currentTask);
-        }
 
         shelfObjInfo.currentTask = FadeIn(shelfObjInfo, target);
         StartCoroutine(shelfObjInfo.currentTask);
@@ -139,7 +140,7 @@ public class TLabShelfSyncManager : TLabShelfManager
         for (int i = 0; i < m_shelfObjInfos.Length; i++)
         {
             TLabSyncGrabbable grabbable = TLabSyncClient.Instalce.Grabbables[m_shelfObjInfos[i].obj.gameObject.name] as TLabSyncGrabbable;
-            if (grabbable != null && grabbable.UseGravity == true)
+            if (grabbable != null && grabbable.IsUseGravity == true)
             {
                 Debug.LogError("tlabshelfsyncmanager: Objects with UseGravity enabled cannot be used");
                 m_shelfObjInfos[i] = null;
