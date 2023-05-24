@@ -55,10 +55,8 @@ ws.on("connection", function (socket) {
 
 		console.log("\nrecv message: " + message);
 
-		const parse = JSON.parse(message);
-
 		ws.clients.forEach(client => {
-			if (client != socket)
+			//if (client != socket)
 				client.send(message);
 		});
 	});

@@ -39,7 +39,7 @@ public class TLabVoiceChat : MonoBehaviour
 
     private POTBuf[] potBuffers = new POTBuf[POTBuf.POT_max + 1];
 
-    public delegate void MicCallbackDelegate(float[] buf);
+    public delegate void MicCallbackDelegate(float[] buff);
     public MicCallbackDelegate floatsInDelegate;
 
     private byte[] m_voiceBuffer = new byte[PACKET_BUFFER_SIZE];
@@ -248,7 +248,11 @@ public class TLabVoiceChat : MonoBehaviour
             {
                 unsafe
                 {
-                    fixed(byte* root = &(m_voiceBuffer[0]))
+                    //
+                    // Pointers defined with fixed must not be incremented.
+                    //
+
+                    fixed (byte* root = &(m_voiceBuffer[0]))
                     fixed(float* src = &(buffer[0]))
                     {
                         //if (Mathf.Abs(*(src)) > 0.1)
@@ -259,9 +263,9 @@ public class TLabVoiceChat : MonoBehaviour
                         byte* srcTmp = (byte*)src;
                         byte* dstTmp = root + m_vbWriteHead;
 
-                        LongCopy(srcTmp, dstTmp, buffSizeInByte);
+                        LongCopy(srcTmp, dstTmp, size);
 
-                        SendVoice(Encoding.Unicode.GetString(m_voiceBuffer));
+                        SendVoice(Encoding.Unicode.GetString(root, PACKET_BUFFER_SIZE));
 
                         m_vbWriteHead = (m_vbWriteHead + size) % PACKET_BUFFER_SIZE;
 
@@ -288,7 +292,7 @@ public class TLabVoiceChat : MonoBehaviour
 
                         LongCopy(srcTmp, dstTmp, buffSizeInByte);
 
-                        SendVoice(Encoding.Unicode.GetString(m_voiceBuffer));
+                        SendVoice(Encoding.Unicode.GetString(root, PACKET_BUFFER_SIZE));
 
                         m_vbWriteHead = (m_vbWriteHead + buffSizeInByte) % PACKET_BUFFER_SIZE;
                     }
@@ -335,7 +339,9 @@ public class TLabVoiceChat : MonoBehaviour
 
         m_websocket.OnMessage += (bytes) =>
         {
-            string message = Encoding.UTF8.GetString(bytes);
+            Debug.Log("tlabvoicechat: On Message");
+
+            string message = Encoding.Unicode.GetString(bytes);
 
             TLabVoiceChatJson obj = JsonUtility.FromJson<TLabVoiceChatJson>(message);
 
@@ -354,6 +360,7 @@ public class TLabVoiceChat : MonoBehaviour
                 {
                     byte* srcTmp = src;
                     byte* dstTmp = (byte*)dst;
+
                     LongCopy(srcTmp, dstTmp, PACKET_BUFFER_SIZE);
                 }
             }
