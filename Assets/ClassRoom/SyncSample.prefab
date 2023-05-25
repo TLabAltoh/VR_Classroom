@@ -18208,7 +18208,7 @@ MonoBehaviour:
   - {fileID: 1992072395166020666}
   - {fileID: 1992072393951519846}
   - {fileID: 1992072394206774098}
-  m_savePath: 
+  m_savePath: Assets/Tetu/VRGrabber/Outline/Mesh
 --- !u!1001 &8664377820927422433
 PrefabInstance:
   m_ObjectHideFlags: 0

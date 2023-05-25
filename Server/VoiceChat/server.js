@@ -52,7 +52,7 @@ ws.on("connection", function (socket) {
 		const message = isBinary ? data : data.toString();
 
 		ws.clients.forEach(client => {
-			//if (client != socket)
+			if (client != socket)
 				client.send(message);
 		});
 	});
