@@ -232,16 +232,13 @@ public class TLabVoiceChat : MonoBehaviour
         SetupBuffers();
 
         //
-        // 
+        // Callback function to process microphone input acquired in real time
+        // Send to server when send buffer exceeds 1024 * 4 bytes
         //
 
         floatsInDelegate += (float[] buffer) =>
         {
-            // Byte Scale
-
-            //if (Mathf.Abs(buffer[0]) > 0.1)
-            //    Debug.Log(buffer[0]);
-
+            // Note that pointers are handled on a byte scale.
             int buffSizeInByte = buffer.Length << SIZE_OF_FLOAT_LOG2;
             int sum = m_vbWriteHead + buffSizeInByte;
 
@@ -249,9 +246,7 @@ public class TLabVoiceChat : MonoBehaviour
             {
                 unsafe
                 {
-                    //
                     // Pointers defined with fixed must not be incremented.
-                    //
 
                     fixed (byte* root = &(m_voiceBuffer[0]))
                     fixed(float* src = &(buffer[0]))
@@ -319,7 +314,8 @@ public class TLabVoiceChat : MonoBehaviour
         };
 
         //
-        //
+        // Callback processing when a Voice packet is received from the server
+        // (decode the packet to byte[] in Base64 and play it from TLabChatVoiceClient)
         //
 
         m_websocket = new WebSocket(m_serverAddr);
