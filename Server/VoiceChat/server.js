@@ -48,20 +48,16 @@ console.log("\nserver start " + bar);
 ws.on("connection", function (socket) {
 	console.log("\nclient connected " + bar);
 
-	var seatIndex = -1;
-
 	socket.on("message", function (data, isBinary) {
 		const message = isBinary ? data : data.toString();
 
-		console.log("\nrecv message: " + message);
-
 		ws.clients.forEach(client => {
-			//if (client != socket)
+			if (client != socket)
 				client.send(message);
 		});
 	});
 
-	socket.on('close', function close() {
+	socket.on("close", function close() {
 		console.log("\nclient closed " + bar);
 	});
 });
