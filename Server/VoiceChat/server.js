@@ -29,7 +29,7 @@ const server = https.createServer(options, (req, res) => {
 const http = require("http");
 const server = http.createServer((req, res) => {
 	res.writeHead(200);
-	res.write("VR_Kensyu");
+	res.write("TLab_VoiceChat");
 	res.end();
 });
 

@@ -11363,9 +11363,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_controller: 1
   m_laserPointer: {fileID: 0}
+  m_maxDistance: 10
   m_gripAxis: 4
   m_gripButton: 16384
-  m_maxDistance: 10
   m_layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -11483,9 +11483,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_controller: 2
   m_laserPointer: {fileID: 0}
+  m_maxDistance: 10
   m_gripAxis: 4
   m_gripButton: 16384
-  m_maxDistance: 10
   m_layerMask:
     serializedVersion: 2
     m_Bits: 64

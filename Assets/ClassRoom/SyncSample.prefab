@@ -3274,6 +3274,7 @@ GameObject:
   - component: {fileID: 1992072393566755571}
   - component: {fileID: 1992072393566755570}
   - component: {fileID: 1992072393566755573}
+  - component: {fileID: 6484613295211844793}
   - component: {fileID: 1992072393566755572}
   - component: {fileID: 1992072393566755575}
   - component: {fileID: 1992072393566755574}
@@ -5528,6 +5529,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6484613295211844793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992072393566755561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f169b420c94d344486051bd1da03cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &1992072393566755572
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5594,7 +5607,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992072393675170849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.918, y: 1.567, z: 0.021}
+  m_LocalPosition: {x: -2.164, y: 1.567, z: 0.021}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6741,6 +6754,7 @@ GameObject:
   - component: {fileID: 1992072394514737803}
   - component: {fileID: 1992072394514737802}
   - component: {fileID: 1992072394514737805}
+  - component: {fileID: 340337193444917272}
   - component: {fileID: 1992072394514737804}
   - component: {fileID: 1992072394514737807}
   - component: {fileID: 1992072394514737806}
@@ -7052,6 +7066,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &340337193444917272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992072394514737793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f169b420c94d344486051bd1da03cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &1992072394514737804
 MeshFilter:
   m_ObjectHideFlags: 0
