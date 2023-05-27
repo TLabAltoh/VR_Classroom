@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 116
+  controlID: 21
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -272,8 +272,8 @@ MonoBehaviour:
     y: 0
     width: 426
     height: 947
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -338,7 +338,7 @@ MonoBehaviour:
         m_Identifier: UnityEditorInternal.Profiling.CPUProfilerModule, UnityEditor.CoreModule,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
         m_PaneScroll: {x: 0, y: 0}
-        m_ViewType: 1
+        m_ViewType: 0
         updateViewLive: 0
         m_CurrentFrameIndex: -1
         m_HierarchyOverruledThreadFromSelection: 0
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 512, y: 512}
+  m_TargetSize: {x: 282, y: 502}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -1374,10 +1374,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -256
-    m_HBaseRangeMax: 256
-    m_VBaseRangeMin: -256
-    m_VBaseRangeMax: 256
+    m_HBaseRangeMin: -141
+    m_HBaseRangeMax: 141
+    m_VBaseRangeMin: -251
+    m_VBaseRangeMax: 251
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -1397,7 +1397,7 @@ MonoBehaviour:
       y: 21
       width: 1110
       height: 502
-    m_Scale: {x: 0.98046875, y: 0.98046875}
+    m_Scale: {x: 1, y: 1}
     m_Translation: {x: 555, y: 251}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -1405,12 +1405,12 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -566.0558
-      y: -256
-      width: 1132.1116
-      height: 512
+      x: -555
+      y: -251
+      width: 1110
+      height: 502
     m_MinimalGUI: 1
-  m_defaultScale: 0.98046875
+  m_defaultScale: 1
   m_LastWindowPixelSize: {x: 1110, y: 523}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
@@ -1451,7 +1451,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 4cfaffff
+      m_ExpandedIDs: 44faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1734,9 +1734,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -3.3318746, y: 0.8738722, z: -0.99064755}
+    m_Target: {x: -1.7051978, y: -4.4891925, z: 11.759076}
     speed: 2
-    m_Value: {x: -3.3318746, y: 0.8738722, z: -0.99064755}
+    m_Value: {x: -1.7051978, y: -4.4891925, z: 11.759076}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1783,13 +1783,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.011553984, y: -0.8603467, z: 0.019667374, w: 0.5094201}
+    m_Target: {x: 0.23064753, y: 0.023939477, z: -0.0057280688, w: 0.9727615}
     speed: 2
-    m_Value: {x: -0.0115526775, y: 0.86024964, z: -0.019665154, w: -0.50936264}
+    m_Value: {x: 0.23063956, y: 0.02393865, z: -0.005727871, w: 0.9727279}
   m_Size:
-    m_Target: 2.028371
+    m_Target: 8.070542
     speed: 2
-    m_Value: 2.028371
+    m_Value: 8.070542
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1938,22 +1938,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/TLab/TLabVRGrabber
+    - Assets/TLab/TLabVRGrabber/Rotatable
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/TLab/TLabVRGrabber
+  - Assets/TLab/TLabVRGrabber/Rotatable
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu
+  m_LastProjectPath: C:\Users\no name boy\source\GameDev\TLabUnityProject\VR_Kensyu
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 180}
-    m_SelectedIDs: dc870000
-    m_LastClickedID: 34780
-    m_ExpandedIDs: 00000000bc870000be870000c0870000c2870000c4870000d0870000dc87000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 118}
+    m_SelectedIDs: 42880000
+    m_LastClickedID: 34882
+    m_ExpandedIDs: 00000000ca870000cc870000ce870000d0870000d2870000d4870000d6870000d8870000da870000fc87000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1981,7 +1981,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000bc870000be870000c0870000c2870000c4870000
+    m_ExpandedIDs: 00000000ca870000cc870000ce870000d0870000d2870000d4870000d6870000d8870000da870000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2008,7 +2008,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
