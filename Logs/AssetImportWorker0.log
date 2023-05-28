@@ -5277,4 +5277,7 @@ Received Import Request.
   path: Assets/TLab/TLabVoiceChat/Scenes/VoiceChatTest.unity
   artifactKey: Guid(d0e1a48796ce28340925250e4745a1bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/TLab/TLabVoiceChat/Scenes/VoiceChatTest.unity using Guid(d0e1a48796ce28340925250e4745a1bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a4fc550c5c1f9ac4a82bf0cad023563') in 0.011160 seconds 
+<<<<<<< HEAD
 >>>>>>> development
+=======
+>>>>>>> 9cedad0 (Update VRGrabber)

@@ -121,6 +121,7 @@ MonoBehaviour:
   vertical: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 116
 =======
   controlID: 80
@@ -128,6 +129,9 @@ MonoBehaviour:
 =======
   controlID: 88
 >>>>>>> development
+=======
+  controlID: 88
+>>>>>>> 9cedad0 (Update VRGrabber)
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -158,6 +162,7 @@ MonoBehaviour:
   vertical: 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 22
 =======
   controlID: 81
@@ -165,6 +170,9 @@ MonoBehaviour:
 =======
   controlID: 89
 >>>>>>> development
+=======
+  controlID: 89
+>>>>>>> 9cedad0 (Update VRGrabber)
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -195,6 +203,7 @@ MonoBehaviour:
   vertical: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 23
 =======
   controlID: 82
@@ -202,6 +211,9 @@ MonoBehaviour:
 =======
   controlID: 90
 >>>>>>> development
+=======
+  controlID: 90
+>>>>>>> 9cedad0 (Update VRGrabber)
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1516,6 +1528,7 @@ MonoBehaviour:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
       m_SelectedIDs: 
       m_LastClickedID: 0
 <<<<<<< HEAD
@@ -1528,6 +1541,11 @@ MonoBehaviour:
       m_LastClickedID: 32636
       m_ExpandedIDs: aaf0ffff2efbffff
 >>>>>>> development
+=======
+      m_SelectedIDs: 7c7f0000
+      m_LastClickedID: 32636
+      m_ExpandedIDs: aaf0ffff2efbffff
+>>>>>>> 9cedad0 (Update VRGrabber)
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1891,9 +1909,9 @@ MonoBehaviour:
 =======
     m_Target: {x: 0.23064753, y: 0.023939477, z: -0.0057280688, w: 0.9727615}
     speed: 2
-    m_Value: {x: 0.23063956, y: 0.02393865, z: -0.005727871, w: 0.9727279}
+    m_Value: {x: -0.23064753, y: -0.023939477, z: 0.0057280688, w: -0.9727615}
   m_Size:
-    m_Target: 8.070542
+    m_Target: 8.433717
     speed: 2
     m_Value: 8.4508295
 >>>>>>> cba03558ad6985f151b9a80928cd798d34cd62ed
@@ -2080,7 +2098,10 @@ MonoBehaviour:
     m_SelectedIDs: 667f0000
     m_LastClickedID: 32614
     m_ExpandedIDs: 00000000da7e0000dc7e0000de7e0000e07e0000e27e0000e47e0000e67e0000e87e0000ea7e0000067f000000ca9a3bffffff7f
+<<<<<<< HEAD
 >>>>>>> development
+=======
+>>>>>>> 9cedad0 (Update VRGrabber)
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2110,6 +2131,7 @@ MonoBehaviour:
     m_LastClickedID: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_ExpandedIDs: 00000000bc870000be870000c0870000c2870000c4870000
 =======
     m_ExpandedIDs: 00000000c87e0000ca7e0000cc7e0000ce7e0000d07e0000d27e0000d47e0000
@@ -2117,6 +2139,9 @@ MonoBehaviour:
 =======
     m_ExpandedIDs: 00000000da7e0000dc7e0000de7e0000e07e0000e27e0000e47e0000e67e0000e87e0000ea7e0000
 >>>>>>> development
+=======
+    m_ExpandedIDs: 00000000da7e0000dc7e0000de7e0000e07e0000e27e0000e47e0000e67e0000e87e0000ea7e0000
+>>>>>>> 9cedad0 (Update VRGrabber)
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
