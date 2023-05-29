@@ -44,7 +44,7 @@ public class TLabShelfSyncManager : TLabShelfManager
             grabbable.SyncTransform();
             // Since other players may participate during the update, always continue to release the parent relationship and lock the object.
             grabbable.GrabbLock(false);
-            grabbable.GrabbLockSelf(TLabSyncClient.Instalce.SeatIndex);
+            grabbable.GrabbLockSelf(-1);
         }
 
         shelfObjInfo.currentTask = null;
@@ -75,6 +75,7 @@ public class TLabShelfSyncManager : TLabShelfManager
             if(grabbable != null)
             {
                 grabbable.SyncTransform();
+
                 grabbable.ForceRelease();
                 grabbable.GrabbLock(true);
             }
@@ -91,7 +92,7 @@ public class TLabShelfSyncManager : TLabShelfManager
             grabbable.SyncTransform();
 
             grabbable.GrabbLock(false);
-            grabbable.GrabbLockSelf(TLabSyncClient.Instalce.SeatIndex);
+            grabbable.GrabbLockSelf(-1);
         }
 
         shelfObjInfo.currentTask = null;
