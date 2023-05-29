@@ -5516,7 +5516,8 @@ PrefabInstance:
       propertyPath: m_laserPointer
       value: 
       objectReference: {fileID: 628908169}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5062488952062090132, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
 --- !u!4 &6383360505620899021 stripped
 Transform:
