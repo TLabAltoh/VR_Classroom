@@ -365,19 +365,47 @@ MonoBehaviour:
   - obj: {fileID: 6290352835197654581}
     speed: 1
   m_tasks:
-  - objStart: 2
+  - m_pairs:
+    - obj: 2
+      anchor: 1
+    - obj: 3
+      anchor: 2
+    - obj: 4
+      anchor: 3
+    objStart: 2
     anchorStart: 1
     loop: 3
     action: 0
-  - objStart: 2
+  - m_pairs:
+    - obj: 2
+      anchor: 1
+    - obj: 3
+      anchor: 2
+    - obj: 4
+      anchor: 3
+    objStart: 2
     anchorStart: 1
     loop: 3
     action: 1
-  - objStart: 5
+  - m_pairs:
+    - obj: 5
+      anchor: 1
+    - obj: 6
+      anchor: 2
+    - obj: 7
+      anchor: 3
+    objStart: 5
     anchorStart: 1
     loop: 3
     action: 0
-  - objStart: 5
+  - m_pairs:
+    - obj: 5
+      anchor: 1
+    - obj: 6
+      anchor: 2
+    - obj: 7
+      anchor: 3
+    objStart: 5
     anchorStart: 1
     loop: 3
     action: 1
