@@ -29,7 +29,7 @@ const server = https.createServer(options, (req, res) => {
 const http = require("http");
 const server = http.createServer((req, res) => {
 	res.writeHead(200);
-	res.write("VR_Kensyu");
+	res.write("TLab_VoiceChat");
 	res.end();
 });
 
@@ -48,14 +48,8 @@ console.log("\nserver start " + bar);
 ws.on("connection", function (socket) {
 	console.log("\nclient connected " + bar);
 
-	var seatIndex = -1;
-
 	socket.on("message", function (data, isBinary) {
 		const message = isBinary ? data : data.toString();
-
-		console.log("\nrecv message: " + message);
-
-		const parse = JSON.parse(message);
 
 		ws.clients.forEach(client => {
 			if (client != socket)
@@ -63,7 +57,7 @@ ws.on("connection", function (socket) {
 		});
 	});
 
-	socket.on('close', function close() {
+	socket.on("close", function close() {
 		console.log("\nclient closed " + bar);
 	});
 });

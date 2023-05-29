@@ -15,7 +15,7 @@ C:/Users/nao/Desktop/wataru/VR_Kensyu
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-54577
+56019
 Successfully changed project path to: C:/Users/nao/Desktop/wataru/VR_Kensyu
 C:/Users/nao/Desktop/wataru/VR_Kensyu
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,12 +47,12 @@ C:/Users/nao/Desktop/wataru/VR_Kensyu
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [24300] Host "[IP] 192.168.11.14 [Port] 0 [Flags] 2 [Guid] 2547231396 [EditorId] 2547231396 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-70F5AN0) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [20280] Host "[IP] 192.168.11.14 [Port] 0 [Flags] 2 [Guid] 2862661832 [EditorId] 2862661832 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-70F5AN0) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [24300] Host "[IP] 192.168.11.14 [Port] 0 [Flags] 2 [Guid] 2547231396 [EditorId] 2547231396 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-70F5AN0) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [20280] Host "[IP] 192.168.11.14 [Port] 0 [Flags] 2 [Guid] 2862661832 [EditorId] 2862661832 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-70F5AN0) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 117.40 ms, found 10 plugins.
-Preloading 1 native plugins for Editor in 0.42 ms.
+Refreshing native plugins compatible for Editor in 104.87 ms, found 10 plugins.
+Preloading 1 native plugins for Editor in 0.44 ms.
 Initialize engine version: 2021.3.23f1 (213b516bf396)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/Resources/UnitySubsystems
 [Subsystems] Discovering subsystems at path C:/Users/nao/Desktop/wataru/VR_Kensyu/Assets
@@ -68,55 +68,55 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56548
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56688
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.23f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.005458 seconds.
+Registered in 0.005967 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 194 ms
-Refreshing native plugins compatible for Editor in 96.50 ms, found 10 plugins.
-Preloading 1 native plugins for Editor in 0.07 ms.
+Android Extension - Scanning For ADB Devices 225 ms
+Refreshing native plugins compatible for Editor in 98.24 ms, found 10 plugins.
+Preloading 1 native plugins for Editor in 0.13 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.747 seconds
+- Completed reload, in  0.784 seconds
 Domain Reload Profiling:
-	ReloadAssembly (748ms)
-		BeginReloadAssembly (66ms)
+	ReloadAssembly (784ms)
+		BeginReloadAssembly (69ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (602ms)
-			LoadAssemblies (65ms)
+		EndReloadAssembly (633ms)
+			LoadAssemblies (68ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (77ms)
+			SetupTypeCache (83ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (24ms)
-			SetupLoadedEditorAssemblies (460ms)
+			RebuildScriptCaches (25ms)
+			SetupLoadedEditorAssemblies (482ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (245ms)
+				InitializePlatformSupportModulesInManaged (276ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (97ms)
+				RefreshPlugins (98ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (80ms)
-				ProcessInitializeOnLoadMethodAttributes (37ms)
+				ProcessInitializeOnLoadAttributes (72ms)
+				ProcessInitializeOnLoadMethodAttributes (35ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.005416 seconds.
+Registered in 0.006367 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\nao\Desktop\wataru\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\nao\Desktop\wataru\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 0.98 ms, found 10 plugins.
-Preloading 1 native plugins for Editor in 0.08 ms.
+Refreshing native plugins compatible for Editor in 1.13 ms, found 10 plugins.
+Preloading 1 native plugins for Editor in 0.22 ms.
 Package Manager log level set to [2]
 [XR] OculusXRPlugin: registering subsystems
 [XR] Unable to register display lifecyle provider: [1]
@@ -124,44 +124,44 @@ Package Manager log level set to [2]
 [XR] Unable to register input lifecyle provider: [1]
 [XR] OVRP version 1.82.0
 Mono: successfully reloaded assembly
-- Completed reload, in  0.998 seconds
+- Completed reload, in  1.006 seconds
 Domain Reload Profiling:
-	ReloadAssembly (999ms)
-		BeginReloadAssembly (93ms)
+	ReloadAssembly (1007ms)
+		BeginReloadAssembly (102ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (4ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (18ms)
-		EndReloadAssembly (826ms)
-			LoadAssemblies (82ms)
+			CreateAndSetChildDomain (19ms)
+		EndReloadAssembly (819ms)
+			LoadAssemblies (92ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
 			SetupTypeCache (243ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (63ms)
-			SetupLoadedEditorAssemblies (391ms)
+			RebuildScriptCaches (85ms)
+			SetupLoadedEditorAssemblies (377ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (12ms)
+				InitializePlatformSupportModulesInManaged (14ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (81ms)
-				ProcessInitializeOnLoadAttributes (244ms)
-				ProcessInitializeOnLoadMethodAttributes (40ms)
-				AfterProcessingInitializeOnLoad (12ms)
+				BeforeProcessingInitializeOnLoad (92ms)
+				ProcessInitializeOnLoadAttributes (245ms)
+				ProcessInitializeOnLoadMethodAttributes (19ms)
+				AfterProcessingInitializeOnLoad (5ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (11ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 0.95 ms, found 10 plugins.
-Preloading 1 native plugins for Editor in 0.07 ms.
+Refreshing native plugins compatible for Editor in 1.19 ms, found 10 plugins.
+Preloading 1 native plugins for Editor in 0.06 ms.
 Unloading 5412 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 61 unused Assets / (200.3 KB). Loaded Objects now: 5848.
-Memory consumption went from 199.8 MB to 199.6 MB.
-Total: 3.411700 ms (FindLiveObjects: 0.376700 ms CreateObjectMapping: 0.235500 ms MarkObjects: 2.639100 ms  DeleteObjects: 0.159600 ms)
+Memory consumption went from 200.2 MB to 200.0 MB.
+Total: 3.711900 ms (FindLiveObjects: 0.413700 ms CreateObjectMapping: 0.204500 ms MarkObjects: 2.929500 ms  DeleteObjects: 0.163100 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -176,59 +176,116 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 19262.997882 seconds.
-  path: Assets/OVRCameraRig.prefab
-  artifactKey: Guid(d997ea1304c2a0147abe1f5e81b83dca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/OVRCameraRig.prefab using Guid(d997ea1304c2a0147abe1f5e81b83dca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43f15a18a6357069a2af82912d25e264') in 0.073217 seconds 
+  Time since last request: 26811.751840 seconds.
+  path: Assets/vitra-eames-plastic-chair/source
+  artifactKey: Guid(2260965f9fd31cb4cb3685ab900af6a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/vitra-eames-plastic-chair/source using Guid(2260965f9fd31cb4cb3685ab900af6a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9892687064ebda115eb432a36f626265') in 0.015817 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 14.853086 seconds.
-  path: Assets/ClassRoom/Scenes/Host/LightingData.asset
-  artifactKey: Guid(b2cfb8b715315a2429be70003b374e48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ClassRoom/Scenes/Host/LightingData.asset using Guid(b2cfb8b715315a2429be70003b374e48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43994d49c5bbe34203bf27102ffd2e28') in 0.009691 seconds 
+  Time since last request: 1.231807 seconds.
+  path: Assets/vitra-eames-plastic-chair/source/Vitra-3Ds-model-detailed-mesh-texture.zip
+  artifactKey: Guid(2c54e3df2dfef4447887a18425fd38ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/vitra-eames-plastic-chair/source/Vitra-3Ds-model-detailed-mesh-texture.zip using Guid(2c54e3df2dfef4447887a18425fd38ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75737acebede9c8a4ea30346e838e4ce') in 0.030157 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/ClassRoom/Scenes/Host/Lightmap-0_comp_shadowmask.png
-  artifactKey: Guid(7805706cb291a2f489dc042d8eef3d07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ClassRoom/Scenes/Host/Lightmap-0_comp_shadowmask.png using Guid(7805706cb291a2f489dc042d8eef3d07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88723fffd1034e65bebea0d0bac8a117') in 0.104770 seconds 
+  Time since last request: 9.147535 seconds.
+  path: Assets/vitra-eames-plastic-chair/textures
+  artifactKey: Guid(8f8f8efb4557bc14eb883824e8b8d864) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/vitra-eames-plastic-chair/textures using Guid(8f8f8efb4557bc14eb883824e8b8d864) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '119ec4a4ee29e0a435337047a748ad39') in 0.007324 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000023 seconds.
-  path: Assets/ClassRoom/Scenes/Host/ReflectionProbe-0.exr
-  artifactKey: Guid(83a3ad867b6e55a49a052d2d7fe0e267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ClassRoom/Scenes/Host/ReflectionProbe-0.exr using Guid(83a3ad867b6e55a49a052d2d7fe0e267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb280b51d1747e677b6c3dabac69551c') in 0.049673 seconds 
+  Time since last request: 1.644730 seconds.
+  path: Assets/vitra-eames-plastic-chair/textures/VITRA CH.jpeg
+  artifactKey: Guid(9462a7216ff0ed5489753a0afed59ba4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/vitra-eames-plastic-chair/textures/VITRA CH.jpeg using Guid(9462a7216ff0ed5489753a0afed59ba4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6894ac33ebe61cbf84a2fcf379a58588') in 0.068027 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 2.704802 seconds.
-  path: Assets/ClassRoom/Scenes/Guest/LightingData.asset
-  artifactKey: Guid(77f62ff9edf3143448770afa05d34d0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ClassRoom/Scenes/Guest/LightingData.asset using Guid(77f62ff9edf3143448770afa05d34d0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '05362ec5dc8f70392c6ac2f5708a230f') in 0.003312 seconds 
+  Time since last request: 127.416823 seconds.
+  path: Assets/vitra-eames-plastic-chair/source/Vitra-3Ds-model-detailed-mesh-texture
+  artifactKey: Guid(77a54f668e8a28941967077ac90474a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/vitra-eames-plastic-chair/source/Vitra-3Ds-model-detailed-mesh-texture using Guid(77a54f668e8a28941967077ac90474a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d556a3c06b65ba634b6933ec4422c78') in 0.007993 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/ClassRoom/Scenes/Guest/Lightmap-0_comp_shadowmask.png
-  artifactKey: Guid(1f8eceb3d608ee44dbfa9fb4ff99f98d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ClassRoom/Scenes/Guest/Lightmap-0_comp_shadowmask.png using Guid(1f8eceb3d608ee44dbfa9fb4ff99f98d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd02c38a1bbeb8303c4af5d9f93017abe') in 0.029215 seconds 
+  Time since last request: 1.096120 seconds.
+  path: Assets/vitra-eames-plastic-chair/source/Vitra-3Ds-model-detailed-mesh-texture/Side chair by Vitra_more detailed mesh.3DS
+  artifactKey: Guid(fcea7d0bf5961e9438c6800dd822cbca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/vitra-eames-plastic-chair/source/Vitra-3Ds-model-detailed-mesh-texture/Side chair by Vitra_more detailed mesh.3DS using Guid(fcea7d0bf5961e9438c6800dd822cbca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f6d5ab8d4ecc51f4ce8e574ab41c569') in 0.100330 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000028 seconds.
-  path: Assets/ClassRoom/Scenes/Guest/ReflectionProbe-0.exr
-  artifactKey: Guid(fef5e44f91bbf15479d0bc2fcc0c5d63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ClassRoom/Scenes/Guest/ReflectionProbe-0.exr using Guid(fef5e44f91bbf15479d0bc2fcc0c5d63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '90e6b098f3bf9b7b896d13111f740cfb') in 0.018286 seconds 
+  Time since last request: 89.961873 seconds.
+  path: Assets/ClassRoom/UI/Animation
+  artifactKey: Guid(7eb636cdd03dde04994a539d9e2d6247) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ClassRoom/UI/Animation using Guid(7eb636cdd03dde04994a539d9e2d6247) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '319f0120e5d66d664ad90fba42ff1c09') in 0.006763 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 12.191368 seconds.
-  path: Assets/ClassRoom/Material/Black.mat
-  artifactKey: Guid(b2aae128c2664ef4a9d0c0a4402de279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ClassRoom/Material/Black.mat using Guid(b2aae128c2664ef4a9d0c0a4402de279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab4836f1104f66c89159d6b8bca9e323') in 0.044291 seconds 
+  Time since last request: 42.815550 seconds.
+  path: Assets/ClassRoom/UI/Animation/Side chair by Vitra_more detailed mesh.prefab
+  artifactKey: Guid(672effc5fd6efbd49ab32853b778cb6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ClassRoom/UI/Animation/Side chair by Vitra_more detailed mesh.prefab using Guid(672effc5fd6efbd49ab32853b778cb6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4852582702abe65406da566209a27750') in 0.021809 seconds 
 ========================================================================
-Received Import Request.
-  Time since last request: 0.000029 seconds.
-  path: Assets/ClassRoom/Material/Flooring.mat
-  artifactKey: Guid(75eb4df0ebc999f40be32b204d4beae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ClassRoom/Material/Flooring.mat using Guid(75eb4df0ebc999f40be32b204d4beae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a92796e3995b528ce2055fe974a7793c') in 0.261837 seconds 
-Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
-AssetImportWorker is now disconnected from the server
-Process exiting
-Exiting without the bug reporter. Application will terminate with return code 0
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006061 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\nao\Desktop\wataru\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\nao\Desktop\wataru\VR_Kensyu\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 0.96 ms, found 10 plugins.
+Preloading 1 native plugins for Editor in 0.07 ms.
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Completed reload, in  0.942 seconds
+Domain Reload Profiling:
+	ReloadAssembly (942ms)
+		BeginReloadAssembly (134ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (42ms)
+		EndReloadAssembly (715ms)
+			LoadAssemblies (94ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (261ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (39ms)
+			SetupLoadedEditorAssemblies (300ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (13ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (63ms)
+				ProcessInitializeOnLoadAttributes (201ms)
+				ProcessInitializeOnLoadMethodAttributes (16ms)
+				AfterProcessingInitializeOnLoad (5ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Platform modules already initialized, skipping
+Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
+Refreshing native plugins compatible for Editor in 4.65 ms, found 10 plugins.
+Preloading 1 native plugins for Editor in 0.04 ms.
+Unloading 5279 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 53 unused Assets / (167.4 KB). Loaded Objects now: 5898.
+Memory consumption went from 192.4 MB to 192.2 MB.
+Total: 3.049700 ms (FindLiveObjects: 0.372500 ms CreateObjectMapping: 0.206700 ms MarkObjects: 2.324600 ms  DeleteObjects: 0.145100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
