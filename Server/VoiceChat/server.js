@@ -51,6 +51,8 @@ ws.on("connection", function (socket) {
 	socket.on("message", function (data, isBinary) {
 		const message = isBinary ? data : data.toString();
 
+		console.log(message);
+
 		ws.clients.forEach(client => {
 			if (client != socket)
 				client.send(message);
