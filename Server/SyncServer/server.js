@@ -321,6 +321,7 @@ ws.on("connection", function (socket) {
 					delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".LTouch"];
 					delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".Head"];
 
+					// Load world transforms prior to rigidbody assignment
 					var syncObjValues = Object.values(syncObjects);
 					var syncAnimValues = Object.values(syncAnims);
 

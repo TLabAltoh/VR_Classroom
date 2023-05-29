@@ -77,9 +77,7 @@ public class TLabShelfManager : MonoBehaviour
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
 
         if (shelfObjInfo.currentTask != null)
-        {
             StopCoroutine(shelfObjInfo.currentTask);
-        }
 
         shelfObjInfo.currentTask = FadeOut(shelfObjInfo, shelfObjInfo.start.transform);
         StartCoroutine(shelfObjInfo.currentTask);
@@ -91,9 +89,7 @@ public class TLabShelfManager : MonoBehaviour
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
 
         if (shelfObjInfo.currentTask != null)
-        {
             StopCoroutine(shelfObjInfo.currentTask);
-        }
 
         shelfObjInfo.currentTask = FadeIn(shelfObjInfo, target);
         StartCoroutine(shelfObjInfo.currentTask);
@@ -111,14 +107,13 @@ public class TLabShelfManager : MonoBehaviour
 
         if (task.action == TLabShelfAction.takeOut)
         {
-            int current = task.objStart;
-            for (int i = task.anchorStart; i <  task.anchorStart + task.loop; i++)
-                TakeOut(current++, m_anchors[i]);
+            foreach(TLabShelfTaskPair pair in task.m_pairs)
+                TakeOut(pair.obj, m_anchors[pair.anchor]);
         }
         else if(task.action == TLabShelfAction.putAway)
         {
-            for (int i = task.objStart; i < task.objStart + task.loop; i++)
-                PutAway(i);
+            foreach (TLabShelfTaskPair pair in task.m_pairs)
+                PutAway(pair.obj);
         }
     }
 
@@ -149,10 +144,15 @@ public class TLabShelfObjInfo
 [System.Serializable]
 public class TLabShelfTask
 {
-    public int objStart;
-    public int anchorStart;
-    public int loop;
+    public TLabShelfTaskPair[] m_pairs;
     public TLabShelfAction action;
+}
+
+[System.Serializable]
+public class TLabShelfTaskPair
+{
+    public int obj;
+    public int anchor;
 }
 
 [System.Serializable]
