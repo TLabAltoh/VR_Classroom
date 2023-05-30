@@ -1,8 +1,18 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class TLabShelfSyncManager : TLabShelfManager
 {
+    private AssetBundle m_assetBundle;
+
+    /// <summary>
+    /// Animation of object rotating for 2 seconds
+    /// Removing an object from the shelf
+    /// </summary>
+    /// <param name="shelfObjInfo"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
     protected override IEnumerator FadeIn(TLabShelfObjInfo shelfObjInfo, Transform target)
     {
         TLabSyncGrabbable grabbable = TLabSyncClient.Instalce.Grabbables[shelfObjInfo.obj.gameObject.name] as TLabSyncGrabbable;
@@ -52,6 +62,13 @@ public class TLabShelfSyncManager : TLabShelfManager
         yield break;
     }
 
+    /// <summary>
+    /// Animation of object rotating for 2 seconds
+    /// put back on the shelf
+    /// </summary>
+    /// <param name="shelfObjInfo"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
     protected override IEnumerator FadeOut(TLabShelfObjInfo shelfObjInfo, Transform target)
     {
         TLabSyncGrabbable grabbable = TLabSyncClient.Instalce.Grabbables[shelfObjInfo.obj.gameObject.name] as TLabSyncGrabbable;
@@ -100,6 +117,11 @@ public class TLabShelfSyncManager : TLabShelfManager
         yield break;
     }
 
+    /// <summary>
+    /// Returns the object at the specified index to the shelf
+    /// Calling FadeOut()
+    /// </summary>
+    /// <param name="index"></param>
     public override void PutAway(int index)
     {
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
@@ -112,6 +134,12 @@ public class TLabShelfSyncManager : TLabShelfManager
         shelfObjInfo.isShelf = true;
     }
 
+    /// <summary>
+    /// Retrieves the object at the specified index from the shelf
+    /// Calling FadeIn()
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="target"></param>
     public override void TakeOut(int index, Transform target)
     {
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
@@ -124,14 +152,60 @@ public class TLabShelfSyncManager : TLabShelfManager
         shelfObjInfo.isShelf = false;
     }
 
+    /// <summary>
+    /// Retrieve objects from the shelf on the host side
+    /// </summary>
+    /// <param name="index"></param>
     public override void TakeOut(int index)
     {
         TakeOut(index, m_anchors[0]);
     }
 
+    /// <summary>
+    /// Collectively perform tasks to share and retrieve objects to clients
+    /// </summary>
+    /// <param name="index"></param>
     public override void LoopTask(int index)
     {
         base.LoopTask(index);
+    }
+
+    /// <summary>
+    /// Starts a task to download an object from the outside.
+    /// Replace the object with the object of the specified shelf number.
+    /// </summary>
+    /// <param name="modURL"></param>
+    /// <param name="shelfIndex"></param>
+    /// <returns></returns>
+    public IEnumerator DownloadAssetBundle(string modURL, int shelfIndex)
+    {
+        Debug.Log("Start Load Asset");
+
+        if (m_assetBundle != null)
+            m_assetBundle.Unload(false);
+
+        var request = UnityWebRequestAssetBundle.GetAssetBundle(modURL);
+        yield return request.SendWebRequest();
+
+        // Handle error
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError || request.result == UnityWebRequest.Result.DataProcessingError)
+        {
+            Debug.LogError(request.error);
+            yield break;
+        }
+
+        var handler = request.downloadHandler as DownloadHandlerAssetBundle;
+        m_assetBundle = handler.assetBundle;
+
+        Debug.Log("Finish Load Asset");
+
+        AssetBundleRequest assetLoadRequest = m_assetBundle.LoadAssetAsync<GameObject>("ROOM");
+        yield return assetLoadRequest;
+
+        GameObject prefab = assetLoadRequest.asset as GameObject;
+        Instantiate(prefab);
+
+        // 棚のオブジェクトのメッシュ・子オブジェクトをAsset Bundleでダウンロードしたコンポーネントに差し替える
     }
 
     protected override void Start()
@@ -140,6 +214,7 @@ public class TLabShelfSyncManager : TLabShelfManager
 
         for (int i = 0; i < m_shelfObjInfos.Length; i++)
         {
+            // I'm using the Editor to avoid errors, so I may not need this process anymore.
             TLabSyncGrabbable grabbable = TLabSyncClient.Instalce.Grabbables[m_shelfObjInfos[i].obj.gameObject.name] as TLabSyncGrabbable;
             if (grabbable != null && grabbable.IsUseGravity == true)
             {

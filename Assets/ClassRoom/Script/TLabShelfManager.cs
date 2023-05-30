@@ -72,6 +72,11 @@ public class TLabShelfManager : MonoBehaviour
         yield break;
     }
 
+    /// <summary>
+    /// Returns the object at the specified index to the shelf
+    /// Calling FadeOut()
+    /// </summary>
+    /// <param name="index"></param>
     public virtual void PutAway(int index)
     {
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
@@ -84,6 +89,12 @@ public class TLabShelfManager : MonoBehaviour
         shelfObjInfo.isShelf = true;
     }
 
+    /// <summary>
+    /// Retrieves the object at the specified index from the shelf
+    /// Calling FadeIn()
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="target"></param>
     public virtual void TakeOut(int index, Transform target)
     {
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
@@ -96,11 +107,19 @@ public class TLabShelfManager : MonoBehaviour
         shelfObjInfo.isShelf = false;
     }
 
+    /// <summary>
+    /// Retrieve objects from the shelf on the host side
+    /// </summary>
+    /// <param name="index"></param>
     public virtual void TakeOut(int index)
     {
         TakeOut(index, m_anchors[0]);
     }
 
+    /// <summary>
+    /// Collectively perform tasks to share and retrieve objects to clients
+    /// </summary>
+    /// <param name="index"></param>
     public virtual void LoopTask(int index)
     {
         TLabShelfTask task = m_tasks[index];
