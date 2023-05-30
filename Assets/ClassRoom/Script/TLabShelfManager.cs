@@ -4,7 +4,7 @@ using UnityEngine;
 public class TLabShelfManager : MonoBehaviour
 {
     [Header("Shelf Obj Info")]
-    [SerializeField] protected TLabShelfObjInfo[] m_shelfObjInfos;
+    [SerializeField] public TLabShelfObjInfo[] m_shelfObjInfos;
 
     [Header("Loop Task")]
     [SerializeField] protected TLabShelfTask[] m_tasks;
