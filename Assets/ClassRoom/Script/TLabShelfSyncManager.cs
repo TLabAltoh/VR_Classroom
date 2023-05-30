@@ -211,17 +211,5 @@ public class TLabShelfSyncManager : TLabShelfManager
     protected override void Start()
     {
         base.Start();
-
-        for (int i = 0; i < m_shelfObjInfos.Length; i++)
-        {
-            // I'm using the Editor to avoid errors, so I may not need this process anymore.
-            TLabSyncGrabbable grabbable = TLabSyncClient.Instalce.Grabbables[m_shelfObjInfos[i].obj.gameObject.name] as TLabSyncGrabbable;
-            if (grabbable != null && grabbable.IsUseGravity == true)
-            {
-                Debug.LogError("tlabshelfsyncmanager: Objects with UseGravity enabled cannot be used");
-                m_shelfObjInfos[i] = null;
-                return;
-            }
-        }
     }
 }

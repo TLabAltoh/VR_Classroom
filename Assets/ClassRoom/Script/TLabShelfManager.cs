@@ -155,9 +155,33 @@ public class TLabShelfObjInfo
 {
     [System.NonSerialized] public GameObject start;
     [System.NonSerialized] public bool isShelf = true;
+    [System.NonSerialized] public bool isDivided = false;
+
     public GameObject obj;
+    public TLabDividedObjInfo[] dividedObjInfos = new TLabDividedObjInfo[5];
     public float speed;
     public IEnumerator currentTask = null;
+
+    public void SetNewMesh()
+    {
+
+    }
+
+    public void SetDividedObjs(GameObject parent)
+    {
+        Transform[] childrens = parent.GetComponentsInChildren<Transform>();
+        for(int i = 0; i < 5; i++)
+        {
+
+        }
+    }
+}
+
+[System.Serializable]
+public class TLabDividedObjInfo
+{
+    [System.NonSerialized] public GameObject start;
+    public GameObject obj;
 }
 
 [System.Serializable]

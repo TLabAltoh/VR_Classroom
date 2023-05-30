@@ -22,6 +22,8 @@ public class TLabShelfSyncManagerEditor : Editor
             if (grabbable == null)
                 grabbable = shelfInfo.obj.AddComponent<TLabSyncGrabbable>();
 
+            // Do not allow useGravity on shelf objects
+
             grabbable.m_enableSync = true;
             grabbable.m_autoSync = false;
             grabbable.m_locked = false;
