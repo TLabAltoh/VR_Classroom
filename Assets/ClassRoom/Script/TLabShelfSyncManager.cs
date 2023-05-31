@@ -6,13 +6,6 @@ public class TLabShelfSyncManager : TLabShelfManager
 {
     private AssetBundle m_assetBundle;
 
-    /// <summary>
-    /// Animation of object rotating for 2 seconds
-    /// Removing an object from the shelf
-    /// </summary>
-    /// <param name="shelfObjInfo"></param>
-    /// <param name="target"></param>
-    /// <returns></returns>
     protected override IEnumerator FadeIn(TLabShelfObjInfo shelfObjInfo, Transform target)
     {
         TLabSyncGrabbable grabbable = TLabSyncClient.Instalce.Grabbables[shelfObjInfo.obj.gameObject.name] as TLabSyncGrabbable;
@@ -62,13 +55,6 @@ public class TLabShelfSyncManager : TLabShelfManager
         yield break;
     }
 
-    /// <summary>
-    /// Animation of object rotating for 2 seconds
-    /// put back on the shelf
-    /// </summary>
-    /// <param name="shelfObjInfo"></param>
-    /// <param name="target"></param>
-    /// <returns></returns>
     protected override IEnumerator FadeOut(TLabShelfObjInfo shelfObjInfo, Transform target)
     {
         TLabSyncGrabbable grabbable = TLabSyncClient.Instalce.Grabbables[shelfObjInfo.obj.gameObject.name] as TLabSyncGrabbable;
@@ -117,11 +103,6 @@ public class TLabShelfSyncManager : TLabShelfManager
         yield break;
     }
 
-    /// <summary>
-    /// Returns the object at the specified index to the shelf
-    /// Calling FadeOut()
-    /// </summary>
-    /// <param name="index"></param>
     public override void PutAway(int index)
     {
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
@@ -134,12 +115,6 @@ public class TLabShelfSyncManager : TLabShelfManager
         shelfObjInfo.isShelf = true;
     }
 
-    /// <summary>
-    /// Retrieves the object at the specified index from the shelf
-    /// Calling FadeIn()
-    /// </summary>
-    /// <param name="index"></param>
-    /// <param name="target"></param>
     public override void TakeOut(int index, Transform target)
     {
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
@@ -152,10 +127,6 @@ public class TLabShelfSyncManager : TLabShelfManager
         shelfObjInfo.isShelf = false;
     }
 
-    /// <summary>
-    /// Retrieve objects from the shelf on the host side
-    /// </summary>
-    /// <param name="index"></param>
     public override void TakeOut(int index)
     {
         TakeOut(index, m_anchors[0]);
