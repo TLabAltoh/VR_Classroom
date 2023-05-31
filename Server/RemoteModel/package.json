@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "ws": "^8.13.0"
+  },
+  "name": "RemoteModel",
+  "version": "1.0.0",
+  "description": "\"Server to allow 3d models to be imported from remote servers using asset bundles\"",
+  "main": "server.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "tlabaltoh",
+  "license": "MIT"
+}

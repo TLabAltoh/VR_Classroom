@@ -4,7 +4,7 @@ using UnityEngine;
 public class TLabShelfManager : MonoBehaviour
 {
     [Header("Shelf Obj Info")]
-    [SerializeField] protected TLabShelfObjInfo[] m_shelfObjInfos;
+    [SerializeField] public TLabShelfObjInfo[] m_shelfObjInfos;
 
     [Header("Loop Task")]
     [SerializeField] protected TLabShelfTask[] m_tasks;
@@ -72,53 +72,67 @@ public class TLabShelfManager : MonoBehaviour
         yield break;
     }
 
+    /// <summary>
+    /// Returns the object at the specified index to the shelf
+    /// Calling FadeOut()
+    /// </summary>
+    /// <param name="index"></param>
     public virtual void PutAway(int index)
     {
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
 
         if (shelfObjInfo.currentTask != null)
-        {
             StopCoroutine(shelfObjInfo.currentTask);
-        }
 
         shelfObjInfo.currentTask = FadeOut(shelfObjInfo, shelfObjInfo.start.transform);
         StartCoroutine(shelfObjInfo.currentTask);
         shelfObjInfo.isShelf = true;
     }
 
+    /// <summary>
+    /// Retrieves the object at the specified index from the shelf
+    /// Calling FadeIn()
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="target"></param>
     public virtual void TakeOut(int index, Transform target)
     {
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[index];
 
         if (shelfObjInfo.currentTask != null)
-        {
             StopCoroutine(shelfObjInfo.currentTask);
-        }
 
         shelfObjInfo.currentTask = FadeIn(shelfObjInfo, target);
         StartCoroutine(shelfObjInfo.currentTask);
         shelfObjInfo.isShelf = false;
     }
 
+    /// <summary>
+    /// Retrieve objects from the shelf on the host side
+    /// </summary>
+    /// <param name="index"></param>
     public virtual void TakeOut(int index)
     {
         TakeOut(index, m_anchors[0]);
     }
 
+    /// <summary>
+    /// Collectively perform tasks to share and retrieve objects to clients
+    /// </summary>
+    /// <param name="index"></param>
     public virtual void LoopTask(int index)
     {
         TLabShelfTask task = m_tasks[index];
 
         if (task.action == TLabShelfAction.takeOut)
         {
-            int current = task.objStart;
-            for (int i = task.anchorStart; i <  task.anchorStart + task.loop; i++)
-                TakeOut(current++, m_anchors[i]);
+            foreach(TLabShelfTaskPair pair in task.m_pairs)
+                TakeOut(pair.obj, m_anchors[pair.anchor]);
         }
         else if(task.action == TLabShelfAction.putAway)
         {
-            for (int i = task.objStart; i < task.objStart + task.loop; i++)
-                PutAway(i);
+            foreach (TLabShelfTaskPair pair in task.m_pairs)
+                PutAway(pair.obj);
         }
     }
 
@@ -141,18 +155,47 @@ public class TLabShelfObjInfo
 {
     [System.NonSerialized] public GameObject start;
     [System.NonSerialized] public bool isShelf = true;
+    [System.NonSerialized] public bool isDivided = false;
+
     public GameObject obj;
+    public TLabDividedObjInfo[] dividedObjInfos = new TLabDividedObjInfo[5];
     public float speed;
     public IEnumerator currentTask = null;
+
+    public void SetNewMesh()
+    {
+
+    }
+
+    public void SetDividedObjs(GameObject parent)
+    {
+        Transform[] childrens = parent.GetComponentsInChildren<Transform>();
+        for(int i = 0; i < 5; i++)
+        {
+
+        }
+    }
+}
+
+[System.Serializable]
+public class TLabDividedObjInfo
+{
+    [System.NonSerialized] public GameObject start;
+    public GameObject obj;
 }
 
 [System.Serializable]
 public class TLabShelfTask
 {
-    public int objStart;
-    public int anchorStart;
-    public int loop;
+    public TLabShelfTaskPair[] m_pairs;
     public TLabShelfAction action;
+}
+
+[System.Serializable]
+public class TLabShelfTaskPair
+{
+    public int obj;
+    public int anchor;
 }
 
 [System.Serializable]

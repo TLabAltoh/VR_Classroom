@@ -33,8 +33,6 @@ const server = http.createServer((req, res) => {
 	res.end();
 });
 
-
-
 console.log("\ncreate server " + bar);
 
 server.listen(port);
@@ -45,14 +43,14 @@ console.log("\nserver start " + bar);
 
 // #endregion Create HTTP Server
 
-//
-// Player Data
-//
+// #region Player Data
 
 const seatLength = 3;
 var seatFilled = 0;
 var seats = [];
 var socketTable = [];
+
+// for debug
 var grabbTable = [];
 for(var i = 0; i < seatLength; i++){
 	seats.push(false);
@@ -60,9 +58,9 @@ for(var i = 0; i < seatLength; i++){
 	grabbTable.push([]);
 }
 
-//
-// Sync Objects
-//
+//#endregion Player Data
+
+// #region Sync Objects
 
 // list of updated transforms
 var syncObjects = {};
@@ -73,9 +71,9 @@ var syncAnims = {};
 // A dictionary of players responsible for computing rigidbody gravity per object
 var rbTable = {};
 
-//
-// Const values
-//
+// #endregion Sync Objects
+
+// #region Const values
 
 // #region Definition on the c# side
 //public enum WebRole {
@@ -95,6 +93,8 @@ var rbTable = {};
 //	grabbLock,
 //	forceRelease,
 //	syncTransform
+//  syncAnim
+//  reflesh
 //}
 // #endregion Definition on the c# side
 
@@ -113,8 +113,12 @@ const GRABBLOCK = 7;
 const FORCERELEASE = 8;
 const SYNCTRANSFORM = 9;
 const SYNCANIM = 10;
+const REFRESH = 11;
+
+// #endregion Const values
 
 // #region Reassign rigidbody with current member
+
 function allocateRigidbody(){
 	var syncObjValues = Object.values(syncObjects);
 
@@ -129,6 +133,8 @@ function allocateRigidbody(){
 
 	if (check === false)
 		return;
+
+	// Recalculate rigidbody allocation table
 
 	var seatIndex = 0;
 
@@ -147,6 +153,8 @@ function allocateRigidbody(){
 			}
 		}
 	});
+
+	// Re-allocate with updated tables
 
 	for (seatIndex = 0; seatIndex < seatLength; seatIndex++) {
 		// Check if someone is in the seat
@@ -175,10 +183,12 @@ ws.on("connection", function (socket) {
 
 	var seatIndex = -1;
 
+	// #region socket on message
+
 	socket.on("message", function (data, isBinary) {
 		const message = isBinary ? data : data.toString();
 
-		// console.log("\nrecv message: " + message);
+		//console.log("\nrecv message: " + message);
 
 		const parse = JSON.parse(message);
 
@@ -206,9 +216,10 @@ ws.on("connection", function (socket) {
 			console.log("set gravity");
 
 			var targetIndex = rbTable[parse.transform.id];
-			if (targetIndex !== seatIndex && targetIndex !== undefined) {
+
+			// if target is not own and exist, send message
+			if (targetIndex !== seatIndex && targetIndex !== undefined)
 				socketTable[targetIndex].send(message);
-            }
 
 			return;
 		} else if (parse.action == GRABBLOCK) {
@@ -266,12 +277,38 @@ ws.on("connection", function (socket) {
 			});
 
 			return;
+		} else if (parse.action === REFRESH) {
+
+			//
+			// reflesh server
+			//
+
+			console.log("reflesh");
+
+			// Re-allocate rigidbody gravity
+
+			allocateRigidbody();
+
+			// Force refles
+
+			var obj = {
+				role: SERVER,
+				action: REFRESH
+			};
+			var json = JSON.stringify(obj);
+			ws.clients.forEach(client => {
+				client.send(json);
+			});
+
+			return;
         }
 
 		if (parse.action === REGIST) {
+
 			//
 			// regist client to seat table
 			//
+
 			if (parse.role === GUEST) {
 
 				// #region Guest participation approval process
@@ -321,6 +358,7 @@ ws.on("connection", function (socket) {
 					delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".LTouch"];
 					delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".Head"];
 
+					// Load world transforms prior to rigidbody assignment
 					var syncObjValues = Object.values(syncObjects);
 					var syncAnimValues = Object.values(syncAnims);
 
@@ -446,14 +484,22 @@ ws.on("connection", function (socket) {
 				}
 
 				// #endregion Host participation approval process
-            }
+			}
+
+			return;
         }
 	});
+
+	// #endregion socket on message
+
+	// #region socket on close
 
 	socket.on('close', function close() {
 		console.log("\nclient closed " + bar);
 
 		if (seatIndex !== -1) {
+			// Notify players to leave
+
 			var obj = {
 				"role": SERVER,
 				"action": GUESTDISCONNECT,
@@ -461,22 +507,7 @@ ws.on("connection", function (socket) {
 			};
 			var json = JSON.stringify(obj);
 
-			ws.clients.forEach(client => {
-				if (client != socket) {
-					client.send(json);
-
-					grabbTable[seatIndex].forEach(function (value) {
-						var obj1 = {
-							"role": SERVER,
-							"action": SETGRAVITY,
-							"transform": value
-						};
-						var json1 = JSON.stringify(obj1);
-
-						client.send(json1);
-					});
-				}
-			});
+			// Updating Tables
 
 			seats[seatIndex] = false;
 			socketTable[seatIndex] = null;
@@ -488,4 +519,6 @@ ws.on("connection", function (socket) {
 
 		allocateRigidbody();
 	});
+
+	// #endregion socket on close
 });
