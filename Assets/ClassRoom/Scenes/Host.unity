@@ -298,7 +298,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1566
+  m_Name: pb_Mesh-8022
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5492,6 +5492,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7703964993145761832, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
   m_PrefabInstance: {fileID: 6383360505620899020}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3638833556982453481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3638833556982453476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb7c505fb2b1c8f43bfdc0e68ed0b888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4751184203207477747 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1835736174466673983, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
