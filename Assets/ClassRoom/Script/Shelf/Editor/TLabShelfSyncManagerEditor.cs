@@ -28,7 +28,7 @@ public class TLabShelfSyncManagerEditor : Editor
             grabbable.m_autoSync = false;
             grabbable.m_locked = false;
 
-            grabbable.UseRigidbody(true, false);
+            grabbable.UseRigidbody(false, false);
 
             TLabSyncRotatable rotatable = grabbable.gameObject.GetComponent<TLabSyncRotatable>();
             if (rotatable == null)

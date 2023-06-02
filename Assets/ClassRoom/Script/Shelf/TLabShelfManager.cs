@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TLabShelfManager : MonoBehaviour
 {
-    [Header("Shelf Obj Info")]
+    [Tooltip("棚に登録するオブジェクト")]
     [SerializeField] public TLabShelfObjInfo[] m_shelfObjInfos;
 
-    [Header("Transport Anchor")]
+    [Tooltip("転送先アンカー")]
     [SerializeField] protected Transform[] m_anchors;
 
     protected virtual IEnumerator FadeIn(int objIndex, int anchorIndex)

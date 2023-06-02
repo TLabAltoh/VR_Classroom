@@ -351,7 +351,7 @@ public class TLabVoiceChat : MonoBehaviour
 
         m_websocket.OnError += (e) =>
         {
-            Debug.Log("Error! " + e);
+            Debug.Log("tlabvoicechat: Error! " + e);
         };
 
         m_websocket.OnClose += (e) =>

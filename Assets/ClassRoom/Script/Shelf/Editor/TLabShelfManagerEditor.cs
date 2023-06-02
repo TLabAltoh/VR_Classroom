@@ -22,7 +22,7 @@ public class TLabShelfManagerEditor : Editor
             if (grabbable == null)
                 grabbable = shelfInfo.obj.AddComponent<TLabVRGrabbable>();
 
-            grabbable.UseRigidbody(true, false);
+            grabbable.UseRigidbody(false, false);
 
             TLabVRRotatable rotatable = grabbable.gameObject.GetComponent<TLabVRRotatable>();
             if (rotatable == null)

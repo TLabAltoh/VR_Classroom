@@ -22,6 +22,7 @@ public enum WebShelfAction
 
 public class TLabShelfSyncManager : TLabShelfManager
 {
+    [Tooltip("サーバーのアドレス")]
     [SerializeField] private string m_serverAddr;
 
     private AssetBundle m_assetBundle;
@@ -29,14 +30,14 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     protected override IEnumerator FadeIn(int objIndex, int anchorIndex)
     {
-        base.FadeIn(objIndex, anchorIndex);
+        yield return base.FadeIn(objIndex, anchorIndex);
         TLabSyncClient.Instalce.ForceReflesh();
         yield break;
     }
 
     protected override IEnumerator FadeOut(int objIndex, int anchorIndex)
     {
-        base.FadeOut(objIndex, anchorIndex);
+        yield return base.FadeOut(objIndex, anchorIndex);
         TLabSyncClient.Instalce.ForceReflesh();
         yield break;
     }
@@ -162,6 +163,8 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     public async void SendWsMessage(string json)
     {
+        return;
+
         if (websocket.State == WebSocketState.Open)
             await websocket.SendText(json);
     }
@@ -217,6 +220,9 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     async void Start()
     {
+        if (m_serverAddr == "" || m_serverAddr == null)
+            return;
+
         websocket = new WebSocket(m_serverAddr);
 
         websocket.OnOpen += () =>
