@@ -50,9 +50,9 @@ public class TLabVoiceChat : MonoBehaviour
     private byte[] m_voiceBuffer = new byte[PACKET_BUFFER_SIZE];
     private int m_vbWriteHead = 0;
     private const int PACKET_BUFFER_SIZE = VOICE_BUFFER_SIZE << SIZE_OF_FLOAT_LOG2;
-    private const int VOICE_BUFFER_SIZE = 4800; // 0.09 ms
+    private const int VOICE_BUFFER_SIZE = 1024;
     private const int SIZE_OF_FLOAT_LOG2 = 2;
-    private const int FREQUENCY = 48000;
+    private const int FREQUENCY = 44100;
     private const double TIME_LENGTH = (double)VOICE_BUFFER_SIZE / (double)FREQUENCY;
 
     //
@@ -186,7 +186,7 @@ public class TLabVoiceChat : MonoBehaviour
         return output.ToArray();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
 #if !UNITY_WEBGL || UNITY_EDITOR
         m_websocket.DispatchMessageQueue();
@@ -226,6 +226,11 @@ public class TLabVoiceChat : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        var configuration = AudioSettings.GetConfiguration();
+        configuration.dspBufferSize = VOICE_BUFFER_SIZE;
+        AudioSettings.Reset(configuration);
+        Debug.Log(configuration.dspBufferSize);
     }
 
     async void Start()
@@ -297,7 +302,7 @@ public class TLabVoiceChat : MonoBehaviour
 
                         LongCopy(srcTmp, dstTmp, remain);
 
-                        m_vbWriteHead = (m_vbWriteHead + remain) % PACKET_BUFFER_SIZE;
+                        m_vbWriteHead = remain;
                     }
                 }
             }
