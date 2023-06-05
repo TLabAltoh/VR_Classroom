@@ -491,7 +491,6 @@ MonoBehaviour:
   - {fileID: 6333577597745751774}
   - {fileID: 6441956610176949711}
   - {fileID: 8617865302753864229}
-  m_serverAddr: 
 --- !u!1 &934979135308368783
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,7 +828,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 257, y: -0.000038146973}
+  m_AnchoredPosition: {x: 255, y: 0}
   m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4789499321058746688
@@ -2867,6 +2866,21 @@ MonoBehaviour:
   - {fileID: 4853837590586330987}
   - {fileID: 2788812511116698841}
   - {fileID: 3161772401705600758}
+  m_customEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5755384349333693403}
+        m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
+        m_MethodName: OnMessage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1992072395166020666
 GameObject:
   m_ObjectHideFlags: 0
@@ -5230,7 +5244,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6489281300211050848}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.000019868214}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
