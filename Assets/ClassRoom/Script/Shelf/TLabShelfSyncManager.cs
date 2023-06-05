@@ -17,6 +17,7 @@ public enum WebShelfAction
     putAway,
     share,
     collect,
+    divide,
     loadModel
 }
 
@@ -159,6 +160,50 @@ public class TLabShelfSyncManager : TLabShelfManager
     {
         for (int i = 1; i < m_anchors.Length; i++)
             StartCoroutine(FadeOut(objIndex, i));
+    }
+
+    public void Divide(int objIndex)
+    {
+        TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[objIndex];
+        GameObject go = shelfObjInfo.instanced[0];
+        if (go == null)
+            return;
+        else
+        {
+            MeshCollider meshCollider = go.GetComponent<MeshCollider>();
+            TLabSyncGrabbable grabbable = go.GetComponent<TLabSyncGrabbable>();
+            if (meshCollider.enabled == true)
+            {
+                meshCollider.enabled = false;
+                MeshCollider[] childs = go.GetComponentsInChildren<MeshCollider>();
+                for (int i = 0; i < childs.Length; i++)
+                {
+                    if (childs[i] == meshCollider)
+                        continue;
+                    // child‚Ì on / off
+                    childs[i].enabled = true;
+                }
+            }
+            else
+            {
+                meshCollider.enabled = true;
+                MeshCollider[] childs = go.GetComponentsInChildren<MeshCollider>();
+                for (int i = 0; i < childs.Length; i++)
+                {
+                    if (childs[i] == meshCollider)
+                        continue;
+                    // child‚Ì on / off
+                    childs[i].enabled = false;
+                }
+                grabbable.ReCreateMeshCollider();
+            }
+
+        }
+    }
+
+    private void DivideFromOutside(int objIndex)
+    {
+       
     }
 
     public async void SendWsMessage(string json)
