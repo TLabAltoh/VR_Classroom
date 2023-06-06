@@ -38,14 +38,14 @@ public class TLabShelfSyncManager : TLabShelfManager
         yield break;
     }
 
-    public override void PutAway(int objIndex)
+    public override void PutAway()
     {
-        base.PutAway(objIndex);
+        base.PutAway();
 
         TLabSyncShelfJson obj = new TLabSyncShelfJson
         {
             action = (int)WebShelfAction.putAway,
-            objIndex = objIndex
+            objIndex = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
         SendWsMessage(json);
@@ -56,14 +56,14 @@ public class TLabShelfSyncManager : TLabShelfManager
         StartCoroutine(FadeOut(objIndex, 0));
     }
 
-    public override void TakeOut(int objIndex)
+    public override void TakeOut()
     {
-        base.TakeOut(objIndex);
+        base.TakeOut();
 
         TLabSyncShelfJson obj = new TLabSyncShelfJson
         {
             action = (int)WebShelfAction.takeOut,
-            objIndex = objIndex
+            objIndex = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
         SendWsMessage(json);
@@ -74,14 +74,14 @@ public class TLabShelfSyncManager : TLabShelfManager
         StartCoroutine(FadeIn(objIndex, 0));
     }
 
-    public override void Share(int objIndex)
+    public override void Share()
     {
-        base.Share(objIndex);
+        base.Share();
 
         TLabSyncShelfJson obj = new TLabSyncShelfJson
         {
             action = (int)WebShelfAction.share,
-            objIndex = objIndex
+            objIndex = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
         SendWsMessage(json);
@@ -93,14 +93,14 @@ public class TLabShelfSyncManager : TLabShelfManager
             StartCoroutine(FadeIn(objIndex, i));
     }
 
-    public override void Collect(int objIndex)
+    public override void Collect()
     {
-        base.Collect(objIndex);
+        base.Collect();
 
         TLabSyncShelfJson obj = new TLabSyncShelfJson
         {
             action = (int)WebShelfAction.collect,
-            objIndex = objIndex
+            objIndex = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
         SendWsMessage(json);
@@ -115,7 +115,8 @@ public class TLabShelfSyncManager : TLabShelfManager
     public void Divide(int objIndex)
     {
         TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[objIndex];
-        GameObject go = shelfObjInfo.instanced[0];
+        GameObject go = null;
+        shelfObjInfo.instanced.TryGetValue(0, out go);
 
         if (go == null)
             return;

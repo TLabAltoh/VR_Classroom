@@ -81,7 +81,7 @@ public class OVRRaycaster : GraphicRaycaster, IPointerEnterHandler
 			OVRCameraRig rig = FindObjectOfType<OVRCameraRig>();
 			canvas.worldCamera = rig.centerEyeAnchor.gameObject.GetComponent<Camera>();
 		}
-	}
+    }
 
 	/// <summary>
 	/// For the given ray, find graphics on this canvas which it intersects and are not blocked by other
