@@ -54,7 +54,7 @@ ws.on("connection", function (socket) {
 		console.log("recv voice");
 
 		ws.clients.forEach(client => {
-			//if (client != socket)
+			if (client != socket)
 				client.send(message);
 		});
 	});

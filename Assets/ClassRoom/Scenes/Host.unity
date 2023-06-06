@@ -5438,7 +5438,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3638833556982453476}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb7c505fb2b1c8f43bfdc0e68ed0b888, type: 3}
   m_Name: 
@@ -5534,7 +5534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4602051404492696555, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.3.13:5500
+      value: ws://192.168.11.26:5500
       objectReference: {fileID: 0}
     - target: {fileID: 4602051404492696555, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_isStreaming
