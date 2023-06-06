@@ -45,7 +45,7 @@ console.log("\nserver start " + bar);
 
 // #region Player Data
 
-const seatLength = 3;
+const seatLength = 4;
 var seatFilled = 0;
 var seats = [];
 var socketTable = [];
@@ -75,7 +75,6 @@ var rbTable = {};
 
 // #region Const values
 
-// #region Definition on the c# side
 //public enum WebRole {
 //	server,
 //	host,
@@ -92,39 +91,41 @@ var rbTable = {};
 //	setGravity,
 //	grabbLock,
 //	forceRelease,
-//	syncTransform
-//  syncAnim
-//  reflesh
+//	divideGrabber,
+//	syncTransform,
+//	syncAnim,
+//	reflesh,
+//  customAction
 //}
-// #endregion Definition on the c# side
 
-const SERVER = 0;
-const HOST = 1;
-const GUEST = 2;
+const SERVER				= 0;
+const HOST					= 1;
+const GUEST					= 2;
 
-const REGIST = 0;
-const REGECT = 1;
-const ACEPT = 2;
-const GUESTDISCONNECT = 3;
-const GUESTPARTICIPATION = 4;
-const ALLOCATEGRAVITY = 5;
-const SETGRAVITY = 6;
-const GRABBLOCK = 7;
-const FORCERELEASE = 8;
-const SYNCTRANSFORM = 9;
-const SYNCANIM = 10;
-const REFRESH = 11;
+const REGIST				= 0;
+const REGECT				= 1;
+const ACEPT					= 2;
+const GUESTDISCONNECT		= 3;
+const GUESTPARTICIPATION	= 4;
+const ALLOCATEGRAVITY		= 5;
+const SETGRAVITY			= 6;
+const GRABBLOCK				= 7;
+const FORCERELEASE			= 8;
+const DIVIDEGRABBER			= 9;
+const SYNCTRANSFORM			= 10;
+const SYNCANIM				= 11;
+const REFRESH				= 12;
+const CUSTOMACTION			= 13;
 
 // #endregion Const values
 
-// #region Reassign rigidbody with current member
+// #region Reassign rigidbody with current member ()
 
 function allocateRigidbody(){
-	var syncObjValues = Object.values(syncObjects);
-
-	// player existence check
 
 	console.log("re allocate rigidbody");
+
+	// player existence check
 
 	var check = false;
 	for (var j = 0; j < seatLength; j++)
@@ -135,6 +136,8 @@ function allocateRigidbody(){
 		return;
 
 	// Recalculate rigidbody allocation table
+
+	var syncObjValues = Object.values(syncObjects);
 
 	var seatIndex = 0;
 
@@ -176,7 +179,7 @@ function allocateRigidbody(){
 		});
 	}
 }
-// #endregion Reassign rigidbody with current member
+// #endregion Reassign rigidbody with current member ()
 
 ws.on("connection", function (socket) {
 	console.log("\nclient connected " + bar);
@@ -198,7 +201,6 @@ ws.on("connection", function (socket) {
 			// sync transfrom
 			//
 
-			//console.log("sync transform");
 			syncObjects[parse.transform.id] = parse;
 
 			ws.clients.forEach(client => {
@@ -230,10 +232,11 @@ ws.on("connection", function (socket) {
 
 			console.log("grabb lock");
 
-			if (parse.seatIndex !== -1)
+			if (parse.seatIndex !== -1) {
 				grabbTable[seatIndex].push(parse.transform);
-			else
+			} else {
 				grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.id !== parse.transform.id });
+            }
 
 			console.log(grabbTable[seatIndex]);
 
@@ -296,14 +299,13 @@ ws.on("connection", function (socket) {
 				action: REFRESH
 			};
 			var json = JSON.stringify(obj);
+
 			ws.clients.forEach(client => {
 				client.send(json);
 			});
 
 			return;
-        }
-
-		if (parse.action === REGIST) {
+		} else if (parse.action === REGIST) {
 
 			//
 			// regist client to seat table
@@ -373,11 +375,26 @@ ws.on("connection", function (socket) {
 						socket.send(json);
 					});
 
-					console.log("reassign the rigidbody");
+					console.log("re-assign the rigidbody");
 
 					allocateRigidbody();
 
-					console.log("notify guest participation");
+					console.log("notify existing participants");
+
+					obj = {
+						role: SERVER,
+						action: GUESTPARTICIPATION,
+						seatIndex: seatIndex
+					};
+					json = JSON.stringify(obj);
+
+					for (var index = 0; index < seatLength; index++) {
+						var target = socketTable[index];
+						if (target !== null)
+							target.send(json);
+					}
+
+					console.log("notify new participants")
 
 					for (var index = 0; index < seatLength; index++) {
 						var target = socketTable[index];
@@ -389,10 +406,7 @@ ws.on("connection", function (socket) {
 							};
 							json = JSON.stringify(obj);
 
-							ws.clients.forEach(client => {
-								if (client != target)
-									client.send(json);
-							});
+							socket.send(json);
 						}
 					}
 
@@ -457,11 +471,26 @@ ws.on("connection", function (socket) {
 						socket.send(json);
 					});
 
-					console.log("reassign the rigidbody");
+					console.log("re-assign the rigidbody");
 
 					allocateRigidbody();
 
-					console.log("notify guest participation");
+					console.log("notify existing participants");
+
+					obj = {
+						role: SERVER,
+						action: GUESTPARTICIPATION,
+						seatIndex: seatIndex
+					};
+					json = JSON.stringify(obj);
+
+					for (var index = 0; index < seatLength; index++) {
+						var target = socketTable[index];
+						if (target !== null)
+							target.send(json);
+					}
+
+					console.log("notify new participants")
 
 					for (var index = 0; index < seatLength; index++) {
 						var target = socketTable[index];
@@ -473,10 +502,7 @@ ws.on("connection", function (socket) {
 							};
 							json = JSON.stringify(obj);
 
-							ws.clients.forEach(client => {
-								if (client != target)
-									client.send(json);
-							});
+							socket.send(json);
 						}
 					}
 
@@ -485,6 +511,34 @@ ws.on("connection", function (socket) {
 
 				// #endregion Host participation approval process
 			}
+
+			return;
+		} else if (parse.action == DIVIDEGRABBER) {
+
+			//
+			// divide / combin grabber
+			//
+
+			console.log("divide obj");
+
+			ws.clients.forEach(client => {
+				if (client != socket)
+					client.send(message);
+			});
+
+			return;
+		} else if (parse.action == CUSTOMACTION) {
+
+			//
+			// custom action
+			//
+
+			console.log("custom message");
+
+			ws.clients.forEach(client => {
+				if (client != socket)
+					client.send(message);
+			});
 
 			return;
         }
@@ -506,6 +560,10 @@ ws.on("connection", function (socket) {
 				"seatIndex": seatIndex
 			};
 			var json = JSON.stringify(obj);
+
+			ws.clients.forEach(client => {
+				client.send(json);
+			});
 
 			// Updating Tables
 

@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
-using NativeWebSocket;
 
 [System.Serializable]
 public class TLabSyncShelfJson
@@ -17,16 +16,13 @@ public enum WebShelfAction
     putAway,
     share,
     collect,
+    divide,
     loadModel
 }
 
 public class TLabShelfSyncManager : TLabShelfManager
 {
-    [Tooltip("サーバーのアドレス")]
-    [SerializeField] private string m_serverAddr;
-
     private AssetBundle m_assetBundle;
-    private WebSocket websocket;
 
     protected override IEnumerator FadeIn(int objIndex, int anchorIndex)
     {
@@ -41,51 +37,6 @@ public class TLabShelfSyncManager : TLabShelfManager
         TLabSyncClient.Instalce.ForceReflesh();
         yield break;
     }
-
-    #region
-    //    TLabSyncGrabbable grabbable = TLabSyncClient.Instalce.Grabbables[shelfObjInfo.obj.gameObject.name] as TLabSyncGrabbable;
-    //        if (grabbable != null)
-    //        {
-    //            grabbable.ForceRelease();
-    //            grabbable.GrabbLock(true);
-    //            grabbable.GrabbLockSelf(TLabSyncClient.Instalce.SeatIndex);
-    //        }
-
-    //GameObject shelfObj = shelfObjInfo.obj;
-
-    //float remain = 2.0f;
-
-    //while (remain > 0.0f)
-    //{
-    //    remain -= Time.deltaTime;
-
-    //    shelfObj.transform.rotation = Quaternion.AngleAxis(10.0f * Time.deltaTime, Vector3.up) * shelfObj.transform.rotation;
-
-    //    if (grabbable != null)
-    //    {
-    //        grabbable.SyncTransform();
-
-    //        grabbable.ForceRelease();
-    //        grabbable.GrabbLock(true);
-    //    }
-
-    //    yield return null;
-    //}
-
-    //shelfObj.transform.position = target.transform.position;
-    //shelfObj.transform.rotation = target.transform.rotation;
-    //shelfObj.transform.localScale = target.transform.localScale;
-
-    //if (grabbable != null)
-    //{
-    //    grabbable.SyncTransform();
-
-    //    grabbable.GrabbLock(false);
-    //    grabbable.GrabbLockSelf(-1);
-    //}
-
-    //shelfObjInfo.currentTask = null;
-    #endregion
 
     public override void PutAway(int objIndex)
     {
@@ -161,16 +112,23 @@ public class TLabShelfSyncManager : TLabShelfManager
             StartCoroutine(FadeOut(objIndex, i));
     }
 
-    public async void SendWsMessage(string json)
+    public void Divide(int objIndex)
     {
-        return;
+        TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[objIndex];
+        GameObject go = shelfObjInfo.instanced[0];
 
-        if (websocket.State == WebSocketState.Open)
-            await websocket.SendText(json);
+        if (go == null)
+            return;
+        else
+        {
+            TLabSyncGrabbable grabbable = go.GetComponent<TLabSyncGrabbable>();
+            grabbable.Devide();
+        }
     }
 
     public IEnumerator DownloadAssetBundle(string modURL, int objIndex)
     {
+        #region 途中
         Debug.Log("Start Load Asset");
 
         if (m_assetBundle != null)
@@ -198,6 +156,8 @@ public class TLabShelfSyncManager : TLabShelfManager
 
         // 棚に追加する
         // 他プレイヤーにも棚への追加を通知
+
+        #endregion 途中
     }
 
     public void LoadModelFromURL(string url, int objIndex)
@@ -218,49 +178,40 @@ public class TLabShelfSyncManager : TLabShelfManager
         SendWsMessage(json);
     }
 
-    async void Start()
+    public void SendWsMessage(string message)
     {
-        if (m_serverAddr == "" || m_serverAddr == null)
-            return;
-
-        websocket = new WebSocket(m_serverAddr);
-
-        websocket.OnOpen += () =>
+        TLabSyncJson obj = new TLabSyncJson
         {
-            Debug.Log("tlabsyncshelf: Connection open!");
+            role = (int)WebRole.guest,
+            action = (int)WebAction.customAction,
+            custom = message
         };
+        string json = JsonUtility.ToJson(obj);
 
-        websocket.OnError += (e) =>
-        {
-            Debug.Log("Error! " + e);
-        };
+        TLabSyncClient.Instalce.SendWsMessage(json);
 
-        websocket.OnClose += (e) =>
-        {
-            Debug.Log("tlabsyncshelf: Connection closed!");
-        };
+        return;
+    }
 
-        websocket.OnMessage += (bytes) =>
-        {
-            string message = System.Text.Encoding.UTF8.GetString(bytes);
-            TLabSyncShelfJson obj = JsonUtility.FromJson<TLabSyncShelfJson>(message);
+    public void OnMessage(string message)
+    {
+        TLabSyncShelfJson obj = JsonUtility.FromJson<TLabSyncShelfJson>(message);
 
 #if UNITY_EDITOR
-            Debug.Log("tlabsyncshelf: OnMessage - " + message);
+        Debug.Log("tlabsyncshelf: OnMessage - " + message);
 #endif
 
-            if (obj.action == (int)WebShelfAction.loadModel)
-                LoadModelFromURL(obj.url, obj.objIndex);
-            else if (obj.action == (int)WebShelfAction.takeOut)
-                TakeOutFromOutside(obj.objIndex);
-            else if (obj.action == (int)WebShelfAction.putAway)
-                PutAwayFromOutside(obj.objIndex);
-            else if (obj.action == (int)WebShelfAction.share)
-                ShareFromOutside(obj.objIndex);
-            else if (obj.action == (int)WebShelfAction.collect)
-                CollectFromOutside(obj.objIndex);
-        };
+        if (obj.action == (int)WebShelfAction.loadModel)
+            LoadModelFromURL(obj.url, obj.objIndex);
+        else if (obj.action == (int)WebShelfAction.takeOut)
+            TakeOutFromOutside(obj.objIndex);
+        else if (obj.action == (int)WebShelfAction.putAway)
+            PutAwayFromOutside(obj.objIndex);
+        else if (obj.action == (int)WebShelfAction.share)
+            ShareFromOutside(obj.objIndex);
+        else if (obj.action == (int)WebShelfAction.collect)
+            CollectFromOutside(obj.objIndex);
 
-        await websocket.Connect();
+        return;
     }
 }
