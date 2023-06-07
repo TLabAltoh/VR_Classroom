@@ -40,6 +40,7 @@ public class TLabShelfManager : MonoBehaviour
 
         Transform anchor = m_anchors[anchorIndex].transform;
         instanced = Instantiate(shelfObjInfo.obj, anchor.position, anchor.rotation);
+        instanced.name = instanced.name + "_" + anchorIndex.ToString();
         shelfObjInfo.instanced[anchorIndex] = instanced;
 
         yield break;
