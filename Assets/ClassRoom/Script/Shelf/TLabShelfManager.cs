@@ -101,7 +101,6 @@ public class TLabShelfManager : MonoBehaviour
 public class TLabShelfObjInfo
 {
     public GameObject obj;
-    public float speed;
     [System.NonSerialized] public Dictionary<int, GameObject> instanced = new Dictionary<int, GameObject>();
 }
 

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Scene
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 66
+  controlID: 31
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 313
     height: 559
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 21
+  controlID: 32
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 22
+  controlID: 33
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1435,22 +1435,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/ClassRoom/Script
+    - Assets/ClassRoom/Script/Shelf
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/ClassRoom/Script
+  - Assets/ClassRoom/Script/Shelf
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Tetu\source\GameDev\UnityProjects\VR_Kensyu
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 60}
-    m_SelectedIDs: fc800000
-    m_LastClickedID: 33020
-    m_ExpandedIDs: 00000000ee800000f0800000f2800000f4800000f6800000f8800000fa800000fc800000fe80000000ca9a3bffffff7f
+    m_SelectedIDs: 1e7f0000
+    m_LastClickedID: 32542
+    m_ExpandedIDs: 00000000ea7e0000ec7e0000ee7e0000f07e0000f27e0000f47e0000f67e0000f87e0000fa7e000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1478,7 +1478,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ee800000f0800000f2800000f4800000f6800000f8800000fa800000fc800000fe800000
+    m_ExpandedIDs: 00000000ea7e0000ec7e0000ee7e0000f07e0000f27e0000f47e0000f67e0000f87e0000fa7e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1608,9 +1608,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: b8c5ffffd2c5fffff0c6ffff24c7ffffa6cdffff00ceffff72dcffffe8eeffff26faffff
+      m_SelectedIDs: 9cfaffff
+      m_LastClickedID: -1380
+      m_ExpandedIDs: fafaffff2efbffff7a6f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1893,9 +1893,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.43572, y: 1.650995, z: 0.8461389}
+    m_Target: {x: -1.757202, y: 1.4810386, z: 1.3754478}
     speed: 2
-    m_Value: {x: -1.43572, y: 1.650995, z: 0.8461389}
+    m_Value: {x: -1.757202, y: 1.4810386, z: 1.3754478}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1942,13 +1942,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.04292396, y: 0.6102197, z: -0.032731093, w: 0.7905379}
+    m_Target: {x: 0.10971464, y: 0.39978507, z: -0.0479248, w: 0.9088839}
     speed: 2
-    m_Value: {x: 0.042918984, y: 0.61014897, z: -0.032727297, w: 0.7904462}
+    m_Value: {x: 0.10962991, y: 0.40110138, z: -0.048083737, w: 0.9081778}
   m_Size:
-    m_Target: 0.8959061
+    m_Target: 1.2325741
     speed: 2
-    m_Value: 0.8959061
+    m_Value: 1.2906535
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -2008,7 +2008,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 512, y: 512}
+  m_TargetSize: {x: 1098, y: 517}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -2023,10 +2023,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -256
-    m_HBaseRangeMax: 256
-    m_VBaseRangeMin: -256
-    m_VBaseRangeMax: 256
+    m_HBaseRangeMin: -549
+    m_HBaseRangeMax: 549
+    m_VBaseRangeMin: -258.5
+    m_VBaseRangeMax: 258.5
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
