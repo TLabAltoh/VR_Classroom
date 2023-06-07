@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TLabShelfManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class TLabShelfManager : MonoBehaviour
 
     [Tooltip("ì]ëóêÊÉAÉìÉJÅ[")]
     [SerializeField] protected Transform[] m_anchors;
+
+    protected int m_currentObjIndex = 0;
 
     protected virtual IEnumerator FadeIn(int objIndex, int anchorIndex)
     {
@@ -65,26 +68,32 @@ public class TLabShelfManager : MonoBehaviour
         yield break;
     }
 
-    public virtual void PutAway(int objIndex)
+    public virtual void OnDropDownChanged(int objIndex)
     {
-        StartCoroutine(FadeOut(objIndex, 0));
+        Debug.Log("value changed");
+        m_currentObjIndex = objIndex;
     }
 
-    public virtual void TakeOut(int objIndex)
+    public virtual void PutAway()
     {
-        StartCoroutine(FadeIn(objIndex, 0));
+        StartCoroutine(FadeOut(m_currentObjIndex, 0));
     }
 
-    public virtual void Share(int objIndex)
+    public virtual void TakeOut()
+    {
+        StartCoroutine(FadeIn(m_currentObjIndex, 0));
+    }
+
+    public virtual void Share()
     {
         for (int i = 1; i < m_anchors.Length; i++)
-            StartCoroutine(FadeIn(objIndex, i));
+            StartCoroutine(FadeIn(m_currentObjIndex, i));
     }
 
-    public virtual void Collect(int objIndex)
+    public virtual void Collect()
     {
         for (int i = 1; i < m_anchors.Length; i++)
-            StartCoroutine(FadeOut(objIndex, i));
+            StartCoroutine(FadeOut(m_currentObjIndex, i));
     }
 }
 
@@ -92,7 +101,6 @@ public class TLabShelfManager : MonoBehaviour
 public class TLabShelfObjInfo
 {
     public GameObject obj;
-    public float speed;
     [System.NonSerialized] public Dictionary<int, GameObject> instanced = new Dictionary<int, GameObject>();
 }
 
