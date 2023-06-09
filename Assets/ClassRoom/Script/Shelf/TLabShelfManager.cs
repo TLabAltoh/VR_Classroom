@@ -17,6 +17,9 @@ public class TLabShelfManager : MonoBehaviour
     {
         // https://docs.unity3d.com/ja/2018.4/Manual/Coroutines.html
 
+        // 座席にだれもいなかったらスキップ
+        if (TLabSyncClient.Instalce.IsGuestExist(anchorIndex) == false) yield break;
+
         // 配列の範囲外だったらスキップ
         if (objIndex >= m_shelfObjInfos.Length) yield break;
 
@@ -41,6 +44,25 @@ public class TLabShelfManager : MonoBehaviour
         Transform anchor = m_anchors[anchorIndex].transform;
         instanced = Instantiate(shelfObjInfo.obj, anchor.position, anchor.rotation);
         instanced.name = instanced.name + "_" + anchorIndex.ToString();
+
+        // 分割可能オブジェクトの場合，子オブジェクトも名前を変更
+        TLabVRGrabbable grabbable = instanced.GetComponent<TLabVRGrabbable>();
+        if(grabbable != null)
+        {
+            if (grabbable.EnableDivide == true)
+            {
+                Transform[] transforms = this.gameObject.GetComponentsInChildren<Transform>();
+                foreach(Transform childTransform in transforms)
+                {
+                    if (childTransform == this.transform)
+                        continue;
+
+                    childTransform.gameObject.name = childTransform.gameObject.name + "_" + anchorIndex.ToString();
+                }
+            }
+        }
+
+        // インスタンス化したオブジェクトの参照を保持する
         shelfObjInfo.instanced[anchorIndex] = instanced;
 
         yield break;
@@ -71,7 +93,6 @@ public class TLabShelfManager : MonoBehaviour
 
     public virtual void OnDropDownChanged(int objIndex)
     {
-        Debug.Log("value changed");
         m_currentObjIndex = objIndex;
     }
 
