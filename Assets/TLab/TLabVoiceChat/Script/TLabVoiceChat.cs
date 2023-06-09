@@ -103,6 +103,13 @@ public class TLabVoiceChat : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+    public void SetServerAddr(string addr)
+    {
+        m_serverAddr = addr;
+    }
+#endif
+
     public void RegistClient(string name, TLabVoiceChatPlayer player)
     {
         m_voicePlayers[name] = player;

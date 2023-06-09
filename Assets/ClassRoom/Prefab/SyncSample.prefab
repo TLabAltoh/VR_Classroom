@@ -2176,6 +2176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1992072394669093083}
   - component: {fileID: 1992072394669093082}
+  - component: {fileID: 3800121086230681482}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -2210,7 +2211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733600070a3a0cd4dab889fcf8fc9c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_serverAddr: ws://192.168.11.10:5000
+  m_serverAddr: ws://192.168.11.19:5000
   m_isHost: 0
   m_regist: 0
   m_cameraRig: {fileID: 0}
@@ -2240,6 +2241,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3800121086230681482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992072394669093087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7282d1f275acf4a43b0dc07b98b54b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_syncServerAddr: ws://192.168.11.19:5000
+  m_voiceChatServerAddr: ws://192.168.11.19:5500
+  m_syncClient: {fileID: 1992072394669093082}
+  m_voiceChat: {fileID: 0}
 --- !u!1 &1992072395166020666
 GameObject:
   m_ObjectHideFlags: 0

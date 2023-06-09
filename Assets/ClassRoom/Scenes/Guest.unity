@@ -3483,6 +3483,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1809501006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4602051404492696555, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+  m_PrefabInstance: {fileID: 626487313902898945}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626487313902898948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9a56fda45093964993567df9b507ff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1832117520
 Mesh:
   m_ObjectHideFlags: 0
@@ -4897,6 +4908,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1302011565}
+    - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_voiceChat
+      value: 
+      objectReference: {fileID: 1809501006}
     - target: {fileID: 4281719960226149048, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
