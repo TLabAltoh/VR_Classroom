@@ -17,9 +17,6 @@ public class TLabShelfManager : MonoBehaviour
     {
         // https://docs.unity3d.com/ja/2018.4/Manual/Coroutines.html
 
-        // 座席にだれもいなかったらスキップ
-        if (TLabSyncClient.Instalce.IsGuestExist(anchorIndex) == false) yield break;
-
         // 配列の範囲外だったらスキップ
         if (objIndex >= m_shelfObjInfos.Length) yield break;
 

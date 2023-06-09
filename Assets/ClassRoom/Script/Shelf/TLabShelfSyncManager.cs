@@ -26,6 +26,9 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     protected override IEnumerator FadeIn(int objIndex, int anchorIndex)
     {
+        // 座席にだれもいなかったらスキップ
+        if (TLabSyncClient.Instalce.IsGuestExist(anchorIndex) == false && anchorIndex != 0) yield break;
+
         yield return base.FadeIn(objIndex, anchorIndex);
         TLabSyncClient.Instalce.ForceReflesh();
         yield break;
