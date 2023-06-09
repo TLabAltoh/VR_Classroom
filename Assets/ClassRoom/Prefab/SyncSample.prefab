@@ -440,11 +440,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_shelfObjInfos:
   - obj: {fileID: 3956602046929077645, guid: 9073e0f3f25e4714ba886480387567f4, type: 3}
-    speed: 1
   - obj: {fileID: 2895800458489614868, guid: b58ac87f1530e594789d62510f1cf9e8, type: 3}
-    speed: 1
   - obj: {fileID: 7119571299590742117, guid: 2255b2d42113f934bbebfc88b949b4bd, type: 3}
-    speed: 1
   m_anchors:
   - {fileID: 1992072393675170862}
   - {fileID: 6333577597745751774}
@@ -1319,7 +1316,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992072393951519846}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: ea5eb3d1648d7e04885b27ee0408005a, type: 2}
 --- !u!23 &1992072393951519842
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1795,7 +1792,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992072394206774098}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: fa0438b8efc2fd7498a148da9e9f9e63, type: 2}
 --- !u!23 &1992072394206774110
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2286,7 +2283,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992072395166020666}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: fc1c750e12cd5f547b9c28802a004f09, type: 2}
 --- !u!23 &1992072395166020614
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4138,7 +4135,7 @@ MonoBehaviour:
   - {fileID: 1992072395166020666}
   - {fileID: 1992072393951519846}
   - {fileID: 1992072394206774098}
-  m_savePath: Assets/Tetu/VRGrabber/Outline/Mesh
+  m_savePath: Assets/TLab/TLabVRGrabber/Outline/Mesh
 --- !u!1 &8525455770300390987
 GameObject:
   m_ObjectHideFlags: 0
