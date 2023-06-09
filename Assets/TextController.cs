@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class TextController : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
-        //transform.localScale = new Vector3(-1, 1, 1);
+        //this.transform.parent = null;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.LookAt(Camera.main.transform,Vector3.up);
+        this.transform.LookAt(Camera.main.transform, Vector3.up);
     }
 }
