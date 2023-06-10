@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PopupTextManager : MonoBehaviour
@@ -8,6 +6,7 @@ public class PopupTextManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (m_controller == null) return;
         Destroy(m_controller.gameObject);
     }
 }
