@@ -4,3 +4,6 @@
 [submodule "Assets/TLab/TLabVRPlayerController"]
 	path = Assets/TLab/TLabVRPlayerController
 	url = https://github.com/TLabAltoh/TLabVRPlayerController.git
+[submodule "Assets/TLab/TLabVKeyborad"]
+	path = Assets/TLab/TLabVKeyborad
+	url = https://github.com/TLabAltoh/TLabVKeyborad.git

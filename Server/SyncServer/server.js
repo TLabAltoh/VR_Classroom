@@ -39,7 +39,7 @@ server.listen(port);
 
 let ws = new websocket.Server({server: server});
 
-console.log("\nserver start " + bar);
+console.log("\nstart server on port: " + port + " " + bar);
 
 // #endregion Create HTTP Server
 

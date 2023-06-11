@@ -1,0 +1,37 @@
+ManifestFileVersion: 0
+CRC: 4183470238
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0cf2c416e6daa68a0973f1a5c70208b4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 29007c61b64b67879dc1e8eb34745898
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: ab401de70ff42c44f8dc454d728a6e75, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 032b18b81d16eaf4d8c0913afbed81a0, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/ClassRoom/Prefab/Shelf/TestModel.prefab
+Dependencies: []

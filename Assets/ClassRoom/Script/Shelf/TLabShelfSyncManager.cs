@@ -22,6 +22,7 @@ public enum WebShelfAction
 
 public class TLabShelfSyncManager : TLabShelfManager
 {
+    [SerializeField] public TLabInputField m_inputField;
     private AssetBundle m_assetBundle;
 
     protected override IEnumerator FadeIn(int objIndex, int anchorIndex)
@@ -132,8 +133,9 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     public IEnumerator DownloadAssetBundle(string modURL, int objIndex)
     {
-        #region ìríÜ
+#if UNITY_EDITOR
         Debug.Log("Start Load Asset");
+#endif
 
         if (m_assetBundle != null)
             m_assetBundle.Unload(false);
@@ -142,7 +144,9 @@ public class TLabShelfSyncManager : TLabShelfManager
         yield return request.SendWebRequest();
 
         // Handle error
-        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError || request.result == UnityWebRequest.Result.DataProcessingError)
+        if (request.result == UnityWebRequest.Result.ConnectionError ||
+            request.result == UnityWebRequest.Result.ProtocolError ||
+            request.result == UnityWebRequest.Result.DataProcessingError)
         {
             Debug.LogError(request.error);
             yield break;
@@ -151,22 +155,36 @@ public class TLabShelfSyncManager : TLabShelfManager
         var handler = request.downloadHandler as DownloadHandlerAssetBundle;
         m_assetBundle = handler.assetBundle;
 
+#if UNITY_EDITOR
         Debug.Log("Finish Load Asset");
+#endif
 
-        AssetBundleRequest assetLoadRequest = m_assetBundle.LoadAssetAsync<GameObject>("ROOM");
+        AssetBundleRequest assetLoadRequest = m_assetBundle.LoadAllAssetsAsync<GameObject>();
         yield return assetLoadRequest;
 
-        GameObject prefab = assetLoadRequest.asset as GameObject;
+        GameObject prefab = assetLoadRequest.allAssets[0] as GameObject;
 
-        // íIÇ…í«â¡Ç∑ÇÈ
-        // ëºÉvÉåÉCÉÑÅ[Ç…Ç‡íIÇ÷ÇÃí«â¡Çí ím
-
-        #endregion ìríÜ
+        m_shelfObjInfos[objIndex].obj = prefab;
     }
 
     public void LoadModelFromURL(string url, int objIndex)
     {
         StartCoroutine(DownloadAssetBundle(url, objIndex));
+    }
+
+    public void LoadModelFromURL()
+    {
+        LoadModelFromURL(m_inputField.text, 2);
+
+        // ëºÉvÉåÉCÉÑÅ[Ç…Ç‡íIÇ÷ÇÃí«â¡Çí ím
+        TLabSyncShelfJson obj = new TLabSyncShelfJson
+        {
+            action = (int)WebShelfAction.loadModel,
+            url = m_inputField.text,
+            objIndex = m_currentObjIndex
+        };
+        string json = JsonUtility.ToJson(obj);
+        SendWsMessage(json);
     }
 
     public void LoadModelFromURL(string url)
@@ -217,5 +235,13 @@ public class TLabShelfSyncManager : TLabShelfManager
             CollectFromOutside(obj.objIndex);
 
         return;
+    }
+
+    private void Update()
+    {
+#if true
+        if (Input.GetKeyDown(KeyCode.Space))
+            LoadModelFromURL("http://192.168.3.13:5600/StandaloneWindows/testmodel.assetbundl", 2);
+#endif
     }
 }
