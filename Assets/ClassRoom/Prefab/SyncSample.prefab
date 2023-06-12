@@ -583,6 +583,7 @@ MonoBehaviour:
   - {fileID: 6441956610176949711}
   - {fileID: 8617865302753864229}
   m_inputField: {fileID: 7850533593946815792}
+  m_testURL: http://192.168.11.19:5600/StandaloneWindows/testmodel.assetbundl
 --- !u!1 &934979135308368783
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,7 +2215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733600070a3a0cd4dab889fcf8fc9c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_serverAddr: ws://192.168.3.13:5000
+  m_serverAddr: ws://192.168.11.19:5000
   m_isHost: 0
   m_regist: 0
   m_cameraRig: {fileID: 0}
@@ -2256,10 +2257,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7282d1f275acf4a43b0dc07b98b54b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_syncServerAddr: ws://192.168.3.13:5000
-  m_voiceChatServerAddr: ws://192.168.3.13:5500
+  m_syncServerAddr: ws://192.168.11.19:5000
+  m_voiceChatServerAddr: ws://192.168.11.19:5500
+  m_shelfServerAddr: http://192.168.11.19:5600/StandaloneWindows/testmodel.assetbundl
   m_syncClient: {fileID: 1992072394669093082}
   m_voiceChat: {fileID: 0}
+  m_shelfManager: {fileID: 5755384349333693403}
 --- !u!1 &1992072395166020666
 GameObject:
   m_ObjectHideFlags: 0

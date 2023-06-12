@@ -25,6 +25,15 @@ public class TLabShelfSyncManager : TLabShelfManager
     [SerializeField] public TLabInputField m_inputField;
     private AssetBundle m_assetBundle;
 
+#if UNITY_EDITOR
+    [SerializeField] private string m_testURL;
+
+    public void SetServerAddr(string url)
+    {
+        m_testURL = url;
+    }
+#endif
+
     protected override IEnumerator FadeIn(int objIndex, int anchorIndex)
     {
         // 座席にだれもいなかったらスキップ
@@ -239,9 +248,9 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     private void Update()
     {
-#if true
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Space))
-            LoadModelFromURL("http://192.168.3.13:5600/StandaloneWindows/testmodel.assetbundl", 2);
+            LoadModelFromURL(m_testURL, 2);
 #endif
     }
 }

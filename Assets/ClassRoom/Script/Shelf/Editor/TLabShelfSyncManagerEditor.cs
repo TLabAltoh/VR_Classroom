@@ -16,23 +16,29 @@ public class TLabShelfSyncManagerEditor : Editor
 
         TLabShelfSyncManager manager = target as TLabShelfSyncManager;
 
-        foreach(TLabShelfObjInfo shelfInfo in manager.m_shelfObjInfos)
+        if (GUILayout.Button("Initialize Shelf Obj"))
         {
-            TLabSyncGrabbable grabbable = shelfInfo.obj.GetComponent<TLabSyncGrabbable>();
-            if (grabbable == null)
-                grabbable = shelfInfo.obj.AddComponent<TLabSyncGrabbable>();
+            foreach (TLabShelfObjInfo shelfInfo in manager.m_shelfObjInfos)
+            {
+                TLabSyncGrabbable grabbable = shelfInfo.obj.GetComponent<TLabSyncGrabbable>();
+                if (grabbable == null)
+                    grabbable = shelfInfo.obj.AddComponent<TLabSyncGrabbable>();
 
-            // Rigidbody‚ÌUseGravity‚ð–³Œø‰»‚·‚é
+                // Rigidbody‚ÌUseGravity‚ð–³Œø‰»‚·‚é
 
-            grabbable.m_enableSync = true;
-            grabbable.m_autoSync = false;
-            grabbable.m_locked = false;
+                grabbable.m_enableSync = true;
+                grabbable.m_autoSync = false;
+                grabbable.m_locked = false;
 
-            grabbable.UseRigidbody(false, false);
+                grabbable.UseRigidbody(false, false);
 
-            TLabSyncRotatable rotatable = grabbable.gameObject.GetComponent<TLabSyncRotatable>();
-            if (rotatable == null)
-                grabbable.gameObject.AddComponent<TLabSyncRotatable>();
+                TLabSyncRotatable rotatable = grabbable.gameObject.GetComponent<TLabSyncRotatable>();
+                if (rotatable == null)
+                    grabbable.gameObject.AddComponent<TLabSyncRotatable>();
+
+                EditorUtility.SetDirty(grabbable);
+                EditorUtility.SetDirty(rotatable);
+            }
         }
 
         serializedObject.ApplyModifiedProperties();

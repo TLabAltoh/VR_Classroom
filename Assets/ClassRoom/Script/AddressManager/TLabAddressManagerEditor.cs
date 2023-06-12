@@ -12,8 +12,11 @@ public class TLabAddressManagerEditor : Editor
 
         serializedObject.Update();
 
-        TLabAddressManager manager = target as TLabAddressManager;
-        manager.SetServerAddr();
+        if (GUILayout.Button("Set Server Addr"))
+        {
+            TLabAddressManager manager = target as TLabAddressManager;
+            manager.SetServerAddr();
+        }
 
         serializedObject.ApplyModifiedProperties();
     }

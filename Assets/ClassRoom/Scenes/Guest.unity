@@ -4451,7 +4451,7 @@ PrefabInstance:
       objectReference: {fileID: 560401316}
     - target: {fileID: 4602051404492696555, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.11.26:5500
+      value: ws://192.168.11.19:5500
       objectReference: {fileID: 0}
     - target: {fileID: 6383360504905087047, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_RootOrder
@@ -4798,7 +4798,7 @@ PrefabInstance:
       objectReference: {fileID: 626487313902898947}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.11.26:5000
+      value: ws://192.168.11.19:5000
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_guestLTouch
@@ -4946,7 +4946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_shelfObjInfos.Array.size
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_shelfObjInfos.Array.data[8].obj

@@ -16,17 +16,23 @@ public class TLabShelfManagerEditor : Editor
 
         TLabShelfManager manager = target as TLabShelfManager;
 
-        foreach (TLabShelfObjInfo shelfInfo in manager.m_shelfObjInfos)
+        if (GUILayout.Button("Initialize Shelf Obj"))
         {
-            TLabVRGrabbable grabbable = shelfInfo.obj.GetComponent<TLabVRGrabbable>();
-            if (grabbable == null)
-                grabbable = shelfInfo.obj.AddComponent<TLabVRGrabbable>();
+            foreach (TLabShelfObjInfo shelfInfo in manager.m_shelfObjInfos)
+            {
+                TLabVRGrabbable grabbable = shelfInfo.obj.GetComponent<TLabVRGrabbable>();
+                if (grabbable == null)
+                    grabbable = shelfInfo.obj.AddComponent<TLabVRGrabbable>();
 
-            grabbable.UseRigidbody(false, false);
+                grabbable.UseRigidbody(false, false);
 
-            TLabVRRotatable rotatable = grabbable.gameObject.GetComponent<TLabVRRotatable>();
-            if (rotatable == null)
-                grabbable.gameObject.AddComponent<TLabVRRotatable>();
+                TLabVRRotatable rotatable = grabbable.gameObject.GetComponent<TLabVRRotatable>();
+                if (rotatable == null)
+                    grabbable.gameObject.AddComponent<TLabVRRotatable>();
+
+                EditorUtility.SetDirty(grabbable);
+                EditorUtility.SetDirty(rotatable);
+            }
         }
 
         serializedObject.ApplyModifiedProperties();
