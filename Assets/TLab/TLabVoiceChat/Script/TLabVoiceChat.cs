@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Text;
+using System.IO;
+using System.IO.Compression;
 using UnityEngine;
 using NativeWebSocket;
 
@@ -50,6 +52,8 @@ public class TLabVoiceChat : MonoBehaviour
     private const int PACKET_BUFFER_SIZE = VOICE_BUFFER_SIZE << SIZE_OF_FLOAT_LOG2;
     private const int VOICE_BUFFER_SIZE = 1024;
     private const int SIZE_OF_FLOAT_LOG2 = 2;
+    private const int FREQUENCY = 44100;
+    private const double TIME_LENGTH = (double)VOICE_BUFFER_SIZE / (double)FREQUENCY;
 
     //
     // Other's sound
@@ -99,6 +103,13 @@ public class TLabVoiceChat : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+    public void SetServerAddr(string addr)
+    {
+        m_serverAddr = addr;
+    }
+#endif
+
     public void RegistClient(string name, TLabVoiceChatPlayer player)
     {
         m_voicePlayers[name] = player;
@@ -118,7 +129,6 @@ public class TLabVoiceChat : MonoBehaviour
     private unsafe void LongCopy(byte* src, byte* dst, int count)
     {
         // https://github.com/neuecc/MessagePack-CSharp/issues/117
-        // Define it as an internal function in the thread to avoid method brute force.
 
         while (count >= 8)
         {
@@ -162,8 +172,33 @@ public class TLabVoiceChat : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    public static byte[] Compress(byte[] data)
     {
+        MemoryStream output = new MemoryStream();
+        using (DeflateStream dstream = new DeflateStream(output, System.IO.Compression.CompressionLevel.Optimal))
+        {
+            dstream.Write(data, 0, data.Length);
+        }
+        return output.ToArray();
+    }
+
+    public static byte[] Decompress(byte[] data)
+    {
+        MemoryStream input = new MemoryStream(data);
+        MemoryStream output = new MemoryStream();
+        using (DeflateStream dstream = new DeflateStream(input, CompressionMode.Decompress))
+        {
+            dstream.CopyTo(output);
+        }
+        return output.ToArray();
+    }
+
+    private void Update()
+    {
+#if !UNITY_WEBGL || UNITY_EDITOR
+        m_websocket.DispatchMessageQueue();
+#endif
+
         m_writeHead = Microphone.GetPosition(m_microphoneName);
 
         if (m_readHead == m_writeHead || potBuffers == null || !m_isStreaming)
@@ -198,6 +233,11 @@ public class TLabVoiceChat : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        var configuration = AudioSettings.GetConfiguration();
+        configuration.dspBufferSize = VOICE_BUFFER_SIZE;
+        AudioSettings.Reset(configuration);
+        Debug.Log(configuration.dspBufferSize);
     }
 
     async void Start()
@@ -210,9 +250,8 @@ public class TLabVoiceChat : MonoBehaviour
         Debug.Log(deviceList);
 
         m_microphoneName = Microphone.devices[0];
-        //m_microphoneName = "エコー キャンセル スピーカーフォン (Jabra Speak 710)";
 
-        m_microphoneClip = Microphone.Start(m_microphoneName, true, 1, AudioSettings.outputSampleRate);
+        m_microphoneClip = Microphone.Start(m_microphoneName, true, 1, FREQUENCY);
 
         if (m_microphoneClip == null)
             Debug.Log("TLabVoiceChat: Failed to recording, using " + m_microphoneName);
@@ -233,7 +272,7 @@ public class TLabVoiceChat : MonoBehaviour
 
         //
         // Callback function to process microphone input acquired in real time
-        // Send to server when send buffer exceeds 1024 * 4 bytes
+        // Send to server when send buffer exceeds 4800 bytes
         //
 
         floatsInDelegate += (float[] buffer) =>
@@ -248,32 +287,29 @@ public class TLabVoiceChat : MonoBehaviour
                 {
                     // Pointers defined with fixed must not be incremented.
 
-                    fixed (byte* root = &(m_voiceBuffer[0]))
-                    fixed(float* src = &(buffer[0]))
+                    fixed (byte* root = m_voiceBuffer)
+                    fixed (float* src = buffer)
                     {
-                        //if (Mathf.Abs(*(src)) > 0.1)
-                        //    Debug.Log(*(src));
-
                         int size = PACKET_BUFFER_SIZE - m_vbWriteHead;
 
                         byte* srcTmp = (byte*)src;
                         byte* dstTmp = root + m_vbWriteHead;
 
                         LongCopy(srcTmp, dstTmp, size);
+                        srcTmp += size;
 
                         // Use Base64 encoding for lossless conversion
-                        SendVoice(Convert.ToBase64String(m_voiceBuffer));
+                        SendVoice(Convert.ToBase64String(Compress(m_voiceBuffer)));
 
-                        m_vbWriteHead = (m_vbWriteHead + size) % PACKET_BUFFER_SIZE;
+                        m_vbWriteHead = 0;
 
                         int remain = buffSizeInByte - size;
 
-                        dstTmp = root + m_vbWriteHead;
+                        dstTmp = root;
 
-                        // src is incremented with a pointer in LongCopy() (+= size)
                         LongCopy(srcTmp, dstTmp, remain);
 
-                        m_vbWriteHead = (m_vbWriteHead + remain) % PACKET_BUFFER_SIZE;
+                        m_vbWriteHead = remain;
                     }
                 }
             }
@@ -281,17 +317,17 @@ public class TLabVoiceChat : MonoBehaviour
             {
                 unsafe
                 {
-                    fixed (byte* root = &(m_voiceBuffer[0]))
-                    fixed (float* src = &(buffer[0]))
+                    fixed (byte* root = m_voiceBuffer)
+                    fixed (float* src = buffer)
                     {
                         byte* srcTmp = (byte*)src;
                         byte* dstTmp = root + m_vbWriteHead;
 
                         LongCopy(srcTmp, dstTmp, buffSizeInByte);
 
-                        SendVoice(Convert.ToBase64String(m_voiceBuffer));
+                        SendVoice(Convert.ToBase64String(Compress(m_voiceBuffer)));
 
-                        m_vbWriteHead = (m_vbWriteHead + buffSizeInByte) % PACKET_BUFFER_SIZE;
+                        m_vbWriteHead = 0;
                     }
                 }
             }
@@ -299,8 +335,8 @@ public class TLabVoiceChat : MonoBehaviour
             {
                 unsafe
                 {
-                    fixed (byte* root = &(m_voiceBuffer[0]))
-                    fixed (float* src = &(buffer[0]))
+                    fixed (byte* root = m_voiceBuffer)
+                    fixed (float* src = buffer)
                     {
                         byte* srcTmp = (byte*)src;
                         byte* dstTmp = root + m_vbWriteHead;
@@ -327,7 +363,7 @@ public class TLabVoiceChat : MonoBehaviour
 
         m_websocket.OnError += (e) =>
         {
-            Debug.Log("Error! " + e);
+            Debug.Log("tlabvoicechat: Error! " + e);
         };
 
         m_websocket.OnClose += (e) =>
@@ -346,14 +382,14 @@ public class TLabVoiceChat : MonoBehaviour
             if (player == null)
                 return;
 
-            byte[] voiceBuffer = Convert.FromBase64String(obj.voice);
+            byte[] voiceBuffer = Decompress(Convert.FromBase64String(obj.voice));
 
             float[] voice = new float[VOICE_BUFFER_SIZE];
 
             unsafe
             {
-                fixed(byte* src = &(voiceBuffer[0]))
-                fixed(float* dst = &(voice[0]))
+                fixed (byte* src = voiceBuffer)
+                fixed (float* dst = voice)
                 {
                     byte* srcTmp = src;
                     byte* dstTmp = (byte*)dst;
@@ -366,13 +402,6 @@ public class TLabVoiceChat : MonoBehaviour
         };
 
         await m_websocket.Connect();
-    }
-
-    void Update()
-    {
-#if !UNITY_WEBGL || UNITY_EDITOR
-        m_websocket.DispatchMessageQueue();
-#endif
     }
 
     private async void OnApplicationQuit()

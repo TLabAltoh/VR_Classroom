@@ -29,11 +29,7 @@ const server = https.createServer(options, (req, res) => {
 const http = require("http");
 const server = http.createServer((req, res) => {
 	res.writeHead(200);
-<<<<<<< HEAD
 	res.write("TLab_VoiceChat");
-=======
-	res.write("VR_Kensyu");
->>>>>>> cba03558ad6985f151b9a80928cd798d34cd62ed
 	res.end();
 });
 
@@ -45,7 +41,7 @@ server.listen(port);
 
 let ws = new websocket.Server({ server: server });
 
-console.log("\nserver start " + bar);
+console.log("\nstart server on port " + port + " " + bar);
 
 // #endregion Create HTTP Server
 
@@ -54,6 +50,8 @@ ws.on("connection", function (socket) {
 
 	socket.on("message", function (data, isBinary) {
 		const message = isBinary ? data : data.toString();
+
+		console.log("recv voice");
 
 		ws.clients.forEach(client => {
 			if (client != socket)
