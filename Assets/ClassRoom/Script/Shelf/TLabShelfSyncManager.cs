@@ -190,20 +190,7 @@ public class TLabShelfSyncManager : TLabShelfManager
         {
             action = (int)WebShelfAction.loadModel,
             url = m_inputField.text,
-            objIndex = m_currentObjIndex
-        };
-        string json = JsonUtility.ToJson(obj);
-        SendWsMessage(json);
-    }
-
-    public void LoadModelFromURL(string url)
-    {
-        StartCoroutine(DownloadAssetBundle(url, 0));
-
-        TLabSyncShelfJson obj = new TLabSyncShelfJson
-        {
-            action = (int)WebShelfAction.loadModel,
-            url = url
+            objIndex = 2
         };
         string json = JsonUtility.ToJson(obj);
         SendWsMessage(json);
@@ -250,7 +237,18 @@ public class TLabShelfSyncManager : TLabShelfManager
     {
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Space))
+        {
             LoadModelFromURL(m_testURL, 2);
+
+            TLabSyncShelfJson obj = new TLabSyncShelfJson
+            {
+                action = (int)WebShelfAction.loadModel,
+                url = m_testURL,
+                objIndex = 2
+            };
+            string json = JsonUtility.ToJson(obj);
+            SendWsMessage(json);
+        }
 #endif
     }
 }

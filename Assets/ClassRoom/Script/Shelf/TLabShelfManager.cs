@@ -47,7 +47,7 @@ public class TLabShelfManager : MonoBehaviour
         {
             if (grabbable.EnableDivide == true)
             {
-                Transform[] transforms = this.gameObject.GetComponentsInChildren<Transform>();
+                Transform[] transforms = instanced.gameObject.GetComponentsInChildren<Transform>();
                 foreach(Transform childTransform in transforms)
                 {
                     if (childTransform == this.transform)

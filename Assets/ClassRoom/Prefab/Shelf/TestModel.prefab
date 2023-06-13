@@ -675,7 +675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47497adbd02013a4f8a58b44c22d4590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_chair: {fileID: 0}
+  m_chair: {fileID: 965501780958032161}
   m_forward: 0.3
   m_vertical: -0.15
   m_horizontal: 0
