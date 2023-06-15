@@ -53,7 +53,7 @@ namespace Oculus.Interaction.PoseDetection
         {
             [Tooltip("The IActiveState that is used to determine if the conditions of this step are fulfilled.")]
             [SerializeField, Interface(typeof(IActiveState))]
-            private MonoBehaviour _activeState;
+            private UnityEngine.Object _activeState;
 
             public IActiveState ActiveState { get; private set; }
 
@@ -102,7 +102,7 @@ namespace Oculus.Interaction.PoseDetection
         [Tooltip("Once the sequence is active, it will remain active as long as " +
             "this IActiveState is Active.")]
         [SerializeField, Optional, Interface(typeof(IActiveState))]
-        private MonoBehaviour _remainActiveWhile;
+        private UnityEngine.Object _remainActiveWhile;
 
         [Tooltip("Sequence will not become inactive until RemainActiveWhile has " +
             "been inactive for at least this many seconds.")]
@@ -249,6 +249,9 @@ namespace Oculus.Interaction.PoseDetection
             // In case there is no RemainActiveWhile condition, start the cooldown
             // timer
             _cooldownExceededTime = time + _remainActiveCooldown;
+
+            // Activate native component
+            NativeMethods.isdk_NativeComponent_Activate(0x5365717565446574);
         }
 
         private void ResetState()
@@ -271,7 +274,7 @@ namespace Oculus.Interaction.PoseDetection
 
         public void InjectOptionalRemainActiveWhile(IActiveState activeState)
         {
-            _remainActiveWhile = activeState as MonoBehaviour;
+            _remainActiveWhile = activeState as UnityEngine.Object;
             RemainActiveWhile = activeState;
         }
 
