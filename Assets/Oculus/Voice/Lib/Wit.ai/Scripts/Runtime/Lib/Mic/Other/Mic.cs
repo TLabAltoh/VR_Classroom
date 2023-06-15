@@ -309,6 +309,9 @@ namespace Meta.WitAi.Lib
             VLog.D("Reserved mic " + CurrentDeviceName);
             AudioClip = Microphone.Start(CurrentDeviceName, true, 1, AudioEncoding.samplerate);
             AudioClip.name = CurrentDeviceName;
+            // Init the num of channels from AudioClip in
+            // the AudioEncoding
+            AudioEncoding.numChannels = AudioClip.channels;
 #endif
         }
 
@@ -323,18 +326,7 @@ namespace Meta.WitAi.Lib
             }
             if (AudioClip != null)
             {
-                #if UNITY_EDITOR
-                if (!Application.isPlaying)
-                {
-                    // Editor only
-                    DestroyImmediate(AudioClip);
-                }
-                else
-                #endif
-                {
-                    // Safe destroy
-                    Destroy(AudioClip);
-                }
+                AudioClip.DestroySafely();
                 AudioClip = null;
             }
         }
@@ -362,10 +354,10 @@ namespace Meta.WitAi.Lib
 
             SampleDurationMS = sampleLen;
 
-            Sample = new float[AudioEncoding.samplerate / 1000 * SampleDurationMS * AudioClip.channels];
-
             if (AudioClip)
             {
+                Sample = new float[AudioEncoding.samplerate / 1000 * SampleDurationMS * AudioClip.channels];
+
                 StartCoroutine(ReadRawAudio());
 
 #if !UNITY_WEBGL || UNITY_EDITOR
@@ -457,7 +449,7 @@ namespace Meta.WitAi.Lib
 #if UNITY_WEBGL && !UNITY_EDITOR
             return false;
 #else
-            return Microphone.IsRecording(device);
+            return !string.IsNullOrEmpty(device) && Microphone.IsRecording(device);
 #endif
         }
 
