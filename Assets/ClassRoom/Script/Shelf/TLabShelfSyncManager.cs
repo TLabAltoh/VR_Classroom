@@ -39,15 +39,20 @@ public class TLabShelfSyncManager : TLabShelfManager
         // 座席にだれもいなかったらスキップ
         if (TLabSyncClient.Instalce.IsGuestExist(anchorIndex) == false) yield break;
 
+        // 自分の卓でないオブジェクトだけ現在のサーバーのTransformとの同期を行う
+        bool reloadWorldData = TLabSyncClient.Instalce.SeatIndex != anchorIndex;
+
         yield return base.FadeIn(objIndex, anchorIndex);
-        TLabSyncClient.Instalce.ForceReflesh();
+        TLabSyncClient.Instalce.ForceReflesh(reloadWorldData);
         yield break;
     }
 
     protected override IEnumerator FadeOut(int objIndex, int anchorIndex)
     {
+        bool reloadWorldData = TLabSyncClient.Instalce.SeatIndex != anchorIndex;
+
         yield return base.FadeOut(objIndex, anchorIndex);
-        TLabSyncClient.Instalce.ForceReflesh();
+        TLabSyncClient.Instalce.ForceReflesh(reloadWorldData);
         yield break;
     }
 
@@ -135,8 +140,7 @@ public class TLabShelfSyncManager : TLabShelfManager
         GameObject go = null;
         shelfObjInfo.instanced.TryGetValue(0, out go);
 
-        if (go == null)
-            return;
+        if (go == null) return;
         else
         {
             TLabSyncGrabbable grabbable = go.GetComponent<TLabSyncGrabbable>();
@@ -202,6 +206,8 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     public void SendWsMessage(string message, int anchorIndex)
     {
+        // Custom MessageはseatIndexを指定してユニキャストできる仕様
+
         TLabSyncJson obj = new TLabSyncJson
         {
             role = (int)WebRole.guest,
@@ -249,6 +255,8 @@ public class TLabShelfSyncManager : TLabShelfManager
         string json = JsonUtility.ToJson(obj);
         SendWsMessage(json, anchorIndex);
     }
+
+
 
     private void Update()
     {

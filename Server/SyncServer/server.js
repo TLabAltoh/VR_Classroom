@@ -287,26 +287,28 @@ ws.on("connection", function (socket) {
 
 			console.log("reflesh");
 
-			// Load world transforms prior to rigidbody assignment
-			var syncObjValues		= Object.values(syncObjects);
-			var syncAnimValues		= Object.values(syncAnims);
-			var syncDivideValues	= Object.values(syncDivides);
+			if (parse.active === true) {
+				// Load world transforms prior to rigidbody assignment
+				var syncObjValues = Object.values(syncObjects);
+				var syncAnimValues = Object.values(syncAnims);
+				var syncDivideValues = Object.values(syncDivides);
 
-			// https://pisuke-code.com/javascript-dictionary-foreach/
-			syncObjValues.forEach(function (value) {
-				json = JSON.stringify(value);
-				socket.send(json);
-			});
+				// https://pisuke-code.com/javascript-dictionary-foreach/
+				syncObjValues.forEach(function (value) {
+					json = JSON.stringify(value);
+					socket.send(json);
+				});
 
-			syncAnimValues.forEach(function (value) {
-				json = JSON.stringify(value);
-				socket.send(json);
-			});
+				syncAnimValues.forEach(function (value) {
+					json = JSON.stringify(value);
+					socket.send(json);
+				});
 
-			syncDivideValues.forEach(function (value) {
-				json = JSON.stringify(value);
-				socket.send(json);
-			});
+				syncDivideValues.forEach(function (value) {
+					json = JSON.stringify(value);
+					socket.send(json);
+				});
+            }
 
 			// Re-allocate rigidbody gravity
 

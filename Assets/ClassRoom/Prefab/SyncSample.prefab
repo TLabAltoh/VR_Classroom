@@ -271,6 +271,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Chair
       m_Image: {fileID: 0}
+    - m_Text: Heart
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -577,6 +579,7 @@ MonoBehaviour:
   - obj: {fileID: 3956602046929077645, guid: 9073e0f3f25e4714ba886480387567f4, type: 3}
   - obj: {fileID: 2895800458489614868, guid: b58ac87f1530e594789d62510f1cf9e8, type: 3}
   - obj: {fileID: 7119571299590742117, guid: 2255b2d42113f934bbebfc88b949b4bd, type: 3}
+  - obj: {fileID: 7427115620428716528, guid: fe6c426fd353e3747833bd6f826c36bc, type: 3}
   m_anchors:
   - {fileID: 1992072393675170862}
   - {fileID: 6333577597745751774}
