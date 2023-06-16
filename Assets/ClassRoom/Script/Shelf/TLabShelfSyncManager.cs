@@ -16,7 +16,6 @@ public enum WebShelfAction
     putAway,
     share,
     collect,
-    divide,
     loadModel
 }
 
@@ -24,6 +23,7 @@ public class TLabShelfSyncManager : TLabShelfManager
 {
     [SerializeField] public TLabInputField m_inputField;
     private AssetBundle m_assetBundle;
+    private int m_lastShared = -1;
 
 #if UNITY_EDITOR
     [SerializeField] private string m_testURL;
@@ -61,7 +61,7 @@ public class TLabShelfSyncManager : TLabShelfManager
             objIndex = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
-        SendWsMessage(json);
+        SendWsMessage(json, -1);
     }
 
     private void PutAwayFromOutside(int objIndex)
@@ -79,7 +79,7 @@ public class TLabShelfSyncManager : TLabShelfManager
             objIndex = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
-        SendWsMessage(json);
+        SendWsMessage(json, -1);
     }
 
     private void TakeOutFromOutside(int objIndex)
@@ -97,11 +97,13 @@ public class TLabShelfSyncManager : TLabShelfManager
             objIndex = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
-        SendWsMessage(json);
+        SendWsMessage(json, -1);
     }
 
     private void ShareFromOutside(int objIndex)
     {
+        m_lastShared = objIndex;
+
         for (int i = 1; i < m_anchors.Length; i++)
             StartCoroutine(FadeIn(objIndex, i));
     }
@@ -116,11 +118,13 @@ public class TLabShelfSyncManager : TLabShelfManager
             objIndex = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
-        SendWsMessage(json);
+        SendWsMessage(json, -1);
     }
 
     private void CollectFromOutside(int objIndex)
     {
+        m_lastShared = -1;
+
         for (int i = 1; i < m_anchors.Length; i++)
             StartCoroutine(FadeOut(objIndex, i));
     }
@@ -193,15 +197,16 @@ public class TLabShelfSyncManager : TLabShelfManager
             objIndex = 2
         };
         string json = JsonUtility.ToJson(obj);
-        SendWsMessage(json);
+        SendWsMessage(json, -1);
     }
 
-    public void SendWsMessage(string message)
+    public void SendWsMessage(string message, int anchorIndex)
     {
         TLabSyncJson obj = new TLabSyncJson
         {
             role = (int)WebRole.guest,
             action = (int)WebAction.customAction,
+            seatIndex = anchorIndex,
             custom = message
         };
         string json = JsonUtility.ToJson(obj);
@@ -219,18 +224,30 @@ public class TLabShelfSyncManager : TLabShelfManager
         Debug.Log("tlabsyncshelf: OnMessage - " + message);
 #endif
 
-        if (obj.action == (int)WebShelfAction.loadModel)
-            LoadModelFromURL(obj.url, obj.objIndex);
-        else if (obj.action == (int)WebShelfAction.takeOut)
-            TakeOutFromOutside(obj.objIndex);
-        else if (obj.action == (int)WebShelfAction.putAway)
-            PutAwayFromOutside(obj.objIndex);
-        else if (obj.action == (int)WebShelfAction.share)
-            ShareFromOutside(obj.objIndex);
-        else if (obj.action == (int)WebShelfAction.collect)
-            CollectFromOutside(obj.objIndex);
+        if (obj.action == (int)WebShelfAction.loadModel)    LoadModelFromURL(obj.url, obj.objIndex);
+        else if (obj.action == (int)WebShelfAction.takeOut) TakeOutFromOutside(obj.objIndex);
+        else if (obj.action == (int)WebShelfAction.putAway) PutAwayFromOutside(obj.objIndex);
+        else if (obj.action == (int)WebShelfAction.share)   ShareFromOutside(obj.objIndex);
+        else if (obj.action == (int)WebShelfAction.collect) CollectFromOutside(obj.objIndex);
 
         return;
+    }
+
+    public void OnGuestParticipated(int anchorIndex)
+    {
+        //
+        // 自分の座席にオブジェクトがあることを通知する．
+        //
+
+        if (m_lastShared == -1 || m_shelfObjInfos[TLabSyncClient.Instalce.SeatIndex].obj == null) return;
+
+        TLabSyncShelfJson obj = new TLabSyncShelfJson
+        {
+            action = (int)WebShelfAction.share,
+            objIndex = m_lastShared
+        };
+        string json = JsonUtility.ToJson(obj);
+        SendWsMessage(json, anchorIndex);
     }
 
     private void Update()
@@ -247,7 +264,7 @@ public class TLabShelfSyncManager : TLabShelfManager
                 objIndex = 2
             };
             string json = JsonUtility.ToJson(obj);
-            SendWsMessage(json);
+            SendWsMessage(json, -1);
         }
 #endif
     }
