@@ -43,17 +43,14 @@ public class TLabShelfManager : MonoBehaviour
 
         // 分割可能オブジェクトの場合，子オブジェクトも名前を変更
         TLabVRGrabbable grabbable = instanced.GetComponent<TLabVRGrabbable>();
-        if(grabbable != null)
+        if(grabbable != null && grabbable.EnableDivide == true)
         {
-            if (grabbable.EnableDivide == true)
+            Transform[] transforms = instanced.gameObject.GetComponentsInChildren<Transform>();
+            foreach (Transform childTransform in transforms)
             {
-                Transform[] transforms = instanced.gameObject.GetComponentsInChildren<Transform>();
-                foreach(Transform childTransform in transforms)
-                {
-                    if (childTransform == this.transform) continue;
+                if (childTransform == this.transform) continue;
 
-                    childTransform.gameObject.name = childTransform.gameObject.name + "_" + anchorIndex.ToString();
-                }
+                childTransform.gameObject.name = childTransform.gameObject.name + "_" + anchorIndex.ToString();
             }
         }
 
@@ -119,11 +116,4 @@ public class TLabShelfObjInfo
 {
     public GameObject obj;
     [System.NonSerialized] public Dictionary<int, GameObject> instanced = new Dictionary<int, GameObject>();
-}
-
-[System.Serializable]
-public enum TLabShelfAction
-{
-    takeOut,
-    putAway
 }

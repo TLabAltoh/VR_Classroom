@@ -2233,36 +2233,52 @@ MonoBehaviour:
   - {fileID: 4853837590586330987}
   - {fileID: 2788812511116698841}
   - {fileID: 3161772401705600758}
-  m_customEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5755384349333693403}
-        m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
-        m_MethodName: OnMessage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_onGuestParticipated:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5755384349333693403}
-        m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
-        m_MethodName: OnGuestParticipated
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_customCallbacks:
+  - onMessage:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5755384349333693403}
+          m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
+          m_MethodName: OnMessage
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onGuestParticipated:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5755384349333693403}
+          m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
+          m_MethodName: OnGuestParticipated
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onGuestDisconnected:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5755384349333693403}
+          m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
+          m_MethodName: OnGuestDiscconected
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &3800121086230681482
 MonoBehaviour:
   m_ObjectHideFlags: 0
