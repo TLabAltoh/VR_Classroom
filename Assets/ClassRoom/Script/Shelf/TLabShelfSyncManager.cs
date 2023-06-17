@@ -23,6 +23,7 @@ public enum WebShelfAction
 public class TLabShelfSyncManager : TLabShelfManager
 {
     [SerializeField] public TLabInputField m_inputField;
+    private string m_lastLoadURL = "";
     private AssetBundle m_assetBundle;
     private List<int> m_currentShareds = new List<int>();
 
@@ -180,11 +181,13 @@ public class TLabShelfSyncManager : TLabShelfManager
     /// </summary>
     public void LoadModelFromURL(string url, int objIndex)
     {
+        if (m_lastLoadURL == url) return;
+        m_lastLoadURL = url;
         StartCoroutine(DownloadAssetBundle(url, objIndex));
     }
 
     /// <summary>
-    /// LoadModelFromURL()が正しく動作するか確認する用のテスト関数
+    /// UIからLoadModelFromURL(url, objIndex)を呼び出す
     /// </summary>
     public void LoadModelFromURL()
     {
@@ -249,21 +252,38 @@ public class TLabShelfSyncManager : TLabShelfManager
     /// <summary>
     /// - ルームに新しく参加したプレイヤーに，自分がオブジェクトを持っていることを通知する
     /// - リストのオブジェクトをすべて共有
+    /// - 現在ロードしているオブジェクトが何かを通知する
     /// </summary>
     /// <param name="anchorIndex">参加したプレイヤーのインデックス</param>
     public void OnGuestParticipated(int anchorIndex)
     {
-        if (m_currentShareds.Count == 0) return;
-
-        foreach(int sharedIndex in m_currentShareds)
         {
-            TLabSyncShelfJson obj = new TLabSyncShelfJson
+            if (m_currentShareds.Count == 0) return;
+
+            foreach (int sharedIndex in m_currentShareds)
             {
-                action = (int)WebShelfAction.share,
-                objIndex = sharedIndex
-            };
-            string json = JsonUtility.ToJson(obj);
-            SendWsMessage(json, anchorIndex);
+                TLabSyncShelfJson obj = new TLabSyncShelfJson
+                {
+                    action = (int)WebShelfAction.share,
+                    objIndex = sharedIndex
+                };
+                string json = JsonUtility.ToJson(obj);
+                SendWsMessage(json, anchorIndex);
+            }
+        }
+
+        {
+            if(TLabSyncClient.Instalce.SeatIndex == 0 || m_lastLoadURL != "")
+            {
+                TLabSyncShelfJson obj = new TLabSyncShelfJson
+                {
+                    action = (int)WebShelfAction.loadModel,
+                    url = m_lastLoadURL,
+                    objIndex = 2
+                };
+                string json = JsonUtility.ToJson(obj);
+                SendWsMessage(json, -1);
+            }
         }
     }
 
@@ -279,7 +299,19 @@ public class TLabShelfSyncManager : TLabShelfManager
     private void Update()
     {
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Space)) LoadModelFromURL();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            LoadModelFromURL(m_testURL, 2);
+
+            TLabSyncShelfJson obj = new TLabSyncShelfJson
+            {
+                action = (int)WebShelfAction.loadModel,
+                url = m_testURL,
+                objIndex = 2
+            };
+            string json = JsonUtility.ToJson(obj);
+            SendWsMessage(json, -1);
+        }
 #endif
     }
 }

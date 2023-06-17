@@ -45,10 +45,10 @@ console.log("\nstart server on port: " + port + " " + bar);
 
 // #region Player Data
 
-const seatLength = 4;
-var seatFilled = 0;
-var seats = [];
-var socketTable = [];
+const seatLength	= 4;
+var seatFilled		= 0;
+var seats			= [];
+var socketTable		= [];
 
 // for debug
 var grabbTable = [];
@@ -63,16 +63,16 @@ for(var i = 0; i < seatLength; i++){
 // #region Sync Objects
 
 // list of updated transforms
-var syncObjects = {};
+var syncObjects		= {};
 
 // List of updated animations
-var syncAnims = {};
+var syncAnims		= {};
 
 // A dictionary of players responsible for computing rigidbody gravity per object
-var rbTable = {};
+var rbTable			= {};
 
 // Devide State
-var syncDivides = {};
+var syncDivides		= {};
 
 // #endregion Sync Objects
 
