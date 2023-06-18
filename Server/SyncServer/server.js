@@ -50,6 +50,7 @@ var seatFilled		= 0;
 var seats			= [];
 var socketTable		= [];
 var grabbTable		= [];
+
 for(var i = 0; i < seatLength; i++){
 	seats.push(false);
 	socketTable.push(null);
@@ -109,14 +110,13 @@ const ACEPT					= 2;
 const GUESTDISCONNECT		= 3;
 const GUESTPARTICIPATION	= 4;
 const ALLOCATEGRAVITY		= 5;
-const SETGRAVITY			= 6;
-const GRABBLOCK				= 7;
-const FORCERELEASE			= 8;
-const DIVIDEGRABBER			= 9;
-const SYNCTRANSFORM			= 10;
-const SYNCANIM				= 11;
-const REFRESH				= 12;
-const CUSTOMACTION			= 13;
+const GRABBLOCK				= 6;
+const FORCERELEASE			= 7;
+const DIVIDEGRABBER			= 8;
+const SYNCTRANSFORM			= 9;
+const SYNCANIM				= 10;
+const REFRESH				= 11;
+const CUSTOMACTION			= 12;
 
 // #endregion Const values
 
@@ -206,20 +206,6 @@ ws.on("connection", function (socket) {
 			});
 
 			return;
-		} else if (parse.action == SETGRAVITY) {
-
-			//
-			// set rigidbody gravity on / off
-			//
-
-			console.log("set gravity");
-
-			var targetIndex = rbTable[parse.transform.id];
-
-			// if target is not own and exist, send message
-			if (targetIndex !== seatIndex && targetIndex !== undefined) socketTable[targetIndex].send(message);
-
-			return;
 		} else if (parse.action == GRABBLOCK) {
 
 			//
@@ -228,11 +214,21 @@ ws.on("connection", function (socket) {
 
 			console.log("grabb lock");
 
-			if (parse.seatIndex !== -1) {
-				grabbTable[seatIndex].push({ transform: parse.transform, message: message });
-			} else {
-				grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.transform.id !== parse.transform.id });
-            }
+			/*
+				-1 : No one is grabbing
+				-2 : No one grabbed, but Rigidbody does not calculate
+			*/
+
+			// Ensure that the object you are grasping does not cover
+			// If someone has already grabbed the object, overwrite it
+
+			// parse.seatIndex	: player index that is grabbing the object
+			// seatIndex		: index of the socket actually communicating
+
+			for (var i = 0; i < seatLength; i++)
+				grabbTable[i] = grabbTable[i].filter(function (value) { return value.transform.id !== parse.transform.id });
+
+			if (parse.seatIndex !== -1) grabbTable[seatIndex].push({ transform: parse.transform, message: message });
 
 			console.log(grabbTable[seatIndex]);
 
