@@ -49,9 +49,7 @@ const seatLength	= 4;
 var seatFilled		= 0;
 var seats			= [];
 var socketTable		= [];
-
-// for debug
-var grabbTable = [];
+var grabbTable		= [];
 for(var i = 0; i < seatLength; i++){
 	seats.push(false);
 	socketTable.push(null);
@@ -132,11 +130,9 @@ function allocateRigidbody(){
 
 	var check = false;
 	for (var j = 0; j < seatLength; j++)
-		if (seats[j] === true)
-			check = true;
+		if (seats[j] === true) check = true;
 
-	if (check === false)
-		return;
+	if (check === false) return;
 
 	// Recalculate rigidbody allocation table
 
@@ -164,15 +160,14 @@ function allocateRigidbody(){
 
 	for (seatIndex = 0; seatIndex < seatLength; seatIndex++) {
 		// Check if someone is in the seat
-		if (seats[seatIndex] === false)
-			continue;
+		if (seats[seatIndex] === false) continue;
 
 		syncObjValues.forEach(function (value) {
 			// Set useGravity to Off for rigidbodies that you are not in charge of
 			var obj = {
-				role: SERVER,
-				action: ALLOCATEGRAVITY,
-				active: (rbTable[value.transform.id] === seatIndex),
+				role:		SERVER,
+				action:		ALLOCATEGRAVITY,
+				active:		(rbTable[value.transform.id] === seatIndex),
 				transform: {
 					id: value.transform.id
 				}
@@ -222,8 +217,7 @@ ws.on("connection", function (socket) {
 			var targetIndex = rbTable[parse.transform.id];
 
 			// if target is not own and exist, send message
-			if (targetIndex !== seatIndex && targetIndex !== undefined)
-				socketTable[targetIndex].send(message);
+			if (targetIndex !== seatIndex && targetIndex !== undefined) socketTable[targetIndex].send(message);
 
 			return;
 		} else if (parse.action == GRABBLOCK) {
@@ -235,9 +229,9 @@ ws.on("connection", function (socket) {
 			console.log("grabb lock");
 
 			if (parse.seatIndex !== -1) {
-				grabbTable[seatIndex].push(parse.transform);
+				grabbTable[seatIndex].push({ transform: parse.transform, message: message });
 			} else {
-				grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.id !== parse.transform.id });
+				grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.transform.id !== parse.transform.id });
             }
 
 			console.log(grabbTable[seatIndex]);
@@ -255,9 +249,9 @@ ws.on("connection", function (socket) {
 
 			console.log("force release");
 
-			grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.id !== parse.transform.id });
+			grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.transform.id !== parse.transform.id });
 
-			console.log(grabbTable[seatIndex]);
+			console.log(grabbTable[seatIndex].transform);
 
 			ws.clients.forEach(client => {
 				if (client != socket) client.send(message);
@@ -310,21 +304,16 @@ ws.on("connection", function (socket) {
 				});
             }
 
+			// Send current grabb table
+
+			grabbTable.forEach(function (array) {
+				array.forEach(function (value) {
+					socket.send(value.message);
+			})});
+
 			// Re-allocate rigidbody gravity
 
 			allocateRigidbody();
-
-			// Force refles
-
-			var obj = {
-				role:	SERVER,
-				action: REFRESH
-			};
-			var json = JSON.stringify(obj);
-
-			ws.clients.forEach(client => {
-				if (client != socket) client.send(json);
-			});
 
 			return;
 		} else if (parse.action === REGIST) {
@@ -402,6 +391,16 @@ ws.on("connection", function (socket) {
 						json = JSON.stringify(value);
 						socket.send(json);
 					});
+
+					console.log("send current grabb table");
+
+					// If you assign a rigidbody to a new participant, synchronization will start
+					// before determining who is holding the object, so notify who is holding which object first.
+
+					grabbTable.forEach(function (array) {
+						array.forEach(function (value) {
+							socket.send(value.message);
+					})});
 
 					console.log("re-assign the rigidbody");
 
@@ -506,6 +505,13 @@ ws.on("connection", function (socket) {
 						json = JSON.stringify(value);
 						socket.send(json);
 					});
+
+					console.log("send current grabb table");
+
+					grabbTable.forEach(function (array) {
+						array.forEach(function (value) {
+							socket.send(value.message);
+					})});
 
 					console.log("re-assign the rigidbody");
 

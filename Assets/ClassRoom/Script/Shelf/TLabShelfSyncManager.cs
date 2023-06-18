@@ -146,8 +146,7 @@ public class TLabShelfSyncManager : TLabShelfManager
         Debug.Log("Start Load Asset");
 #endif
 
-        if (m_assetBundle != null)
-            m_assetBundle.Unload(false);
+        if (m_assetBundle != null) m_assetBundle.Unload(false);
 
         var request = UnityWebRequestAssetBundle.GetAssetBundle(modURL);
         yield return request.SendWebRequest();

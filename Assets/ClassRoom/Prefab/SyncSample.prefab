@@ -265,11 +265,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Sphere
+    - m_Text: Stomac
       m_Image: {fileID: 0}
-    - m_Text: Cube
-      m_Image: {fileID: 0}
-    - m_Text: Chair
+    - m_Text: Lungs
       m_Image: {fileID: 0}
     - m_Text: Heart
       m_Image: {fileID: 0}
@@ -576,9 +574,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_shelfObjInfos:
-  - obj: {fileID: 3956602046929077645, guid: 9073e0f3f25e4714ba886480387567f4, type: 3}
-  - obj: {fileID: 2895800458489614868, guid: b58ac87f1530e594789d62510f1cf9e8, type: 3}
-  - obj: {fileID: 7119571299590742117, guid: 2255b2d42113f934bbebfc88b949b4bd, type: 3}
+  - obj: {fileID: 4821779165979629311, guid: bfd165cb58e1f0d41b8f8a34c9873b41, type: 3}
+  - obj: {fileID: 7321942756653076973, guid: 7c4bf96ac9366ab42aa3e9965d981704, type: 3}
   - obj: {fileID: 7427115620428716528, guid: fe6c426fd353e3747833bd6f826c36bc, type: 3}
   m_anchors:
   - {fileID: 1992072393675170862}
@@ -1344,6 +1341,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 24598ea0b6c8f874d83118b930723d13, type: 2}
+  - {fileID: 2100000, guid: 013d37de9d1e26e4eba035683ac61893, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1820,6 +1818,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a79c01674c0406a44a69e6ad99eb240a, type: 2}
+  - {fileID: 2100000, guid: 013d37de9d1e26e4eba035683ac61893, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2362,6 +2361,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: e8855c94cc64c3e4f8867c4f91829bce, type: 2}
+  - {fileID: 2100000, guid: 013d37de9d1e26e4eba035683ac61893, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20737,7 +20737,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sphere
+  m_text: Stomac
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
