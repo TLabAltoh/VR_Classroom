@@ -24,7 +24,7 @@ public class TextController : MonoBehaviour
 
         Transform mainCamera = Camera.main.transform;
         Vector3 diff = mainCamera.position - m_chair.position;
-        Vector3 offset = diff.normalized * m_forward + Vector3.up * m_vertical + Vector3.right * m_horizontal;
+        Vector3 offset = diff.normalized * m_forward + Vector3.up * m_vertical + Vector3.Cross(diff.normalized,Vector3.up) * m_horizontal;
 
         this.transform.position = m_chair.position + offset;
         this.transform.LookAt(mainCamera, Vector3.up);

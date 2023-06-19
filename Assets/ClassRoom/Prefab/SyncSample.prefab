@@ -574,7 +574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_shelfObjInfos:
-  - obj: {fileID: 4821779165979629311, guid: bfd165cb58e1f0d41b8f8a34c9873b41, type: 3}
+  - obj: {fileID: 4912635128723326908, guid: c099f7e298dc7584bb9fbf05403d5e6b, type: 3}
   - obj: {fileID: 7321942756653076973, guid: 7c4bf96ac9366ab42aa3e9965d981704, type: 3}
   - obj: {fileID: 7427115620428716528, guid: fe6c426fd353e3747833bd6f826c36bc, type: 3}
   m_anchors:
