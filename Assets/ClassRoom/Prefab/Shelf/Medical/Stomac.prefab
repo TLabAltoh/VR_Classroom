@@ -565,7 +565,7 @@ RectTransform:
   m_GameObject: {fileID: 1869645415339064856}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0015, y: 0.0015, z: 0.0015}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1726273384148695779}
@@ -665,7 +665,7 @@ MonoBehaviour:
   m_chair: {fileID: 5721540973613849862}
   m_forward: 0.3
   m_vertical: 0
-  m_horizontal: -0.3
+  m_horizontal: -0.25
 --- !u!1 &4660195901698020335
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +693,7 @@ RectTransform:
   m_GameObject: {fileID: 4660195901698020335}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0015, y: 0.0015, z: 0.0015}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4452427126813211449}
@@ -902,7 +902,7 @@ MonoBehaviour:
   m_chair: {fileID: 5721540973613849862}
   m_forward: 0.3
   m_vertical: 0
-  m_horizontal: 0.3
+  m_horizontal: 0.25
 --- !u!1 &7724534606450068803
 GameObject:
   m_ObjectHideFlags: 0

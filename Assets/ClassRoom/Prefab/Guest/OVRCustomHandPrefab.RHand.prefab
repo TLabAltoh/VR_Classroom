@@ -1879,12 +1879,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab401de70ff42c44f8dc454d728a6e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_useRigidbody: 1
+  m_useRigidbody: 0
   m_useGravity: 0
   m_positionFixed: 0
   m_rotateFixed: 0
   m_scaling: 0
   m_scalingFactor: 0
+  m_enableDivide: 0
   m_enableSync: 0
   m_autoSync: 0
   m_locked: 1
