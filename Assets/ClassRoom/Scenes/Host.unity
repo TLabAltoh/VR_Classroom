@@ -3117,7 +3117,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1396
+  m_Name: pb_Mesh-2560
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4631,7 +4631,7 @@ PrefabInstance:
       objectReference: {fileID: 4751184203207477747}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.3.9:5000
+      value: ws://192.168.11.12:5000
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_guestLTouch
@@ -4751,15 +4751,15 @@ PrefabInstance:
       objectReference: {fileID: 3638833556982453480}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_syncServerAddr
-      value: ws://192.168.3.9:5000
+      value: ws://192.168.11.12:5000
       objectReference: {fileID: 0}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_shelfServerAddr
-      value: http://192.168.3.9:5600/StandaloneWindows/testmodel.assetbundl
+      value: http://192.168.11.12:5600/StandaloneWindows/testmodel.assetbundl
       objectReference: {fileID: 0}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_voiceChatServerAddr
-      value: ws://192.168.3.9:5500
+      value: ws://192.168.11.12:5500
       objectReference: {fileID: 0}
     - target: {fileID: 3859490211251242365, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_RootOrder
@@ -4831,7 +4831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_testURL
-      value: http://192.168.3.9:5600/StandaloneWindows/testmodel.assetbundl
+      value: http://192.168.11.12:5600/StandaloneWindows/testmodel.assetbundl
       objectReference: {fileID: 0}
     - target: {fileID: 6000214338459843897, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_RootOrder
@@ -5726,7 +5726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4602051404492696555, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.3.9:5500
+      value: ws://192.168.11.12:5500
       objectReference: {fileID: 0}
     - target: {fileID: 4602051404492696555, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_isStreaming
