@@ -7,7 +7,7 @@ public class PopupTextManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (m_controller == null)   Destroy(m_controller.gameObject);
-        if (m_controller1 == null)  Destroy(m_controller1.gameObject);
+        if (m_controller != null)   Destroy(m_controller.gameObject);
+        if (m_controller1 != null)  Destroy(m_controller1.gameObject);
     }
 }
