@@ -163,6 +163,8 @@ function allocateRigidbody(){
 		if (seats[seatIndex] === false) continue;
 
 		syncObjValues.forEach(function (value) {
+			if (rbTable[value.transform.id] === undefined) continue;
+
 			// Set useGravity to Off for rigidbodies that you are not in charge of
 			var obj = {
 				role:		SERVER,
@@ -174,6 +176,26 @@ function allocateRigidbody(){
 			};
 			var json = JSON.stringify(obj);
 			socketTable[seatIndex].send(json);
+
+			// 
+			/*
+			 * The moment I joined the room
+			 * ```
+				0       Cylinder.Gravity
+				0       Sphere.Gravity
+				0       Cube.Gravity
+			 * ```
+			 * since
+			 * ```
+				0       Cylinder.Gravity
+				0       Sphere.Gravity
+				0       Cube.Gravity
+				undefined       OVRGuestAnchor.0.RTouch
+				undefined       OVRGuestAnchor.0.LTouch
+				undefined       OVRGuestAnchor.0.Head
+			 * ```
+			 */
+			console.log(rbTable[value.transform.id] + "\t" + value.transform.id);
 		});
 	}
 }
@@ -279,9 +301,9 @@ ws.on("connection", function (socket) {
 
 			if (parse.active === true) {
 				// Load world transforms prior to rigidbody assignment
-				var syncObjValues = Object.values(syncObjects);
-				var syncAnimValues = Object.values(syncAnims);
-				var syncDivideValues = Object.values(syncDivides);
+				var syncObjValues		= Object.values(syncObjects);
+				var syncAnimValues		= Object.values(syncAnims);
+				var syncDivideValues	= Object.values(syncDivides);
 
 				// https://pisuke-code.com/javascript-dictionary-foreach/
 				syncObjValues.forEach(function (value) {
