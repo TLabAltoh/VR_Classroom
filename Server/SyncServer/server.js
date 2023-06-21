@@ -163,6 +163,8 @@ function allocateRigidbody(){
 		if (seats[seatIndex] === false) continue;
 
 		syncObjValues.forEach(function (value) {
+			if (rbTable[value.transform.id] === undefined) continue;
+
 			// Set useGravity to Off for rigidbodies that you are not in charge of
 			var obj = {
 				role:		SERVER,
