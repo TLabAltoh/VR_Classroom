@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/ClassRoom/Model/heart/OutlineMaterial.meta
 guid: 83302afec0590a14ab950ba5b3914918
+========
+guid: 3cbf7ac05df1fee439f18eff63949789
+>>>>>>>> ba8ae514a202e5d5fbd560e8a9485eb55a1b30a1:Assets/ClassRoom/Model/heart/OutlineMesh.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
