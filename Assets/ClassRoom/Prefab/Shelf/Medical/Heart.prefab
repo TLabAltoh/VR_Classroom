@@ -1419,7 +1419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47497adbd02013a4f8a58b44c22d4590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_chair: {fileID: 7807476913141236554}
+  m_target: {fileID: 7807476913141236554}
   m_forward: 0.3
   m_vertical: 0
   m_horizontal: -0.25
@@ -2056,7 +2056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47497adbd02013a4f8a58b44c22d4590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_chair: {fileID: 7807476913141236554}
+  m_target: {fileID: 7807476913141236554}
   m_forward: 0.3
   m_vertical: 0
   m_horizontal: 0.25
@@ -2156,8 +2156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cea738de3bcee4e96d80d8fef8dcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_controller: {fileID: 5412982768036735371}
-  m_controller1: {fileID: 7798704282090424008}
+  m_controllers:
+  - {fileID: 5412982768036735371}
+  - {fileID: 7798704282090424008}
 --- !u!64 &8097381819597611331
 MeshCollider:
   m_ObjectHideFlags: 0

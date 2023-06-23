@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47497adbd02013a4f8a58b44c22d4590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_chair: {fileID: 7986875039834000215}
+  m_target: {fileID: 7986875039834000215}
   m_forward: 0.3
   m_vertical: 0
   m_horizontal: 0.25
@@ -408,10 +408,10 @@ GameObject:
   - component: {fileID: 8477339901157283982}
   - component: {fileID: 5508715834427650767}
   - component: {fileID: 8532522863537937410}
-  - component: {fileID: 6194551038237110164}
   - component: {fileID: 7797556661548958407}
   - component: {fileID: 8253213945644805631}
   - component: {fileID: 8286343582198528119}
+  - component: {fileID: 5994163615836597006}
   m_Layer: 6
   m_Name: thairoid01_low_part01_Group6344_Group18522
   m_TagString: Untagged
@@ -485,20 +485,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6194551038237110164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1580865005069998862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8325124ff1fd4634b939d09e0b966f1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_outlineWidth: 0.025
-  m_material: {fileID: 2100000, guid: 3847eb1e88712774caad1f81c67d7eaf, type: 2}
 --- !u!114 &7797556661548958407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,6 +534,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: f1473a7f8a4cbc342b2a8ee5f24ed394, type: 2}
+--- !u!114 &5994163615836597006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580865005069998862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_outlineWidth: 0.025
+  m_material: {fileID: 2100000, guid: 3847eb1e88712774caad1f81c67d7eaf, type: 2}
+  m_popupManager: {fileID: 1975839615887243642}
+  m_index: 0
 --- !u!1 &1898341945790544021
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47497adbd02013a4f8a58b44c22d4590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_chair: {fileID: 7986875039834000215}
+  m_target: {fileID: 7986875039834000215}
   m_forward: 0.3
   m_vertical: 0
   m_horizontal: -0.25
@@ -821,10 +823,10 @@ GameObject:
   - component: {fileID: 7274659061650737747}
   - component: {fileID: 4614043450061638183}
   - component: {fileID: 4726456184263810490}
-  - component: {fileID: 913327932408356388}
   - component: {fileID: 1169119217645253314}
   - component: {fileID: 6947125031886423684}
   - component: {fileID: 7775649021619674571}
+  - component: {fileID: 1793048985288073732}
   m_Layer: 6
   m_Name: thairoid01_low_part02_Group6344_Group24638.001
   m_TagString: Untagged
@@ -898,20 +900,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &913327932408356388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3665446396358843673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8325124ff1fd4634b939d09e0b966f1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_outlineWidth: 0.025
-  m_material: {fileID: 2100000, guid: 1baa181704e9a014490192a9199ea1b6, type: 2}
 --- !u!114 &1169119217645253314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -961,6 +949,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: c022a5a619a89c24a89b03dbd5de1034, type: 2}
+--- !u!114 &1793048985288073732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3665446396358843673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_outlineWidth: 0.025
+  m_material: {fileID: 2100000, guid: 1baa181704e9a014490192a9199ea1b6, type: 2}
+  m_popupManager: {fileID: 1975839615887243642}
+  m_index: 2
 --- !u!1 &3695744055359813802
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,10 +1145,10 @@ GameObject:
   - component: {fileID: 4455970983658795388}
   - component: {fileID: 1167728617313948400}
   - component: {fileID: 4242835188424600948}
-  - component: {fileID: 1328099712436216909}
   - component: {fileID: 9188624458529115608}
   - component: {fileID: 8314006408980660892}
   - component: {fileID: 5775972285293248800}
+  - component: {fileID: 1133810150898046349}
   m_Layer: 6
   m_Name: thairoid01_low_part02_Group6344_Group24638
   m_TagString: Untagged
@@ -1218,20 +1222,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1328099712436216909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6435272789913855642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8325124ff1fd4634b939d09e0b966f1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_outlineWidth: 0.025
-  m_material: {fileID: 2100000, guid: e49bc8efbed6908468bc3a16564b6694, type: 2}
 --- !u!114 &9188624458529115608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1281,6 +1271,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 32d07deeadf298e44ab3a82c6b1718ac, type: 2}
+--- !u!114 &1133810150898046349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435272789913855642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_outlineWidth: 0.025
+  m_material: {fileID: 2100000, guid: e49bc8efbed6908468bc3a16564b6694, type: 2}
+  m_popupManager: {fileID: 1975839615887243642}
+  m_index: 1
 --- !u!1 &7321942756653076973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,8 +1383,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cea738de3bcee4e96d80d8fef8dcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_controller: {fileID: 8773631242696417283}
-  m_controller1: {fileID: 6293697161700868772}
+  m_controllers:
+  - {fileID: 8773631242696417283}
+  - {fileID: 6293697161700868772}
+  m_onPointers: []
 --- !u!114 &8685615134988533257
 MonoBehaviour:
   m_ObjectHideFlags: 0

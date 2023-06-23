@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class TLabAddressManager : MonoBehaviour
 {
-    [SerializeField] private string m_syncServerAddr = "ws://192.168.11.19:5000";
-    [SerializeField] private string m_voiceChatServerAddr = "ws://192.168.11.19:5500";
-    [SerializeField] private string m_shelfServerAddr = "http://192.168.3.19:5600/StandaloneWindows/testmodel.assetbundl";
+    [SerializeField] private string m_syncServerAddr        = "ws://192.168.11.19:5000";
+    [SerializeField] private string m_voiceChatServerAddr   = "ws://192.168.11.19:5500";
+    [SerializeField] private string m_shelfServerAddr       = "http://192.168.3.19:5600/StandaloneWindows/testmodel.assetbundl";
     [SerializeField] private TLabSyncClient m_syncClient;
     [SerializeField] private TLabVoiceChat m_voiceChat;
     [SerializeField] private TLabShelfSyncManager m_shelfManager;
@@ -74,6 +74,28 @@ public class TLabAddressManager : MonoBehaviour
                 EditorUtility.SetDirty(m_shelfManager);
                 m_shelfServerLastAddr = m_shelfServerAddr;
             }
+    }
+}
+#endif
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(TLabAddressManager))]
+[CanEditMultipleObjects]
+public class TLabAddressManagerEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        serializedObject.Update();
+
+        if (GUILayout.Button("Set Server Addr"))
+        {
+            TLabAddressManager manager = target as TLabAddressManager;
+            manager.SetServerAddr();
+        }
+
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif
