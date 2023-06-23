@@ -51,7 +51,7 @@ public class TLabShelfManager : MonoBehaviour
             Transform[] transforms = instanced.gameObject.GetComponentsInChildren<Transform>();
             foreach (Transform childTransform in transforms)
             {
-                if (childTransform == this.transform) continue;
+                if (childTransform == instanced.transform) continue;
 
                 childTransform.gameObject.name = childTransform.gameObject.name + "_" + anchorIndex.ToString();
             }
@@ -136,21 +136,7 @@ public class TLabShelfManagerEditor : Editor
 
         if (GUILayout.Button("Initialize Shelf Obj"))
         {
-            foreach (TLabShelfObjInfo shelfInfo in manager.m_shelfObjInfos)
-            {
-                TLabVRGrabbable grabbable = shelfInfo.obj.GetComponent<TLabVRGrabbable>();
-                if (grabbable == null)
-                    grabbable = shelfInfo.obj.AddComponent<TLabVRGrabbable>();
-
-                grabbable.UseRigidbody(false, false);
-
-                TLabVRRotatable rotatable = grabbable.gameObject.GetComponent<TLabVRRotatable>();
-                if (rotatable == null)
-                    grabbable.gameObject.AddComponent<TLabVRRotatable>();
-
-                EditorUtility.SetDirty(grabbable);
-                EditorUtility.SetDirty(rotatable);
-            }
+            //
         }
 
         serializedObject.ApplyModifiedProperties();
