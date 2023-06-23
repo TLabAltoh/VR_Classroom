@@ -4550,11 +4550,7 @@ PrefabInstance:
       objectReference: {fileID: 1297134677}
     - target: {fileID: 1992072394071876174, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_VersionIndex
-<<<<<<< HEAD
       value: 4147
-=======
-      value: 4138
->>>>>>> ba8ae514a202e5d5fbd560e8a9485eb55a1b30a1
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394097134738, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Name
