@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 1932726711926201480}
   - component: {fileID: 6066321533267030813}
   - component: {fileID: 4184211360684487814}
+  - component: {fileID: 1451454067901293687}
   m_Layer: 6
   m_Name: thairoid01:low_part02_Group6344:Group24638
   m_TagString: Untagged
@@ -306,7 +307,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243504669232107055}
-  m_Mesh: {fileID: 1430960802441570800, guid: f32c28bdc6368e64eb4447403bf862bf, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 6ae3a946ee4dc41479522b6ec42041df, type: 2}
 --- !u!23 &8406913547831362039
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -327,6 +328,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: 094ab99c7e3fe904cbc715a0b7e17746, type: 2}
   - {fileID: 2100000, guid: ca28ca6341cc82940805172600bb7e01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -395,6 +397,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 032b18b81d16eaf4d8c0913afbed81a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1451454067901293687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243504669232107055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8325124ff1fd4634b939d09e0b966f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1368883718457276227
@@ -807,6 +821,7 @@ GameObject:
   - component: {fileID: 7061106735649650643}
   - component: {fileID: 1968738782131367445}
   - component: {fileID: 5021431084398079742}
+  - component: {fileID: 605422959127698823}
   m_Layer: 6
   m_Name: thairoid01:low_part02_Group6344:Group24638.001
   m_TagString: Untagged
@@ -836,7 +851,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3598553157362248439}
-  m_Mesh: {fileID: -683433230807353107, guid: f32c28bdc6368e64eb4447403bf862bf, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 007a83fbc057fab419d655a23650ae85, type: 2}
 --- !u!23 &5222515962807056586
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -857,6 +872,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: 41adb7376074938439dee0a9887997f1, type: 2}
   - {fileID: 2100000, guid: ca28ca6341cc82940805172600bb7e01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -925,6 +941,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 032b18b81d16eaf4d8c0913afbed81a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &605422959127698823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3598553157362248439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8325124ff1fd4634b939d09e0b966f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3777622860739787056
@@ -1076,6 +1104,7 @@ GameObject:
   - component: {fileID: 5675621870693004784}
   - component: {fileID: 6587839430963738192}
   - component: {fileID: 3428504154847865322}
+  - component: {fileID: 5946662514153922319}
   m_Layer: 6
   m_Name: thairoid01:low_part01_Group6344:Group18522
   m_TagString: Untagged
@@ -1105,7 +1134,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5456271766647811485}
-  m_Mesh: {fileID: -5642421354377339475, guid: f32c28bdc6368e64eb4447403bf862bf, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 12c51bd60ecacbd4a97e952f6d9a79db, type: 2}
 --- !u!23 &7798959627514633437
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1126,6 +1155,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: ebc582b727275974985b8f5fbc3a788d, type: 2}
   - {fileID: 2100000, guid: ed8711779dd7d224c9ab62e1faee8aab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1196,6 +1226,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032b18b81d16eaf4d8c0913afbed81a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5946662514153922319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5456271766647811485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8325124ff1fd4634b939d09e0b966f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7321942756653076973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1251,7 @@ GameObject:
   - component: {fileID: 1063945526377158532}
   - component: {fileID: 4036717881023824669}
   - component: {fileID: 1975839615887243642}
+  - component: {fileID: 8685615134988533257}
   m_Layer: 6
   m_Name: Lungs
   m_TagString: Untagged
@@ -1292,3 +1335,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_controller: {fileID: 8773631242696417283}
   m_controller1: {fileID: 6293697161700868772}
+--- !u!114 &8685615134988533257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7321942756653076973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e4057746dbc6d4395994f3b852d4f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_outlineTarget:
+  - {fileID: 5456271766647811485}
+  - {fileID: 1243504669232107055}
+  - {fileID: 3598553157362248439}
+  m_savePath: Assets/ClassRoom/Prefab/Shelf/Medical

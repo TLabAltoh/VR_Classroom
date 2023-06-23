@@ -3117,7 +3117,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-3924
+  m_Name: pb_Mesh-7772
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4855,8 +4855,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2972909257804408489, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_savePath
-      value: Assets/Tetu/VRGrabber/Outline/Mesh
+      value: Assets/TLab/VRGrabber/ClassRoom/
       objectReference: {fileID: 0}
+    - target: {fileID: 2972909257804408489, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_outlineTarget.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972909257804408489, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_outlineTarget.Array.data[3]
+      value: 
+      objectReference: {fileID: 1992072395091169001}
+    - target: {fileID: 2972909257804408489, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_outlineTarget.Array.data[4]
+      value: 
+      objectReference: {fileID: 1992072395091169001}
+    - target: {fileID: 2972909257804408489, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_outlineTarget.Array.data[5]
+      value: 
+      objectReference: {fileID: 1992072395091169001}
     - target: {fileID: 3060666730315939758, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
