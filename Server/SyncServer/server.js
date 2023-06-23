@@ -163,7 +163,7 @@ function allocateRigidbody(){
 		if (seats[seatIndex] === false) continue;
 
 		syncObjValues.forEach(function (value) {
-			if (rbTable[value.transform.id] === undefined) continue;
+			if (rbTable[value.transform.id] === undefined) return;
 
 			// Set useGravity to Off for rigidbodies that you are not in charge of
 			var obj = {
@@ -598,7 +598,7 @@ ws.on("connection", function (socket) {
 
 			console.log("custom message");
 
-			// (seatIndex === -1) : true‚Åƒuƒ[ƒhƒLƒƒƒXƒg
+			// (seatIndex === -1) : trueï¿½Åƒuï¿½ï¿½ï¿½[ï¿½hï¿½Lï¿½ï¿½ï¿½Xï¿½g
 
 			if (parse.seatIndex !== -1) {
 				var target = socketTable[parse.seatIndex];
