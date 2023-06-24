@@ -5,13 +5,28 @@ using UnityEditor;
 
 public class PopupTextManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class PointerPopupPair
+    {
+        public TextController controller;
+        public GameObject target;
+    }
+
+    public PointerPopupPair[] PointerPairs
+    {
+        get
+        {
+            return m_pointerPairs;
+        }
+    }
+
     [SerializeField] protected TextController[] m_controllers;
-    [SerializeField] protected TextController[] m_onPointers;
+    [SerializeField] protected PointerPopupPair[] m_pointerPairs;
 
     public TextController GetTextController(int index)
     {
-        if (index < m_onPointers.Length)
-            return m_onPointers[index];
+        if (index < m_pointerPairs.Length)
+            return m_pointerPairs[index].controller;
         else
             return null;
     }
@@ -25,8 +40,8 @@ public class PopupTextManager : MonoBehaviour
         if(m_controllers != null)
             foreach(TextController controller in m_controllers) Destroy(controller.gameObject);
 
-        if (m_onPointers != null)
-            foreach (TextController controller in m_onPointers) Destroy(controller.gameObject);
+        if (m_pointerPairs != null)
+            foreach (PointerPopupPair pointerPair in m_pointerPairs) Destroy(pointerPair.controller.gameObject);
     }
 }
 
@@ -45,17 +60,23 @@ public class PopupTextManagerEditor : Editor
 
         if (GUILayout.Button("Overwrite Outline for Popup Selectable"))
         {
-            int index = 0;
-            foreach(TLabOutlineSelectable outlineSelectable in manager.gameObject.GetComponentsInChildren<TLabOutlineSelectable>())
+            for(int index = 0; index < manager.PointerPairs.Length; index++)
             {
-                PopupSelectable popupSelectable = outlineSelectable.gameObject.GetComponent<PopupSelectable>();
-                if (popupSelectable == null) popupSelectable = outlineSelectable.gameObject.AddComponent<PopupSelectable>();
+                GameObject target = manager.PointerPairs[index].target;
 
-                popupSelectable.OutlineMat      = outlineSelectable.OutlineMat;
-                popupSelectable.PopupManager    = manager;
-                popupSelectable.Index           = index++;
+                TLabOutlineSelectable outlineSelectable = target.GetComponent<TLabOutlineSelectable>();
+                PopupSelectable popupSelectable         = target.GetComponent<PopupSelectable>();
+                if (popupSelectable == null) popupSelectable = target.AddComponent<PopupSelectable>();
 
-                if (outlineSelectable != null) DestroyImmediate(outlineSelectable);
+                if (outlineSelectable != null)
+                {
+                    popupSelectable.OutlineMat      = outlineSelectable.OutlineMat;
+                    popupSelectable.PopupManager    = manager;
+                    popupSelectable.Index           = index++;
+
+                    DestroyImmediate(outlineSelectable);
+                }
+
                 if (popupSelectable != null) EditorUtility.SetDirty(popupSelectable);
             }
 
@@ -64,15 +85,21 @@ public class PopupTextManagerEditor : Editor
 
         if (GUILayout.Button("Revert to OutlineSelectable"))
         {
-            foreach (PopupSelectable popupSelectable in manager.gameObject.GetComponentsInChildren<PopupSelectable>())
+            for (int index = 0; index < manager.PointerPairs.Length; index++)
             {
-                TLabOutlineSelectable outlineSelectable = popupSelectable.gameObject.GetComponent<TLabOutlineSelectable>();
+                GameObject target = manager.PointerPairs[index].target;
+
+                TLabOutlineSelectable outlineSelectable = target.GetComponent<TLabOutlineSelectable>();
+                PopupSelectable popupSelectable         = target.GetComponent<PopupSelectable>();
                 if (outlineSelectable == null || outlineSelectable == popupSelectable)
                     outlineSelectable = popupSelectable.gameObject.AddComponent<TLabOutlineSelectable>();
 
-                outlineSelectable.OutlineMat = popupSelectable.OutlineMat;
+                if (popupSelectable != null)
+                {
+                    outlineSelectable.OutlineMat = popupSelectable.OutlineMat;
+                    DestroyImmediate(popupSelectable);
+                }
 
-                if (popupSelectable != null) DestroyImmediate(popupSelectable);
                 if (outlineSelectable != null) EditorUtility.SetDirty(outlineSelectable);
             }
 

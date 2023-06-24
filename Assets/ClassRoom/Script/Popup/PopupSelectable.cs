@@ -51,19 +51,22 @@ public class PopupSelectable : TLabOutlineSelectable
         // PopupManagerからTextControllerを取得する例:
         // m_popupManager.GetTextController(m_index);
 
+        // m_index: 自身と紐づいたTextControllerのインデックス(PopupTextManagerで割り振っている)
+
         // レーザーポインターの操作に関するコールバック実装:
 
+        // m_selected       : 今回のフレームでレーザーポインターは当たっていたか
+        // m_prevSelected   : 前回のフレームでレーザーポインターは当たっていたか
+
         // ex.0
-        // bool prevFrame = m_selected
-        // if(m_selected && !prevFrame)
+        // if(m_selected && !m_prevSelected)
         // {
         //      // レーザーポインターをかざした
         //      // TextController.FadeIn()
         // }
 
         // ex.1
-        // bool prevFrame = m_selected
-        // if(!m_selected && prevFrame)
+        // if(!m_selected && m_prevSelected)
         // {
         //      // レーザーポインターを外した
         //      // TextController.FadeOut()
@@ -73,10 +76,5 @@ public class PopupSelectable : TLabOutlineSelectable
     protected override void Update()
     {
         base.Update();
-    }
-
-    protected virtual void OnDestroy()
-    {
-        Destroy(m_popupManager);
     }
 }
