@@ -57,24 +57,26 @@ public class PopupSelectable : TLabOutlineSelectable
 
         // m_selected       : 今回のフレームでレーザーポインターは当たっていたか
         // m_prevSelected   : 前回のフレームでレーザーポインターは当たっていたか
-
-        // ex.0
-        // if(m_selected && !m_prevSelected)
-        // {
-        //      // レーザーポインターをかざした
-        //      // TextController.FadeIn()
-        // }
-
-        // ex.1
-        // if(!m_selected && m_prevSelected)
-        // {
-        //      // レーザーポインターを外した
-        //      // TextController.FadeOut()
-        // }
     }
 
     protected override void Update()
     {
+        // ex.0
+        if (m_selected && !m_prevSelected)
+        {
+            TextController instance = m_popupManager.GetTextController(m_index);
+            instance.FadeIn();
+            Debug.Log("---------------------------------");
+        }
+
+        //ex.1
+        if (!m_selected && m_prevSelected)
+        {
+            TextController instance = m_popupManager.GetTextController(m_index);
+            instance.FadeOut();
+            Debug.Log("--------11111111--------------------");
+        }
+
         base.Update();
     }
 }

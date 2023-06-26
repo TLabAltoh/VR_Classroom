@@ -60,31 +60,40 @@ public class PopupTextManagerEditor : Editor
 
         if (GUILayout.Button("Overwrite Outline for Popup Selectable"))
         {
-            for(int index = 0; index < manager.PointerPairs.Length; index++)
+            Debug.Log("-----------------------------------");
+
+            for (int index = 0; index < manager.PointerPairs.Length; index++)
             {
                 GameObject target = manager.PointerPairs[index].target;
 
                 TLabOutlineSelectable outlineSelectable = target.GetComponent<TLabOutlineSelectable>();
                 PopupSelectable popupSelectable         = target.GetComponent<PopupSelectable>();
-                if (popupSelectable == null) popupSelectable = target.AddComponent<PopupSelectable>();
+                if (popupSelectable == null)
+                    popupSelectable = target.AddComponent<PopupSelectable>();
 
                 if (outlineSelectable != null)
                 {
                     popupSelectable.OutlineMat      = outlineSelectable.OutlineMat;
                     popupSelectable.PopupManager    = manager;
-                    popupSelectable.Index           = index++;
+                    popupSelectable.Index           = index;
 
                     DestroyImmediate(outlineSelectable);
+
+                    Debug.Log("outline update " + index.ToString());
                 }
 
                 if (popupSelectable != null) EditorUtility.SetDirty(popupSelectable);
             }
+
+            Debug.Log("-----------------------------------");
 
             EditorUtility.SetDirty(manager);
         }
 
         if (GUILayout.Button("Revert to OutlineSelectable"))
         {
+            Debug.Log("-----------------------------------");
+
             for (int index = 0; index < manager.PointerPairs.Length; index++)
             {
                 GameObject target = manager.PointerPairs[index].target;
@@ -92,7 +101,7 @@ public class PopupTextManagerEditor : Editor
                 TLabOutlineSelectable outlineSelectable = target.GetComponent<TLabOutlineSelectable>();
                 PopupSelectable popupSelectable         = target.GetComponent<PopupSelectable>();
                 if (outlineSelectable == null || outlineSelectable == popupSelectable)
-                    outlineSelectable = popupSelectable.gameObject.AddComponent<TLabOutlineSelectable>();
+                    outlineSelectable = target.AddComponent<TLabOutlineSelectable>();
 
                 if (popupSelectable != null)
                 {
@@ -102,6 +111,8 @@ public class PopupTextManagerEditor : Editor
 
                 if (outlineSelectable != null) EditorUtility.SetDirty(outlineSelectable);
             }
+
+            Debug.Log("-----------------------------------");
 
             EditorUtility.SetDirty(manager);
         }
