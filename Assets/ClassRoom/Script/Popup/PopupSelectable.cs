@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class PopupSelectable : TLabOutlineSelectable
 {
-    // TLabOutlineSelectableを継承したPopupTextManagerも管理できるクラスを作ってる途中
+    /// <summary>
+    /// TLabOutlineSelectableを継承したPopupTextManagerも管理できるクラスを作ってる途中
+    /// </summary>
 
     public PopupTextManager PopupManager
     {
@@ -35,7 +37,10 @@ public class PopupSelectable : TLabOutlineSelectable
     protected override void Start()
     {
         base.Start();
+    }
 
+    protected override void Update()
+    {
         // ここに処理を追加
 
 
@@ -57,16 +62,12 @@ public class PopupSelectable : TLabOutlineSelectable
 
         // m_selected       : 今回のフレームでレーザーポインターは当たっていたか
         // m_prevSelected   : 前回のフレームでレーザーポインターは当たっていたか
-    }
 
-    protected override void Update()
-    {
         // ex.0
         if (m_selected && !m_prevSelected)
         {
             TextController instance = m_popupManager.GetTextController(m_index);
             instance.FadeIn();
-            Debug.Log("---------------------------------");
         }
 
         //ex.1
@@ -74,7 +75,6 @@ public class PopupSelectable : TLabOutlineSelectable
         {
             TextController instance = m_popupManager.GetTextController(m_index);
             instance.FadeOut();
-            Debug.Log("--------11111111--------------------");
         }
 
         base.Update();

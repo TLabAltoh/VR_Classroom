@@ -60,7 +60,7 @@ public class PopupTextManagerEditor : Editor
 
         if (GUILayout.Button("Overwrite Outline for Popup Selectable"))
         {
-            Debug.Log("-----------------------------------");
+            Debug.Log("[popuptextmanager] -----------------------------------");
 
             for (int index = 0; index < manager.PointerPairs.Length; index++)
             {
@@ -79,20 +79,20 @@ public class PopupTextManagerEditor : Editor
 
                     DestroyImmediate(outlineSelectable);
 
-                    Debug.Log("outline update " + index.ToString());
+                    Debug.Log("[popuptextmanager] update to popupselectable " + index.ToString());
                 }
 
                 if (popupSelectable != null) EditorUtility.SetDirty(popupSelectable);
             }
 
-            Debug.Log("-----------------------------------");
+            Debug.Log("[popuptextmanager] -----------------------------------");
 
             EditorUtility.SetDirty(manager);
         }
 
         if (GUILayout.Button("Revert to OutlineSelectable"))
         {
-            Debug.Log("-----------------------------------");
+            Debug.Log("[popuptextmanager] -----------------------------------");
 
             for (int index = 0; index < manager.PointerPairs.Length; index++)
             {
@@ -105,6 +105,8 @@ public class PopupTextManagerEditor : Editor
 
                 if (popupSelectable != null)
                 {
+                    Debug.Log("[popuptextmanager] revert to outline selectable " + index.ToString());
+
                     outlineSelectable.OutlineMat = popupSelectable.OutlineMat;
                     DestroyImmediate(popupSelectable);
                 }
@@ -112,7 +114,7 @@ public class PopupTextManagerEditor : Editor
                 if (outlineSelectable != null) EditorUtility.SetDirty(outlineSelectable);
             }
 
-            Debug.Log("-----------------------------------");
+            Debug.Log("[popuptextmanager] -----------------------------------");
 
             EditorUtility.SetDirty(manager);
         }

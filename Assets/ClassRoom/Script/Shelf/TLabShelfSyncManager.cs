@@ -146,7 +146,7 @@ public class TLabShelfSyncManager : TLabShelfManager
     public IEnumerator DownloadAssetBundle(string modURL, int objIndex)
     {
 #if UNITY_EDITOR
-        Debug.Log("Start Load Asset");
+        Debug.Log("[tlabsyncshelf] Start Load Asset");
 #endif
 
         if (m_assetBundle != null) m_assetBundle.Unload(false);
@@ -159,7 +159,7 @@ public class TLabShelfSyncManager : TLabShelfManager
             request.result == UnityWebRequest.Result.ProtocolError ||
             request.result == UnityWebRequest.Result.DataProcessingError)
         {
-            Debug.LogError(request.error);
+            Debug.LogError("[tlabsyncshelf] " + request.error);
             yield break;
         }
 
@@ -167,7 +167,7 @@ public class TLabShelfSyncManager : TLabShelfManager
         m_assetBundle = handler.assetBundle;
 
 #if UNITY_EDITOR
-        Debug.Log("Finish Load Asset");
+        Debug.Log("[tlabsyncshelf] Finish Load Asset");
 #endif
 
         AssetBundleRequest assetLoadRequest = m_assetBundle.LoadAllAssetsAsync<GameObject>();
@@ -239,7 +239,7 @@ public class TLabShelfSyncManager : TLabShelfManager
         TLabSyncShelfJson obj = JsonUtility.FromJson<TLabSyncShelfJson>(message);
 
 #if UNITY_EDITOR
-        Debug.Log("tlabsyncshelf: OnMessage - " + message);
+        Debug.Log("[tlabsyncshelf] OnMessage - " + message);
 #endif
 
         if (obj.action == (int)WebShelfAction.loadModel)    LoadModelFromURL(obj.url, obj.objIndex);
