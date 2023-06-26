@@ -163,7 +163,6 @@ function allocateRigidbody(){
 		if (seats[seatIndex] === false) continue;
 
 		syncObjValues.forEach(function (value) {
-
 			// https://pisuke-code.com/javascript-foreach-continue/
 			// in foreach
 			// continue ---> return;
@@ -602,7 +601,7 @@ ws.on("connection", function (socket) {
 
 			console.log("custom message");
 
-			// (seatIndex === -1) : true‚Åƒuƒ[ƒhƒLƒƒƒXƒg
+			// (seatIndex === -1) : trueï¿½Åƒuï¿½ï¿½ï¿½[ï¿½hï¿½Lï¿½ï¿½ï¿½Xï¿½g
 
 			if (parse.seatIndex !== -1) {
 				var target = socketTable[parse.seatIndex];
