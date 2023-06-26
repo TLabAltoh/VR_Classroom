@@ -163,7 +163,9 @@ function allocateRigidbody(){
 		if (seats[seatIndex] === false) continue;
 
 		syncObjValues.forEach(function (value) {
-			// instead continue, use return in array foreach()
+			// https://pisuke-code.com/javascript-foreach-continue/
+			// in foreach
+			// continue ---> return;
 			if (rbTable[value.transform.id] === undefined) return;
 
 			// Set useGravity to Off for rigidbodies that you are not in charge of
