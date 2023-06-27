@@ -237,8 +237,6 @@ ws.on("connection", function (socket) {
 			// Register/unregister objects grabbed by the player in the Grabb Table
 			//
 
-			console.log("grabb lock");
-
 			/*
 				-1 : No one is grabbing
 				-2 : No one grabbed, but Rigidbody does not calculate
@@ -253,9 +251,11 @@ ws.on("connection", function (socket) {
 			for (var i = 0; i < seatLength; i++)
 				grabbTable[i] = grabbTable[i].filter(function (value) { return value.transform.id !== parse.transform.id });
 
-			if (parse.seatIndex !== -1) grabbTable[seatIndex].push({ transform: parse.transform, message: message });
-
-			console.log(grabbTable[seatIndex]);
+			if (parse.seatIndex !== -1) {
+				console.log("grabb lock: " + parse.transform);
+				grabbTable[seatIndex].push({ transform: parse.transform, message: message });
+			} else
+				console.log("grabb unlock: " + parse.transform);
 
 			ws.clients.forEach(client => {
 				if (client != socket) client.send(message);
@@ -268,11 +268,9 @@ ws.on("connection", function (socket) {
 			// force release object from player
 			//
 
-			console.log("force release");
+			console.log("force release: " + grabbTable[seatIndex].transform);
 
 			grabbTable[seatIndex] = grabbTable[seatIndex].filter(function (value) { return value.transform.id !== parse.transform.id });
-
-			console.log(grabbTable[seatIndex].transform);
 
 			ws.clients.forEach(client => {
 				if (client != socket) client.send(message);
@@ -408,8 +406,7 @@ ws.on("connection", function (socket) {
 						socket.send(json);
 					});
 
-					syncDivideValues.forEach(function (value) {
-						json = JSON.stringify(value);
+					syncDivideValues.forEach(function (json) {
 						socket.send(json);
 					});
 
@@ -421,6 +418,8 @@ ws.on("connection", function (socket) {
 					grabbTable.forEach(function (array) {
 						array.forEach(function (value) {
 							socket.send(value.message);
+							if (value != [] && value != undefined && value != null)
+								console.log("send grabbed item: " + value.message);
 					})});
 
 					console.log("re-assign the rigidbody");
@@ -522,8 +521,7 @@ ws.on("connection", function (socket) {
 						socket.send(json);
 					});
 
-					syncDivideValues.forEach(function (value) {
-						json = JSON.stringify(value);
+					syncDivideValues.forEach(function (json) {
 						socket.send(json);
 					});
 
@@ -531,7 +529,8 @@ ws.on("connection", function (socket) {
 
 					grabbTable.forEach(function (array) {
 						array.forEach(function (value) {
-							socket.send(value.message);
+							if (value != [] && value != undefined && value != null)
+								console.log("send grabbed item: " + value.message);
 					})});
 
 					console.log("re-assign the rigidbody");
@@ -584,7 +583,7 @@ ws.on("connection", function (socket) {
 			// divide / combin grabber
 			//
 
-			console.log("divide obj");
+			console.log("divide obj: " + parse.transform.id);
 
 			syncDivides[parse.transform.id] = message;
 

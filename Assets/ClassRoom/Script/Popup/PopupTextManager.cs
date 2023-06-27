@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -31,16 +33,31 @@ public class PopupTextManager : MonoBehaviour
             return null;
     }
 
+    private IEnumerator LateStart()
+    {
+        yield return null;
+
+        foreach (PointerPopupPair popupPair in m_pointerPairs)
+            popupPair.controller.FadeOutImmidiately();
+
+        yield break;
+    }
+
+    private void Start()
+    {
+        StartCoroutine("LateStart");
+    }
+
     private void OnDestroy()
     {
         // PopupTextManagerを破棄するとき，PopupTextManagerが保持しているTextController(とそれをもつGameObject)を一緒に破棄する．
         // TextControllerはStart()でtransform.parent = null(ペアレントを解除)しているので，PopupManagerを持つGameObjectを破棄
         // するだけでは何も起きない(TextControllerを持つGameObjectはシーンに残り続ける) ----> 以下の行で一緒に破棄すればいい．
 
-        if(m_controllers != null)
+        if(m_controllers.Length > 0)
             foreach(TextController controller in m_controllers) Destroy(controller.gameObject);
 
-        if (m_pointerPairs != null)
+        if (m_pointerPairs.Length > 0)
             foreach (PointerPopupPair pointerPair in m_pointerPairs) Destroy(pointerPair.controller.gameObject);
     }
 }

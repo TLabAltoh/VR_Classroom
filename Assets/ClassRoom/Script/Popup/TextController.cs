@@ -39,7 +39,7 @@ public class TextController : MonoBehaviour
             this.transform.localScale,
             this.transform.localRotation);
 
-        const float duration = 0.5f;
+        const float duration = 0.25f;
         float current = 0.0f;
         while(current < duration)
         {
@@ -63,7 +63,7 @@ public class TextController : MonoBehaviour
             Vector3.zero,
             this.transform.localRotation);
 
-        const float duration = 0.5f;
+        const float duration = 0.25f;
         float current = 0.0f;
         while(current < duration)
         {
@@ -83,18 +83,28 @@ public class TextController : MonoBehaviour
         StartCoroutine("FadeOutTask");
     }
 
-    void Start()
+    public void FadeOutImmidiately()
     {
-        string name     = this.gameObject.name;
-        int anchorIndex = Int32.Parse(name[name.Length - 1].ToString());
-        if (anchorIndex != TLabSyncClient.Instalce.SeatIndex) Destroy(this.gameObject);
-
-        this.transform.parent = null;
-
         m_initialTransform = new TextControllerTransform(
             this.transform.localPosition,
             this.transform.localScale,
             this.transform.localRotation);
+
+        TextControllerTransform targetTransform = new TextControllerTransform(
+            this.transform.localPosition,
+            Vector3.zero,
+            this.transform.localRotation);
+
+        LerpScale(this.transform, m_initialTransform, targetTransform, 1.0f);
+    }
+
+    void Start()
+    {
+        string name = this.gameObject.name;
+        int anchorIndex = Int32.Parse(name[name.Length - 1].ToString());
+        if (anchorIndex != TLabSyncClient.Instalce.SeatIndex) Destroy(this.gameObject);
+
+        this.transform.parent = null;
     }
 
     void Update()

@@ -271,6 +271,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: "\u5FC3\u81D3"
       m_Image: {fileID: 0}
+    - m_Text: "\u5C0F\u30C6\u30B9\u30C8"
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -577,6 +579,7 @@ MonoBehaviour:
   - obj: {fileID: 4912635128723326908, guid: c099f7e298dc7584bb9fbf05403d5e6b, type: 3}
   - obj: {fileID: 7321942756653076973, guid: 7c4bf96ac9366ab42aa3e9965d981704, type: 3}
   - obj: {fileID: 7427115620428716528, guid: fe6c426fd353e3747833bd6f826c36bc, type: 3}
+  - obj: {fileID: 9011795031778553525, guid: 0a359cd94578cdf4590e9995760e2e61, type: 3}
   m_anchors:
   - {fileID: 1992072393675170862}
   - {fileID: 6333577597745751774}

@@ -7,9 +7,10 @@ using UnityEditor;
 
 public class MiniTest : MonoBehaviour
 {
+    [SerializeField] private ToggleGroup m_toggleGroup;
+    [SerializeField] private Toggle m_corrent;
     [SerializeField] private Image m_maru;
     [SerializeField] private Image m_batu;
-    [SerializeField] private int m_corrent = 0;
 
     private IEnumerator Seikai()
     {
@@ -19,7 +20,7 @@ public class MiniTest : MonoBehaviour
         float remain = 0.0f;
         Color prev;
 
-        while(remain > 0.5f)
+        while (remain > 0.5f)
         {
             remain += Time.deltaTime;
             prev = m_maru.color;
@@ -55,7 +56,7 @@ public class MiniTest : MonoBehaviour
         m_batu.color = prev;
     }
 
-    public void AnswerCheck(int answer)
+    public void AnswerCheck()
     {
         Debug.Log("Start Answer Check");
 
@@ -68,7 +69,7 @@ public class MiniTest : MonoBehaviour
         prev.a = 0;
         m_maru.color = prev;
 
-        if (answer == m_corrent)
+        if (m_corrent.isOn)
             StartCoroutine("Seikai");
         else
             StartCoroutine("FuSeikai");
@@ -86,11 +87,7 @@ public class MiniTestEditor: Editor
 
         serializedObject.Update();
 
-        if (GUILayout.Button("MiniTest"))
-        {
-            MiniTest miniTest = target as MiniTest;
-            miniTest.AnswerCheck(1);
-        }
+        //
 
         serializedObject.ApplyModifiedProperties();
     }
