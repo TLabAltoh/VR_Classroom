@@ -101,7 +101,9 @@ public class TextController : MonoBehaviour
     void Start()
     {
         string name = this.gameObject.name;
-        int anchorIndex = Int32.Parse(name[name.Length - 1].ToString());
+        string num  = name[name.Length - 1].ToString();
+        int anchorIndex = -1;
+        Int32.TryParse(num, out anchorIndex);
         if (anchorIndex != TLabSyncClient.Instalce.SeatIndex) Destroy(this.gameObject);
 
         this.transform.parent = null;

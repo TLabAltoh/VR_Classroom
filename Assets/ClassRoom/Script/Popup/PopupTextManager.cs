@@ -55,7 +55,8 @@ public class PopupTextManager : MonoBehaviour
         // するだけでは何も起きない(TextControllerを持つGameObjectはシーンに残り続ける) ----> 以下の行で一緒に破棄すればいい．
 
         if(m_controllers.Length > 0)
-            foreach(TextController controller in m_controllers) Destroy(controller.gameObject);
+            foreach(TextController controller in m_controllers)
+                if(controller != null) Destroy(controller.gameObject);
 
         if (m_pointerPairs.Length > 0)
             foreach (PointerPopupPair pointerPair in m_pointerPairs) Destroy(pointerPair.controller.gameObject);

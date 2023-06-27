@@ -36,11 +36,11 @@ public class TLabUIUtil : MonoBehaviour
         builder.Append("{");
 
             builder.Append(TLabSyncClientConst.ROLE);
-            builder.Append(((int)WebRole.guest).ToString());
+            builder.Append(((int)WebRole.GUEST).ToString());
             builder.Append(TLabSyncClientConst.COMMA);
 
             builder.Append(TLabSyncClientConst.ACTION);
-            builder.Append(((int)WebAction.syncAnim).ToString());
+            builder.Append(((int)WebAction.SYNCANIM).ToString());
             builder.Append(TLabSyncClientConst.COMMA);
 
             builder.Append(TLabSyncClientConst.ANIMATOR);

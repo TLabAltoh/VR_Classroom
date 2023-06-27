@@ -217,8 +217,8 @@ public class TLabShelfSyncManager : TLabShelfManager
     {
         TLabSyncJson obj = new TLabSyncJson
         {
-            role        = (int)WebRole.guest,
-            action      = (int)WebAction.customAction,
+            role        = (int)WebRole.GUEST,
+            action      = (int)WebAction.CUSTOMACTION,
             seatIndex   = anchorIndex,
             customIndex = 0,
             custom      = message

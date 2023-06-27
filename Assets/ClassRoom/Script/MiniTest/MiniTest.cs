@@ -7,10 +7,16 @@ using UnityEditor;
 
 public class MiniTest : MonoBehaviour
 {
+    [SerializeField] private GameObject m_resultWindow;
+    [SerializeField] private GameObject m_questionWindow;
+
     [SerializeField] private ToggleGroup m_toggleGroup;
     [SerializeField] private Toggle m_corrent;
+
     [SerializeField] private Image m_maru;
     [SerializeField] private Image m_batu;
+
+    [SerializeField] private Animator[] m_graphs;
 
     private IEnumerator Seikai()
     {
@@ -73,6 +79,20 @@ public class MiniTest : MonoBehaviour
             StartCoroutine("Seikai");
         else
             StartCoroutine("FuSeikai");
+
+        MiniTestManager.Instance.RegistScore(m_corrent.isOn ? 100 : 0);
+    }
+
+    public void ShowResult()
+    {
+        m_questionWindow.SetActive(false);
+        m_resultWindow.SetActive(true);
+
+        for(int i = 1; i < m_graphs.Length; i++)
+        {
+            Animator graph = m_graphs[i];
+            graph.SetFloat("Ratio", MiniTestManager.Instance.GetScore(i));
+        }
     }
 }
 

@@ -327,7 +327,8 @@ ws.on("connection", function (socket) {
 
 			grabbTable.forEach(function (array) {
 				array.forEach(function (value) {
-					socket.send(value.message);
+					if (value != [] && value != undefined && value != null)
+						console.log("send grabbed item: " + value.message);
 			})});
 
 			// Re-allocate rigidbody gravity
@@ -406,7 +407,8 @@ ws.on("connection", function (socket) {
 						socket.send(json);
 					});
 
-					syncDivideValues.forEach(function (json) {
+					syncDivideValues.forEach(function (value) {
+						json = JSON.stringify(value);
 						socket.send(json);
 					});
 
@@ -521,7 +523,8 @@ ws.on("connection", function (socket) {
 						socket.send(json);
 					});
 
-					syncDivideValues.forEach(function (json) {
+					syncDivideValues.forEach(function (value) {
+						json = JSON.stringify(value);
 						socket.send(json);
 					});
 
@@ -585,7 +588,7 @@ ws.on("connection", function (socket) {
 
 			console.log("divide obj: " + parse.transform.id);
 
-			syncDivides[parse.transform.id] = message;
+			syncDivides[parse.transform.id] = parse;
 
 			ws.clients.forEach(client => {
 				if (client != socket) client.send(message);
