@@ -289,8 +289,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4284769380
+  m_fontColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -424,8 +424,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4284769380
+  m_fontColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 7797556661548958407}
   - component: {fileID: 8253213945644805631}
   - component: {fileID: 8286343582198528119}
-  - component: {fileID: 7264670129556270111}
+  - component: {fileID: 5057460877513404624}
   m_Layer: 6
   m_Name: thairoid01_low_part01_Group6344_Group18522
   m_TagString: Untagged
@@ -804,7 +804,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: f1473a7f8a4cbc342b2a8ee5f24ed394, type: 2}
---- !u!114 &7264670129556270111
+--- !u!114 &5057460877513404624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -993,7 +993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47497adbd02013a4f8a58b44c22d4590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_target: {fileID: 7986875039834000215}
+  m_target: {fileID: 8477339901157283982}
   m_forward: 0.3
   m_vertical: 0
   m_horizontal: 0
@@ -1072,8 +1072,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4284769380
+  m_fontColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1280,7 +1280,7 @@ GameObject:
   - component: {fileID: 1169119217645253314}
   - component: {fileID: 6947125031886423684}
   - component: {fileID: 7775649021619674571}
-  - component: {fileID: 4830182269699865553}
+  - component: {fileID: 1025611076869688176}
   m_Layer: 6
   m_Name: thairoid01_low_part02_Group6344_Group24638.001
   m_TagString: Untagged
@@ -1403,7 +1403,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: c022a5a619a89c24a89b03dbd5de1034, type: 2}
---- !u!114 &4830182269699865553
+--- !u!114 &1025611076869688176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1633,7 +1633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47497adbd02013a4f8a58b44c22d4590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_target: {fileID: 7986875039834000215}
+  m_target: {fileID: 7274659061650737747}
   m_forward: 0.3
   m_vertical: 0
   m_horizontal: 0
@@ -1730,7 +1730,7 @@ GameObject:
   - component: {fileID: 9188624458529115608}
   - component: {fileID: 8314006408980660892}
   - component: {fileID: 5775972285293248800}
-  - component: {fileID: 8072076499392806825}
+  - component: {fileID: 4803296611469978101}
   m_Layer: 6
   m_Name: thairoid01_low_part02_Group6344_Group24638
   m_TagString: Untagged
@@ -1853,7 +1853,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 32d07deeadf298e44ab3a82c6b1718ac, type: 2}
---- !u!114 &8072076499392806825
+--- !u!114 &4803296611469978101
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1862,11 +1862,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6435272789913855642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8325124ff1fd4634b939d09e0b966f1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_outlineWidth: 0.025
   m_material: {fileID: 2100000, guid: e49bc8efbed6908468bc3a16564b6694, type: 2}
+  m_popupManager: {fileID: 1975839615887243642}
+  m_index: 1
 --- !u!1 &7321942756653076973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2052,7 +2054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47497adbd02013a4f8a58b44c22d4590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_target: {fileID: 7986875039834000215}
+  m_target: {fileID: 4455970983658795388}
   m_forward: 0.3
   m_vertical: 0
   m_horizontal: 0

@@ -85,7 +85,7 @@ public class PopupTextManagerEditor : Editor
 
                 TLabOutlineSelectable outlineSelectable = target.GetComponent<TLabOutlineSelectable>();
                 PopupSelectable popupSelectable         = target.GetComponent<PopupSelectable>();
-                if (popupSelectable == null)
+                if (popupSelectable == null || popupSelectable == outlineSelectable)
                     popupSelectable = target.AddComponent<PopupSelectable>();
 
                 if (outlineSelectable != null)
