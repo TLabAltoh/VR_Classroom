@@ -90,13 +90,15 @@ public class MiniTest : MonoBehaviour
         for (int i = 0; i < m_graphs.Length; i++)
         {
             TLabSyncAnim graph = m_graphs[i];
-            graph.SetFloat("Ratio", MiniTestManager.Instance.GetScore(i) / 100.0f);
+            graph.SetFloat("Ratio", MiniTestManager.Instance.GetScore(i + 1) / 100.0f);
+            m_windowAnim.SyncAnim();
         }
     }
 
     private void Start()
     {
         m_windowAnim.SetBool("Switch", true);
+        m_windowAnim.SyncAnim();
     }
 }
 
