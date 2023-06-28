@@ -7,6 +7,9 @@ using UnityEditor;
 
 public class MiniTest : MonoBehaviour
 {
+    [SerializeField] private TLabSyncAnim m_windowAnim;
+    [SerializeField] private TLabSyncAnim[] m_graphs;
+
     [SerializeField] private GameObject m_resultWindow;
     [SerializeField] private GameObject m_questionWindow;
 
@@ -15,8 +18,6 @@ public class MiniTest : MonoBehaviour
 
     [SerializeField] private Image m_maru;
     [SerializeField] private Image m_batu;
-
-    [SerializeField] private Animator[] m_graphs;
 
     private IEnumerator Seikai()
     {
@@ -85,14 +86,18 @@ public class MiniTest : MonoBehaviour
 
     public void ShowResult()
     {
-        m_questionWindow.SetActive(false);
-        m_resultWindow.SetActive(true);
+        m_windowAnim.SetBool("Switch", false);
 
         for(int i = 1; i < m_graphs.Length; i++)
         {
-            Animator graph = m_graphs[i];
-            graph.SetFloat("Ratio", MiniTestManager.Instance.GetScore(i));
+            TLabSyncAnim graph = m_graphs[i];
+            graph.SetFloat("Ratio", MiniTestManager.Instance.GetScore(i) / 100.0f);
         }
+    }
+
+    private void Start()
+    {
+        m_windowAnim.SetBool("Switch", true);
     }
 }
 

@@ -28,6 +28,8 @@ public class MiniTestManager : MonoBehaviour
 
     public void RegistScore(int score)
     {
+        m_scores[TLabSyncClient.Instalce.SeatIndex] = score;
+
         TLabSyncMiniTestJson obj = new TLabSyncMiniTestJson
         {
             action      = (int)WebMiniTestAction.REGISTRATION,

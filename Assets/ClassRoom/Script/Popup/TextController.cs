@@ -24,6 +24,10 @@ public class TextController : MonoBehaviour
     [SerializeField] private float m_vertical;
     [SerializeField] private float m_horizontal;
 
+    [SerializeField] private bool m_enableSync = false;
+    [SerializeField] private bool m_autoUpdate = false;
+    [SerializeField] private TLabSyncGrabbable m_grabbable;
+
     private TextControllerTransform m_initialTransform;
 
     private void LerpScale(Transform target, TextControllerTransform start, TextControllerTransform end, float lerpValue)
@@ -104,7 +108,18 @@ public class TextController : MonoBehaviour
         string num  = name[name.Length - 1].ToString();
         int anchorIndex = -1;
         Int32.TryParse(num, out anchorIndex);
-        if (anchorIndex != TLabSyncClient.Instalce.SeatIndex) Destroy(this.gameObject);
+
+        if(m_enableSync == true)
+        {
+            if (anchorIndex != TLabSyncClient.Instalce.SeatIndex)
+                Destroy(this);
+            else
+                m_autoUpdate = true;
+        }
+        else
+        {
+            if (anchorIndex != TLabSyncClient.Instalce.SeatIndex) Destroy(this.gameObject);
+        }
 
         this.transform.parent = null;
     }
@@ -119,5 +134,7 @@ public class TextController : MonoBehaviour
 
         this.transform.position = m_target.position + offset;
         this.transform.LookAt(mainCamera, Vector3.up);
+
+        if (m_enableSync && m_autoUpdate) m_grabbable.SyncTransform();
     }
 }
