@@ -33,7 +33,7 @@ public class PopupTextManager : MonoBehaviour
             return null;
     }
 
-    private IEnumerator LateStart()
+    protected IEnumerator LateStart()
     {
         yield return null;
 
@@ -43,18 +43,18 @@ public class PopupTextManager : MonoBehaviour
         yield break;
     }
 
-    private void Start()
+    protected void Start()
     {
         StartCoroutine("LateStart");
     }
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         // PopupTextManagerを破棄するとき，PopupTextManagerが保持しているTextController(とそれをもつGameObject)を一緒に破棄する．
         // TextControllerはStart()でtransform.parent = null(ペアレントを解除)しているので，PopupManagerを持つGameObjectを破棄
         // するだけでは何も起きない(TextControllerを持つGameObjectはシーンに残り続ける) ----> 以下の行で一緒に破棄すればいい．
 
-        if(m_controllers.Length > 0)
+        if (m_controllers.Length > 0)
             foreach(TextController controller in m_controllers)
                 if(controller != null) Destroy(controller.gameObject);
 
