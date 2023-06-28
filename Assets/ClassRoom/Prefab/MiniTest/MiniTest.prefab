@@ -4429,7 +4429,7 @@ GameObject:
   - component: {fileID: 2853149693334991353}
   - component: {fileID: 5568836357443914710}
   m_Layer: 0
-  m_Name: Template
+  m_Name: MiniTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

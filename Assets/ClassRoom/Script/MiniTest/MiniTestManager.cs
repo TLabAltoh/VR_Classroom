@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -54,12 +52,12 @@ public class MiniTestManager : MonoBehaviour
         Debug.Log("[tlabsyncminitest] OnMessage - " + message);
 #endif
 
-        if (obj.action == (int)WebMiniTestAction.REGISTRATION)
+        switch (obj.action)
         {
-            m_scores[obj.seatIndex] = obj.score;
+            case (int)WebMiniTestAction.REGISTRATION:
+                m_scores[obj.seatIndex] = obj.score;
+                break;
         }
-
-        return;
     }
 
     /// <summary>
