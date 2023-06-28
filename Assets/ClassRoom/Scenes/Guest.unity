@@ -4584,7 +4584,7 @@ PrefabInstance:
       objectReference: {fileID: 560401316}
     - target: {fileID: 4602051404492696555, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.11.12:5500
+      value: ws://192.168.11.14:5500
       objectReference: {fileID: 0}
     - target: {fileID: 6381714963049631735, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_IsActive
@@ -4975,7 +4975,7 @@ PrefabInstance:
       objectReference: {fileID: 626487313902898947}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.11.12:5000
+      value: ws://192.168.11.14:5000
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_guestLTouch
@@ -5091,15 +5091,15 @@ PrefabInstance:
       objectReference: {fileID: 1809501006}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_syncServerAddr
-      value: ws://192.168.11.12:5000
+      value: ws://192.168.11.14:5000
       objectReference: {fileID: 0}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_shelfServerAddr
-      value: http://192.168.11.12:5600/StandaloneWindows/testmodel.assetbundl
+      value: http://192.168.11.14:5600/StandaloneWindows/testmodel.assetbundl
       objectReference: {fileID: 0}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_voiceChatServerAddr
-      value: ws://192.168.11.12:5500
+      value: ws://192.168.11.14:5500
       objectReference: {fileID: 0}
     - target: {fileID: 4281719960226149048, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
@@ -5135,12 +5135,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_testURL
-      value: http://192.168.11.12:5600/StandaloneWindows/testmodel.assetbundl
+      value: http://192.168.11.14:5600/StandaloneWindows/testmodel.assetbundl
       objectReference: {fileID: 0}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_shelfObjInfos.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_shelfObjInfos.Array.data[3].obj
+      value: 
+      objectReference: {fileID: 9011795031778553525, guid: 0a359cd94578cdf4590e9995760e2e61, type: 3}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_shelfObjInfos.Array.data[8].obj
       value: 
@@ -5793,7 +5797,9 @@ MonoBehaviour:
   - {fileID: 1992072395091169003}
   - {fileID: 1992072395091169002}
   - {fileID: 1992072395091169001}
-  m_savePath: 
+  m_outline: {fileID: 0}
+  m_savePathMesh: 
+  m_savePathMaterial: 
 --- !u!1 &1992072395091169001 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1992072394206774098, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
