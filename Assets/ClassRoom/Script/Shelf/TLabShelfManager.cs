@@ -45,16 +45,12 @@ public class TLabShelfManager : MonoBehaviour
         instanced.name = instanced.name + "_" + anchorIndex.ToString();
 
         // 分割可能オブジェクトの場合，子オブジェクトも名前を変更
-        TLabVRGrabbable grabbable = instanced.GetComponent<TLabVRGrabbable>();
-        if(grabbable != null && grabbable.EnableDivide == true)
+        Transform[] transforms = instanced.gameObject.GetComponentsInChildren<Transform>();
+        foreach (Transform childTransform in transforms)
         {
-            Transform[] transforms = instanced.gameObject.GetComponentsInChildren<Transform>();
-            foreach (Transform childTransform in transforms)
-            {
-                if (childTransform == instanced.transform) continue;
+            if (childTransform == instanced.transform) continue;
 
-                childTransform.gameObject.name = childTransform.gameObject.name + "_" + anchorIndex.ToString();
-            }
+            childTransform.gameObject.name = childTransform.gameObject.name + "_" + anchorIndex.ToString();
         }
 
         // インスタンス化したオブジェクトの参照を保持する
