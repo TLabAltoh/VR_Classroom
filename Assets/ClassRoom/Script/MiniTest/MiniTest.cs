@@ -10,9 +10,6 @@ public class MiniTest : MonoBehaviour
     [SerializeField] private TLabSyncAnim m_windowAnim;
     [SerializeField] private TLabSyncAnim[] m_graphs;
 
-    [SerializeField] private GameObject m_resultWindow;
-    [SerializeField] private GameObject m_questionWindow;
-
     [SerializeField] private ToggleGroup m_toggleGroup;
     [SerializeField] private Toggle m_corrent;
 
@@ -84,11 +81,13 @@ public class MiniTest : MonoBehaviour
         MiniTestManager.Instance.RegistScore(m_corrent.isOn ? 100 : 0);
     }
 
-    public void ShowResult()
+    public void SwitchWindow(bool active)
     {
-        m_windowAnim.SetBool("Switch", false);
+        m_windowAnim.SetBool("Switch", active);
 
-        for(int i = 1; i < m_graphs.Length; i++)
+        if (active == true) return;
+
+        for (int i = 0; i < m_graphs.Length; i++)
         {
             TLabSyncAnim graph = m_graphs[i];
             graph.SetFloat("Ratio", MiniTestManager.Instance.GetScore(i) / 100.0f);

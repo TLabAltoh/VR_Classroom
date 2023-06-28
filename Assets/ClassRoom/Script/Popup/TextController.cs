@@ -112,14 +112,12 @@ public class TextController : MonoBehaviour
         if(m_enableSync == true)
         {
             if (anchorIndex != TLabSyncClient.Instalce.SeatIndex)
-                Destroy(this);
+                m_target = null;
             else
                 m_autoUpdate = true;
         }
-        else
-        {
-            if (anchorIndex != TLabSyncClient.Instalce.SeatIndex) Destroy(this.gameObject);
-        }
+        else if (anchorIndex != TLabSyncClient.Instalce.SeatIndex)
+            Destroy(this.gameObject);
 
         this.transform.parent = null;
     }
