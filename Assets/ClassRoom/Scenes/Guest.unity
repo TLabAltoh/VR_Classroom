@@ -5139,8 +5139,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_shelfObjInfos.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_shelfObjInfos.Array.data[3].obj
+      value: 
+      objectReference: {fileID: 9011795031778553525, guid: 0a359cd94578cdf4590e9995760e2e61, type: 3}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_shelfObjInfos.Array.data[8].obj
       value: 
@@ -5793,7 +5797,9 @@ MonoBehaviour:
   - {fileID: 1992072395091169003}
   - {fileID: 1992072395091169002}
   - {fileID: 1992072395091169001}
-  m_savePath: 
+  m_outline: {fileID: 0}
+  m_savePathMesh: 
+  m_savePathMaterial: 
 --- !u!1 &1992072395091169001 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1992072394206774098, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
