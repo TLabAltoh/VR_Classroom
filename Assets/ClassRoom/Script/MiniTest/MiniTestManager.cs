@@ -17,6 +17,8 @@ public class MiniTestManager : MonoBehaviour
 {
     private int[] m_scores;
 
+    private const string thisName = "[tlabminitest] ";
+
     public static MiniTestManager Instance;
 
     public int GetScore(int index)
@@ -49,7 +51,7 @@ public class MiniTestManager : MonoBehaviour
         TLabSyncMiniTestJson obj = JsonUtility.FromJson<TLabSyncMiniTestJson>(message);
 
 #if UNITY_EDITOR
-        Debug.Log("[tlabsyncminitest] OnMessage - " + message);
+        Debug.Log(thisName + "OnMessage - " + message);
 #endif
 
         switch (obj.action)

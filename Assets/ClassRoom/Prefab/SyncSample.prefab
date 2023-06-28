@@ -2258,35 +2258,11 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 5675441468158038437}
-          m_TargetAssemblyTypeName: MiniTestServer, Assembly-CSharp
-          m_MethodName: OnMessage
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
     onGuestParticipated:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 5755384349333693403}
           m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
-          m_MethodName: OnGuestParticipated
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 5675441468158038437}
-          m_TargetAssemblyTypeName: MiniTestManager, Assembly-CSharp
           m_MethodName: OnGuestParticipated
           m_Mode: 0
           m_Arguments:
@@ -2312,6 +2288,39 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - onMessage:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5675441468158038437}
+          m_TargetAssemblyTypeName: MiniTestServer, Assembly-CSharp
+          m_MethodName: OnMessage
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onGuestParticipated:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5675441468158038437}
+          m_TargetAssemblyTypeName: MiniTestManager, Assembly-CSharp
+          m_MethodName: OnGuestParticipated
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onGuestDisconnected:
+      m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 5675441468158038437}
           m_TargetAssemblyTypeName: MiniTestManager, Assembly-CSharp
           m_MethodName: OnGuestDiscconected
@@ -3909,14 +3918,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3982706688227371729}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1992072394316410012}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &4213133813201637784
 GameObject:
   m_ObjectHideFlags: 0
@@ -20175,14 +20184,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6957448408228210594}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 1.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1992072394316410012}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &7103229330499738772
 GameObject:
   m_ObjectHideFlags: 0
@@ -20922,14 +20931,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8173581739157960400}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 1.5, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1992072394316410012}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &8358150919090946547
 GameObject:
   m_ObjectHideFlags: 0

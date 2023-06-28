@@ -15,6 +15,8 @@ public class TLabShelfManager : MonoBehaviour
 
     protected int m_currentObjIndex = 0;
 
+    private const string thisName = "[tlabshelf] ";
+
     protected virtual IEnumerator FadeIn(int objIndex, int anchorIndex)
     {
         // https://docs.unity3d.com/ja/2018.4/Manual/Coroutines.html

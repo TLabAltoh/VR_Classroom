@@ -59,7 +59,8 @@ public class PopupTextManager : MonoBehaviour
                 if(controller != null) Destroy(controller.gameObject);
 
         if (m_pointerPairs.Length > 0)
-            foreach (PointerPopupPair pointerPair in m_pointerPairs) Destroy(pointerPair.controller.gameObject);
+            foreach (PointerPopupPair pointerPair in m_pointerPairs)
+                if(pointerPair.controller != null) Destroy(pointerPair.controller.gameObject);
     }
 }
 
