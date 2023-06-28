@@ -1151,6 +1151,9 @@ MonoBehaviour:
   m_forward: 0.25
   m_vertical: 0
   m_horizontal: 0
+  m_enableSync: 0
+  m_autoUpdate: 0
+  m_grabbable: {fileID: 0}
 --- !u!114 &2351723805431393940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3427,7 +3430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee24d13571ebd94582e9f24366c925a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_animator: {fileID: 0}
+  m_animator: {fileID: 6413540607921959474}
   m_parameters: []
 --- !u!1 &5706534305602052721
 GameObject:
