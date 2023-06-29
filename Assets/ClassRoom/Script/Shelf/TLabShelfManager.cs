@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class TLabShelfManager : MonoBehaviour
 {
@@ -11,6 +14,8 @@ public class TLabShelfManager : MonoBehaviour
     [SerializeField] protected Transform[] m_anchors;
 
     protected int m_currentObjIndex = 0;
+
+    private const string thisName = "[tlabshelf] ";
 
     protected virtual IEnumerator FadeIn(int objIndex, int anchorIndex)
     {
@@ -42,20 +47,12 @@ public class TLabShelfManager : MonoBehaviour
         instanced.name = instanced.name + "_" + anchorIndex.ToString();
 
         // 分割可能オブジェクトの場合，子オブジェクトも名前を変更
-        TLabVRGrabbable grabbable = instanced.GetComponent<TLabVRGrabbable>();
-        if(grabbable != null)
+        Transform[] transforms = instanced.gameObject.GetComponentsInChildren<Transform>();
+        foreach (Transform childTransform in transforms)
         {
-            if (grabbable.EnableDivide == true)
-            {
-                Transform[] transforms = instanced.gameObject.GetComponentsInChildren<Transform>();
-                foreach(Transform childTransform in transforms)
-                {
-                    if (childTransform == this.transform)
-                        continue;
+            if (childTransform == instanced.transform) continue;
 
-                    childTransform.gameObject.name = childTransform.gameObject.name + "_" + anchorIndex.ToString();
-                }
-            }
+            childTransform.gameObject.name = childTransform.gameObject.name + "_" + anchorIndex.ToString();
         }
 
         // インスタンス化したオブジェクトの参照を保持する
@@ -122,9 +119,25 @@ public class TLabShelfObjInfo
     [System.NonSerialized] public Dictionary<int, GameObject> instanced = new Dictionary<int, GameObject>();
 }
 
-[System.Serializable]
-public enum TLabShelfAction
+#if UNITY_EDITOR
+[CustomEditor(typeof(TLabShelfManager))]
+[CanEditMultipleObjects]
+public class TLabShelfManagerEditor : Editor
 {
-    takeOut,
-    putAway
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        serializedObject.Update();
+
+        TLabShelfManager manager = target as TLabShelfManager;
+
+        if (GUILayout.Button("Initialize Shelf Obj"))
+        {
+            //
+        }
+
+        serializedObject.ApplyModifiedProperties();
+    }
 }
+#endif

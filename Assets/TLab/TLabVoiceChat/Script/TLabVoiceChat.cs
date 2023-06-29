@@ -47,13 +47,13 @@ public class TLabVoiceChat : MonoBehaviour
     public delegate void MicCallbackDelegate(float[] buff);
     public MicCallbackDelegate floatsInDelegate;
 
-    private byte[] m_voiceBuffer = new byte[PACKET_BUFFER_SIZE];
-    private int m_vbWriteHead = 0;
-    private const int PACKET_BUFFER_SIZE = VOICE_BUFFER_SIZE << SIZE_OF_FLOAT_LOG2;
-    private const int VOICE_BUFFER_SIZE = 1024;
-    private const int SIZE_OF_FLOAT_LOG2 = 2;
-    private const int FREQUENCY = 44100;
-    private const double TIME_LENGTH = (double)VOICE_BUFFER_SIZE / (double)FREQUENCY;
+    private byte[] m_voiceBuffer            = new byte[PACKET_BUFFER_SIZE];
+    private int m_vbWriteHead               = 0;
+    private const int PACKET_BUFFER_SIZE    = VOICE_BUFFER_SIZE << SIZE_OF_FLOAT_LOG2;
+    private const int VOICE_BUFFER_SIZE     = 1024;
+    private const int SIZE_OF_FLOAT_LOG2    = 2;
+    private const int FREQUENCY             = 44100;
+    private const double TIME_LENGTH        = (double)VOICE_BUFFER_SIZE / (double)FREQUENCY;
 
     //
     // Other's sound
@@ -61,6 +61,9 @@ public class TLabVoiceChat : MonoBehaviour
 
     private WebSocket m_websocket;
     private Hashtable m_voicePlayers = new Hashtable();
+
+    //
+    private const string m_thisName = "[tlabvoicechat] ";
 
     /*
      * Obtain microphone input in real time
@@ -237,7 +240,7 @@ public class TLabVoiceChat : MonoBehaviour
         var configuration = AudioSettings.GetConfiguration();
         configuration.dspBufferSize = VOICE_BUFFER_SIZE;
         AudioSettings.Reset(configuration);
-        Debug.Log(configuration.dspBufferSize);
+        Debug.Log(m_thisName + configuration.dspBufferSize);
     }
 
     async void Start()
@@ -247,16 +250,16 @@ public class TLabVoiceChat : MonoBehaviour
         string deviceList = "Currently connected device:\n";
         foreach (string deveice in Microphone.devices)
             deviceList += "\t" + deveice + "\n";
-        Debug.Log(deviceList);
+        Debug.Log(m_thisName + deviceList);
 
         m_microphoneName = Microphone.devices[0];
 
         m_microphoneClip = Microphone.Start(m_microphoneName, true, 1, FREQUENCY);
 
         if (m_microphoneClip == null)
-            Debug.Log("TLabVoiceChat: Failed to recording, using " + m_microphoneName);
+            Debug.Log(m_thisName + "Failed to recording, using " + m_microphoneName);
         else
-            Debug.Log("TLabVoiceChat: Start recording, using " + m_microphoneName + ", samples: " + m_microphoneClip.samples + ", channels: " + m_microphoneClip.channels);
+            Debug.Log(m_thisName + "Start recording, using " + m_microphoneName + ", samples: " + m_microphoneClip.samples + ", channels: " + m_microphoneClip.channels);
 
         if (m_loopBackSelf)
         {
@@ -265,7 +268,7 @@ public class TLabVoiceChat : MonoBehaviour
             m_microphoneSource.loop = true;
             m_microphoneSource.Play();
 
-            Debug.Log("TLabVoiceChat: Sart Loop Back");
+            Debug.Log(m_thisName + "Sart Loop Back");
         }
 
         SetupBuffers();
@@ -358,17 +361,17 @@ public class TLabVoiceChat : MonoBehaviour
 
         m_websocket.OnOpen += () =>
         {
-            Debug.Log("tlabvoicechat: Connection open!");
+            Debug.Log(m_thisName + "Connection open!");
         };
 
         m_websocket.OnError += (e) =>
         {
-            Debug.Log("tlabvoicechat: Error! " + e);
+            Debug.Log(m_thisName + "Error! " + e);
         };
 
         m_websocket.OnClose += (e) =>
         {
-            Debug.Log("tlabvoicechat: Connection closed!");
+            Debug.Log(m_thisName + "Connection closed!");
         };
 
         m_websocket.OnMessage += (bytes) =>

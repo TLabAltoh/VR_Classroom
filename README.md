@@ -1,6 +1,7 @@
 # VR_Kensyu
 Multiplayer Sample using UnityVR and WebSockets  
 Hand tracking support
+Support for bHaptics tactile gloves
 
 ## Screenshot
 <img src="https://user-images.githubusercontent.com/121733943/235363804-01b50f49-674e-40d4-a11e-39ed3ced5600.gif" width="512" height="512">  
@@ -13,6 +14,7 @@ Hand tracking support
 - ProBuilder (Install from asset store)  
 - node (v16.15.0)
 - Android Logcat
+- [bHaptics](https://assetstore.unity.com/packages/tools/integration/bhaptics-haptic-plugin-76647)
 - [NativeWebsocket](https://github.com/endel/NativeWebSocket)  
 ### Installing
 Clone the repository to any directory with the following command  
