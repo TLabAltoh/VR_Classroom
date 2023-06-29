@@ -3212,7 +3212,7 @@ MonoBehaviour:
   m_leftHand: {fileID: 1295966102}
   m_layer:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 64
 --- !u!850595691 &1548241213
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -5843,10 +5843,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 314281119}
     - target: {fileID: 6383360506153189510, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6383360506153189510, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_laserPointer
       value: 
       objectReference: {fileID: 314281119}
@@ -5862,10 +5858,6 @@ PrefabInstance:
       propertyPath: m_laserPointer
       value: 
       objectReference: {fileID: 628908169}
-    - target: {fileID: 8255838730670465387, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8255838730670465387, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_laserPointer
       value: 
