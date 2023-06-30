@@ -28,7 +28,10 @@ public class TLabShelfSyncManager : TLabShelfManager
     [SerializeField] public TLabInputField m_inputField;
     private string m_lastLoadURL = "";
     private AssetBundle m_assetBundle;
-    private List<int> m_currentShareds = new List<int>();
+    private List<int> m_currentShareds  = new List<int>();
+    private List<int> m_currentTakeOuts = new List<int>();
+
+    private const string thisName = "[tlabsyncshelf] ";
 
 #if UNITY_EDITOR
     [SerializeField] private string m_testURL;
@@ -61,27 +64,31 @@ public class TLabShelfSyncManager : TLabShelfManager
         yield break;
     }
 
-    public override void PutAway()
+    public override void TakeOut()
     {
-        base.PutAway();
+        base.TakeOut();
+
+        m_currentTakeOuts.Add(m_currentObjIndex);
 
         TLabSyncShelfJson obj = new TLabSyncShelfJson
         {
-            action = (int)WebShelfAction.putAway,
-            objIndex = m_currentObjIndex
+            action      = (int)WebShelfAction.takeOut,
+            objIndex    = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
         SendWsMessage(json, -1);
     }
 
-    public override void TakeOut()
+    public override void PutAway()
     {
-        base.TakeOut();
+        base.PutAway();
+
+        m_currentTakeOuts.Remove(m_currentObjIndex);
 
         TLabSyncShelfJson obj = new TLabSyncShelfJson
         {
-            action = (int)WebShelfAction.takeOut,
-            objIndex = m_currentObjIndex
+            action      = (int)WebShelfAction.putAway,
+            objIndex    = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
         SendWsMessage(json, -1);
@@ -91,10 +98,12 @@ public class TLabShelfSyncManager : TLabShelfManager
     {
         base.Share();
 
+        m_currentShareds.Add(m_currentObjIndex);
+
         TLabSyncShelfJson obj = new TLabSyncShelfJson
         {
-            action = (int)WebShelfAction.share,
-            objIndex = m_currentObjIndex
+            action      = (int)WebShelfAction.share,
+            objIndex    = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
         SendWsMessage(json, -1);
@@ -104,10 +113,12 @@ public class TLabShelfSyncManager : TLabShelfManager
     {
         base.Collect();
 
+        m_currentShareds.Remove(m_currentObjIndex);
+
         TLabSyncShelfJson obj = new TLabSyncShelfJson
         {
-            action = (int)WebShelfAction.collect,
-            objIndex = m_currentObjIndex
+            action      = (int)WebShelfAction.collect,
+            objIndex    = m_currentObjIndex
         };
         string json = JsonUtility.ToJson(obj);
         SendWsMessage(json, -1);
@@ -115,14 +126,14 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     #region FromOutside
 
-    private void PutAwayFromOutside(int objIndex)
-    {
-        StartCoroutine(FadeOut(objIndex, 0));
-    }
-
     private void TakeOutFromOutside(int objIndex)
     {
         StartCoroutine(FadeIn(objIndex, 0));
+    }
+
+    private void PutAwayFromOutside(int objIndex)
+    {
+        StartCoroutine(FadeOut(objIndex, 0));
     }
 
     private void ShareFromOutside(int objIndex)
@@ -146,7 +157,7 @@ public class TLabShelfSyncManager : TLabShelfManager
     public IEnumerator DownloadAssetBundle(string modURL, int objIndex)
     {
 #if UNITY_EDITOR
-        Debug.Log("[tlabsyncshelf] Start Load Asset");
+        Debug.Log(thisName + "Start Load Asset");
 #endif
 
         if (m_assetBundle != null) m_assetBundle.Unload(false);
@@ -159,15 +170,15 @@ public class TLabShelfSyncManager : TLabShelfManager
             request.result == UnityWebRequest.Result.ProtocolError ||
             request.result == UnityWebRequest.Result.DataProcessingError)
         {
-            Debug.LogError("[tlabsyncshelf] " + request.error);
+            Debug.LogError(thisName + request.error);
             yield break;
         }
 
-        var handler = request.downloadHandler as DownloadHandlerAssetBundle;
-        m_assetBundle = handler.assetBundle;
+        var handler     = request.downloadHandler as DownloadHandlerAssetBundle;
+        m_assetBundle   = handler.assetBundle;
 
 #if UNITY_EDITOR
-        Debug.Log("[tlabsyncshelf] Finish Load Asset");
+        Debug.Log(thisName + "Finish Load Asset");
 #endif
 
         AssetBundleRequest assetLoadRequest = m_assetBundle.LoadAllAssetsAsync<GameObject>();
@@ -239,16 +250,26 @@ public class TLabShelfSyncManager : TLabShelfManager
         TLabSyncShelfJson obj = JsonUtility.FromJson<TLabSyncShelfJson>(message);
 
 #if UNITY_EDITOR
-        Debug.Log("[tlabsyncshelf] OnMessage - " + message);
+        Debug.Log(thisName + "OnMessage - " + message);
 #endif
-
-        if (obj.action == (int)WebShelfAction.loadModel)    LoadModelFromURL(obj.url, obj.objIndex);
-        else if (obj.action == (int)WebShelfAction.takeOut) TakeOutFromOutside(obj.objIndex);
-        else if (obj.action == (int)WebShelfAction.putAway) PutAwayFromOutside(obj.objIndex);
-        else if (obj.action == (int)WebShelfAction.share)   ShareFromOutside(obj.objIndex);
-        else if (obj.action == (int)WebShelfAction.collect) CollectFromOutside(obj.objIndex);
-
-        return;
+        switch (obj.action)
+        {
+            case (int)WebShelfAction.loadModel:
+                LoadModelFromURL(obj.url, obj.objIndex);
+                break;
+            case (int)WebShelfAction.takeOut:
+                TakeOutFromOutside(obj.objIndex);
+                break;
+            case (int)WebShelfAction.putAway:
+                PutAwayFromOutside(obj.objIndex);
+                break;
+            case (int)WebShelfAction.share:
+                ShareFromOutside(obj.objIndex);
+                break;
+            case (int)WebShelfAction.collect:
+                CollectFromOutside(obj.objIndex);
+                break;
+        }
     }
 
     /// <summary>
@@ -260,31 +281,50 @@ public class TLabShelfSyncManager : TLabShelfManager
     public void OnGuestParticipated(int anchorIndex)
     {
         {
-            if (m_currentShareds.Count == 0) return;
+            // URLからロードしているオブジェクト
 
-            foreach (int sharedIndex in m_currentShareds)
+            if (TLabSyncClient.Instalce.SeatIndex == 0 && m_lastLoadURL != "")
             {
                 TLabSyncShelfJson obj = new TLabSyncShelfJson
                 {
-                    action = (int)WebShelfAction.share,
-                    objIndex = sharedIndex
+                    action      = (int)WebShelfAction.loadModel,
+                    url         = m_lastLoadURL,
+                    objIndex    = 2
                 };
                 string json = JsonUtility.ToJson(obj);
-                SendWsMessage(json, anchorIndex);
+                SendWsMessage(json, -1);
             }
         }
 
         {
-            if(TLabSyncClient.Instalce.SeatIndex == 0 || m_lastLoadURL != "")
+            // 既にインスタンス化しているオブジェクト
+
+            if (m_currentShareds.Count > 0)
             {
-                TLabSyncShelfJson obj = new TLabSyncShelfJson
+                foreach (int sharedIndex in m_currentShareds)
                 {
-                    action = (int)WebShelfAction.loadModel,
-                    url = m_lastLoadURL,
-                    objIndex = 2
-                };
-                string json = JsonUtility.ToJson(obj);
-                SendWsMessage(json, -1);
+                    TLabSyncShelfJson obj = new TLabSyncShelfJson
+                    {
+                        action      = (int)WebShelfAction.share,
+                        objIndex    = sharedIndex
+                    };
+                    string json = JsonUtility.ToJson(obj);
+                    SendWsMessage(json, anchorIndex);
+                }
+            }
+
+            if (m_currentTakeOuts.Count > 0)
+            {
+                foreach (int takeOutIndex in m_currentTakeOuts)
+                {
+                    TLabSyncShelfJson obj = new TLabSyncShelfJson
+                    {
+                        action      = (int)WebShelfAction.takeOut,
+                        objIndex    = takeOutIndex
+                    };
+                    string json = JsonUtility.ToJson(obj);
+                    SendWsMessage(json, anchorIndex);
+                }
             }
         }
     }
@@ -295,7 +335,9 @@ public class TLabShelfSyncManager : TLabShelfManager
     /// <param name="anchorIndex">退出したプレイヤーのインデックス</param>
     public void OnGuestDiscconected(int anchorIndex)
     {
-        for(int i = 0; i < m_shelfObjInfos.Length; i++) FadeOut(i, anchorIndex);
+        for (int i = 0; i < m_shelfObjInfos.Length; i++) StartCoroutine(FadeOut(i, anchorIndex));
+
+        TLabSyncClient.Instalce.ForceReflesh(false);
     }
 
     private void Update()
@@ -307,13 +349,20 @@ public class TLabShelfSyncManager : TLabShelfManager
 
             TLabSyncShelfJson obj = new TLabSyncShelfJson
             {
-                action = (int)WebShelfAction.loadModel,
-                url = m_testURL,
-                objIndex = 2
+                action      = (int)WebShelfAction.loadModel,
+                url         = m_testURL,
+                objIndex    = 2
             };
             string json = JsonUtility.ToJson(obj);
             SendWsMessage(json, -1);
         }
+
+        if (Input.GetKeyDown(KeyCode.A)) TakeOut();
+        if (Input.GetKeyDown(KeyCode.S)) PutAway();
+        if (Input.GetKeyDown(KeyCode.D)) Share();
+        if (Input.GetKeyDown(KeyCode.F)) Collect();
+        if (Input.GetKeyDown(KeyCode.W)) m_currentObjIndex = Mathf.Clamp(m_currentObjIndex + 1, 0, 3);
+        if (Input.GetKeyDown(KeyCode.X)) m_currentObjIndex = Mathf.Clamp(m_currentObjIndex - 1, 0, 3);
 #endif
     }
 }

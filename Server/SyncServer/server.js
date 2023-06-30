@@ -198,7 +198,7 @@ function allocateRigidbody(){
 				undefined       OVRGuestAnchor.0.Head
 			 * ```
 			 */
-			console.log(rbTable[value.transform.id] + "\t" + value.transform.id);
+			console.log("seat " + seatIndex + " . " + rbTable[value.transform.id] + "\t" + value.transform.id);
 		});
 	}
 }
@@ -470,6 +470,8 @@ ws.on("connection", function (socket) {
 
 				// #region Host participation approval process
 
+				console.log("\nreceived a request to join " + bar);
+
 				if (seats[0] === true) {
 					console.log("declined to participate");
 
@@ -604,6 +606,8 @@ ws.on("connection", function (socket) {
 			console.log("custom message");
 
 			// (seatIndex === -1) : true�Ńu���[�h�L���X�g
+
+			console.log(message);
 
 			if (parse.seatIndex !== -1) {
 				var target = socketTable[parse.seatIndex];

@@ -1343,8 +1343,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 24598ea0b6c8f874d83118b930723d13, type: 2}
   - {fileID: 2100000, guid: 013d37de9d1e26e4eba035683ac61893, type: 2}
+  - {fileID: 2100000, guid: 24598ea0b6c8f874d83118b930723d13, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1824,8 +1824,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a79c01674c0406a44a69e6ad99eb240a, type: 2}
   - {fileID: 2100000, guid: 013d37de9d1e26e4eba035683ac61893, type: 2}
+  - {fileID: 2100000, guid: a79c01674c0406a44a69e6ad99eb240a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2258,18 +2258,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 5675441468158038437}
-          m_TargetAssemblyTypeName: MiniTestServer, Assembly-CSharp
-          m_MethodName: OnMessage
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
     onGuestParticipated:
       m_PersistentCalls:
         m_Calls:
@@ -2290,6 +2278,51 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 5755384349333693403}
           m_TargetAssemblyTypeName: TLabShelfSyncManager, Assembly-CSharp
+          m_MethodName: OnGuestDiscconected
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - onMessage:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5675441468158038437}
+          m_TargetAssemblyTypeName: MiniTestServer, Assembly-CSharp
+          m_MethodName: OnMessage
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onGuestParticipated:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5675441468158038437}
+          m_TargetAssemblyTypeName: MiniTestManager, Assembly-CSharp
+          m_MethodName: OnGuestParticipated
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onGuestDisconnected:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5675441468158038437}
+          m_TargetAssemblyTypeName: MiniTestManager, Assembly-CSharp
           m_MethodName: OnGuestDiscconected
           m_Mode: 0
           m_Arguments:
@@ -2382,8 +2415,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e8855c94cc64c3e4f8867c4f91829bce, type: 2}
   - {fileID: 2100000, guid: 013d37de9d1e26e4eba035683ac61893, type: 2}
+  - {fileID: 2100000, guid: e8855c94cc64c3e4f8867c4f91829bce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2497,7 +2530,7 @@ GameObject:
   - component: {fileID: 8823352685507911298}
   - component: {fileID: 5675441468158038437}
   m_Layer: 0
-  m_Name: MiniTest
+  m_Name: MiniTestManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3885,14 +3918,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3982706688227371729}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1992072394316410012}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &4213133813201637784
 GameObject:
   m_ObjectHideFlags: 0
@@ -20151,14 +20184,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6957448408228210594}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 1.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1992072394316410012}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &7103229330499738772
 GameObject:
   m_ObjectHideFlags: 0
@@ -20898,14 +20931,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8173581739157960400}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 1.5, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1992072394316410012}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &8358150919090946547
 GameObject:
   m_ObjectHideFlags: 0
@@ -20915,7 +20948,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6007802986785454665}
-  - component: {fileID: 2972909257804408489}
+  - component: {fileID: 2016626047170916660}
   m_Layer: 0
   m_Name: Outline
   m_TagString: Untagged
@@ -20941,7 +20974,7 @@ Transform:
   m_Father: {fileID: 1992072394535383979}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2972909257804408489
+--- !u!114 &2016626047170916660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20957,9 +20990,9 @@ MonoBehaviour:
   - {fileID: 1992072395166020666}
   - {fileID: 1992072393951519846}
   - {fileID: 1992072394206774098}
-  m_outline: {fileID: 0}
-  m_savePathMesh: 
-  m_savePathMaterial: 
+  m_outline: {fileID: 4800000, guid: cb74c94b3f9560344b9e9ce73d796a5f, type: 3}
+  m_savePathMesh: Assets/TLab/TLabVRGrabber/Outline/Mesh
+  m_savePathMaterial: Assets/TLab/TLabVRGrabber/Outline/Material
 --- !u!1 &8525455770300390987
 GameObject:
   m_ObjectHideFlags: 0

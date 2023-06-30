@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -18,6 +16,8 @@ public enum WebMiniTestAction
 public class MiniTestManager : MonoBehaviour
 {
     private int[] m_scores;
+
+    private const string thisName = "[tlabminitest] ";
 
     public static MiniTestManager Instance;
 
@@ -51,15 +51,15 @@ public class MiniTestManager : MonoBehaviour
         TLabSyncMiniTestJson obj = JsonUtility.FromJson<TLabSyncMiniTestJson>(message);
 
 #if UNITY_EDITOR
-        Debug.Log("[tlabsyncminitest] OnMessage - " + message);
+        Debug.Log(thisName + "OnMessage - " + message);
 #endif
 
-        if (obj.action == (int)WebMiniTestAction.REGISTRATION)
+        switch (obj.action)
         {
-            m_scores[obj.seatIndex] = obj.score;
+            case (int)WebMiniTestAction.REGISTRATION:
+                m_scores[obj.seatIndex] = obj.score;
+                break;
         }
-
-        return;
     }
 
     /// <summary>

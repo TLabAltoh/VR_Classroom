@@ -3458,7 +3458,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-6162
+  m_Name: pb_Mesh85866
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4584,7 +4584,7 @@ PrefabInstance:
       objectReference: {fileID: 560401316}
     - target: {fileID: 4602051404492696555, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.11.14:5500
+      value: ws://192.168.3.14:5500
       objectReference: {fileID: 0}
     - target: {fileID: 6381714963049631735, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_IsActive
@@ -4773,30 +4773,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 486572083}
-    - target: {fileID: 1992072393951519842, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 24598ea0b6c8f874d83118b930723d13, type: 2}
-    - target: {fileID: 1992072393951519843, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: ea5eb3d1648d7e04885b27ee0408005a, type: 2}
-    - target: {fileID: 1992072393951519847, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072393951519847, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072393951519847, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072393951519847, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.702
-      objectReference: {fileID: 0}
     - target: {fileID: 1992072393992719923, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -4897,22 +4873,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 263219096}
-    - target: {fileID: 1992072394206774099, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072394206774099, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072394206774099, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072394206774111, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: fa0438b8efc2fd7498a148da9e9f9e63, type: 2}
     - target: {fileID: 1992072394229303405, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -4975,7 +4935,7 @@ PrefabInstance:
       objectReference: {fileID: 626487313902898947}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.11.14:5000
+      value: ws://192.168.3.14:5000
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_guestLTouch
@@ -5008,26 +4968,6 @@ PrefabInstance:
     - target: {fileID: 1992072394852758927, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_VersionIndex
       value: 2636
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072395166020614, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e8855c94cc64c3e4f8867c4f91829bce, type: 2}
-    - target: {fileID: 1992072395166020615, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: fc1c750e12cd5f547b9c28802a004f09, type: 2}
-    - target: {fileID: 1992072395166020667, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072395166020667, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072395166020667, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1992072395269086992, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
@@ -5091,15 +5031,15 @@ PrefabInstance:
       objectReference: {fileID: 1809501006}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_syncServerAddr
-      value: ws://192.168.11.14:5000
+      value: ws://192.168.3.14:5000
       objectReference: {fileID: 0}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_shelfServerAddr
-      value: http://192.168.11.14:5600/StandaloneWindows/testmodel.assetbundl
+      value: http://192.168.3.14:5600/StandaloneWindows/testmodel.assetbundl
       objectReference: {fileID: 0}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_voiceChatServerAddr
-      value: ws://192.168.11.14:5500
+      value: ws://192.168.3.14:5500
       objectReference: {fileID: 0}
     - target: {fileID: 4281719960226149048, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
@@ -5135,27 +5075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_testURL
-      value: http://192.168.11.14:5600/StandaloneWindows/testmodel.assetbundl
-      objectReference: {fileID: 0}
-    - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_shelfObjInfos.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_shelfObjInfos.Array.data[3].obj
-      value: 
-      objectReference: {fileID: 9011795031778553525, guid: 0a359cd94578cdf4590e9995760e2e61, type: 3}
-    - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_shelfObjInfos.Array.data[8].obj
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_shelfObjInfos.Array.data[8].speed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_shelfObjInfos.Array.data[8].dividedObjInfos.Array.size
-      value: 5
+      value: http://192.168.3.14:5600/StandaloneWindows/testmodel.assetbundl
       objectReference: {fileID: 0}
     - target: {fileID: 6728121163904237864, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
