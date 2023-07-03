@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "ws": "^8.13.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "webrtc-test-signaling",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "author": "tlabaltoh",
+  "license": "MIT"
+}
