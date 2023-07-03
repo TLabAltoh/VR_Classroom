@@ -2192,6 +2192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1992072394669093083}
   - component: {fileID: 1992072394669093082}
+  - component: {fileID: 5814146283492665764}
   - component: {fileID: 3800121086230681482}
   m_Layer: 0
   m_Name: NetworkManager
@@ -2242,6 +2243,7 @@ MonoBehaviour:
   - {fileID: 4853837590586330987}
   - {fileID: 2788812511116698841}
   - {fileID: 3161772401705600758}
+  dataChannel: {fileID: 0}
   m_customCallbacks:
   - onMessage:
       m_PersistentCalls:
@@ -2333,6 +2335,36 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &5814146283492665764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992072394669093087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07d1e184178bdd48ae423d746ced571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverAddr: ws://ec2-13-230-95-119.ap-northeast-1.compute.amazonaws.com:3001
+  userID: 
+  roomName: VR_Class
+  onMessage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1992072394669093082}
+        m_TargetAssemblyTypeName: TLabSyncClient, Assembly-CSharp
+        m_MethodName: OnRTCMessage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3800121086230681482
 MonoBehaviour:
   m_ObjectHideFlags: 0

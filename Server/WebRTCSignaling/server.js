@@ -19,19 +19,24 @@ server.on('connection', function (socket) {
 
         if (obj.action === JOIN) {
             // If room dictionary is not created
-            if ((obj.roomName in roomDic) === false) roomDic[obj.roomName] = { };
+            if ((obj.room in roomDic) === false) {
+                console.log("[socket.onmessage] create new room: " + obj.room);
+                roomDic[obj.room] = { };
+            }
 
             // Broadcast
-            var roomValues = Object.values(roomDic[obj.roomName]);
+            var roomValues = Object.values(roomDic[obj.room]);
             roomValues.forEach((value) => {
-                console.log("[socket.onmessage] send join message");
-                value.send(message);
+                if (value !== socket) {
+                    console.log("[socket.onmessage] send join message");
+                    value.send(message);
+                }
             });
             // Add
-            (roomDic[obj.roomName])[obj.src] = socket;
+            (roomDic[obj.room])[obj.src] = socket;
         } else if (obj.action === ICE || obj.action === OFFER || obj.action === ANSWER) {
             // Unicast
-            (roomDic[obj.roomName])[obj.dst].send(message);
+            (roomDic[obj.room])[obj.dst].send(message);
         }
     });
 
@@ -39,7 +44,13 @@ server.on('connection', function (socket) {
         // Delete
         var roomKeys = Object.keys(roomDic);
         roomKeys.forEach((key) => {
-            delete (roomDic[key])[socket];
+            var socketKeys = Object.keys(roomDic[key]);
+            socketKeys.forEach((socketKey) => {
+                if ((roomDic[key])[socketKey] === socket) {
+                    console.log("[socket.onclose] delete socket from:" + key);
+                    delete (roomDic[key])[socketKey];
+                }
+            });
         });
     });
 });
