@@ -133,6 +133,6 @@ public class TextController : MonoBehaviour
         this.transform.position = m_target.position + offset;
         this.transform.LookAt(mainCamera, Vector3.up);
 
-        if (m_enableSync && m_autoUpdate) m_grabbable.SyncRTCTransform();
+        if (m_enableSync && m_autoUpdate) m_grabbable.SyncTransform();
     }
 }
