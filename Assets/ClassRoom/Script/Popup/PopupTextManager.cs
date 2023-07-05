@@ -76,7 +76,7 @@ public class PopupTextManagerEditor : Editor
 
         PopupTextManager manager = target as PopupTextManager;
 
-        if (GUILayout.Button("Overwrite Outline for Popup Selectable"))
+        if (GUILayout.Button("Overwrite to PopupSelectable"))
         {
             Debug.Log("[popuptextmanager] -----------------------------------");
 

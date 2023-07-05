@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1227667311
+CRC: 3014055194
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 733d8a6b23c7952c61e6938045d2cd38
+    Hash: e027cc3106be476293a9dfca5a1b4a7e
   TypeTreeHash:
     serializedVersion: 2
-    Hash: c20a7fa458361b9680d80783d66c7a24
+    Hash: 3649d981551e0d443f12127a95d3fa7d
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -28,23 +28,23 @@ ClassTypes:
 - Class: 64
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 54cea738de3bcee4e96d80d8fef8dcaa, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: ab401de70ff42c44f8dc454d728a6e75, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 032b18b81d16eaf4d8c0913afbed81a0, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 7aaf960227867044282d921171d2d7ac, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 47497adbd02013a4f8a58b44c22d4590, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7aaf960227867044282d921171d2d7ac, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -103,5 +103,5 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.SpriteState
 Assets:
-- Assets/ClassRoom/Prefab/Shelf/TestModel.prefab
+- Assets/ClassRoom/Prefab/Shelf/TestObj/TestModel.prefab
 Dependencies: []
