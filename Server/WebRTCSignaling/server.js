@@ -1,12 +1,12 @@
-const ws        = require('ws').Server;
-const port      = 3001;
-const server    = new ws({ port: port });
+const ws = require('ws').Server;
+const port = 3001;
+const server = new ws({ port: port });
 
-var roomDic     = { };
-const OFFER     = 0;
-const ANSWER    = 1;
-const ICE       = 2;
-const JOIN      = 3;
+var roomDic = {};
+const OFFER = 0;
+const ANSWER = 1;
+const ICE = 2;
+const JOIN = 3;
 
 console.log('signaling server start. port=' + port);
 
@@ -21,8 +21,11 @@ server.on('connection', function (socket) {
             // If room dictionary is not created
             if ((obj.room in roomDic) === false) {
                 console.log("[socket.onmessage] create new room: " + obj.room);
-                roomDic[obj.room] = { };
+                roomDic[obj.room] = {};
             }
+
+            // Add
+            (roomDic[obj.room])[obj.src] = socket;
 
             // Broadcast
             var roomValues = Object.values(roomDic[obj.room]);
@@ -32,8 +35,6 @@ server.on('connection', function (socket) {
                     value.send(message);
                 }
             });
-            // Add
-            (roomDic[obj.room])[obj.src] = socket;
         } else if (obj.action === ICE || obj.action === OFFER || obj.action === ANSWER) {
             // Unicast
             (roomDic[obj.room])[obj.dst].send(message);

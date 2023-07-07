@@ -47,20 +47,28 @@ public class TLabShelfSyncManager : TLabShelfManager
         // 座席にだれもいなかったらスキップ
         if (TLabSyncClient.Instalce.IsGuestExist(anchorIndex) == false) yield break;
 
-        // 自分の卓でないオブジェクトだけ現在のサーバーのTransformとの同期を行う
-        bool reloadWorldData = TLabSyncClient.Instalce.SeatIndex != anchorIndex;
-
+        // オブジェクトのフェードイン
         yield return base.FadeIn(objIndex, anchorIndex);
-        TLabSyncClient.Instalce.ForceReflesh(reloadWorldData);
+
+        // 自分の卓でないオブジェクトのインスタンス化だけ現在のサーバーのTransformとの同期を行う
+        bool reloadWorldData = TLabSyncClient.Instalce.SeatIndex != anchorIndex;
+        string objName = m_shelfObjInfos[objIndex].instanced[anchorIndex].name;
+
+        if (reloadWorldData) TLabSyncClient.Instalce.UniReflesh(objName);
+
         yield break;
     }
 
     protected override IEnumerator FadeOut(int objIndex, int anchorIndex)
     {
         bool reloadWorldData = TLabSyncClient.Instalce.SeatIndex != anchorIndex;
+        string objName = m_shelfObjInfos[objIndex].instanced[anchorIndex].name;
 
+        // オブジェクトのフェードアウト
         yield return base.FadeOut(objIndex, anchorIndex);
-        TLabSyncClient.Instalce.ForceReflesh(reloadWorldData);
+
+        if (reloadWorldData) TLabSyncClient.Instalce.UniReflesh(objName);
+
         yield break;
     }
 
@@ -336,8 +344,6 @@ public class TLabShelfSyncManager : TLabShelfManager
     public void OnGuestDiscconected(int anchorIndex)
     {
         for (int i = 0; i < m_shelfObjInfos.Length; i++) StartCoroutine(FadeOut(i, anchorIndex));
-
-        TLabSyncClient.Instalce.ForceReflesh(false);
     }
 
     private void Update()

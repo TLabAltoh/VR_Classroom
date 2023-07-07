@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -43,7 +44,7 @@ public class TLabAssetBundleBuilder : EditorWindow
         };
         label.style.left = new StyleLength
         {
-            value = new Length(40)
+            value = new Length(10)
         };
 
         var button = new Button(action);
@@ -68,29 +69,18 @@ public class TLabAssetBundleBuilder : EditorWindow
         var buildfor = new Label("\nBuild for ...");
         m_rightPanel.Add(buildfor);
 
-        int buttonWidth     = 150;
+        int buttonWidth     = 200;
         int buttonHeight    = 20;
 
-        m_rightPanel.Add(CreateButton(
-            "Windows64",
-            () => {
-                BuildAssetBundle(selectedAsset, BuildTarget.StandaloneWindows64);
-            },
-            buttonWidth, buttonHeight));
-
-        m_rightPanel.Add(CreateButton(
-            "WebGL",
-            () => {
-                BuildAssetBundle(selectedAsset, BuildTarget.WebGL);
-            },
-            buttonWidth, buttonHeight));
-
-        m_rightPanel.Add(CreateButton(
-            "Android",
-            () => {
-                BuildAssetBundle(selectedAsset, BuildTarget.Android);
-            },
-            buttonWidth, buttonHeight));
+        foreach (BuildTarget target in Enum.GetValues(typeof(BuildTarget)))
+        {
+            m_rightPanel.Add(CreateButton(
+                target.ToString(),
+                () => {
+                    BuildAssetBundle(selectedAsset, target);
+                },
+                buttonWidth, buttonHeight));
+        }
     }
 
     public void CreateGUI()
