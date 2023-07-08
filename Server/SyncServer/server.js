@@ -59,6 +59,7 @@ var seatFilled = 0;
 var seats = [];
 var socketTable = [];
 var grabbTable = [];
+var waitApprovals = [];
 
 for (var i = 0; i < seatLength; i++) {
 	seats.push(false);
@@ -208,8 +209,12 @@ function allocateRigidbodyTask() {
 
 function allocateRigidbody(isImidiate) {
 
+	// allocateFinished -> false:
+	// wait for allocateRigidbodyTask() invoked
+
 	if (isImidiate === true) {
-		allocateRigidbody();
+		allocateFinished = false;
+		allocateRigidbodyTask();
 		return;
     }
 
@@ -242,12 +247,12 @@ function updateGrabbTable(seatIndex, target, message) {
 
 	// output console grabb lock state and push to grabb table
 	if (target.seatIndex !== -1) {
-		console.log("grabb lock: " + parse.transform);
+		console.log("grabb lock: " + target.transform);
 
 		// push target obj to grabb table
 		grabbTable[seatIndex].push({ transform: target.transform, message: message });
 	} else
-		console.log("grabb unlock: " + parse.transform);
+		console.log("grabb unlock: " + target.transform);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -379,6 +384,27 @@ function onJoined(seatIndex, socket) {
 	}
 
 	return;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+// start interval task
+setTimeout(approvalToParticipate, 2 * 1000);
+
+function approvalToParticipate() {
+
+	// 1. waiting for allocateRigidbody to execute
+	// 2. waitApprovals is empty
+	if (allocateFinished === false || waitApprovals.length == 0) {
+		setTimeout(approvalToParticipate, 2 * 1000);
+		return;
+    }
+
+	// deque from wait approvals
+	var approval = waitApprovals.shift();
+
+	// invoke
+	approval();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -522,38 +548,41 @@ ws.on("connection", function (socket) {
 			// #region
 			console.log("\nreceived a request to join " + bar);
 
-			// check befor acept
-			if (parse.role === GUEST) {
-				// Guest table : 1 ~ seatLength - 1
-				for (var i = 1; i < seatLength; i++) {
-					if (seats[i] === false) {
-						seatIndex = i;
-						seats[i] = true;
-						socketTable[i] = socket;
-						break;
+			waitApprovals.push(() => {
+				console.log("\napproval for client start" + bar);
+
+				// check befor acept
+				if (parse.role === GUEST) {
+					// Guest table : 1 ~ seatLength - 1
+					for (var i = 1; i < seatLength; i++) {
+						if (seats[i] === false) {
+							seatIndex = i;
+							seats[i] = true;
+							socketTable[i] = socket;
+							break;
+						}
+					}
+
+				} else if (parse.role === HOST) {
+					if (seats[0] === false) {
+						seatIndex = 0;
+						seats[0] = true;
+						socketTable[0] = socket;
 					}
 				}
 
-			} else if (parse.role === HOST) {
-				if (seats[0] === false) {
-					seatIndex = 0;
-					seats[0] = true;
-					socketTable[0] = socket;
-				}
-            }
-
-			// send socket to result
-			if (seatIndex === -1) {
-				console.log("declined to participate");
-				var obj = {
-					role: SERVER,
-					action: REGECT
-				};
-				var json = JSON.stringify(obj);
-				socket.send(json);
-			} else
-				onJoined(seatIndex, socket);
-
+				// send socket to result
+				if (seatIndex === -1) {
+					console.log("declined to participate");
+					var obj = {
+						role: SERVER,
+						action: REGECT
+					};
+					var json = JSON.stringify(obj);
+					socket.send(json);
+				} else
+					onJoined(seatIndex, socket);
+			});
 			return;
 			// #endregion
 		} else if (parse.action == DIVIDEGRABBER) {
