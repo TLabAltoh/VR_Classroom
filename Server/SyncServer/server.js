@@ -405,6 +405,9 @@ function approvalToParticipate() {
 
 	// invoke
 	approval();
+
+	// next loop after 2 secound
+	setTimeout(approvalToParticipate, 2 * 1000);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////

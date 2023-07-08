@@ -2347,9 +2347,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07d1e184178bdd48ae423d746ced571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverAddr: ws://192.168.11.14:3001
+  serverAddr: ws://192.168.3.14:3001
   userID: 
-  roomName: VR_Class
+  roomID: 
   onMessage:
     m_PersistentCalls:
       m_Calls:
