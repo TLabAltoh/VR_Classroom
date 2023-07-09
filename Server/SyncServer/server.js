@@ -125,6 +125,7 @@ const CUSTOMACTION = 14;
 var allocateFinished = true;
 
 function allocateRigidbodyTask() {
+
 	console.log("re allocate rigidbody");
 
 	//
@@ -215,6 +216,7 @@ function allocateRigidbody(isImidiate) {
 	if (isImidiate === true) {
 		allocateFinished = false;
 		allocateRigidbodyTask();
+		allocateFinished = true;
 		return;
     }
 
@@ -392,6 +394,8 @@ function onJoined(seatIndex, socket) {
 setTimeout(approvalToParticipate, 2 * 1000);
 
 function approvalToParticipate() {
+
+	console.log("approval to participate loop ....");
 
 	// 1. waiting for allocateRigidbody to execute
 	// 2. waitApprovals is empty

@@ -7,6 +7,7 @@ const OFFER = 0;
 const ANSWER = 1;
 const ICE = 2;
 const JOIN = 3;
+const EXIT = 4;
 
 console.log('signaling server start. port=' + port);
 
@@ -18,6 +19,11 @@ server.on('connection', function (socket) {
         console.log("[socket.onmessage] " + "action: " + obj.action + " from: " + obj.src + " dst: " + obj.dst);
 
         if (obj.action === JOIN) {
+
+            //
+            // User Join
+            //
+
             // If room dictionary is not created
             if ((obj.room in roomDic) === false) {
                 console.log("[socket.onmessage] create new room: " + obj.room);
@@ -35,23 +41,59 @@ server.on('connection', function (socket) {
                     value.send(message);
                 }
             });
+
+            return;
+        } else if (obj.action === EXIT) {
+
+            //
+            // User Exit
+            //
+
+            if (roomDic === null || roomDic === undefined) return;
+
+            if (roomDic[obj.room] === null || roomDic[obj.room] === undefined) return;
+
+            var socketKeys = Object.keys(roomDic[obj.room]);
+            socketKeys.forEach((socketKey) => {
+
+                if ((roomDic[obj.room])[socketKey] === socket) {
+
+                    console.log("[socket.onclose] " + socketKey + " delete socket from: " + obj.room);
+
+                    // Delete from room
+                    delete (roomDic[obj.room])[socketKey];
+
+                    // Broadcast exit message
+                    var otherSocketKeys = Object.keys(roomDic[obj.room]);
+                    otherSocketKeys.forEach((otherSocketKey) => {
+                        console.log("[socket.onmessage] send exit message for " + otherSocketKey);
+                        (roomDic[obj.room])[otherSocketKey].send(message);
+                    });
+                }
+            });
+
+            return;
         } else if (obj.action === ICE || obj.action === OFFER || obj.action === ANSWER) {
-            // Unicast
+
+            //
+            // Defualt
+            //
+
+            // Unicast message
             (roomDic[obj.room])[obj.dst].send(message);
+
+            return;
         }
     });
 
     socket.on("close", function close() {
-        // Delete
-        var roomKeys = Object.keys(roomDic);
-        roomKeys.forEach((key) => {
-            var socketKeys = Object.keys(roomDic[key]);
-            socketKeys.forEach((socketKey) => {
-                if ((roomDic[key])[socketKey] === socket) {
-                    console.log("[socket.onclose] delete socket from:" + key);
-                    delete (roomDic[key])[socketKey];
-                }
-            });
-        });
+
+        //
+        // Close
+        //
+
+        console.log("[socket.onclose] close");
+
+        return;
     });
 });
