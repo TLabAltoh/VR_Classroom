@@ -12525,7 +12525,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2459777292768801616}
   - component: {fileID: 6557052814093071120}
-  - component: {fileID: 4602051404492696555}
+  - component: {fileID: 8638293218514358666}
+  - component: {fileID: 1437339803320159366}
+  - component: {fileID: 6357266762652943880}
   - component: {fileID: 4216303300778735245}
   m_Layer: 0
   m_Name: Head
@@ -12572,7 +12574,7 @@ MonoBehaviour:
   m_enableSync: 0
   m_autoSync: 1
   m_locked: 1
---- !u!114 &4602051404492696555
+--- !u!114 &8638293218514358666
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12581,12 +12583,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 7703964993145761832}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a56fda45093964993567df9b507ff6, type: 3}
+  m_Script: {fileID: 11500000, guid: b07d1e184178bdd48ae423d746ced571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_serverAddr: ws://192.168.11.12:5000
+  serverAddr: ws://192.168.11.12:3001
+  userID: 
+  roomID: 
+  onMessage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1437339803320159366}
+        m_TargetAssemblyTypeName: TLabWebRTCVoiceChat, Assembly-CSharp
+        m_MethodName: OnVoice
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1437339803320159366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7703964993145761832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f1b1a97db8ba74da369a9aee703a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dataChannel: {fileID: 8638293218514358666}
   m_loopBackSelf: 0
   m_isStreaming: 1
+--- !u!114 &6357266762652943880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7703964993145761832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98da84cce6425e49ace1fbe2dc58e49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_voiceChat: {fileID: 1437339803320159366}
 --- !u!82 &4216303300778735245
 AudioSource:
   m_ObjectHideFlags: 0

@@ -801,7 +801,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1666
+  m_Name: pb_Mesh-1410
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2626,6 +2626,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1120543313 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8638293218514358666, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+  m_PrefabInstance: {fileID: 6383360505620899020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3638833556982453476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07d1e184178bdd48ae423d746ced571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1195103316
 Mesh:
   m_ObjectHideFlags: 0
@@ -4550,7 +4561,7 @@ PrefabInstance:
       objectReference: {fileID: 587688470}
     - target: {fileID: 1992072394071876174, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_VersionIndex
-      value: 4318
+      value: 4342
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394097134738, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Name
@@ -4815,7 +4826,7 @@ PrefabInstance:
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_voiceChat
       value: 
-      objectReference: {fileID: 3638833556982453480}
+      objectReference: {fileID: 1120543313}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_syncServerAddr
       value: ws://192.168.3.14:5000
@@ -4825,8 +4836,12 @@ PrefabInstance:
       value: http://192.168.3.14:5600/StandaloneWindows/testmodel.assetbundl
       objectReference: {fileID: 0}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_signalingServerAddr
+      value: ws://192.168.3.14:3001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_voiceChatServerAddr
-      value: ws://192.168.3.14:5500
+      value: ws://192.168.3.14:3001
       objectReference: {fileID: 0}
     - target: {fileID: 3859490211251242365, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_RootOrder
@@ -5638,29 +5653,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7703964993145761832, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
   m_PrefabInstance: {fileID: 6383360505620899020}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3638833556982453477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3638833556982453476}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb7c505fb2b1c8f43bfdc0e68ed0b888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3638833556982453480 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4602051404492696555, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
-  m_PrefabInstance: {fileID: 6383360505620899020}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3638833556982453476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a56fda45093964993567df9b507ff6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4751184203207477747 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1835736174466673983, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
@@ -5862,6 +5854,10 @@ PrefabInstance:
       propertyPath: m_laserPointer
       value: 
       objectReference: {fileID: 628908169}
+    - target: {fileID: 8638293218514358666, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+      propertyPath: serverAddr
+      value: ws://192.168.3.14:3001
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5062488952062090132, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}

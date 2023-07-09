@@ -2378,10 +2378,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_syncServerAddr: ws://192.168.11.19:5000
-  m_voiceChatServerAddr: ws://192.168.11.19:5500
+  m_signalingServerAddr: ws://192.168.11.19:3001
   m_shelfServerAddr: http://192.168.11.19:5600/StandaloneWindows/testmodel.assetbundl
   m_syncClient: {fileID: 1992072394669093082}
   m_voiceChat: {fileID: 0}
+  m_syncTransform: {fileID: 5814146283492665764}
   m_shelfManager: {fileID: 5755384349333693403}
 --- !u!1 &1992072395166020666
 GameObject:
@@ -21018,10 +21019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e4057746dbc6d4395994f3b852d4f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_outlineTarget:
-  - {fileID: 1992072395166020666}
-  - {fileID: 1992072393951519846}
-  - {fileID: 1992072394206774098}
+  m_outlineTargets: []
   m_outline: {fileID: 4800000, guid: cb74c94b3f9560344b9e9ce73d796a5f, type: 3}
   m_savePathMesh: Assets/TLab/TLabVRGrabber/Outline/Mesh
   m_savePathMaterial: Assets/TLab/TLabVRGrabber/Outline/Material
