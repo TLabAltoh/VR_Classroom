@@ -87,7 +87,7 @@ public class TLabBHapticsGlobeManager : MonoBehaviour
 
         while (m_rightHand.SkeltonInitialized == false) yield return null;
 
-        rightJointInfo = new BHapticsGlobeJointInfo[5];
+        rightJointInfo = new BHapticsGlobeJointInfo[6];
 
         rightJointInfo[0] = new BHapticsGlobeJointInfo(
             m_rightHand.GetFingerBone(OVRSkeleton.BoneId.Hand_ThumbTip), m_layer);
@@ -106,7 +106,7 @@ public class TLabBHapticsGlobeManager : MonoBehaviour
 
         while (m_leftHand.SkeltonInitialized == false) yield return null;
 
-        leftJointInfo = new BHapticsGlobeJointInfo[5];
+        leftJointInfo = new BHapticsGlobeJointInfo[6];
 
         leftJointInfo[0] = new BHapticsGlobeJointInfo(
             m_leftHand.GetFingerBone(OVRSkeleton.BoneId.Hand_ThumbTip), m_layer);
