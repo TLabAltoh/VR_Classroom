@@ -32,7 +32,7 @@ public class TLabWebRTCVoiceChat : MonoBehaviour
     private AudioClip m_microphoneClip;
     private string m_microphoneName;
 
-    private bool m_startRecording = false;
+    private bool m_recording = false;
 
     private int m_writeHead;
     private int m_readHead;
@@ -164,9 +164,7 @@ public class TLabWebRTCVoiceChat : MonoBehaviour
     public void OnVoice(string dstID, string srcID, byte[] voiceBytes)
     {
         TLabVoiceChatPlayer player = m_voicePlayers[srcID] as TLabVoiceChatPlayer;
-
-        if (player == null)
-            return;
+        if (player == null) return;
 
         byte[] voiceBuffer = Decompress(voiceBytes);
         float[] voice = new float[VOICE_BUFFER_SIZE];
@@ -175,12 +173,7 @@ public class TLabWebRTCVoiceChat : MonoBehaviour
         {
             fixed (byte* src = voiceBuffer)
             fixed (float* dst = voice)
-            {
-                byte* srcTmp = src;
-                byte* dstTmp = (byte*)dst;
-
-                LongCopy(srcTmp, dstTmp, PACKET_BUFFER_SIZE);
-            }
+                LongCopy(src, (byte*)dst, PACKET_BUFFER_SIZE);
         }
 
         player.PlayVoice(voice);
@@ -246,8 +239,8 @@ public class TLabWebRTCVoiceChat : MonoBehaviour
     {
         m_dataChannel.Join(this.gameObject.name, "VoiceChat");
 
-        m_startRecording = StartRecording();
-        if (m_startRecording == false) return;
+        m_recording = StartRecording();
+        if (m_recording == false) return;
 
         if (m_loopBackSelf)
         {
@@ -351,7 +344,7 @@ public class TLabWebRTCVoiceChat : MonoBehaviour
 
     private void Update()
     {
-        if (m_startRecording == false) return;
+        if (m_recording == false) return;
 
         m_writeHead = Microphone.GetPosition(m_microphoneName);
 

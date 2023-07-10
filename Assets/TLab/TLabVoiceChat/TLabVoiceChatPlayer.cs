@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class TLabVoiceChatPlayer : MonoBehaviour
 {
+    [SerializeField] private bool m_useWebRTC = true;
+
     private AudioSource m_voicePlayer;
     private TLabVoiceChatFilter m_voiceChatFilter;
 
@@ -20,7 +22,10 @@ public class TLabVoiceChatPlayer : MonoBehaviour
 
     void Start()
     {
-        TLabVoiceChat.Instance.RegistClient(this.gameObject.name, this);
+        if(m_useWebRTC == true)
+            TLabWebRTCVoiceChat.Instance.RegistClient(this.gameObject.name, this);
+        else
+            TLabVoiceChat.Instance.RegistClient(this.gameObject.name, this);
 
         GameObject child = new GameObject("Player");
         child.transform.parent = this.gameObject.transform;

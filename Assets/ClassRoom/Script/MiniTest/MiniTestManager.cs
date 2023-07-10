@@ -32,7 +32,8 @@ public class MiniTestManager : MonoBehaviour
 
         SendMiniTestActionMessage(
             WebMiniTestAction.REGISTRATION,
-            score: score, seatIndex: TLabSyncClient.Instalce.SeatIndex, dst: -1);
+            score: score, seatIndex: TLabSyncClient.Instalce.SeatIndex,
+            dstIndex: -1);
     }
 
     public void OnMessage(string message)
@@ -55,8 +56,7 @@ public class MiniTestManager : MonoBehaviour
 
     public void OnGuestDiscconected(int anchorIndex) { }
 
-    public void SendMiniTestActionMessage(
-        WebMiniTestAction action, int score = 0, int seatIndex = -1, int dst = -1)
+    public void SendMiniTestActionMessage(WebMiniTestAction action, int score = 0, int seatIndex = -1, int dstIndex = -1)
     {
         m_scores[TLabSyncClient.Instalce.SeatIndex] = score;
 
@@ -68,14 +68,14 @@ public class MiniTestManager : MonoBehaviour
         };
 
         string customJson = JsonUtility.ToJson(obj);
-        SendWsMessage(customJson, dst);
+        SendWsMessage(customJson, dstIndex);
     }
 
     public void SendWsMessage(string customJson, int anchorIndex)
     {
         TLabSyncClient.Instalce.SendWsMessage(
-            WebRole.GUEST, WebAction.CUSTOMACTION,
-            seatIndex: anchorIndex, customIndex: 1, custom: customJson);
+            role: WebRole.GUEST, action: WebAction.CUSTOMACTION, seatIndex: anchorIndex,
+            customIndex: 1, custom: customJson);
 
         return;
     }

@@ -5758,6 +5758,10 @@ PrefabInstance:
       propertyPath: m_loopBackSelf
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6357266762652943880, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6381714963049631735, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_IsActive
       value: 0
