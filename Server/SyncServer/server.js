@@ -54,7 +54,7 @@ console.log("\nstart server on port: " + port + " " + bar);
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-const seatLength = 4;
+const seatLength = 5;
 var seatFilled = 0;
 var seats = [];
 var socketTable = [];
