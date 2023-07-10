@@ -1027,7 +1027,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -1356,7 +1356,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -1852,7 +1852,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -2219,7 +2219,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -2558,7 +2558,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -3032,7 +3032,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -3585,7 +3585,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -3738,7 +3738,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -3891,7 +3891,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -4560,8 +4560,18 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 1
-  m_divideAnchors:
-  - {fileID: 3323794004600750540}
+  m_divideTargets:
+  - {fileID: 3459389798226892863}
+  - {fileID: 3143841893475808833}
+  - {fileID: 5886078748829750015}
+  - {fileID: 8459267975553242546}
+  - {fileID: 4060177150367689566}
+  - {fileID: 5407618942061354367}
+  - {fileID: 4901378961313274846}
+  - {fileID: 4472546290940656641}
+  - {fileID: 5811249287706009288}
+  - {fileID: 6045985651113734240}
+  - {fileID: 8972052062630137785}
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -5199,7 +5209,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -5566,7 +5576,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0

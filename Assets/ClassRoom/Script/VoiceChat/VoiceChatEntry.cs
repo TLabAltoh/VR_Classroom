@@ -5,11 +5,17 @@ public class VoiceChatEntry : MonoBehaviour
 {
     [SerializeField] private TLabWebRTCVoiceChat m_voiceChat;
 
+    private bool SocketIsOpen
+    {
+        get
+        {
+            return TLabSyncClient.Instalce != null && TLabSyncClient.Instalce.SocketIsOpen == true && TLabSyncClient.Instalce.SeatIndex != -1;
+        }
+    }
+
     private IEnumerator WaitForConnection()
     {
-        while (TLabSyncClient.Instalce == null ||
-                TLabSyncClient.Instalce.SocketIsOpen == false ||
-                TLabSyncClient.Instalce.SeatIndex == -1) yield return null;
+        while (SocketIsOpen == false) yield return null;
 
         m_voiceChat.StartVoiceChat();
 

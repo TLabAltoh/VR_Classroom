@@ -12,6 +12,7 @@ const EXIT = 4;
 console.log('signaling server start. port=' + port);
 
 server.on('connection', function (socket) {
+
     console.log('[server.onconnection] client connected');
 
     socket.on('message', function (message) {

@@ -28,7 +28,7 @@ public class TLabShelfSyncManager : TLabShelfManager
     [SerializeField] public TLabInputField m_inputField;
     private string m_lastLoadURL = "";
     private AssetBundle m_assetBundle;
-    private List<int> m_currentShareds  = new List<int>();
+    private List<int> m_currentShareds = new List<int>();
     private List<int> m_currentTakeOuts = new List<int>();
 
     private const string thisName = "[tlabsyncshelf] ";
@@ -147,16 +147,14 @@ public class TLabShelfSyncManager : TLabShelfManager
         yield return request.SendWebRequest();
 
         // Handle error
-        if (request.result == UnityWebRequest.Result.ConnectionError ||
-            request.result == UnityWebRequest.Result.ProtocolError ||
-            request.result == UnityWebRequest.Result.DataProcessingError)
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError || request.result == UnityWebRequest.Result.DataProcessingError)
         {
             Debug.LogError(thisName + request.error);
             yield break;
         }
 
-        var handler     = request.downloadHandler as DownloadHandlerAssetBundle;
-        m_assetBundle   = handler.assetBundle;
+        var handler = request.downloadHandler as DownloadHandlerAssetBundle;
+        m_assetBundle = handler.assetBundle;
 
 #if UNITY_EDITOR
         Debug.Log(thisName + "Finish Load Asset");
@@ -195,17 +193,9 @@ public class TLabShelfSyncManager : TLabShelfManager
     /// <param name="dstIndex">宛先インデックス</param>
     public void SendWsMessage(string message, int dstIndex)
     {
-        TLabSyncJson obj = new TLabSyncJson
-        {
-            role = (int)WebRole.GUEST,
-            action = (int)WebAction.CUSTOMACTION,
-            seatIndex = dstIndex,
-            customIndex = 0,
-            custom = message
-        };
-        string json = JsonUtility.ToJson(obj);
-
-        TLabSyncClient.Instalce.SendWsMessage(json);
+        TLabSyncClient.Instalce.SendWsMessage(
+            WebRole.GUEST, WebAction.CUSTOMACTION,
+            seatIndex: dstIndex, customIndex: 0, custom: message);
 
         return;
     }
@@ -258,16 +248,12 @@ public class TLabShelfSyncManager : TLabShelfManager
 
             // 既にインスタンス化しているオブジェクト
             if (m_currentShareds.Count > 0)
-            {
                 foreach (int sharedIndex in m_currentShareds)
                     SendShelfActionMessage(WebShelfAction.SHARE, sharedIndex, null, anchorIndex);
-            }
 
             if (m_currentTakeOuts.Count > 0)
-            {
                 foreach (int takeOutIndex in m_currentTakeOuts)
                     SendShelfActionMessage(WebShelfAction.TAKEOUT, takeOutIndex, null, anchorIndex);
-            }
         }
     }
 
@@ -283,15 +269,7 @@ public class TLabShelfSyncManager : TLabShelfManager
         if (Input.GetKeyDown(KeyCode.Space))
         {
             LoadModelFromURL(m_testURL, 2);
-
-            TLabSyncShelfJson obj = new TLabSyncShelfJson
-            {
-                action = (int)WebShelfAction.LOADMODEL,
-                url = m_testURL,
-                objIndex = 2
-            };
-            string json = JsonUtility.ToJson(obj);
-            SendWsMessage(json, -1);
+            SendShelfActionMessage(WebShelfAction.LOADMODEL, 2, m_testURL, -1);
         }
 
         if (Input.GetKeyDown(KeyCode.A)) TakeOut();
