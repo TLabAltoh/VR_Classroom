@@ -2045,7 +2045,7 @@ MonoBehaviour:
   m_scaling: 0
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 0
   m_autoSync: 1
   m_locked: 1
@@ -3776,7 +3776,7 @@ MonoBehaviour:
   m_scaling: 0
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 0
   m_autoSync: 1
   m_locked: 1
@@ -11621,6 +11621,7 @@ GameObject:
   - component: {fileID: 6383360504905087041}
   - component: {fileID: 6383360504909118051}
   - component: {fileID: 6383360504906725275}
+  - component: {fileID: 7141808940810860604}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -11695,6 +11696,22 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &7141808940810860604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6383360504905573473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8e1d778abf442e4bec449c360e9e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 2
+  fadeColor: {r: 0.01, g: 0.01, b: 0.01, a: 1}
+  fadeOnStart: 1
+  renderQueue: 5000
 --- !u!1 &6383360504905573475
 GameObject:
   m_ObjectHideFlags: 0
@@ -12102,7 +12119,7 @@ MonoBehaviour:
   m_scaling: 0
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 0
   m_autoSync: 1
   m_locked: 1
@@ -12187,7 +12204,7 @@ MonoBehaviour:
   m_scaling: 0
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 0
   m_autoSync: 1
   m_locked: 1
@@ -12570,7 +12587,7 @@ MonoBehaviour:
   m_scaling: 0
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 0
   m_autoSync: 1
   m_locked: 1
@@ -12626,7 +12643,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7703964993145761832}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b98da84cce6425e49ace1fbe2dc58e49, type: 3}
   m_Name: 
@@ -12643,7 +12660,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
