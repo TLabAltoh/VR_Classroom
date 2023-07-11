@@ -9,7 +9,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: ec860621e4481d84c8032f6997b895d2, type: 2}
+    m_Motion: {fileID: 7400000, guid: 266675b2e5b543746966fade88482855, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 0.5
@@ -17,7 +17,7 @@ BlendTree:
     m_DirectBlendParameter: Score
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: d61aabfc384c4094ba20f14591514173, type: 2}
+    m_Motion: {fileID: 7400000, guid: 5eb3a00db31e05d43a779d8d7c290a8b, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 0.5
@@ -85,7 +85,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Graph
+  m_Name: Score_3
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Ratio
@@ -93,7 +93,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
