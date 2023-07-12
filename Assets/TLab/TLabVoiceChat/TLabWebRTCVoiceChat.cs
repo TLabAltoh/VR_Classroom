@@ -394,6 +394,11 @@ public class TLabWebRTCVoiceChat : MonoBehaviour
         m_microphoneSource = GetComponent<AudioSource>();
     }
 
+    private void OnDestroy()
+    {
+        m_dataChannel.Exit();
+    }
+
     private void OnApplicationQuit()
     {
         m_dataChannel.Exit();

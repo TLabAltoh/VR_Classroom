@@ -28017,7 +28017,7 @@ MonoBehaviour:
   m_hand: {fileID: 0}
   m_webViewLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1088
   m_rayMaxLength: 10
 --- !u!114 &7328656488554269758
 MonoBehaviour:

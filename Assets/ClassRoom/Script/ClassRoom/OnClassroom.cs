@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,17 +13,33 @@ public class OnClassroom : MonoBehaviour
     [SerializeField] private TLabSyncClient m_syncClient;
     [SerializeField] private TLabWebRTCVoiceChat m_voiceChat;
 
-    void ChangeScene()
+    private void ChangeScene()
     {
+        SceneManager.LoadScene("Entry", LoadSceneMode.Single);
+    }
+
+    private IEnumerator OnChangeScene()
+    {
+        // delete obj
+        m_syncClient.RemoveAllGrabbers();
+        m_syncClient.RemoveAllAnimators();
+
+        yield return null;
+        yield return null;
+
+        // close socket
         m_syncClient.Close();
         m_voiceChat.Close();
 
-        SceneManager.LoadScene("Entry", LoadSceneMode.Single);
+        yield return null;
+        yield return null;
+
+        Invoke("ChangeScene", 1.5f);
     }
 
     public void ExitClassroom()
     {
-        Invoke("ChangeScene", 1.5f);
+        StartCoroutine("OnChangeScene");
     }
 
     public void ShowReference()
@@ -35,7 +54,7 @@ public class OnClassroom : MonoBehaviour
         if (active == true)
         {
             target.position = m_centerEyeAnchor.position + m_centerEyeAnchor.forward * 1.0f;
-            target.right = (m_centerEyeAnchor.position - target.position).normalized;
+            target.up = (m_centerEyeAnchor.position - target.position).normalized;
             target.forward = Vector3.up;
         }
     }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WebViewVRUtility : MonoBehaviour
+public class VRHandTrackingWebView : MonoBehaviour
 {
     [Header("Target WebView")]
     [SerializeField] private TLabWebView m_tlabWebView;
@@ -23,14 +23,15 @@ public class WebViewVRUtility : MonoBehaviour
     private int GetTouchEvent()
     {
         bool current = m_hand.GetFingerIsPinching(OVRHand.HandFinger.Index);
+        int phase = current ? TOUCH_MOVE : (int)TouchPhase.Stationary;
 
-        if (m_prevPitching && !current) return TOUCH_UP;
+        if (m_prevPitching && !current) phase = TOUCH_UP;
 
-        if (!m_prevPitching && current) return TOUCH_DOWN;
+        if (!m_prevPitching && current) phase = TOUCH_DOWN;
 
         m_prevPitching = current;
 
-        return current ? TOUCH_MOVE : (int)TouchPhase.Stationary;
+        return phase;
     }
 
     private void DoesNotHit()
