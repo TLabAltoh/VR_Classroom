@@ -18,7 +18,7 @@ MonoBehaviour:
     type: 0
   - name: Signaling
     addr: ws://192.168.11.14:3001
-    type: 1
+    type: 0
   - name: Shelf
     addr: http://192.168.11.14:5600/StandaloneWindows/testmodel.assetbundl
     type: 1

@@ -33,14 +33,12 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     private const string thisName = "[tlabsyncshelf] ";
 
-#if UNITY_EDITOR
     [SerializeField] private string m_testURL;
 
     public void SetServerAddr(string url)
     {
         m_testURL = url;
     }
-#endif
 
     protected override IEnumerator FadeIn(int objIndex, int anchorIndex)
     {

@@ -377,6 +377,11 @@ public class TLabWebRTCVoiceChat : MonoBehaviour
         }
     }
 
+    public void Close()
+    {
+        m_dataChannel.Close();
+    }
+
     private void Awake()
     {
         Instance = this;
@@ -389,7 +394,7 @@ public class TLabWebRTCVoiceChat : MonoBehaviour
         m_microphoneSource = GetComponent<AudioSource>();
     }
 
-    private void OnDestroy()
+    private void OnApplicationQuit()
     {
         m_dataChannel.Exit();
     }

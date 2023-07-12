@@ -10,7 +10,7 @@
     <meta-data android:name="unityplayer.SkipPermissionsDialog" android:value="false" />
     <meta-data android:name="com.samsung.android.vr.application.mode" android:value="vr_only" />
   </application>
-	<!-- Add -->
+	<!-- VR_Class -->
 	<uses-feature android:name="android.hardware.microphone" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -18,6 +18,23 @@
 	<uses-permission android:name="android.permission.MICROPHONE" />
 	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 	<uses-permission android:name="android.permission.RECORD_AUDIO" />
-	<!-- /Add -->
+	<!-- /VR_Class -->
+
+	<!-- For Unity-WebView -->
+	<application android:allowBackup="true"/>
+	<application android:supportsRtl="true"/>
+	<application android:hardwareAccelerated="true"/>
+	<application android:usesCleartextTraffic="true"/>
+
+	<!--<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.MICROPHONE" />
+	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />-->
+
+	<uses-feature android:name="android.hardware.camera" />
+	<uses-feature android:name="android.hardware.microphone" />
+	<!-- For Unity-WebView -->
   <uses-feature android:name="android.hardware.vr.headtracking" android:version="1" android:required="true" />
 </manifest>
