@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,8 +26,8 @@ public class OnClassroom : MonoBehaviour
         yield return null;
 
         // close socket
-        m_syncClient.Close();
         m_voiceChat.Close();
+        m_syncClient.Close();
 
         yield return null;
         yield return null;
@@ -55,7 +53,9 @@ public class OnClassroom : MonoBehaviour
         {
             target.position = m_centerEyeAnchor.position + m_centerEyeAnchor.forward * 1.0f;
             target.up = (m_centerEyeAnchor.position - target.position).normalized;
-            target.forward = Vector3.up;
+
+            Vector3 rotateAxis = Vector3.Cross(target.right, Vector3.up);
+            target.rotation = Quaternion.AngleAxis(rotateAxis.magnitude * 360.0f, rotateAxis) * target.rotation;
         }
     }
 
