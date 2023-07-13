@@ -3339,6 +3339,11 @@ MonoBehaviour:
   m_layer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!4 &1519513838 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6383360504905087043, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+  m_PrefabInstance: {fileID: 6383360505620899020}
+  m_PrefabAsset: {fileID: 0}
 --- !u!850595691 &1548241213
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -4215,7 +4220,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1680
+  m_Name: pb_Mesh-1424
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4855,11 +4860,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!4 &2129635634 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6383360504905087041, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
-  m_PrefabInstance: {fileID: 6383360505620899020}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &114428878848699316 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6413346848414109560, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
@@ -4912,7 +4912,7 @@ PrefabInstance:
     - target: {fileID: 535945441839912813, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_centerEyeAnchor
       value: 
-      objectReference: {fileID: 2129635634}
+      objectReference: {fileID: 1519513838}
     - target: {fileID: 660948405317520441, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -5015,7 +5015,7 @@ PrefabInstance:
       objectReference: {fileID: 2014581313}
     - target: {fileID: 1992072394071876174, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_VersionIndex
-      value: 5683
+      value: 6220
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394097134738, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Name

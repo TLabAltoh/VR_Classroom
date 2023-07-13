@@ -1028,6 +1028,22 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &554596036 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6383360504905087043, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+  m_PrefabInstance: {fileID: 626487313902898945}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &554596037 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1437339803320159366, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+  m_PrefabInstance: {fileID: 626487313902898945}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626487313902898948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f1b1a97db8ba74da369a9aee703a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &560401314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4737,6 +4753,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 861064156}
+    - target: {fileID: 535945441839912813, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_voiceChat
+      value: 
+      objectReference: {fileID: 554596037}
+    - target: {fileID: 535945441839912813, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_centerEyeAnchor
+      value: 
+      objectReference: {fileID: 554596036}
     - target: {fileID: 679029109822204311, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5029,6 +5053,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1302011565}
+    - target: {fileID: 3332692767466806577, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_voiceChat
+      value: 
+      objectReference: {fileID: 434648354}
     - target: {fileID: 3583116695853963680, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5053,6 +5081,10 @@ PrefabInstance:
       propertyPath: m_voiceChatServerAddr
       value: ws://192.168.3.14:5500
       objectReference: {fileID: 0}
+    - target: {fileID: 3820395130192493252, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_hand
+      value: 
+      objectReference: {fileID: 626487313902898950}
     - target: {fileID: 4281719960226149048, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 

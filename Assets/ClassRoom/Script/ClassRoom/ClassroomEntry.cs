@@ -5,11 +5,10 @@ public class ClassroomEntry : MonoBehaviour
 {
     [SerializeField] private TLabServerAddress m_serverAddrs;
     [SerializeField] private TLabInputField m_inputField;
-    [SerializeField] private bool m_isHost = false;
 
     public void EnterClassroom()
     {
-        string ip = m_inputField.text;
+        string ip = m_inputField.text.Split(" -p ")[0];
         m_serverAddrs.SetAddress("SyncServer", "ws://" + ip + ":5000");
         m_serverAddrs.SetAddress("Signaling", "ws://" + ip + ":3001");
         m_serverAddrs.SetAddress("Shelf", "http://" + ip + ":5600/StandaloneWindows/testmodel.assetbundl");
@@ -22,9 +21,22 @@ public class ClassroomEntry : MonoBehaviour
         Application.Quit();
     }
 
-    void ChangeScene()
+    private bool CheckPassword()
     {
-        string scene = m_isHost ? "Host" : "Guest";
+        string target = m_inputField.text;
+        string[] tmp = target.Split(" -p ");
+
+        m_inputField.text = tmp[0];
+
+        if (tmp.Length > 1)
+            return tmp[1] == "1234";
+        else
+            return false;
+    }
+
+    private void ChangeScene()
+    {
+        string scene = CheckPassword() ? "Host" : "Guest";
         SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 }

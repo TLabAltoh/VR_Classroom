@@ -49,14 +49,10 @@ public class OnClassroom : MonoBehaviour
     {
         target.gameObject.SetActive(active);
 
-        if (active == true)
-        {
-            target.position = m_centerEyeAnchor.position + m_centerEyeAnchor.forward * 1.0f;
-            target.up = (m_centerEyeAnchor.position - target.position).normalized;
+        target.transform.position = m_centerEyeAnchor.position + m_centerEyeAnchor.forward * 0.5f;
 
-            Vector3 rotateAxis = Vector3.Cross(target.right, Vector3.up);
-            target.rotation = Quaternion.AngleAxis(rotateAxis.magnitude * 360.0f, rotateAxis) * target.rotation;
-        }
+        if (active == true)
+            target.LookAt(Camera.main.transform, Vector3.up);
     }
 
     private bool SwitchPanel(Transform target)
