@@ -132,11 +132,6 @@ public class TLabShelfManagerEditor : Editor
 
         TLabShelfManager manager = target as TLabShelfManager;
 
-        if (GUILayout.Button("Initialize Shelf Obj"))
-        {
-            //
-        }
-
         serializedObject.ApplyModifiedProperties();
     }
 }

@@ -26,7 +26,8 @@ public class TextController : MonoBehaviour
 
     [SerializeField] private bool m_enableSync = false;
     [SerializeField] private bool m_autoUpdate = false;
-    [SerializeField] private TLabSyncGrabbable m_grabbable;
+
+    private TLabSyncGrabbable m_grabbable;
 
     private TextControllerTransform m_initialTransform;
 
@@ -118,6 +119,8 @@ public class TextController : MonoBehaviour
         }
         else if (anchorIndex != TLabSyncClient.Instalce.SeatIndex)
             Destroy(this.gameObject);
+
+        m_grabbable = this.GetComponent<TLabSyncGrabbable>();
 
         this.transform.parent = null;
     }

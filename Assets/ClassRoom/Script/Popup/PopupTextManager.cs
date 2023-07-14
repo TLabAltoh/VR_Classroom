@@ -49,10 +49,6 @@ public class PopupTextManager : MonoBehaviour
 
     protected void OnDestroy()
     {
-        // PopupTextManagerを破棄するとき，PopupTextManagerが保持しているTextController(とそれをもつGameObject)を一緒に破棄する．
-        // TextControllerはStart()でtransform.parent = null(ペアレントを解除)しているので，PopupManagerを持つGameObjectを破棄
-        // するだけでは何も起きない(TextControllerを持つGameObjectはシーンに残り続ける) ----> 以下の行で一緒に破棄すればいい．
-
         if (m_controllers.Length > 0)
             foreach(TextController controller in m_controllers)
                 if(controller != null) Destroy(controller.gameObject);
@@ -68,6 +64,57 @@ public class PopupTextManager : MonoBehaviour
 [CustomEditor(typeof(PopupTextManager))]
 public class PopupTextManagerEditor : Editor
 {
+    private void OverwritePopuoSelectable(int index, ref PopupTextManager manager)
+    {
+        Debug.Log("[popuptextmanager] -----------------------------------");
+
+        GameObject target = manager.PointerPairs[index].target;
+
+        TLabOutlineSelectable outlineSelectable = target.GetComponent<TLabOutlineSelectable>();
+        PopupSelectable popupSelectable = target.GetComponent<PopupSelectable>();
+        if (popupSelectable == null || popupSelectable == outlineSelectable)
+            popupSelectable = target.AddComponent<PopupSelectable>();
+
+        if (outlineSelectable != null)
+        {
+            popupSelectable.OutlineMat = outlineSelectable.OutlineMat;
+            popupSelectable.PopupManager = manager;
+            popupSelectable.Index = index;
+
+            DestroyImmediate(outlineSelectable);
+
+            Debug.Log("[popuptextmanager] update to popupselectable " + index.ToString());
+        }
+
+        if (popupSelectable != null) EditorUtility.SetDirty(popupSelectable);
+
+        Debug.Log("[popuptextmanager] -----------------------------------");
+    }
+
+    private void RevertOutlineSelectable(int index, ref PopupTextManager manager)
+    {
+        Debug.Log("[popuptextmanager] -----------------------------------");
+
+        GameObject target = manager.PointerPairs[index].target;
+
+        TLabOutlineSelectable outlineSelectable = target.GetComponent<TLabOutlineSelectable>();
+        PopupSelectable popupSelectable = target.GetComponent<PopupSelectable>();
+        if (outlineSelectable == null || outlineSelectable == popupSelectable)
+            outlineSelectable = target.AddComponent<TLabOutlineSelectable>();
+
+        if (popupSelectable != null)
+        {
+            Debug.Log("[popuptextmanager] revert to outline selectable " + index.ToString());
+
+            outlineSelectable.OutlineMat = popupSelectable.OutlineMat;
+            DestroyImmediate(popupSelectable);
+        }
+
+        if (outlineSelectable != null) EditorUtility.SetDirty(outlineSelectable);
+
+        Debug.Log("[popuptextmanager] -----------------------------------");
+    }
+
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -76,63 +123,18 @@ public class PopupTextManagerEditor : Editor
 
         PopupTextManager manager = target as PopupTextManager;
 
-        if (GUILayout.Button("Overwrite Outline for Popup Selectable"))
+        if (GUILayout.Button("Overwrite to PopupSelectable"))
         {
-            Debug.Log("[popuptextmanager] -----------------------------------");
-
             for (int index = 0; index < manager.PointerPairs.Length; index++)
-            {
-                GameObject target = manager.PointerPairs[index].target;
-
-                TLabOutlineSelectable outlineSelectable = target.GetComponent<TLabOutlineSelectable>();
-                PopupSelectable popupSelectable         = target.GetComponent<PopupSelectable>();
-                if (popupSelectable == null || popupSelectable == outlineSelectable)
-                    popupSelectable = target.AddComponent<PopupSelectable>();
-
-                if (outlineSelectable != null)
-                {
-                    popupSelectable.OutlineMat      = outlineSelectable.OutlineMat;
-                    popupSelectable.PopupManager    = manager;
-                    popupSelectable.Index           = index;
-
-                    DestroyImmediate(outlineSelectable);
-
-                    Debug.Log("[popuptextmanager] update to popupselectable " + index.ToString());
-                }
-
-                if (popupSelectable != null) EditorUtility.SetDirty(popupSelectable);
-            }
-
-            Debug.Log("[popuptextmanager] -----------------------------------");
+                OverwritePopuoSelectable(index, ref manager);
 
             EditorUtility.SetDirty(manager);
         }
 
         if (GUILayout.Button("Revert to OutlineSelectable"))
         {
-            Debug.Log("[popuptextmanager] -----------------------------------");
-
             for (int index = 0; index < manager.PointerPairs.Length; index++)
-            {
-                GameObject target = manager.PointerPairs[index].target;
-
-                TLabOutlineSelectable outlineSelectable = target.GetComponent<TLabOutlineSelectable>();
-                PopupSelectable popupSelectable         = target.GetComponent<PopupSelectable>();
-                if (outlineSelectable == null || outlineSelectable == popupSelectable)
-                    outlineSelectable = target.AddComponent<TLabOutlineSelectable>();
-
-                if (popupSelectable != null)
-                {
-                    Debug.Log("[popuptextmanager] revert to outline selectable " + index.ToString());
-
-                    outlineSelectable.OutlineMat = popupSelectable.OutlineMat;
-                    DestroyImmediate(popupSelectable);
-                }
-
-                if (outlineSelectable != null) EditorUtility.SetDirty(outlineSelectable);
-            }
-
-            Debug.Log("[popuptextmanager] -----------------------------------");
+                RevertOutlineSelectable(index, ref manager);
 
             EditorUtility.SetDirty(manager);
         }

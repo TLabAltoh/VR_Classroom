@@ -30,22 +30,12 @@ public class MiniTestManager : MonoBehaviour
     {
         m_scores[TLabSyncClient.Instalce.SeatIndex] = score;
 
-        TLabSyncMiniTestJson obj = new TLabSyncMiniTestJson
-        {
-            action      = (int)WebMiniTestAction.REGISTRATION,
-            score       = score,
-            seatIndex   = TLabSyncClient.Instalce.SeatIndex
-        };
-
-        string json = JsonUtility.ToJson(obj);
-
-        SendWsMessage(json, -1);
+        SendMiniTestActionMessage(
+            WebMiniTestAction.REGISTRATION,
+            score: score, seatIndex: TLabSyncClient.Instalce.SeatIndex,
+            dstIndex: -1);
     }
 
-    /// <summary>
-    /// カスタムメッセージ受信時のコールバック処理
-    /// </summary>
-    /// <param name="message"></param>
     public void OnMessage(string message)
     {
         TLabSyncMiniTestJson obj = JsonUtility.FromJson<TLabSyncMiniTestJson>(message);
@@ -62,35 +52,30 @@ public class MiniTestManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="anchorIndex">参加したプレイヤーのインデックス</param>
-    public void OnGuestParticipated(int anchorIndex)
-    {
-        //
-    }
+    public void OnGuestParticipated(int anchorIndex) { }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="anchorIndex">退出したプレイヤーのインデックス</param>
-    public void OnGuestDiscconected(int anchorIndex)
-    {
-        //
-    }
+    public void OnGuestDiscconected(int anchorIndex) { }
 
-    public void SendWsMessage(string message, int anchorIndex)
+    public void SendMiniTestActionMessage(WebMiniTestAction action, int score = 0, int seatIndex = -1, int dstIndex = -1)
     {
-        TLabSyncJson obj = new TLabSyncJson
+        m_scores[TLabSyncClient.Instalce.SeatIndex] = score;
+
+        TLabSyncMiniTestJson obj = new TLabSyncMiniTestJson
         {
-            role        = (int)WebRole.GUEST,
-            action      = (int)WebAction.CUSTOMACTION,
-            seatIndex   = anchorIndex,
-            customIndex = 1,
-            custom      = message
+            action = (int)action,
+            score = score,
+            seatIndex = seatIndex
         };
-        string json = JsonUtility.ToJson(obj);
 
-        TLabSyncClient.Instalce.SendWsMessage(json);
+        string customJson = JsonUtility.ToJson(obj);
+        SendWsMessage(customJson, dstIndex);
+    }
+
+    public void SendWsMessage(string customJson, int anchorIndex)
+    {
+        TLabSyncClient.Instalce.SendWsMessage(
+            role: WebRole.GUEST, action: WebAction.CUSTOMACTION, seatIndex: anchorIndex,
+            customIndex: 1, custom: customJson);
 
         return;
     }
