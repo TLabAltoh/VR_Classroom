@@ -32,8 +32,7 @@ public class MiniTestManager : MonoBehaviour
 
         SendMiniTestActionMessage(
             WebMiniTestAction.REGISTRATION,
-            score: score, seatIndex: TLabSyncClient.Instalce.SeatIndex,
-            dstIndex: -1);
+            score: score, seatIndex: TLabSyncClient.Instalce.SeatIndex, dstIndex: -1);
     }
 
     public void OnMessage(string message)

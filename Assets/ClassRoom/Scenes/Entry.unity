@@ -1105,6 +1105,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6812777}
     m_Modifications:
+    - target: {fileID: 18712571303950289, guid: 38285747716ff59419a495b709b12c5c, type: 3}
+      propertyPath: m_text
+      value: Enter Server IP ...
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427026501612935423, guid: 38285747716ff59419a495b709b12c5c, type: 3}
+      propertyPath: m_text
+      value: 192.168.3.14
+      objectReference: {fileID: 0}
     - target: {fileID: 3063154159034142251, guid: 38285747716ff59419a495b709b12c5c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
