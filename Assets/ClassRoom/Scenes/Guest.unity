@@ -689,6 +689,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &434648354 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8638293218514358666, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+  m_PrefabInstance: {fileID: 626487313902898945}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626487313902898948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07d1e184178bdd48ae423d746ced571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &446207094
 Mesh:
   m_ObjectHideFlags: 0
@@ -1017,6 +1028,22 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &554596036 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6383360504905087043, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+  m_PrefabInstance: {fileID: 626487313902898945}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &554596037 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1437339803320159366, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+  m_PrefabInstance: {fileID: 626487313902898945}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626487313902898948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f1b1a97db8ba74da369a9aee703a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &560401314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3616,17 +3643,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &1809501006 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4602051404492696555, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
-  m_PrefabInstance: {fileID: 626487313902898945}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 626487313902898948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a56fda45093964993567df9b507ff6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &1832117520
 Mesh:
   m_ObjectHideFlags: 0
@@ -4586,6 +4602,10 @@ PrefabInstance:
       propertyPath: m_serverAddr
       value: ws://192.168.3.14:5500
       objectReference: {fileID: 0}
+    - target: {fileID: 6357266762652943880, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6381714963049631735, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -4662,6 +4682,10 @@ PrefabInstance:
       propertyPath: m_laserPointer
       value: 
       objectReference: {fileID: 560401316}
+    - target: {fileID: 8638293218514358666, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+      propertyPath: serverAddr
+      value: ws://192.168.3.14:3001
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
 --- !u!1 &626487313902898946 stripped
@@ -4729,6 +4753,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 861064156}
+    - target: {fileID: 535945441839912813, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_voiceChat
+      value: 
+      objectReference: {fileID: 554596037}
+    - target: {fileID: 535945441839912813, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_centerEyeAnchor
+      value: 
+      objectReference: {fileID: 554596036}
     - target: {fileID: 679029109822204311, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5021,6 +5053,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1302011565}
+    - target: {fileID: 3332692767466806577, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_voiceChat
+      value: 
+      objectReference: {fileID: 434648354}
     - target: {fileID: 3583116695853963680, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5028,7 +5064,7 @@ PrefabInstance:
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_voiceChat
       value: 
-      objectReference: {fileID: 1809501006}
+      objectReference: {fileID: 434648354}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_syncServerAddr
       value: ws://192.168.3.14:5000
@@ -5038,9 +5074,17 @@ PrefabInstance:
       value: http://192.168.3.14:5600/StandaloneWindows/testmodel.assetbundl
       objectReference: {fileID: 0}
     - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_signalingServerAddr
+      value: ws://192.168.3.14:3001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800121086230681482, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_voiceChatServerAddr
       value: ws://192.168.3.14:5500
       objectReference: {fileID: 0}
+    - target: {fileID: 3820395130192493252, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_hand
+      value: 
+      objectReference: {fileID: 626487313902898950}
     - target: {fileID: 4281719960226149048, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5713,25 +5757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e4057746dbc6d4395994f3b852d4f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_outlineTarget:
-  - {fileID: 1992072395091169003}
-  - {fileID: 1992072395091169002}
-  - {fileID: 1992072395091169001}
+  m_outlineTargets: []
   m_outline: {fileID: 0}
   m_savePathMesh: 
   m_savePathMaterial: 
---- !u!1 &1992072395091169001 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1992072394206774098, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-  m_PrefabInstance: {fileID: 1992072395091168998}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1992072395091169002 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1992072393951519846, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-  m_PrefabInstance: {fileID: 1992072395091168998}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1992072395091169003 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1992072395166020666, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-  m_PrefabInstance: {fileID: 1992072395091168998}
-  m_PrefabAsset: {fileID: 0}

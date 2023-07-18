@@ -316,7 +316,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -841,7 +841,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
@@ -1489,9 +1489,9 @@ GameObject:
   - component: {fileID: 5721540973613849862}
   - component: {fileID: 8349915878778148551}
   - component: {fileID: 1103959380161675134}
-  - component: {fileID: 831294290196811143}
   - component: {fileID: 2502841904734671032}
   - component: {fileID: 1678661862454671458}
+  - component: {fileID: 831294290196811143}
   - component: {fileID: 8600739863641265436}
   m_Layer: 6
   m_Name: Stomac
@@ -1541,6 +1541,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4912635128723326908}
   m_Mesh: {fileID: 0}
+--- !u!114 &2502841904734671032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4912635128723326908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab401de70ff42c44f8dc454d728a6e75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_useRigidbody: 0
+  m_useGravity: 0
+  m_positionFixed: 1
+  m_rotateFixed: 1
+  m_scaling: 1
+  m_scalingFactor: 0
+  m_enableDivide: 1
+  m_divideTargets:
+  - {fileID: 1217565560033562147}
+  - {fileID: 417446322599737717}
+  - {fileID: 7953204210595110686}
+  m_enableSync: 1
+  m_autoSync: 0
+  m_locked: 0
+--- !u!64 &1678661862454671458
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4912635128723326908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!114 &831294290196811143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,44 +1603,6 @@ MonoBehaviour:
     target: {fileID: 417446322599737717}
   - controller: {fileID: 632121447590371140}
     target: {fileID: 7953204210595110686}
---- !u!114 &2502841904734671032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4912635128723326908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab401de70ff42c44f8dc454d728a6e75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_useRigidbody: 0
-  m_useGravity: 0
-  m_positionFixed: 1
-  m_rotateFixed: 1
-  m_scaling: 1
-  m_scalingFactor: 0
-  m_enableDivide: 1
-  m_divideAnchors:
-  - {fileID: 3215094368528106531}
-  m_enableSync: 1
-  m_autoSync: 0
-  m_locked: 0
---- !u!64 &1678661862454671458
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4912635128723326908}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!114 &8600739863641265436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2182,7 +2184,7 @@ MonoBehaviour:
   m_scaling: 1
   m_scalingFactor: 0
   m_enableDivide: 0
-  m_divideAnchors: []
+  m_divideTargets: []
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
