@@ -48,7 +48,9 @@ Set up a server to synchronize worlds
 ```
 npm start
 ```
-![image](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/41132a00-540c-4833-8b60-99348667f5cc)
+
+![image](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/ff6c5652-d3d3-47a8-b2d3-cc3ff5ba3234)  
+![server-addr-manager](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/fdcfab18-401a-44b3-8252-04a1c28c5d67)  
 2. Set the SignalingServer and SyncServer addresses in Unity (ports 3001, 5000), then set the addresses for each component using the SetServerAddr button
 3. Launch the game from UnityEditor or the built file
 
