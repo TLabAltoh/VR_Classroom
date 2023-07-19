@@ -11,11 +11,6 @@ public class OnClassroom : MonoBehaviour
     [SerializeField] private TLabSyncClient m_syncClient;
     [SerializeField] private TLabWebRTCVoiceChat m_voiceChat;
 
-    private void ChangeScene()
-    {
-        SceneManager.LoadScene("Entry", LoadSceneMode.Single);
-    }
-
     private IEnumerator OnChangeScene()
     {
         // delete obj
@@ -32,7 +27,14 @@ public class OnClassroom : MonoBehaviour
         yield return null;
         yield return null;
 
-        Invoke("ChangeScene", 1.5f);
+        float remain = 1.5f;
+        while(remain > 0)
+        {
+            remain -= Time.deltaTime;
+            yield return null;
+        }
+
+        SceneManager.LoadSceneAsync("Entry", LoadSceneMode.Single);
     }
 
     public void ExitClassroom()
