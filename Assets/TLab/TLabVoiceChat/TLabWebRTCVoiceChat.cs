@@ -342,6 +342,11 @@ public class TLabWebRTCVoiceChat : MonoBehaviour
         Debug.Log(m_thisName + configuration.dspBufferSize);
     }
 
+    public void CloseRTC()
+    {
+        m_dataChannel.Exit();
+    }
+
     private void Update()
     {
         if (m_recording == false) return;
@@ -377,11 +382,6 @@ public class TLabWebRTCVoiceChat : MonoBehaviour
         }
     }
 
-    public void Close()
-    {
-        m_dataChannel.Close();
-    }
-
     private void Awake()
     {
         Instance = this;
@@ -392,15 +392,5 @@ public class TLabWebRTCVoiceChat : MonoBehaviour
     private void Start()
     {
         m_microphoneSource = GetComponent<AudioSource>();
-    }
-
-    private void OnDestroy()
-    {
-        m_dataChannel.Exit();
-    }
-
-    private void OnApplicationQuit()
-    {
-        m_dataChannel.Exit();
     }
 }

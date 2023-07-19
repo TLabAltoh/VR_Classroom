@@ -26,8 +26,8 @@ public class OnClassroom : MonoBehaviour
         yield return null;
 
         // close socket
-        m_voiceChat.Close();
-        m_syncClient.Close();
+        m_voiceChat.CloseRTC();
+        m_syncClient.CloseRTC();
 
         yield return null;
         yield return null;
