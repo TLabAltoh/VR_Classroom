@@ -63,8 +63,36 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     protected override IEnumerator FadeOut(int objIndex, int anchorIndex)
     {
-        // オブジェクトのフェードアウト
-        yield return base.FadeOut(objIndex, anchorIndex);
+        // 配列の範囲外だったらスキップ
+        if (objIndex >= m_shelfObjInfos.Length) yield break;
+
+        TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[objIndex];
+
+        // 配列に値が存在しなかったらスキップ
+        if (shelfObjInfo == null) yield break;
+
+        GameObject instanced;
+        shelfObjInfo.instanced.TryGetValue(anchorIndex, out instanced);
+
+        // インスタンスが存在しなかったらスキップ
+        if (instanced == null) yield break;
+
+        // リセットしてから削除
+        foreach(TLabSyncGrabbable grabbable in instanced.GetComponentsInChildren<TLabSyncGrabbable>())
+        {
+            grabbable.SetInitialChildTransform();
+            if (grabbable.EnableDivide)
+            {
+                MeshCollider meshCollider = this.gameObject.GetComponent<MeshCollider>();
+                if (meshCollider != null && meshCollider.enabled == false) grabbable.Devide();
+            }
+        }
+
+        // インスタンスの削除
+        shelfObjInfo.instanced.Remove(anchorIndex);
+        Destroy(instanced);
+
+        yield break;
     }
 
     public override void TakeOut()
