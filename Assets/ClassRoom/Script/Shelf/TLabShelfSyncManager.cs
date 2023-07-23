@@ -58,6 +58,8 @@ public class TLabShelfSyncManager : TLabShelfManager
             TLabSyncClient.Instalce.UniReflesh(objName);
         }
 
+        Debug.Log(thisName + "fade in");
+
         yield break;
     }
 
@@ -77,20 +79,18 @@ public class TLabShelfSyncManager : TLabShelfManager
         // インスタンスが存在しなかったらスキップ
         if (instanced == null) yield break;
 
-        // リセットしてから削除
+        // サーバーのキャッシュを削除
         foreach(TLabSyncGrabbable grabbable in instanced.GetComponentsInChildren<TLabSyncGrabbable>())
         {
-            grabbable.SetInitialChildTransform();
-            if (grabbable.EnableDivide)
-            {
-                MeshCollider meshCollider = this.gameObject.GetComponent<MeshCollider>();
-                if (meshCollider != null && meshCollider.enabled == false) grabbable.Devide();
-            }
+            grabbable.ShutdownGrabber(true);
+            yield return null;
         }
 
         // インスタンスの削除
         shelfObjInfo.instanced.Remove(anchorIndex);
         Destroy(instanced);
+
+        Debug.Log(thisName + "fade out");
 
         yield break;
     }
