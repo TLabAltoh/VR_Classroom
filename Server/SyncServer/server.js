@@ -544,7 +544,7 @@ ws.on("connection", function (socket) {
 
 			return;
 			// #endregion
-		} else if (parse.action == CLEARTRANSFORM) {
+		} else if (parse.action == CLEARANIM) {
 
 			//
 			// clear anim state cache
@@ -553,7 +553,7 @@ ws.on("connection", function (socket) {
 			// #region
 			console.log("delete anim cache");
 
-			// TODO
+			delete syncAnims[parse.transform.id];
 
 			return;
 			// #endregion

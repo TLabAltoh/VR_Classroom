@@ -80,9 +80,16 @@ public class TLabShelfSyncManager : TLabShelfManager
         if (instanced == null) yield break;
 
         // サーバーのキャッシュを削除
+
         foreach(TLabSyncGrabbable grabbable in instanced.GetComponentsInChildren<TLabSyncGrabbable>())
         {
             grabbable.ShutdownGrabber(true);
+            yield return null;
+        }
+
+        foreach(TLabSyncAnim animator in instanced.GetComponentsInChildren<TLabSyncAnim>())
+        {
+            animator.ShutdownAnimator(true);
             yield return null;
         }
 
@@ -278,6 +285,10 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     public void OnGuestParticipated(int anchorIndex)
     {
+        // 現在共有中のオブジェクトを，新しい参加者の席にもクローンする．
+        if (m_currentShareds.Count > 0)
+            foreach (int sharedIndex in m_currentShareds) FadeIn(sharedIndex, anchorIndex);
+
         if (TLabSyncClient.Instalce.SeatIndex == 0)
         {
             // URLからロードしているオブジェクト
