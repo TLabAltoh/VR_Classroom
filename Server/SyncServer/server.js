@@ -112,9 +112,12 @@ const FORCERELEASE = 8;
 const DIVIDEGRABBER = 9;
 const SYNCTRANSFORM = 10;
 const SYNCANIM = 11;
-const REFRESH = 12;
-const UNIREFRESH = 13;
-const CUSTOMACTION = 14;
+const CLEARTRANSFORM = 12;
+const CLEARANIM = 13
+const REFRESH = 14;
+const UNIREFRESHTRANSFORM = 15;
+const UNIREFRESHANIM = 16;
+const CUSTOMACTION = 17;
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -295,9 +298,20 @@ function sendCurrentWoldData(socket) {
 }
 
 function sendSpecificTransform(target, socket) {
-	target = syncObjects[target];
-	var json = JSON.stringify(target);
-	socket.send(json);
+
+	// Transform
+	if (target in syncObjects) {
+		target = syncObjects[target];
+		var json = JSON.stringify(target);
+		socket.send(json);
+	}
+
+	// Divide State
+	if (target in syncDivides) {
+		target = syncDivides[target];
+		var json = JSON.stringify(target);
+		socket.send(json);
+    }
 }
 
 function sendCurrentGrabbState(socket) {
@@ -317,6 +331,8 @@ function sendCurrentGrabbState(socket) {
 		})
 	});
 }
+
+function sendSpecificAnim(target, socket) { }
 
 function onJoined(seatIndex, socket) {
 
@@ -461,7 +477,7 @@ ws.on("connection", function (socket) {
 		} else if (parse.action == REGISTRBOBJ) {
 
 			//
-			// force release object from player
+			// regist rigidbody obj
 			//
 
 			// #region
@@ -497,6 +513,20 @@ ws.on("connection", function (socket) {
 
 			return;
 			// #endregion
+		} else if (parse.action == CLEARTRANSFORM) {
+
+			//
+			// clear transform cache and devide state hash
+			//
+
+			// #region
+			console.log("delete transform cache");
+
+			delete syncObjects[parse.transform.id];
+			delete syncDivides[parse.transform.id];
+
+			return;
+			// #endregion
 		} else if (parse.action == SYNCANIM) {
 
 			//
@@ -514,14 +544,27 @@ ws.on("connection", function (socket) {
 
 			return;
 			// #endregion
-		} else if (parse.action === REFRESH) {
+		} else if (parse.action == CLEARANIM) {
 
 			//
-			// reflesh server
+			// clear anim state cache
 			//
 
 			// #region
-			console.log("reflesh world data");
+			console.log("delete anim cache");
+
+			delete syncAnims[parse.transform.id];
+
+			return;
+			// #endregion
+		} else if (parse.action === REFRESH) {
+
+			//
+			// reflesh all sync component
+			//
+
+			// #region
+			console.log("reflesh all sync component");
 
 			if (parse.active === true) sendCurrentWoldData(socket);
 
@@ -531,7 +574,7 @@ ws.on("connection", function (socket) {
 
 			return;
 			// #endregion
-		} else if (parse.action == UNIREFRESH) {
+		} else if (parse.action == UNIREFRESHTRANSFORM) {
 
 			//
 			// reflesh object
@@ -545,6 +588,18 @@ ws.on("connection", function (socket) {
 			allocateRigidbody(false);
 
 			return;
+			// #endregion
+		} else if (parse.action == UNIREFRESHTRANSFORM) {
+
+			//
+			// reflesh anim
+			//
+
+			// #region
+			console.log("reflesh anim: " + parse.animator.id);
+
+			// TODO
+
 			// #endregion
 		} else if (parse.action === REGIST) {
 

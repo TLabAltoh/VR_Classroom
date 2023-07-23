@@ -67,14 +67,14 @@ public class PopupSelectable : TLabOutlineSelectable
         if (m_selected && !m_prevSelected)
         {
             TextController instance = m_popupManager.GetTextController(m_index);
-            instance.FadeIn();
+            if(instance != null) instance.FadeIn();
         }
 
         //ex.1
         if (!m_selected && m_prevSelected)
         {
             TextController instance = m_popupManager.GetTextController(m_index);
-            instance.FadeOut();
+            if (instance != null) instance.FadeOut();
         }
 
         base.Update();

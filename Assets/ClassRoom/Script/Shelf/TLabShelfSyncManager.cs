@@ -58,13 +58,48 @@ public class TLabShelfSyncManager : TLabShelfManager
             TLabSyncClient.Instalce.UniReflesh(objName);
         }
 
+        Debug.Log(thisName + "fade in");
+
         yield break;
     }
 
     protected override IEnumerator FadeOut(int objIndex, int anchorIndex)
     {
-        // オブジェクトのフェードアウト
-        yield return base.FadeOut(objIndex, anchorIndex);
+        // 配列の範囲外だったらスキップ
+        if (objIndex >= m_shelfObjInfos.Length) yield break;
+
+        TLabShelfObjInfo shelfObjInfo = m_shelfObjInfos[objIndex];
+
+        // 配列に値が存在しなかったらスキップ
+        if (shelfObjInfo == null) yield break;
+
+        GameObject instanced;
+        shelfObjInfo.instanced.TryGetValue(anchorIndex, out instanced);
+
+        // インスタンスが存在しなかったらスキップ
+        if (instanced == null) yield break;
+
+        // サーバーのキャッシュを削除
+
+        foreach(TLabSyncGrabbable grabbable in instanced.GetComponentsInChildren<TLabSyncGrabbable>())
+        {
+            grabbable.ShutdownGrabber(true);
+            yield return null;
+        }
+
+        foreach(TLabSyncAnim animator in instanced.GetComponentsInChildren<TLabSyncAnim>())
+        {
+            animator.ShutdownAnimator(true);
+            yield return null;
+        }
+
+        // インスタンスの削除
+        shelfObjInfo.instanced.Remove(anchorIndex);
+        Destroy(instanced);
+
+        Debug.Log(thisName + "fade out");
+
+        yield break;
     }
 
     public override void TakeOut()
@@ -250,6 +285,10 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     public void OnGuestParticipated(int anchorIndex)
     {
+        // 現在共有中のオブジェクトを，新しい参加者の席にもクローンする．
+        if (m_currentShareds.Count > 0)
+            foreach (int sharedIndex in m_currentShareds) FadeIn(sharedIndex, anchorIndex);
+
         if (TLabSyncClient.Instalce.SeatIndex == 0)
         {
             // URLからロードしているオブジェクト

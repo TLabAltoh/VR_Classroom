@@ -37,7 +37,10 @@ public class PopupTextManager : MonoBehaviour
         yield return null;
 
         foreach (PointerPopupPair popupPair in m_pointerPairs)
+        {
+            if (popupPair.controller == null) continue;
             popupPair.controller.FadeOutImmidiately();
+        }
 
         yield break;
     }
