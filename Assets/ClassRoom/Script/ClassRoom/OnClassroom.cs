@@ -27,6 +27,11 @@ public class OnClassroom : MonoBehaviour
         yield return null;
         yield return null;
 
+        m_syncClient.Exit();
+
+        yield return null;
+        yield return null;
+
         float remain = 1.5f;
         while(remain > 0)
         {
