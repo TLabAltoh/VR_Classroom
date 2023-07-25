@@ -19,14 +19,14 @@ namespace Bhaptics.SDK2
 
         private void Awake()
         {
-            if (instance != null)
-            {
-                DestroyImmediate(this);
-                return;
-            }
+            //if (instance != null)
+            //{
+            //    DestroyImmediate(this);
+            //    return;
+            //}
 
             instance = this;
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this);
 
             bhapticsSettings = BhapticsSettings.Instance;
 

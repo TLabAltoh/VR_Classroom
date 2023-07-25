@@ -8,8 +8,8 @@ public class TLabBHapticsGlobeManager : MonoBehaviour
 {
     public class BHapticsGlobeJointInfo
     {
-        private bool hit    = false;
-        private bool onHit  = false;
+        private bool hit = false;
+        private bool onHit = false;
 
         private OVRBone bone;
         private Vector3 position;
@@ -51,25 +51,25 @@ public class TLabBHapticsGlobeManager : MonoBehaviour
 
         public BHapticsGlobeJointInfo(OVRBone bone, LayerMask targetLayer)
         {
-            this.bone   = bone;
-            this.layer  = targetLayer;
+            this.bone = bone;
+            this.layer = targetLayer;
         }
 
         public void Update()
         {
-            prevPosition    = position;
-            position        = bone.Transform.position;
+            prevPosition = position;
+            position = bone.Transform.position;
 
             if (hit == true)
             {
                 // hit‚ªfalse‚É‚È‚é‚Ü‚ÅonHit‚ðtrue‚É‚Å‚«‚È‚¢
-                hit     = Physics.CheckSphere(position, 0.005f, layer);
-                onHit   = false;
+                hit = Physics.CheckSphere(position, 0.005f, layer);
+                onHit = false;
             }
             else
             {
-                onHit   = Physics.CheckSphere(position, 0.005f, layer);
-                hit     = onHit;
+                onHit = Physics.CheckSphere(position, 0.005f, layer);
+                hit = onHit;
             }
         }
     }
@@ -129,14 +129,29 @@ public class TLabBHapticsGlobeManager : MonoBehaviour
 
     void Update()
     {
-        if(rightJointInfo != null)
+        if (rightJointInfo != null)
             foreach (BHapticsGlobeJointInfo jointInfo in rightJointInfo) jointInfo.Update();
 
-        if(leftJointInfo != null)
-            foreach (BHapticsGlobeJointInfo jointInfo in leftJointInfo)  jointInfo.Update();
+        if (leftJointInfo != null)
+            foreach (BHapticsGlobeJointInfo jointInfo in leftJointInfo) jointInfo.Update();
 
 #if Win || UNITY_EDITOR
-        if(leftJointInfo != null)
+        if (rightJointInfo != null)
+        {
+            BhapticsLibrary.PlayMotors(
+                position: (int)Bhaptics.SDK2.PositionType.GloveR,
+                motors: new int[6] {
+                                rightJointInfo[0].GetHit,
+                                rightJointInfo[1].GetHit,
+                                rightJointInfo[2].GetHit,
+                                rightJointInfo[3].GetHit,
+                                rightJointInfo[4].GetHit,
+                                rightJointInfo[5].GetHit},
+                durationMillis: 2
+            );
+        }
+
+        if (leftJointInfo != null)
         {
             BhapticsLibrary.PlayMotors(
                 position: (int)Bhaptics.SDK2.PositionType.GloveL,

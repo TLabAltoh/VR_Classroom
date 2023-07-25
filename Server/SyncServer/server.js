@@ -103,21 +103,23 @@ const GUEST = 2;
 const REGIST = 0;
 const REGECT = 1;
 const ACEPT = 2;
-const GUESTDISCONNECT = 3;
-const GUESTPARTICIPATION = 4;
-const ALLOCATEGRAVITY = 5;
-const REGISTRBOBJ = 6;
-const GRABBLOCK = 7;
-const FORCERELEASE = 8;
-const DIVIDEGRABBER = 9;
-const SYNCTRANSFORM = 10;
-const SYNCANIM = 11;
-const CLEARTRANSFORM = 12;
-const CLEARANIM = 13
-const REFRESH = 14;
-const UNIREFRESHTRANSFORM = 15;
-const UNIREFRESHANIM = 16;
-const CUSTOMACTION = 17;
+const EXIT = 3;
+const REENTER = 4;
+const GUESTDISCONNECT = 5;
+const GUESTPARTICIPATION = 6;
+const ALLOCATEGRAVITY = 7;
+const REGISTRBOBJ = 8;
+const GRABBLOCK = 9;
+const FORCERELEASE = 10;
+const DIVIDEGRABBER = 11;
+const SYNCTRANSFORM = 12;
+const SYNCANIM = 13;
+const CLEARTRANSFORM = 14;
+const CLEARANIM = 15;
+const REFRESH = 16;
+const UNIREFRESHTRANSFORM = 17;
+const UNIREFRESHANIM = 18;
+const CUSTOMACTION = 19;
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -314,6 +316,15 @@ function sendSpecificTransform(target, socket) {
     }
 }
 
+function sendSpecificAnim(target, socket) {
+	// Animator
+	if (target in syncAnims) {
+		target = syncAnims[target];
+		var json = JSON.stringify(target);
+		socket.send(json);
+	}
+}
+
 function sendCurrentGrabbState(socket) {
 
 	// get grabb object list from each paticipante
@@ -331,8 +342,6 @@ function sendCurrentGrabbState(socket) {
 		})
 	});
 }
-
-function sendSpecificAnim(target, socket) { }
 
 function onJoined(seatIndex, socket) {
 
@@ -513,20 +522,6 @@ ws.on("connection", function (socket) {
 
 			return;
 			// #endregion
-		} else if (parse.action == CLEARTRANSFORM) {
-
-			//
-			// clear transform cache and devide state hash
-			//
-
-			// #region
-			console.log("delete transform cache");
-
-			delete syncObjects[parse.transform.id];
-			delete syncDivides[parse.transform.id];
-
-			return;
-			// #endregion
 		} else if (parse.action == SYNCANIM) {
 
 			//
@@ -541,6 +536,20 @@ ws.on("connection", function (socket) {
 			ws.clients.forEach(client => {
 				if (client != socket) client.send(message);
 			});
+
+			return;
+			// #endregion
+		} else if (parse.action == CLEARTRANSFORM) {
+
+			//
+			// clear transform cache and devide state hash
+			//
+
+			// #region
+			console.log("delete transform cache");
+
+			delete syncObjects[parse.transform.id];
+			delete syncDivides[parse.transform.id];
 
 			return;
 			// #endregion
@@ -589,7 +598,7 @@ ws.on("connection", function (socket) {
 
 			return;
 			// #endregion
-		} else if (parse.action == UNIREFRESHTRANSFORM) {
+		} else if (parse.action == UNIREFRESHANIM) {
 
 			//
 			// reflesh anim
@@ -598,53 +607,8 @@ ws.on("connection", function (socket) {
 			// #region
 			console.log("reflesh anim: " + parse.animator.id);
 
-			// TODO
+			sendSpecificAnim(parse.animator.id, socket);
 
-			// #endregion
-		} else if (parse.action === REGIST) {
-
-			//
-			// regist client to seat table
-			//
-
-			// #region
-			console.log("\nreceived a request to join " + bar);
-
-			waitApprovals.push(() => {
-				console.log("\napproval for client start" + bar);
-
-				// check befor acept
-				if (parse.role === GUEST) {
-					// Guest table : 1 ~ seatLength - 1
-					for (var i = 1; i < seatLength; i++) {
-						if (seats[i] === false) {
-							seatIndex = i;
-							seats[i] = true;
-							socketTable[i] = socket;
-							break;
-						}
-					}
-
-				} else if (parse.role === HOST) {
-					if (seats[0] === false) {
-						seatIndex = 0;
-						seats[0] = true;
-						socketTable[0] = socket;
-					}
-				}
-
-				// send socket to result
-				if (seatIndex === -1) {
-					console.log("declined to participate");
-					var obj = {
-						role: SERVER,
-						action: REGECT
-					};
-					var json = JSON.stringify(obj);
-					socket.send(json);
-				} else
-					onJoined(seatIndex, socket);
-			});
 			return;
 			// #endregion
 		} else if (parse.action == DIVIDEGRABBER) {
@@ -693,7 +657,120 @@ ws.on("connection", function (socket) {
 
 			return;
 			// #endregion
-		}
+		} else if (parse.action === REGIST) {
+
+			//
+			// regist client to seat table
+			//
+
+			// #region
+			console.log("\nreceived a request to join " + bar);
+
+			waitApprovals.push(() => {
+				console.log("\napproval for client start" + bar);
+
+				// check befor acept
+				if (parse.role === GUEST) {
+					// Guest table : 1 ~ seatLength - 1
+					for (var i = 1; i < seatLength; i++) {
+						if (seats[i] === false) {
+							seatIndex = i;
+							seats[i] = true;
+							socketTable[i] = socket;
+							break;
+						}
+					}
+
+				} else if (parse.role === HOST) {
+					if (seats[0] === false) {
+						seatIndex = 0;
+						seats[0] = true;
+						socketTable[0] = socket;
+					}
+				}
+
+				// send socket to result
+				if (seatIndex === -1) {
+					console.log("declined to participate");
+					var obj = {
+						role: SERVER,
+						action: REGECT
+					};
+					var json = JSON.stringify(obj);
+					socket.send(json);
+				} else
+					onJoined(seatIndex, socket);
+			});
+			return;
+			// #endregion
+		} else if (parse.action == EXIT) {
+
+			//
+			// exit from room
+			//
+
+			// #region
+			if (seatIndex !== -1) {
+
+				// Notify players to leave
+				var obj = {
+					"role": SERVER,
+					"action": GUESTDISCONNECT,
+					"seatIndex": seatIndex
+				};
+				var json = JSON.stringify(obj);
+
+				ws.clients.forEach(client => {
+					if (client !== socket) client.send(json);
+				});
+
+				// Updating Tables
+				seats[seatIndex] = false;
+				socketTable[seatIndex] = null;
+				grabbTable[seatIndex] = [];
+				seatFilled -= 1;
+
+				console.log(seats);
+			}
+
+			allocateRigidbody(true);
+
+			return;
+			// #endregion
+		} else if (parse.action == REENTER) {
+
+			// reenter room
+
+			// #region
+			console.log("client reenterd");
+
+			// re assign socket info
+			seatIndex = parse.seatIndex;
+			socketTable[seatIndex] = socket;
+
+			// send client to other player's table
+			for (var index = 0; index < seatLength; index++) {
+				if (index === seatIndex) continue;
+
+				var obj = {
+					role: SERVER,
+					action: GUESTPARTICIPATION,
+					seatIndex: index
+				};
+				var target = socketTable[index];
+
+				if (target === null)
+					obj.action = GUESTDISCONNECT;
+
+				json = JSON.stringify(obj);
+				socket.send(json);
+			}
+
+			sendCurrentWoldData(socket);
+
+			return;
+			// #endregion
+        }
 	});
 
 	// #endregion socket on message
@@ -701,33 +778,7 @@ ws.on("connection", function (socket) {
 	// #region socket on close
 
 	socket.on('close', function close() {
-
 		console.log("\nclient closed " + bar);
-
-		if (seatIndex !== -1) {
-
-			// Notify players to leave
-			var obj = {
-				"role": SERVER,
-				"action": GUESTDISCONNECT,
-				"seatIndex": seatIndex
-			};
-			var json = JSON.stringify(obj);
-
-			ws.clients.forEach(client => {
-				if (client !== socket) client.send(json);
-			});
-
-			// Updating Tables
-			seats[seatIndex] = false;
-			socketTable[seatIndex] = null;
-			grabbTable[seatIndex] = [];
-			seatFilled -= 1;
-
-			console.log(seats);
-		}
-
-		allocateRigidbody(true);
 	});
 
 	// #endregion socket on close
