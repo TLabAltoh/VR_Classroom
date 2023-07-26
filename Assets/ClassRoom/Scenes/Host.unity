@@ -4220,7 +4220,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1424
+  m_Name: pb_Mesh-4638
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5163,7 +5163,7 @@ PrefabInstance:
       objectReference: {fileID: 4751184203207477747}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.11.14:5000
+      value: ws://192.168.3.10:5000
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_guestLTouch
@@ -5383,11 +5383,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_testURL
-      value: http://192.168.11.14:5600/StandaloneWindows/testmodel.assetbundl
+      value: http://192.168.3.10:5600/StandaloneWindows/testmodel.assetbundl
       objectReference: {fileID: 0}
     - target: {fileID: 5814146283492665764, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: serverAddr
-      value: ws://192.168.11.14:3001
+      value: ws://192.168.3.10:3001
       objectReference: {fileID: 0}
     - target: {fileID: 6000214338459843897, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_RootOrder
@@ -6276,6 +6276,10 @@ PrefabInstance:
       propertyPath: m_loopBackSelf
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6357266762652943880, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6381714963049631735, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -6374,7 +6378,7 @@ PrefabInstance:
       objectReference: {fileID: 628908169}
     - target: {fileID: 8638293218514358666, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: serverAddr
-      value: ws://192.168.11.14:3001
+      value: ws://192.168.3.10:3001
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5062488952062090132, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}

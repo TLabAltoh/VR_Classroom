@@ -4684,7 +4684,7 @@ PrefabInstance:
       objectReference: {fileID: 560401316}
     - target: {fileID: 8638293218514358666, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: serverAddr
-      value: ws://192.168.3.14:3001
+      value: ws://192.168.3.10:3001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
@@ -4967,7 +4967,7 @@ PrefabInstance:
       objectReference: {fileID: 626487313902898947}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.3.14:5000
+      value: ws://192.168.3.10:5000
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_guestLTouch
@@ -5119,7 +5119,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_testURL
-      value: http://192.168.3.14:5600/StandaloneWindows/testmodel.assetbundl
+      value: http://192.168.3.10:5600/StandaloneWindows/testmodel.assetbundl
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814146283492665764, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: serverAddr
+      value: ws://192.168.3.10:3001
       objectReference: {fileID: 0}
     - target: {fileID: 6728121163904237864, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
