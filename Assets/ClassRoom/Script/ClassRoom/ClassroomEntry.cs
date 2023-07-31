@@ -25,7 +25,6 @@ public class ClassroomEntry : MonoBehaviour
         string ip = m_inputField.text.Split(" -p ")[0];
         m_serverAddrs.SetAddress("SyncServer", "ws://" + ip + ":5000");
         m_serverAddrs.SetAddress("Signaling", "ws://" + ip + ":3001");
-        m_serverAddrs.SetAddress("Shelf", "http://" + ip + ":5600/StandaloneWindows/testmodel.assetbundl");
 
         StartCoroutine("ChangeScene");
     }

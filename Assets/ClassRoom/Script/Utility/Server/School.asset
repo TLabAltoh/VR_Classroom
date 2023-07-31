@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serverAddrArray:
   - name: SyncServer
-    addr: ws://192.168.11.14:5000
+    addr: ws://192.168.3.10:5000
     type: 0
   - name: Signaling
-    addr: ws://192.168.11.14:3001
+    addr: ws://192.168.3.10:3001
     type: 0
   - name: Shelf
-    addr: http://192.168.11.14:5600/StandaloneWindows/testmodel.assetbundl
+    addr: http://192.168.3.10:5600/StandaloneWindows/testmodel.assetbundl
     type: 1
