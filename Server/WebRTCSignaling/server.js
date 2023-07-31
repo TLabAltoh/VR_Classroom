@@ -2,7 +2,10 @@ const ws = require('ws').Server;
 const port = 3001;
 const server = new ws({ port: port });
 
+// room dictionary
 var roomDic = {};
+
+// action number
 const OFFER = 0;
 const ANSWER = 1;
 const ICE = 2;
@@ -50,26 +53,28 @@ server.on('connection', function (socket) {
             // User Exit
             //
 
+            // check room dictionary is exist
             if (roomDic === null || roomDic === undefined) return;
 
-            if (roomDic[obj.room] === null || roomDic[obj.room] === undefined) return;
+            // check room is exist
+            var room = roomDic[obj.room];
+            if (room === null || room === undefined) return;
 
-            var socketKeys = Object.keys(roomDic[obj.room]);
+            // if user is not exist in the room
+            var socketValues = Object.values(room);
+            if (socketValues.includes(socket) === false) return;
+
+            // if room is exist
+            var socketKeys = Object.keys(room);
             socketKeys.forEach((socketKey) => {
-
-                if ((roomDic[obj.room])[socketKey] === socket) {
-
+                if (room[socketKey] === socket) {
+                    // if socket is mine, Delete from room
                     console.log("[socket.onclose] " + socketKey + " delete socket from: " + obj.room);
-
-                    // Delete from room
-                    delete (roomDic[obj.room])[socketKey];
-
-                    // Broadcast exit message
-                    var otherSocketKeys = Object.keys(roomDic[obj.room]);
-                    otherSocketKeys.forEach((otherSocketKey) => {
-                        console.log("[socket.onmessage] send exit message for " + otherSocketKey);
-                        (roomDic[obj.room])[otherSocketKey].send(message);
-                    });
+                    delete room[socketKey];
+                } else {
+                    // if socket is not mine, send exit message
+                    console.log("[socket.onmessage] send exit message for " + socketKey);
+                    room[socketKey].send(message);
                 }
             });
 
@@ -94,6 +99,62 @@ server.on('connection', function (socket) {
         //
 
         console.log("[socket.onclose] close");
+
+        if (roomDic === null || roomDic === undefined) return;
+
+        var roomKeys = Object.keys(roomDic);
+        roomKeys.forEach((roomKey) => {
+            // check room is exist
+            var room = roomDic[roomKey];
+            if (room === null || room === undefined) return;
+
+            // if user is not exist in the room
+            var socketValues = Object.values(room);
+            if (socketValues.includes(socket) === false) return;
+
+            /*
+             *             obj.src = userID;
+            obj.room = roomID;
+            obj.dst = dst;
+            obj.action = (int)action;
+            obj.desc = desc;
+            obj.ice = ice;
+             * */
+
+            // Notify players to exit
+            var obj = {
+                "src": "",
+                "room": roomKey,
+                "dst": "",
+                "action": EXIT,
+                "desc": "",
+                "ice": ""
+            };
+
+            // if room is exist
+            var socketKeys = Object.keys(room);
+
+            // get exited user key
+            socketKeys.forEach((socketKey) => {
+                if (room[socketKey] === socket) {
+                    // if socket is mine, Delete from room
+                    console.log("[socket.onclose] " + socketKey + " delete socket from: " + obj.room);
+                    obj.src = socketKey;
+                    delete room[socketKey];
+                }
+            });
+
+            var json = JSON.stringify(obj);
+
+            // nortify other user
+            socketKeys.forEach((socketKey) => {
+                if (room[socketKey] !== socket) {
+                    // if socket is not mine, send exit message
+                    console.log("[socket.onmessage] send exit message for " + socketKey);
+                    room[socketKey].send(json);
+                }
+            });
+        })
 
         return;
     });

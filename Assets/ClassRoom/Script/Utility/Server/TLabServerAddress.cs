@@ -20,6 +20,7 @@ public class TLabServerAddress : ScriptableObject
         public AddrType type;
     }
 
+    [Header("Server Address List")]
     [SerializeField] public ServerAddress[] serverAddrArray;
 
     public Dictionary<AddrType, string> standardDic = new Dictionary<AddrType, string>

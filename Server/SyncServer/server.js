@@ -104,22 +104,21 @@ const REGIST = 0;
 const REGECT = 1;
 const ACEPT = 2;
 const EXIT = 3;
-const REENTER = 4;
-const GUESTDISCONNECT = 5;
-const GUESTPARTICIPATION = 6;
-const ALLOCATEGRAVITY = 7;
-const REGISTRBOBJ = 8;
-const GRABBLOCK = 9;
-const FORCERELEASE = 10;
-const DIVIDEGRABBER = 11;
-const SYNCTRANSFORM = 12;
-const SYNCANIM = 13;
-const CLEARTRANSFORM = 14;
-const CLEARANIM = 15;
-const REFRESH = 16;
-const UNIREFRESHTRANSFORM = 17;
-const UNIREFRESHANIM = 18;
-const CUSTOMACTION = 19;
+const GUESTDISCONNECT = 4;
+const GUESTPARTICIPATION = 5;
+const ALLOCATEGRAVITY = 6;
+const REGISTRBOBJ = 7;
+const GRABBLOCK = 8;
+const FORCERELEASE = 9;
+const DIVIDEGRABBER = 10;
+const SYNCTRANSFORM = 11;
+const SYNCANIM = 12;
+const CLEARTRANSFORM = 13;
+const CLEARANIM = 14;
+const REFRESH = 15;
+const UNIREFRESHTRANSFORM = 16;
+const UNIREFRESHANIM = 17;
+const CUSTOMACTION = 18;
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -711,17 +710,9 @@ ws.on("connection", function (socket) {
 
 			// #region
 			if (seatIndex !== -1) {
-
 				// Notify players to leave
-				var obj = {
-					"role": SERVER,
-					"action": GUESTDISCONNECT,
-					"seatIndex": seatIndex
-				};
-				var json = JSON.stringify(obj);
-
 				ws.clients.forEach(client => {
-					if (client !== socket) client.send(json);
+					if (client !== socket) client.send(message);
 				});
 
 				// Updating Tables
@@ -735,42 +726,11 @@ ws.on("connection", function (socket) {
 
 			allocateRigidbody(true);
 
-			return;
-			// #endregion
-		} else if (parse.action == REENTER) {
-
-			// reenter room
-
-			// #region
-			console.log("client reenterd");
-
-			// re assign socket info
-			seatIndex = parse.seatIndex;
-			socketTable[seatIndex] = socket;
-
-			// send client to other player's table
-			for (var index = 0; index < seatLength; index++) {
-				if (index === seatIndex) continue;
-
-				var obj = {
-					role: SERVER,
-					action: GUESTPARTICIPATION,
-					seatIndex: index
-				};
-				var target = socketTable[index];
-
-				if (target === null)
-					obj.action = GUESTDISCONNECT;
-
-				json = JSON.stringify(obj);
-				socket.send(json);
-			}
-
-			sendCurrentWoldData(socket);
+			seatIndex = -1;
 
 			return;
 			// #endregion
-        }
+		}
 	});
 
 	// #endregion socket on message
@@ -779,6 +739,40 @@ ws.on("connection", function (socket) {
 
 	socket.on('close', function close() {
 		console.log("\nclient closed " + bar);
+
+		//
+		// exit from room
+		//
+
+		// #region
+		if (seatIndex !== -1) {
+			// Notify players to leave
+			var obj = {
+				"role": SERVER,
+				"action": GUESTDISCONNECT,
+				"seatIndex": seatIndex
+			};
+			var json = JSON.stringify(obj);
+
+			ws.clients.forEach(client => {
+				if (client !== socket) client.send(json);
+			});
+
+			// Updating Tables
+			seats[seatIndex] = false;
+			socketTable[seatIndex] = null;
+			grabbTable[seatIndex] = [];
+			seatFilled -= 1;
+
+			console.log(seats);
+		}
+
+		allocateRigidbody(true);
+
+		seatIndex = -1;
+
+		return;
+		// #endregion
 	});
 
 	// #endregion socket on close

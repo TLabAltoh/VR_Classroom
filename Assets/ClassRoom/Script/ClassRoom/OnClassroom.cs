@@ -4,14 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class OnClassroom : MonoBehaviour
 {
+    [Header("Menu Panel")]
     [SerializeField] private Transform m_centerEyeAnchor;
     [SerializeField] private Transform m_targetPanel;
     [SerializeField] private Transform m_webViewPanel;
 
+    [Header("Network")]
     [SerializeField] private TLabSyncClient m_syncClient;
     [SerializeField] private TLabWebRTCVoiceChat m_voiceChat;
 
-    private IEnumerator OnChangeScene()
+    private IEnumerator ExitClassroomTask()
     {
         // delete obj
         m_syncClient.RemoveAllGrabbers();
@@ -33,18 +35,41 @@ public class OnClassroom : MonoBehaviour
         yield return null;
 
         float remain = 1.5f;
-        while(remain > 0)
+        while (remain > 0)
         {
             remain -= Time.deltaTime;
             yield return null;
         }
+    }
+
+    private IEnumerator ReEnterClassroomTask()
+    {
+        string scene = TLabSyncClient.Instalce.IsHost ? "Host" : "Guest";
+
+        yield return ExitClassroomTask();
+
+        SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
+
+        yield break;
+    }
+
+    private IEnumerator BackToTheEntryTask()
+    {
+        yield return ExitClassroomTask();
 
         SceneManager.LoadSceneAsync("Entry", LoadSceneMode.Single);
+
+        yield break;
+    }
+
+    public void ReEnter()
+    {
+        StartCoroutine("ReEnterClassroomTask");
     }
 
     public void ExitClassroom()
     {
-        StartCoroutine("OnChangeScene");
+        StartCoroutine("BackToTheEntryTask");
     }
 
     public void ShowReference()
@@ -72,7 +97,7 @@ public class OnClassroom : MonoBehaviour
 
     private void Start()
     {
-        m_targetPanel.gameObject.SetActive(false);
+        SwitchPanel(m_targetPanel, false);
     }
 
     private void Update()

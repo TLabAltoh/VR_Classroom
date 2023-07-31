@@ -9,13 +9,16 @@ public class VoiceChatEntry : MonoBehaviour
     {
         get
         {
-            return TLabSyncClient.Instalce != null && TLabSyncClient.Instalce.SocketIsOpen == true && TLabSyncClient.Instalce.SeatIndex != -1;
+            return (TLabSyncClient.Instalce != null &&
+                    TLabSyncClient.Instalce.SocketIsOpen == true &&
+                    TLabSyncClient.Instalce.SeatIndex != -1);
         }
     }
 
     private IEnumerator WaitForConnection()
     {
-        while (SocketIsOpen == false) yield return null;
+        while (SocketIsOpen == false)
+            yield return null;
 
         m_voiceChat.StartVoiceChat();
 
