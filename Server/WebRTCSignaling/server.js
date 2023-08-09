@@ -31,7 +31,7 @@ server.on('connection', function (socket) {
             // If room dictionary is not created
             if ((obj.room in roomDic) === false) {
                 console.log("[socket.onmessage] create new room: " + obj.room);
-                roomDic[obj.room] = {};
+                roomDic[obj.room] = { };
             }
 
             // Add
@@ -148,7 +148,7 @@ server.on('connection', function (socket) {
 
             // nortify other user
             socketKeys.forEach((socketKey) => {
-                if (room[socketKey] !== socket) {
+                if (room[socketKey] !== socket && room[socketKey] !== undefined && room[socketKey] !== null) {
                     // if socket is not mine, send exit message
                     console.log("[socket.onmessage] send exit message for " + socketKey);
                     room[socketKey].send(json);
