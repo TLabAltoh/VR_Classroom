@@ -1,4 +1,5 @@
 using UnityEngine;
+using TLab.XR.VRGrabber;
 
 [System.Serializable]
 public class TLabSyncMiniTestJson

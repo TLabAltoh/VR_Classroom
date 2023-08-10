@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TLab.XR.VRGrabber;
+using TLab.Network.VoiceChat;
 
 public class OnClassroom : MonoBehaviour
 {

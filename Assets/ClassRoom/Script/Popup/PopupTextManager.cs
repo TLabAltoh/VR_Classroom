@@ -3,6 +3,7 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using TLab.XR.VRGrabber.VFX;
 
 public class PopupTextManager : MonoBehaviour
 {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using TLab.XR.VRGrabber.VFX;
 
 public class PopupSelectable : TLabOutlineSelectable
 {

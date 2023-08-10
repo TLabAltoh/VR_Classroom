@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TLab.InputField;
 
 public class ClassroomEntry : MonoBehaviour
 {

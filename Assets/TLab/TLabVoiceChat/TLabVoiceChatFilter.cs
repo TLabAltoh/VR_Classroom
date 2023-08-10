@@ -1,26 +1,29 @@
 using System.Collections.Concurrent;
 using UnityEngine;
 
-public class TLabVoiceChatFilter : MonoBehaviour
+namespace TLab.Network.VoiceChat
 {
-    private ConcurrentQueue<float[]> m_bufferQueue = new ConcurrentQueue<float[]>();
-
-    public void SetData(float[] data)
+    public class TLabVoiceChatFilter : MonoBehaviour
     {
-        m_bufferQueue.Enqueue(data);
-    }
+        private ConcurrentQueue<float[]> m_bufferQueue = new ConcurrentQueue<float[]>();
 
-    void OnAudioFilterRead(float[] data, int channels)
-    {
-        if (m_bufferQueue.Count == 0) return;
+        public void SetData(float[] data)
+        {
+            m_bufferQueue.Enqueue(data);
+        }
 
-        float[] copyBuffer;
-        m_bufferQueue.TryDequeue(out copyBuffer);
+        void OnAudioFilterRead(float[] data, int channels)
+        {
+            if (m_bufferQueue.Count == 0) return;
 
-        int chanelSize = data.Length / channels;
+            float[] copyBuffer;
+            m_bufferQueue.TryDequeue(out copyBuffer);
 
-        for (int i = 0; i < chanelSize; i++)
-            for (int j = 0; j < channels; j++)
-                data[i * channels + j] = copyBuffer[i] * 20f;
+            int chanelSize = data.Length / channels;
+
+            for (int i = 0; i < chanelSize; i++)
+                for (int j = 0; j < channels; j++)
+                    data[i * channels + j] = copyBuffer[i] * 20f;
+        }
     }
 }
