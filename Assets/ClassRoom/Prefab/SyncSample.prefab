@@ -1042,7 +1042,7 @@ MonoBehaviour:
   - {fileID: 6441956610176949711}
   - {fileID: 8617865302753864229}
   - {fileID: 4367700361704887816}
-  m_inputField: {fileID: 0}
+  m_inputField: {fileID: 170954876436342783}
   m_testURL: http://192.168.11.19:5600/StandaloneWindows/testmodel.assetbundl
 --- !u!1 &757360760064666840
 GameObject:
@@ -45341,7 +45341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8839625507296307211
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using TLab.Network.VoiceChat;
+using TLab.XR.VRGrabber;
 
 public class VoiceChatEntry : MonoBehaviour
 {

@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using TLab.InputField;
+using TLab.XR.VRGrabber;
 
 [System.Serializable]
 public class TLabSyncShelfJson

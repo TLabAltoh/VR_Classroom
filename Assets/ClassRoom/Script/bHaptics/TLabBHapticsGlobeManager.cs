@@ -3,6 +3,7 @@ using UnityEngine;
 #if WIN || UNITY_EDITOR
 using Bhaptics.SDK2;
 #endif
+using TLab.XR.VRGrabber;
 
 public class TLabBHapticsGlobeManager : MonoBehaviour
 {
