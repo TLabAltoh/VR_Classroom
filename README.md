@@ -14,10 +14,6 @@ Remote teaching project for use in VR using Unity, WebSocket, and WebRTC
 <img src="Media/TLabGrabbable.HandTracking.Capture.gif" width="256">  
 <img src="Media/V_Kensyu-Image.jpeg" width="256">
 <img src="Media/support-webview.jpg" width="256">
-<img src="https://user-images.githubusercontent.com/121733943/235363804-01b50f49-674e-40d4-a11e-39ed3ced5600.gif" width="256">  
-<img src="https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/73a9d223-436b-489b-9d47-78a38f38c70f" width="256">  
-<img src="https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/edeb1f55-c6aa-436c-bd67-4ccd108f5692" width="256">  
-<img src="https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/82ffc226-a3ee-448c-8c18-0da42816549e" width="256">
 
 ## Getting Started
 
