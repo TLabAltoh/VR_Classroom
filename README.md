@@ -50,7 +50,7 @@ npm start
 ```
 
 ![server-setup](Media/server-setup.png)  
-![server-addr-manager](Media/server-address-asset.png)  
+![server-addr-manager](Media/server-address-manager.png)  
 2. Set the SignalingServer and SyncServer addresses in Unity (ports 3001, 5000), then set the addresses for each component using the SetServerAddr button
 3. Launch the game from UnityEditor or the built file
 
