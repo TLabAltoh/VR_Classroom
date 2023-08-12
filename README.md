@@ -10,10 +10,10 @@ Remote teaching project for use in VR using Unity, WebSocket, and WebRTC
 - Control of object sharing from the teacher's side  
 
 ## Screenshot
-<img src="https://user-images.githubusercontent.com/121733943/235363804-01b50f49-674e-40d4-a11e-39ed3ced5600.gif" width="256">  
-<img src="https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/73a9d223-436b-489b-9d47-78a38f38c70f" width="256">  
-<img src="https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/edeb1f55-c6aa-436c-bd67-4ccd108f5692" width="256">  
-<img src="https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/82ffc226-a3ee-448c-8c18-0da42816549e" width="256">
+<img src="Media/tlab-grabbable-controller.gif" width="256">  
+<img src="Media/tlab-grabbable-handtracking.gif" width="256">  
+<img src="Media/vkensyu.jpeg" width="256">  
+<img src="Media/support-webview.jpg" width="256">
 
 ## Getting Started
 
@@ -49,8 +49,8 @@ Set up a server to synchronize worlds
 npm start
 ```
 
-![image](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/ff6c5652-d3d3-47a8-b2d3-cc3ff5ba3234)  
-![server-addr-manager](https://github.com/TLabAltoh/VR_Kensyu/assets/121733943/fdcfab18-401a-44b3-8252-04a1c28c5d67)  
+![server-setup](Media/server-setup.png)  
+![server-addr-manager](Media/server-address-manager.png)  
 2. Set the SignalingServer and SyncServer addresses in Unity (ports 3001, 5000), then set the addresses for each component using the SetServerAddr button
 3. Launch the game from UnityEditor or the built file
 
