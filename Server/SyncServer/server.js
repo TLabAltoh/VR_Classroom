@@ -153,6 +153,17 @@ function allocateRigidbodyTask() {
 		while (true) {
 			// Check if someone is in the seat
 			if (seats[seatIndex] === true) {
+				// When an object is held by someone else, the player holding the object continues to be in charge of the physics processing.
+				for (var i = 0; i < seatLength; i++) {
+					for (var j = 0; j < grabbTable[i].length; j++) {
+						if (grabbTable[i][j].transform.id === value.transform.id) {
+							seatIndex = (seatIndex + 1) % seatLength;
+							break;
+						}
+                    }
+                }
+
+				// If no one has grabbed this object, let this player compute the physics of this object.
 				rbTable[value.transform.id] = seatIndex;
 				seatIndex = (seatIndex + 1) % seatLength;
 				break;
@@ -236,6 +247,14 @@ function allocateRigidbody(isImidiate) {
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
+function deleteObjFromGrabbTable(target) {
+	// delete target obj from grabb table
+	for (var i = 0; i < seatLength; i++)
+		grabbTable[i] = grabbTable[i].filter(function (value) { return value.transform.id !== target.transform.id });
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+
 function updateGrabbTable(seatIndex, target, message) {
 
 	/*
@@ -255,18 +274,39 @@ function updateGrabbTable(seatIndex, target, message) {
 	if (target.seatIndex !== -1) {
 		console.log("grabb lock: " + target.transform);
 
+		//
+		// If the grabbed object has gravity enabled, the player who grabbed it is authorized to calculate gravity.
+		//
+
+		if (target.transform.id in rbTable) {
+
+			rbTable[target.transform.id] = seatIndex;
+
+			for (i = 0; i < seatLength; i++) {
+
+				if (seats[i] === false) continue;
+
+				var obj = {
+					role: SERVER,
+					action: ALLOCATEGRAVITY,
+					active: (rbTable[target.transform.id] === i),
+					transform: {
+						id: target.transform.id
+					}
+				};
+				var json = JSON.stringify(obj);
+				socketTable[i].send(json);
+				console.log("seat " + i + " . " + rbTable[target.transform.id] + "\t" + target.transform.id);
+			}
+        }
+
+		//
 		// push target obj to grabb table
+		//
+
 		grabbTable[seatIndex].push({ transform: target.transform, message: message });
 	} else
 		console.log("grabb unlock: " + target.transform);
-}
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-function deleteObjFromGrabbTable(target) {
-	// delete target obj from grabb table
-	for (var i = 0; i < seatLength; i++)
-		grabbTable[i] = grabbTable[i].filter(function (value) { return value.transform.id !== target.transform.id });
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
