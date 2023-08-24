@@ -4937,6 +4937,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 839be25773702ef40acada81c5ae2a1b, type: 2}
+    - target: {fileID: 1674543399982561946, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1782508506619913611, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5163,7 +5167,7 @@ PrefabInstance:
       objectReference: {fileID: 4751184203207477747}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.3.11:5000
+      value: ws://192.168.3.13:5000
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_guestLTouch
@@ -5276,7 +5280,7 @@ PrefabInstance:
     - target: {fileID: 3332692767466806577, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddrs
       value: 
-      objectReference: {fileID: 11400000, guid: a75aa8b6d455a6648a171e86ece66051, type: 2}
+      objectReference: {fileID: 11400000, guid: 8700003048a222a42add61e456c8a81b, type: 2}
     - target: {fileID: 3560911425419494539, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5387,11 +5391,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5755384349333693403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_testURL
-      value: http://192.168.3.11:5600/StandaloneWindows/testmodel.assetbundl
+      value: http://192.168.3.13:5600/StandaloneWindows/testmodel.assetbundl
       objectReference: {fileID: 0}
     - target: {fileID: 5814146283492665764, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: serverAddr
-      value: ws://192.168.3.11:3001
+      value: ws://192.168.3.13:3001
       objectReference: {fileID: 0}
     - target: {fileID: 6000214338459843897, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_RootOrder
@@ -6137,6 +6141,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 660862181}
+    - target: {fileID: 9135904577573423841, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1992072394669093085, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
     - {fileID: 6381607932075540729, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
@@ -6382,7 +6390,7 @@ PrefabInstance:
       objectReference: {fileID: 628908169}
     - target: {fileID: 8638293218514358666, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: serverAddr
-      value: ws://192.168.3.11:3001
+      value: ws://192.168.3.13:3001
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5062488952062090132, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
