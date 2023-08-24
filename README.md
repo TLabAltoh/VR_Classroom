@@ -1,5 +1,5 @@
-# VR_Kensyu
-Remote teaching project for use in VR using Unity, WebSocket, and WebRTC  
+# VR_Classroom
+Online classes in VR space using Websocket and WebRTC
 
 ## Feature
 - Combination of WebSocket and WebRTC according to the importance of messages in communication
@@ -25,34 +25,27 @@ Remote teaching project for use in VR using Unity, WebSocket, and WebRTC
 - node (v16.15.0)  
 - [bHaptics](https://assetstore.unity.com/packages/tools/integration/bhaptics-haptic-plugin-76647)
 - [NativeWebsocket](https://github.com/endel/NativeWebSocket)
-- [TLabVRGrabber](https://github.com/TLabAltoh/TLabVRGrabber)
-- [TLabVKeyborad](https://github.com/TLabAltoh/TLabVKeyborad)
-- [TLabWebView](https://github.com/TLabAltoh/TLabWebView)
-- [TLabVRPlayerController](https://github.com/TLabAltoh/TLabVRPlayerController)
 
 ### Installing
 Clone the repository to any directory with the following command  
 ```
 git clone https://github.com/TLabAltoh/VR_Kensyu.git
 ```
-Execute the following commands in the cloned project (install necessary submodules)
 
+### Set up
+1. Execute the following commands in Server/SyncServer
 ```
-git submodule init
-git submodule update
+npm start
 ```
-
-### Start Server
-Set up a server to synchronize worlds
-1. Execute the following commands from the Server/SyncServer/ and Server/WebRTCSignaling/
+2. Execute the following commands in Server/WebRTCSignaling
 ```
 npm start
 ```
 
+3. Set the SignalingServer and SyncServer addresses in Unity
 ![server-setup](Media/server-setup.png)  
 ![server-addr-manager](Media/server-address-manager.png)  
-2. Set the SignalingServer and SyncServer addresses in Unity (ports 3001, 5000), then set the addresses for each component using the SetServerAddr button
-3. Launch the game from UnityEditor or the built file
+4. Launch the game from UnityEditor or the built file
 
 ### How to play
 #### Controller
