@@ -1,4 +1,4 @@
-# VR_Kensyu
+# VR_Classroom
 Online classes in VR space using Websocket and WebRTC
 
 ## Feature
