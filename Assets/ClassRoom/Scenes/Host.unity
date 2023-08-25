@@ -4220,7 +4220,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61700
+  m_Name: pb_Mesh130956
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4937,10 +4937,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 839be25773702ef40acada81c5ae2a1b, type: 2}
-    - target: {fileID: 1674543399982561946, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1782508506619913611, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5019,7 +5015,7 @@ PrefabInstance:
       objectReference: {fileID: 2014581313}
     - target: {fileID: 1992072394071876174, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_VersionIndex
-      value: 6235
+      value: 6289
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394097134738, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Name
@@ -5081,22 +5077,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 263219096}
-    - target: {fileID: 1992072394229303401, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072394229303403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: pointer
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072394229303403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: sortOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1992072394229303403, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_BlockingMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 1992072394229303405, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -5253,14 +5233,6 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 5154
       objectReference: {fileID: 0}
-    - target: {fileID: 2788812511116698841, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2857019410729643708, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 44.7
-      objectReference: {fileID: 0}
     - target: {fileID: 2972909257804408489, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_savePath
       value: Assets/Tetu/VRGrabber/Outline/Mesh
@@ -5281,10 +5253,6 @@ PrefabInstance:
       propertyPath: m_serverAddrs
       value: 
       objectReference: {fileID: 11400000, guid: 8700003048a222a42add61e456c8a81b, type: 2}
-    - target: {fileID: 3560911425419494539, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3583116695853963680, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5357,10 +5325,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 647801703}
-    - target: {fileID: 4853837590586330987, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 5017487922291677708, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5417,18 +5381,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 6569897073796119928, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6701754415286836585, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6701754415286836585, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6722223649645066299, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5445,18 +5397,6 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 2587
       objectReference: {fileID: 0}
-    - target: {fileID: 6814185301852766152, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6814185301852766152, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6814185301852766152, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -17
-      objectReference: {fileID: 0}
     - target: {fileID: 6854333716996409284, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5465,30 +5405,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 839be25773702ef40acada81c5ae2a1b, type: 2}
-    - target: {fileID: 6994230854201475093, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_Value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6994230854201475093, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_Interactable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6994230854201475093, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_Options.m_Options.Array.data[0].m_Image
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6994230854201475093, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_Options.m_Options.Array.data[1].m_Image
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6994230854201475093, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_Options.m_Options.Array.data[2].m_Image
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6994230854201475093, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6994230854201475093, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
@@ -5569,10 +5485,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 863018342}
-    - target: {fileID: 8552932879641152603, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8696784744176700790, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -6125,10 +6037,6 @@ PrefabInstance:
       propertyPath: m_Textures0.Array.data[59].y
       value: 0.00000025331974
       objectReference: {fileID: 0}
-    - target: {fileID: 8977966471144537472, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.00004196167
-      objectReference: {fileID: 0}
     - target: {fileID: 9047690089851650085, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -6143,7 +6051,7 @@ PrefabInstance:
       objectReference: {fileID: 660862181}
     - target: {fileID: 9135904577573423841, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1992072394669093085, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}

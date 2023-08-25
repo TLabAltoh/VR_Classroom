@@ -20,8 +20,9 @@ namespace TLab.XR.VRGrabber
 
         [Tooltip("有効化すると誰からもこのオブジェクトを掴めなくなる")]
         [SerializeField] public bool m_locked = false;
-
+        
         private bool m_rbAllocated = false;
+
         private int m_grabbed = -1;
 
         private bool m_isSyncFromOutside = false;
@@ -113,8 +114,9 @@ namespace TLab.XR.VRGrabber
 
             if (m_useRigidbody == true)
             {
-                // Rigidbodyの速度を正しく計算するために，Gravityが無効化されていることを確認する．
-                SetGravity(false);
+                // Rigidbodyを無効化し，同期される側でも速度を正しく計算できるようにする．
+                if (m_rbAllocated == false && m_gravityState == true)
+                    SetGravity(false);
 
                 m_rb.MovePosition(new Vector3(position.x, position.y, position.z));
                 m_rb.MoveRotation(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
@@ -149,9 +151,10 @@ namespace TLab.XR.VRGrabber
         {
             m_rbAllocated = active;
 
-            SetGravity((m_grabbed == -1 && active) ? true : false);
-
             bool allocated = m_grabbed == -1 && active;
+
+            SetGravity(allocated ? true : false);
+
             Debug.Log(thisName + "rb allocated:" + allocated + " - " + this.gameObject.name);
         }
 
@@ -519,11 +522,8 @@ namespace TLab.XR.VRGrabber
             if (IsUseGravity == true && m_didnotReachCount > 2)
             {
 #endif
-                if(m_grabbed != -1 &&
-                   m_grabbed != -2 &&
-                   m_grabbed != TLabSyncClient.Instalce.SeatIndex)
-                    if (m_gravityState == false)
-                        SetGravity(true);
+                if(m_grabbed == -1 && m_rbAllocated == false && m_gravityState == false)
+                    SetGravity(true);
             }
         }
 #endregion SyncTransform

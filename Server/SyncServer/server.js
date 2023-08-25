@@ -749,10 +749,19 @@ ws.on("connection", function (socket) {
 			//
 
 			// #region
+			console.log("\nclient exit " + bar);
+
 			if (seatIndex !== -1) {
 				// Notify players to leave
+				var obj = {
+					"role": SERVER,
+					"action": GUESTDISCONNECT,
+					"seatIndex": seatIndex
+				};
+				var json = JSON.stringify(obj);
+
 				ws.clients.forEach(client => {
-					if (client !== socket) client.send(message);
+					if (client !== socket) client.send(json);
 				});
 
 				// Updating Tables
@@ -762,11 +771,11 @@ ws.on("connection", function (socket) {
 				seatFilled -= 1;
 
 				console.log(seats);
+
+				allocateRigidbody(true);
+
+				seatIndex = -1;
 			}
-
-			allocateRigidbody(true);
-
-			seatIndex = -1;
 
 			return;
 			// #endregion
@@ -805,11 +814,11 @@ ws.on("connection", function (socket) {
 			seatFilled -= 1;
 
 			console.log(seats);
+
+			allocateRigidbody(true);
+
+			seatIndex = -1;
 		}
-
-		allocateRigidbody(true);
-
-		seatIndex = -1;
 
 		return;
 		// #endregion

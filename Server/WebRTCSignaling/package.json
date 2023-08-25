@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js"
   },
-  "name": "webrtc-test-signaling",
+  "name": "webrtc_signaling",
   "version": "1.0.0",
   "main": "server.js",
   "devDependencies": {},

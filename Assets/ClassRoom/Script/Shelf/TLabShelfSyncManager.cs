@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using TLab.InputField;
+using TLab.XR.VRGrabber;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using TLab.InputField;
-using TLab.XR.VRGrabber;
 
 [System.Serializable]
 public class TLabSyncShelfJson
@@ -22,12 +23,15 @@ public enum WebShelfAction
     PUTAWAY,
     SHARE,
     COLLECT,
-    LOADMODEL
+    LOADGAMEOBJ
 }
 
 public class TLabShelfSyncManager : TLabShelfManager
 {
     [SerializeField] public TLabInputField m_inputField;
+    [SerializeField] private string m_url;
+    [SerializeField] private int m_downloadIndex;
+
     private string m_lastLoadURL = "";
     private AssetBundle m_assetBundle;
     private List<int> m_currentShareds = new List<int>();
@@ -35,11 +39,9 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     private const string thisName = "[tlabsyncshelf] ";
 
-    [SerializeField] private string m_testURL;
-
     public void SetServerAddr(string url)
     {
-        m_testURL = url;
+        m_url = url;
     }
 
     protected override IEnumerator FadeIn(int objIndex, int anchorIndex)
@@ -140,8 +142,6 @@ public class TLabShelfSyncManager : TLabShelfManager
         SendShelfActionMessage(action: WebShelfAction.COLLECT, objIndex: m_currentObjIndex);
     }
 
-    #region FromOutside
-
     private void TakeOutFromOutside(int objIndex)
     {
         StartCoroutine(FadeIn(objIndex, 0));
@@ -166,16 +166,9 @@ public class TLabShelfSyncManager : TLabShelfManager
         for (int i = 1; i < m_anchors.Length; i++) StartCoroutine(FadeOut(objIndex, i));
     }
 
-    #endregion FromOutside
-
     #region LoadModelFromURL
-
     public IEnumerator DownloadAssetBundle(string modURL, int objIndex)
     {
-#if UNITY_EDITOR
-        Debug.Log(thisName + "Start Load Asset");
-#endif
-
         if (m_assetBundle != null) m_assetBundle.Unload(false);
 
         var request = UnityWebRequestAssetBundle.GetAssetBundle(modURL);
@@ -190,10 +183,6 @@ public class TLabShelfSyncManager : TLabShelfManager
 
         var handler = request.downloadHandler as DownloadHandlerAssetBundle;
         m_assetBundle = handler.assetBundle;
-
-#if UNITY_EDITOR
-        Debug.Log(thisName + "Finish Load Asset");
-#endif
 
         AssetBundleRequest assetLoadRequest = m_assetBundle.LoadAllAssetsAsync<GameObject>();
         yield return assetLoadRequest;
@@ -214,16 +203,15 @@ public class TLabShelfSyncManager : TLabShelfManager
     {
         string url = m_inputField.text;
 
-        LoadModelFromURL(url, 2);
+        LoadModelFromURL(url, m_downloadIndex);
 
-        SendShelfActionMessage(action: WebShelfAction.LOADMODEL, objIndex: 2, url: url);
+        SendShelfActionMessage(action: WebShelfAction.LOADGAMEOBJ, objIndex: m_downloadIndex, url: url);
     }
-
     #endregion LoadModelFromURL
 
     #region SendMessage
     /// <summary>
-    /// Custom MessageはseatIndexを指定してユニキャストできる仕様
+    /// 指定した座席にメッセージをユニキャスト
     /// </summary>
     /// <param name="message">カスタムメッセージ</param>
     /// <param name="dstIndex">宛先インデックス</param>
@@ -266,7 +254,7 @@ public class TLabShelfSyncManager : TLabShelfManager
 
         switch (obj.action)
         {
-            case (int)WebShelfAction.LOADMODEL:
+            case (int)WebShelfAction.LOADGAMEOBJ:
                 LoadModelFromURL(obj.url, obj.objIndex);
                 break;
             case (int)WebShelfAction.TAKEOUT:
@@ -287,40 +275,44 @@ public class TLabShelfSyncManager : TLabShelfManager
 
     public void OnGuestParticipated(int anchorIndex)
     {
-        // 現在共有中のオブジェクトを，新しい参加者の席にもクローンする．
-        if (m_currentShareds.Count > 0)
-            foreach (int sharedIndex in m_currentShareds) FadeIn(sharedIndex, anchorIndex);
-
+        // 教師側から新しい参加者に共有情報の同期を行う
         if (TLabSyncClient.Instalce.SeatIndex == 0)
         {
-            // URLからロードしているオブジェクト
+            // 棚にダウンロードしているオブジェクト
             if (m_lastLoadURL != "")
-                SendShelfActionMessage(WebShelfAction.LOADMODEL, objIndex: 2, url: m_lastLoadURL);
+                SendShelfActionMessage(WebShelfAction.LOADGAMEOBJ, objIndex: m_downloadIndex, url: m_lastLoadURL);
 
-            // 既にインスタンス化しているオブジェクト
+            // 生徒側のオブジェクト
             if (m_currentShareds.Count > 0)
                 foreach (int sharedIndex in m_currentShareds)
                     SendShelfActionMessage(action: WebShelfAction.SHARE, objIndex: sharedIndex, dstIndex: anchorIndex);
 
+            // 教師側のオブジェクト
             if (m_currentTakeOuts.Count > 0)
                 foreach (int takeOutIndex in m_currentTakeOuts)
                     SendShelfActionMessage(action: WebShelfAction.TAKEOUT, objIndex: takeOutIndex, dstIndex: anchorIndex);
         }
+
+        // 各プレイヤー側で，新しい参加者の席に共有されたオブジェクトを同期する
+        if (m_currentShareds.Count > 0)
+            foreach (int sharedIndex in m_currentShareds)
+                FadeIn(sharedIndex, anchorIndex);
     }
 
     public void OnGuestDiscconected(int anchorIndex)
     {
-        // 退出したプレイヤーの席から共有オブジェクトを削除する．
-        for (int i = 0; i < m_shelfObjInfos.Length; i++) StartCoroutine(FadeOut(i, anchorIndex));
+        // 退出したプレイヤーの席から共有オブジェクトを回収する．
+        for (int objIndex = 0; objIndex < m_shelfObjInfos.Length; objIndex++)
+            StartCoroutine(FadeOut(objIndex, anchorIndex));
     }
 
 #if UNITY_EDITOR
-    private void LoadModelTest()
+    private void DownloadGameObjFromKeyborad()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            LoadModelFromURL(m_testURL, 2);
-            SendShelfActionMessage(WebShelfAction.LOADMODEL, 2, m_testURL, -1);
+            LoadModelFromURL(m_url, m_downloadIndex);
+            SendShelfActionMessage(WebShelfAction.LOADGAMEOBJ, m_downloadIndex, m_url, -1);
         }
 
         if (Input.GetKeyDown(KeyCode.A)) TakeOut();
@@ -335,7 +327,7 @@ public class TLabShelfSyncManager : TLabShelfManager
     private void Update()
     {
 #if UNITY_EDITOR
-        LoadModelTest();
+        DownloadGameObjFromKeyborad();
 #endif
     }
 }

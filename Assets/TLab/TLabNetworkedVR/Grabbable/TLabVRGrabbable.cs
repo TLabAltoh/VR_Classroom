@@ -169,8 +169,6 @@ namespace TLab.XR.VRGrabber
         {
             if (m_rb == null || m_useRigidbody == false || m_useGravity == false) return;
 
-            if (m_gravityState == active) return;
-
             m_gravityState = active;
 
             if (active == true)
@@ -443,18 +441,6 @@ namespace TLab.XR.VRGrabber
                 m_rb = this.gameObject.RequireComponent<Rigidbody>();
                 m_prebVels.Enqueue(m_rb.velocity);
                 m_prebArgs.Enqueue(m_rb.angularVelocity);
-
-                if (m_useGravity == false)
-                {
-                    m_rb.isKinematic = true;
-                    m_rb.useGravity = false;
-                    m_rb.interpolation = RigidbodyInterpolation.Interpolate;
-                }
-                else
-                {
-                    m_rb.isKinematic = false;
-                    m_rb.useGravity = true;
-                }
 
                 SetGravity(m_useGravity);
             }
