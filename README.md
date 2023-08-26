@@ -48,6 +48,15 @@ npm start
 4. Launch the game from UnityEditor or the built file
 
 ### How to play
+#### Enter Room
+- Host
+```
+{IP Address (default 192.168.3.11} -p {Password (default 1234)}
+```
+- Guest
+```
+{IP Address (default 192.168.3.11)}
+```
 #### Controller
 - IndexTrigger: Select UI
 - handTrigger: Manipulating objects in the scene (grip, expand)
