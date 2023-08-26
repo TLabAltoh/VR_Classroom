@@ -57,7 +57,7 @@ public class TLabUIUtil : MonoBehaviour
                 builder.Append(TLabSyncClientConst.COMMA);
 
                 builder.Append(TLabSyncClientConst.TYPE);
-                builder.Append(((int)WebAnimValueType.typeBool).ToString());
+                builder.Append(((int)WebAnimValueType.TYPEBOOL).ToString());
                 builder.Append(TLabSyncClientConst.COMMA);
 
                 builder.Append(TLabSyncClientConst.FLOATVAL);

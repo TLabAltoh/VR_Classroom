@@ -100,10 +100,10 @@ namespace TLab.XR.VRGrabber
 
     public enum WebAnimValueType
     {
-        typeFloat,
-        typeInt,
-        typeBool,
-        typeTrigger
+        TYPEFLOAT,
+        TYPEINT,
+        TYPEBOOL,
+        TYPETRIGGER
     }
 
     public static class TLabSyncClientConst
