@@ -10,14 +10,13 @@ Online classes in VR space using Websocket and WebRTC
 - Control of object sharing from the teacher's side  
 
 ## Screenshot
-[](https://www.youtube.com/watch?v=SZBbz0wVcFc)  
+[![Youtube](Media/VR_Classroom.jpg)](https://www.youtube.com/watch?v=SZBbz0wVcFc)  
 <img src="Media/tlab-grabbable-controller.gif" width="256">  
 <img src="Media/tlab-grabbable-handtracking.gif" width="256">  
 <img src="Media/vkensyu.jpeg" width="256">  
 <img src="Media/support-webview.jpg" width="256">
 
 ## Getting Started
-
 ### Prerequisites
 - Unity 2021.3.23f1  
 - Oculus Integration (Install from asset store)  
