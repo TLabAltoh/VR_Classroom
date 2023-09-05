@@ -568,7 +568,11 @@ namespace TLab.XR.VRGrabber
                 return;
 
             TLabSyncGrabbable[] grabbables = GetComponentsInTargets<TLabSyncGrabbable>(DivideTargets);
-            foreach (TLabSyncGrabbable grabbable in grabbables) grabbable.SyncTransform();
+            foreach (TLabSyncGrabbable grabbable in grabbables)
+            {
+                grabbable.SyncRTCTransform();
+                grabbable.SyncTransform();
+            }
         }
         #endregion Divide
 
