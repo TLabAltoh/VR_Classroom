@@ -10,7 +10,7 @@ Online classes in VR space using Websocket and WebRTC
 - Control of object sharing from the teacher's side  
 
 ## Screenshot
-[![VR_Classroom (Youtube)](https://github.com/TLabAltoh/VR_Classroom/assets/121733943/af7d2ee7-ebf9-493e-946c-c943fdceb4b1)](https://www.youtube.com/watch?v=SZBbz0wVcFc)  
+[](https://www.youtube.com/watch?v=SZBbz0wVcFc)  
 <img src="Media/tlab-grabbable-controller.gif" width="256">  
 <img src="Media/tlab-grabbable-handtracking.gif" width="256">  
 <img src="Media/vkensyu.jpeg" width="256">  
