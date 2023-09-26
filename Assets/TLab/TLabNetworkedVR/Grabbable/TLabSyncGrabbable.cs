@@ -274,7 +274,7 @@ namespace TLab.XR.VRGrabber
             return base.AddParent(parent);
         }
 
-        #region SyncTransform
+
         private unsafe void LongCopy(byte* src, byte* dst, int count)
         {
             // https://github.com/neuecc/MessagePack-CSharp/issues/117
@@ -309,8 +309,6 @@ namespace TLab.XR.VRGrabber
         public void SyncRTCTransform()
         {
             if (m_enableSync == false) return;
-
-            #region unsageコードを使用したパケットの生成
 
             // transform
             // (3 + 4 + 3) * 4 = 40 byte
@@ -360,8 +358,6 @@ namespace TLab.XR.VRGrabber
                 }
             }
 
-            #endregion unsageコードを使用したパケットの生成
-
             TLabSyncClient.Instalce.SendRTCMessage(packet);
 
             m_isSyncFromOutside = false;
@@ -370,8 +366,6 @@ namespace TLab.XR.VRGrabber
         public void SyncTransform()
         {
             if (m_enableSync == false) return;
-
-            #region StringBuilderでパケットの生成の高速化
 
             builder.Clear();
 
@@ -451,9 +445,7 @@ namespace TLab.XR.VRGrabber
             builder.Append("}");
 
             string json = builder.ToString();
-            #endregion
 
-            #region 作りたいパケット
             //TLabSyncJson obj = new TLabSyncJson
             //{
             //    role = (int)WebRole.guest,
@@ -489,7 +481,6 @@ namespace TLab.XR.VRGrabber
             //};
 
             //string json = JsonUtility.ToJson(obj);
-            #endregion
 
             TLabSyncClient.Instalce.SendWsMessage(json);
 
@@ -526,9 +517,8 @@ namespace TLab.XR.VRGrabber
                     SetGravity(true);
             }
         }
-#endregion SyncTransform
 
-        #region Divide
+
         public void OnDevideButtonClick()
         {
             Devide();
@@ -574,7 +564,7 @@ namespace TLab.XR.VRGrabber
                 grabbable.SyncTransform();
             }
         }
-        #endregion Divide
+
 
         public void ShutdownGrabber(bool deleteCache)
         {

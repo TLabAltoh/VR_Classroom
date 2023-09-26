@@ -50,7 +50,7 @@ namespace TLab.Network.WebRTC
         [Header("Signaling Server Address")]
         [SerializeField] private string serverAddr = "ws://localhost:3001";
 
-        [Header("Connection State")]
+        [Header("Connection State (Debug)")]
         [SerializeField] private string userID;
         [SerializeField] private string roomID;
 
@@ -624,9 +624,7 @@ namespace TLab.Network.WebRTC
 
         public static int? TryToInt(this string value)
         {
-            int result;
-            if (int.TryParse(value, out result)) return result;
-
+            if (int.TryParse(value, out int result)) return result;
             return null;
         }
     }

@@ -63,7 +63,6 @@ public class PopupTextManager : MonoBehaviour
     }
 }
 
-#region CustomEditor
 #if UNITY_EDITOR
 [CustomEditor(typeof(PopupTextManager))]
 public class PopupTextManagerEditor : Editor
@@ -147,4 +146,3 @@ public class PopupTextManagerEditor : Editor
     }
 }
 #endif
-#endregion CustomEditor

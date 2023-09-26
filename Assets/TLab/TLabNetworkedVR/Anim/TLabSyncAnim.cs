@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TLab.XR.VRGrabber
@@ -23,7 +22,7 @@ namespace TLab.XR.VRGrabber
         {
             get
             {
-                return animator;
+                return m_animator;
             }
         }
 
@@ -105,7 +104,6 @@ namespace TLab.XR.VRGrabber
             if (deleteCache == true) ClearAnim();
         }
 
-        #region SetParameter
         private void OnChangeParameter(string paramName, int hashCode)
         {
             TLabAnimParameterInfo parameterInfo = m_parameters[paramName] as TLabAnimParameterInfo;
@@ -134,7 +132,6 @@ namespace TLab.XR.VRGrabber
         {
             m_animator.SetTrigger(paramName);
         }
-        #endregion SetParameter
 
         void Start()
         {

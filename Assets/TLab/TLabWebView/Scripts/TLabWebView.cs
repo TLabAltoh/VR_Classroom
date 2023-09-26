@@ -7,28 +7,44 @@ namespace TLab.Android.WebView
 {
 	public class TLabWebView : MonoBehaviour
 	{
-		[SerializeField] private RawImage WebViewRawImage;
+		private enum DownloadOption
+        {
+			applicationFolder,
+			downloadFolder
+		}
 
-		[SerializeField] public string url = "https://youtube.com";
-		[SerializeField] public int webWidth = 1024;
-		[SerializeField] public int webHeight = 1024;
-		[SerializeField] public int texWidth = 512;
-		[SerializeField] public int texHeight = 512;
+		[SerializeField] private RawImage m_rawImage;
+		[SerializeField] private string m_url = "https://youtube.com";
 
-		private bool m_WebViewEnable;
-		private Texture2D webViewTexture;
+		[Header("File Download Settings")]
+		[SerializeField] private DownloadOption m_dlOption;
+		[SerializeField] private string m_subdir = "downloads";
+
+		[Header("Resolution setting")]
+		[SerializeField] private int m_webWidth = 1024;
+		[SerializeField] private int m_webHeight = 1024;
+		[SerializeField] private int m_texWidth = 512;
+		[SerializeField] private int m_texHeight = 512;
+
+		public int WebWidth { get => m_webWidth; }
+		public int WebHeight { get => m_webHeight; }
+		public int TexWidth { get => m_texWidth; }
+		public int TexHeight { get => m_texHeight; }
+
+		private bool m_webViewEnable;
+		private Texture2D m_webViewTexture;
 
 #if UNITY_ANDROID
 		private AndroidJavaObject m_NativePlugin;
 #endif
 
-		public void Init(int webWidth, int webHeight, int tWidth, int tHeight, int sWidth, int sHeight, string url)
+		public void Init(int webWidth, int webHeight, int tWidth, int tHeight, int sWidth, int sHeight, string url, int dlOption, string subDir)
 		{
 #if UNITY_ANDROID
 			if (Application.isEditor) return;
 
 			m_NativePlugin = new AndroidJavaObject("com.tlab.libwebview.UnityConnect");
-			m_NativePlugin.CallStatic("initialize", webWidth, webHeight, tWidth, tHeight, sWidth, sHeight, url);
+			m_NativePlugin.CallStatic("initialize", webWidth, webHeight, tWidth, tHeight, sWidth, sHeight, url, dlOption, subDir);
 #endif
 		}
 
@@ -43,9 +59,45 @@ namespace TLab.Android.WebView
 #endif
 		}
 
+		public void CaptureHTMLSource()
+        {
+			if (m_webViewEnable == false)
+				return;
+
+#if UNITY_ANDROID
+			if (Application.isEditor) return;
+
+			m_NativePlugin.CallStatic("capturePage");
+#endif
+        }
+
+		public void CaptureElementById(string id)
+		{
+			if (m_webViewEnable == false)
+				return;
+
+#if UNITY_ANDROID
+			if (Application.isEditor) return;
+
+			m_NativePlugin.CallStatic("captureElementById", id);
+#endif
+		}
+
+		public string CurrentHTMLCaptured()
+        {
+			if (m_webViewEnable == false)
+				return null;
+
+#if UNITY_ANDROID
+			if (Application.isEditor) return null;
+
+			return m_NativePlugin.CallStatic<string>("getCaptured");
+#endif
+		}
+
 		public void LoadUrl(string url)
 		{
-			if (m_WebViewEnable == false)
+			if (m_webViewEnable == false)
 				return;
 
 #if UNITY_ANDROID
@@ -55,9 +107,21 @@ namespace TLab.Android.WebView
 #endif
 		}
 
+		public void LoadHTML(string html, string baseURL)
+        {
+			if (m_webViewEnable == false)
+				return;
+
+#if UNITY_ANDROID
+			if (Application.isEditor) return;
+
+			m_NativePlugin.CallStatic("loadHtml", html, baseURL);
+#endif
+		}
+
 		public void ZoomIn()
 		{
-			if (m_WebViewEnable == false)
+			if (m_webViewEnable == false)
 				return;
 
 #if UNITY_ANDROID
@@ -69,7 +133,7 @@ namespace TLab.Android.WebView
 
 		public void ZoomOut()
 		{
-			if (m_WebViewEnable == false)
+			if (m_webViewEnable == false)
 				return;
 
 #if UNITY_ANDROID
@@ -79,9 +143,21 @@ namespace TLab.Android.WebView
 #endif
 		}
 
+		public void EvaluateJS(string js)
+        {
+			if (m_webViewEnable == false)
+				return;
+
+#if UNITY_ANDROID
+			if (Application.isEditor) return;
+
+			m_NativePlugin.CallStatic("evaluateJS", js);
+#endif
+		}
+
 		public void GoForward()
 		{
-			if (m_WebViewEnable == false)
+			if (m_webViewEnable == false)
 				return;
 
 #if UNITY_ANDROID
@@ -93,7 +169,7 @@ namespace TLab.Android.WebView
 
 		public void GoBack()
 		{
-			if (m_WebViewEnable == false)
+			if (m_webViewEnable == false)
 				return;
 
 #if UNITY_ANDROID
@@ -105,7 +181,7 @@ namespace TLab.Android.WebView
 
 		public void TouchEvent(int x, int y, int eventNum)
 		{
-			if (m_WebViewEnable == false) return;
+			if (m_webViewEnable == false) return;
 
 #if UNITY_ANDROID
 			if (Application.isEditor) return;
@@ -116,7 +192,7 @@ namespace TLab.Android.WebView
 
 		public void KeyEvent(char key)
 		{
-			if (m_WebViewEnable == false) return;
+			if (m_webViewEnable == false) return;
 
 #if UNITY_ANDROID
 			if (Application.isEditor) return;
@@ -127,7 +203,7 @@ namespace TLab.Android.WebView
 
 		public void BackSpace()
 		{
-			if (m_WebViewEnable == false) return;
+			if (m_webViewEnable == false) return;
 
 #if UNITY_ANDROID
 			if (Application.isEditor) return;
@@ -138,7 +214,7 @@ namespace TLab.Android.WebView
 
 		public void SetVisible(bool visible)
 		{
-			m_WebViewEnable = visible;
+			m_webViewEnable = visible;
 #if UNITY_ANDROID
 			if (Application.isEditor) return;
 
@@ -146,30 +222,57 @@ namespace TLab.Android.WebView
 #endif
 		}
 
+		public void ClearCache(bool includeDiskFiles)
+        {
+#if UNITY_ANDROID
+			if (Application.isEditor) return;
+
+			m_NativePlugin.CallStatic("clearCash", includeDiskFiles);
+#endif
+		}
+
+		public void ClearCookie()
+		{
+#if UNITY_ANDROID
+			if (Application.isEditor) return;
+
+			m_NativePlugin.CallStatic("clearCookie");
+#endif
+		}
+
+		public void ClearHistory()
+        {
+#if UNITY_ANDROID
+			if (Application.isEditor) return;
+
+			m_NativePlugin.CallStatic("clearHistory");
+#endif
+		}
+
 		public void StartWebView()
 		{
-			if (m_WebViewEnable) return;
+			if (m_webViewEnable) return;
 
-			m_WebViewEnable = true;
+			m_webViewEnable = true;
 
 #if UNITY_ANDROID
-			Init(webWidth, webHeight, texWidth, texHeight, Screen.width, Screen.height, url);
-			webViewTexture = new Texture2D(texWidth, texHeight, TextureFormat.ARGB32, false);
-			webViewTexture.name = "WebImage";
-			WebViewRawImage.texture = webViewTexture;
+			Init(m_webWidth, m_webHeight, m_texWidth, m_texHeight, Screen.width, Screen.height, m_url, (int)m_dlOption, m_subdir);
+			m_webViewTexture = new Texture2D(m_texWidth, m_texHeight, TextureFormat.ARGB32, false);
+			m_webViewTexture.name = "WebImage";
+			m_rawImage.texture = m_webViewTexture;
 #endif
 		}
 
 		public void UpdateFrame()
 		{
-			if (!m_WebViewEnable) return;
+			if (!m_webViewEnable) return;
 
 			byte[] data = GetWebTexturePixel();
 
 			if (data.Length > 0)
 			{
-				webViewTexture.LoadRawTextureData(data);
-				webViewTexture.Apply();
+				m_webViewTexture.LoadRawTextureData(data);
+				m_webViewTexture.Apply();
 			}
 		}
 

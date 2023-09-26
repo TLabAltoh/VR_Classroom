@@ -8,105 +8,31 @@ namespace TLab.XR.VRGrabber
 {
     public class TLabVRHandManager : MonoBehaviour
     {
-        #region
 #if UNITY_EDITOR
-        public OVRProjectConfig ProjectConfig
-        {
-            get
-            {
-                return m_projectConfig;
-            }
-        }
+        public OVRProjectConfig ProjectConfig => m_projectConfig;
 #endif
 
-        public TLabOVRInputModule InputModule
-        {
-            get
-            {
-                return m_inputModule;
-            }
-        }
+        public TLabOVRInputModule InputModule => m_inputModule;
 
-        public TLabVRHand VRControllerHandRight
-        {
-            get
-            {
-                return m_vrControllerHandRight;
-            }
-        }
+        public TLabVRHand VRControllerHandRight => m_vrControllerHandRight;
 
-        public TLabVRHand VRControllerHandLeft
-        {
-            get
-            {
-                return m_vrControllerHandLeft;
-            }
-        }
+        public TLabVRHand VRControllerHandLeft => m_vrControllerHandLeft;
 
-        public TLabVRTrackingHand VRTrackingHandRight
-        {
-            get
-            {
-                return m_vrTrackingHandRight;
-            }
-        }
+        public TLabVRTrackingHand VRTrackingHandRight => m_vrTrackingHandRight;
 
-        public TLabVRTrackingHand VRTrackingHandLeft
-        {
-            get
-            {
-                return m_vrTrackingHandLeft;
-            }
-        }
+        public TLabVRTrackingHand VRTrackingHandLeft => m_vrTrackingHandLeft;
 
-        public GameObject VRHandRight
-        {
-            get
-            {
-                return m_vrHandRight;
-            }
-        }
+        public GameObject VRHandRight => m_vrHandRight;
 
-        public GameObject VRHandLeft
-        {
-            get
-            {
-                return m_vrHandLeft;
-            }
-        }
+        public GameObject VRHandLeft => m_vrHandLeft;
 
-        public GameObject VRControllerRight
-        {
-            get
-            {
-                return m_vrControllerRight;
-            }
-        }
+        public GameObject VRControllerRight => m_vrControllerRight;
 
-        public GameObject VRControllerLeft
-        {
-            get
-            {
-                return m_vrControllerLeft;
-            }
-        }
+        public GameObject VRControllerLeft => m_vrControllerLeft;
 
-        public GameObject VRCustomHandRight
-        {
-            get
-            {
-                return m_vrCustomHandRight;
-            }
-        }
+        public GameObject VRCustomHandRight => m_vrCustomHandRight;
 
-        public GameObject VRCustomHandLeft
-        {
-            get
-            {
-                return m_vrCustomHandLeft;
-            }
-        }
-        #endregion
+        public GameObject VRCustomHandLeft => m_vrCustomHandLeft;
 
 #if UNITY_EDITOR
         [SerializeField] private OVRProjectConfig m_projectConfig;
@@ -162,6 +88,8 @@ namespace TLab.XR.VRGrabber
                 left = manager.VRControllerLeft.transform;
                 hand = true;
                 updated = true;
+
+                Debug.Log("Player Operation Method Changed: Hand");
             }
 
             if (GUILayout.Button("Switch Custom Hand"))
@@ -170,6 +98,8 @@ namespace TLab.XR.VRGrabber
                 left = manager.VRCustomHandLeft.transform;
                 customHand = true;
                 updated = true;
+
+                Debug.Log("Player Operation Method Changed: Custom Controller");
             }
 
             if (GUILayout.Button("Switch Controller"))
@@ -178,6 +108,8 @@ namespace TLab.XR.VRGrabber
                 left = manager.VRControllerLeft.transform;
                 controller = true;
                 updated = true;
+
+                Debug.Log("Player Operation Method Changed: Controller");
             }
 
             if (updated == true)

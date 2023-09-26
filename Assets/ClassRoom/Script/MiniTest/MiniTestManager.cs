@@ -16,7 +16,8 @@ public enum WebMiniTestAction
 
 public class MiniTestManager : MonoBehaviour
 {
-    private int[] m_scores;
+    [Header("Debug")]
+    [SerializeField] private int[] m_scores;
 
     private const string thisName = "[tlabminitest] ";
 

@@ -11874,8 +11874,8 @@ GameObject:
   - component: {fileID: 6383360504912138633}
   - component: {fileID: 6383360504912138627}
   - component: {fileID: 6413390143848892103}
-  - component: {fileID: 8255838730670465383}
   - component: {fileID: 8255838730670465384}
+  - component: {fileID: 8255838730670465383}
   m_Layer: 7
   m_Name: OVRCameraRig
   m_TagString: Untagged
@@ -11998,6 +11998,28 @@ MonoBehaviour:
   resetHmdPoseByMiddleMouseButton: 1
   activateKeys: 3201000031010000
   pitchKeys: 3401000033010000
+--- !u!114 &8255838730670465384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6383360504905573479}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84f3aebcb2d745047a7ca1149adece5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_moveController: 1
+  m_jumpButton: 1
+  m_runButton: 2
+  m_centerEyeAnchor: {fileID: 6383360504905087041}
+  m_runSpeed: 1.5
+  m_moveSpeed: 1
+  m_jumpHeight: 1.5
+  m_jumpInertia: 0.5
+  m_gravity: 1
+  m_controller: {fileID: 8255838730670465383}
 --- !u!143 &8255838730670465383
 CharacterController:
   m_ObjectHideFlags: 0
@@ -12016,28 +12038,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &8255838730670465384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6383360504905573479}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84f3aebcb2d745047a7ca1149adece5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_moveController: 1
-  m_jumpButton: 1
-  m_runButton: 2
-  m_centerEyeAnchor: {fileID: 6383360504905087041}
-  m_runSpeed: 0
-  m_moveSpeed: 0
-  m_jumpHeight: 0
-  m_jumpInertia: 0
-  m_gravity: 0
-  m_controller: {fileID: 8255838730670465383}
 --- !u!1 &6383360505608072353
 GameObject:
   m_ObjectHideFlags: 0

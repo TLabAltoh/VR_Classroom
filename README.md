@@ -6,15 +6,40 @@ Online classes in VR space using Websocket and WebRTC
 - Hand tracking support  
 - Support for bHaptics tactile gloves  
 - WebView support (Android builds only)  
-- Download object from external server (AssetBundle)  
+- Download object from external server (using AssetBundle)  
 - Control of object sharing from the teacher's side  
 
 ## Screenshot
 [![Youtube](Media/VR_Classroom.jpg)](https://www.youtube.com/watch?v=SZBbz0wVcFc)  
-<img src="Media/tlab-grabbable-controller.gif" width="256">  
-<img src="Media/tlab-grabbable-handtracking.gif" width="256">  
-<img src="Media/vkensyu.jpeg" width="256">  
-<img src="Media/support-webview.jpg" width="256">
+<table>
+<tr>
+   <td> 
+      <img src="Media/tlab-grabbable-controller.gif" width="256">
+   </td>
+   <td> 
+      <img src="Media/tlab-grabbable-handtracking.gif" width="256">
+   </td>
+</tr>
+</table>
+
+<table>
+<tr>
+   <td> 
+      <img src="Media/vkensyu.jpeg" width="256">
+   </td>
+   <td> 
+      <img src="Media/student.jpg" width="256">
+   </td>
+</tr>
+</table>
+
+<table>
+<tr>
+   <td> 
+      <img src="Media/support-webview.jpg" width="256">
+   </td>
+</tr>
+</table>
 
 ## Getting Started
 ### Prerequisites
@@ -43,8 +68,16 @@ npm start
 ```
 
 3. Set the SignalingServer and SyncServer addresses in Unity
-![server-setup](Media/server-setup.png)  
-![server-addr-manager](Media/server-address-manager.png)  
+<table>
+<tr>
+   <td> 
+      <img src="Media/server-setup.png" width="256">
+   </td>
+   <td> 
+      <img src="Media/server-address-manager.png" width="256">
+   </td>
+</tr>
+</table>
 4. Launch the game from UnityEditor or the built file
 
 ### How to play
@@ -63,3 +96,25 @@ npm start
 #### HandTracking
 - Pinch of index finger and thumb: Select UI
 - Hand-holding gesture: Manipulating objects in the scene (grip, expand)
+
+## System Design Overview
+### Network
+<table>
+<tr>
+   <td> 
+      <img src="Media/webrtc-signaling.png" width="256">
+   </td>
+   <td> 
+      <img src="Media/world-sync.png" width="256">
+   </td>
+</tr>
+</table>
+
+### Object Divide
+<table>
+<tr>
+   <td> 
+      <img src="Media/object-divide.png" width="256">
+   </td>
+</tr>
+</table>
