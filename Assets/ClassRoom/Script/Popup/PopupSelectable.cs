@@ -1,40 +1,49 @@
 using UnityEngine;
 using TLab.XR.VRGrabber.VFX;
 
-public class PopupSelectable : TLabOutlineSelectable
+namespace TLab.VRClassroom
 {
-    [SerializeField] private PopupTextManager m_popupManager;
-    [SerializeField] private int m_index;
-
-    public PopupTextManager PopupManager { get => m_popupManager; set => m_popupManager = value; }
-
-    public int Index
+    public class PopupSelectable : OutlineSelectable
     {
-        set
+        [SerializeField] private PopupTextManager m_popupManager;
+        [SerializeField] private int m_index;
+
+        public PopupTextManager PopupManager { get => m_popupManager; set => m_popupManager = value; }
+
+        public int Index
         {
-            m_index = value;
-        }
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-    }
-
-    protected override void Update()
-    {
-        if (m_selected && !m_prevSelected)
-        {
-            TextController instance = m_popupManager.GetTextController(m_index);
-            if(instance != null) instance.FadeIn();
+            set
+            {
+                m_index = value;
+            }
         }
 
-        if (!m_selected && m_prevSelected)
+        protected override void Start()
         {
-            TextController instance = m_popupManager.GetTextController(m_index);
-            if (instance != null) instance.FadeOut();
+            base.Start();
         }
 
-        base.Update();
+        protected override void Update()
+        {
+            if (m_selected && !m_prevSelected)
+            {
+                TextController instance = m_popupManager.GetTextController(m_index);
+                if (instance)
+                {
+                    instance.FadeIn();
+                }
+            }
+
+            if (!m_selected && m_prevSelected)
+            {
+                TextController instance = m_popupManager.GetTextController(m_index);
+                if (instance)
+                {
+                    instance.FadeOut();
+                }
+            }
+
+            base.Update();
+        }
     }
 }

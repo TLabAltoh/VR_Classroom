@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 5636981622557934796}
   - component: {fileID: 6293697161700868772}
   m_Layer: 0
-  m_Name: Anchor (1)
+  m_Name: Text Controller (Button Reset)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 9010934315190987158}
   - component: {fileID: 3971472925791775500}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button (Divide / Fix)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -912,7 +912,7 @@ GameObject:
   - component: {fileID: 5792807401400467097}
   - component: {fileID: 8773631242696417283}
   m_Layer: 0
-  m_Name: Anchor
+  m_Name: Text Controller (Button Divide / Fix)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -963,7 +963,7 @@ GameObject:
   - component: {fileID: 8002078288066322432}
   - component: {fileID: 1518232058895144673}
   m_Layer: 0
-  m_Name: Details
+  m_Name: Text Controller (Detail 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -978,7 +978,7 @@ Transform:
   m_GameObject: {fileID: 3106355903992722283}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8748224720300890331}
@@ -1151,7 +1151,7 @@ GameObject:
   - component: {fileID: 4671936616029177600}
   - component: {fileID: 7788750225524832306}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button (Reset)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1605,7 +1605,7 @@ GameObject:
   - component: {fileID: 2669641950776706215}
   - component: {fileID: 2777952366385022486}
   m_Layer: 0
-  m_Name: Details (2)
+  m_Name: Text Controller (Detail 2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1620,7 +1620,7 @@ Transform:
   m_GameObject: {fileID: 4849123224601342299}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 296334323036379548}
@@ -2032,7 +2032,7 @@ GameObject:
   - component: {fileID: 4870726862042858866}
   - component: {fileID: 3033233003239472519}
   m_Layer: 0
-  m_Name: Details (1)
+  m_Name: Text Controller (Detail 1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2047,7 +2047,7 @@ Transform:
   m_GameObject: {fileID: 8759852834414744712}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7739302230314137329}

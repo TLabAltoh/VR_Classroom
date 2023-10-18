@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 4006830460590092345}
   - component: {fileID: 8425581749051791030}
   m_Layer: 0
-  m_Name: Detail (5)
+  m_Name: Text Controller (Detail 5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +240,7 @@ Transform:
   m_GameObject: {fileID: 313784472063762695}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7304682165770866945}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 98652195651703434}
   - component: {fileID: 7152606885518971064}
   m_Layer: 0
-  m_Name: Detail (8)
+  m_Name: Text Controller (Detail 8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -370,7 +370,7 @@ Transform:
   m_GameObject: {fileID: 1061567034227776636}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5028919195973012876}
@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 3791351850940922055}
   - component: {fileID: 108556894038085261}
   m_Layer: 0
-  m_Name: Detail (6)
+  m_Name: Text Controller (Detail 6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -421,7 +421,7 @@ Transform:
   m_GameObject: {fileID: 1078977988457992639}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4729286583325526152}
@@ -592,7 +592,7 @@ GameObject:
   - component: {fileID: 3065672139094425726}
   - component: {fileID: 4845164262204316835}
   m_Layer: 0
-  m_Name: Detail (1)
+  m_Name: Text Controller (Detail 1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -607,7 +607,7 @@ Transform:
   m_GameObject: {fileID: 1555659653777415584}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3939522937216435023}
@@ -643,7 +643,7 @@ GameObject:
   - component: {fileID: 3406398500674575706}
   - component: {fileID: 7442670912120060768}
   m_Layer: 0
-  m_Name: Detail (3)
+  m_Name: Text Controller (Detail 3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -658,7 +658,7 @@ Transform:
   m_GameObject: {fileID: 2238725903512326474}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3160529345044405713}
@@ -1086,7 +1086,7 @@ GameObject:
   - component: {fileID: 4481240554089823940}
   - component: {fileID: 6713142537552704744}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button (Divide / Fix)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1494,7 +1494,7 @@ GameObject:
   - component: {fileID: 6162997530884106571}
   - component: {fileID: 2823495467286502649}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button (Reset)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1705,7 +1705,7 @@ GameObject:
   - component: {fileID: 1373449876187972940}
   - component: {fileID: 3485666604586664096}
   m_Layer: 0
-  m_Name: Detail (10)
+  m_Name: Text Controller (Detail 10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1720,7 +1720,7 @@ Transform:
   m_GameObject: {fileID: 4046274243343301969}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7312923364087227522}
@@ -2411,7 +2411,7 @@ GameObject:
   - component: {fileID: 8862259454077452727}
   - component: {fileID: 4162468442413469861}
   m_Layer: 0
-  m_Name: Detail (9)
+  m_Name: Text Controller (Detail 9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2426,7 +2426,7 @@ Transform:
   m_GameObject: {fileID: 4846505261392468721}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5825229843192884266}
@@ -2885,7 +2885,7 @@ GameObject:
   - component: {fileID: 4367600320008327793}
   - component: {fileID: 8655290621434288382}
   m_Layer: 0
-  m_Name: Detail (7)
+  m_Name: Text Controller (Detail 7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2900,7 +2900,7 @@ Transform:
   m_GameObject: {fileID: 5044177529166492871}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4907603461547521165}
@@ -3089,7 +3089,7 @@ GameObject:
   - component: {fileID: 2241897992022695343}
   - component: {fileID: 5412982768036735371}
   m_Layer: 0
-  m_Name: Anchor
+  m_Name: Text Controller (Button Divide / Fix)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3948,7 +3948,7 @@ GameObject:
   - component: {fileID: 7165942547989578679}
   - component: {fileID: 4821818333752688339}
   m_Layer: 0
-  m_Name: Detail
+  m_Name: Text Controller (Detail 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3963,7 +3963,7 @@ Transform:
   m_GameObject: {fileID: 6573426269406707073}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4075109175755107856}
@@ -4078,7 +4078,7 @@ GameObject:
   - component: {fileID: 4262729123473990301}
   - component: {fileID: 5586014719576611741}
   m_Layer: 0
-  m_Name: Detail (2)
+  m_Name: Text Controller (Detail 2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4093,7 +4093,7 @@ Transform:
   m_GameObject: {fileID: 6733824862804742470}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 409383117089383325}
@@ -4129,7 +4129,7 @@ GameObject:
   - component: {fileID: 8146525246189322295}
   - component: {fileID: 7798704282090424008}
   m_Layer: 0
-  m_Name: Anchor (1)
+  m_Name: Text Controller (Button Reset)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4450,7 +4450,7 @@ GameObject:
   - component: {fileID: 1704236084326591371}
   - component: {fileID: 1742440624137644417}
   m_Layer: 0
-  m_Name: Detail (4)
+  m_Name: Text Controller (Detail 4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4465,7 +4465,7 @@ Transform:
   m_GameObject: {fileID: 7426889392602905756}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3628605107530822133}

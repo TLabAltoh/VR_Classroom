@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2359367232559039741}
   - component: {fileID: 436303255573211041}
   m_Layer: 0
-  m_Name: Detail
+  m_Name: Text Controller (Detail 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 57209349332704164}
   m_LocalRotation: {x: -0.00000014106499, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3171661833734934316}
@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 1570677229508637160}
   - component: {fileID: 3442111370661691298}
   m_Layer: 0
-  m_Name: Detail (1)
+  m_Name: Text Controller (Detail 1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,7 +388,7 @@ Transform:
   m_GameObject: {fileID: 481612134114848234}
   m_LocalRotation: {x: -0.00000014106499, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1745634660493665203}
@@ -559,7 +559,7 @@ GameObject:
   - component: {fileID: 3892021386157695387}
   - component: {fileID: 632121447590371140}
   m_Layer: 0
-  m_Name: Detail (2)
+  m_Name: Text Controller (Detail 2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -574,7 +574,7 @@ Transform:
   m_GameObject: {fileID: 1039871963797232046}
   m_LocalRotation: {x: -0.00000014106499, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100.00001, y: 100.00001, z: 100.00001}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4986461078594563507}
@@ -900,7 +900,7 @@ GameObject:
   - component: {fileID: 3962979909911708389}
   - component: {fileID: 89327632966480360}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button (Divide / Fix)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1359,7 +1359,7 @@ GameObject:
   - component: {fileID: 3348705839723559716}
   - component: {fileID: 1423950463456442781}
   m_Layer: 0
-  m_Name: Anchor
+  m_Name: Text Controller (Button Divide / Fix)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1633,7 +1633,7 @@ GameObject:
   - component: {fileID: 819987431495158024}
   - component: {fileID: 1814712361869552115}
   m_Layer: 0
-  m_Name: Anchor (1)
+  m_Name: Text Controller (Button Reset)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1956,7 +1956,7 @@ GameObject:
   - component: {fileID: 6757992978579227708}
   - component: {fileID: 9197127149768676266}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button (Reset)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

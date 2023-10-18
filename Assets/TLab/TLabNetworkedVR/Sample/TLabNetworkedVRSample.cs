@@ -8,8 +8,8 @@ using TLab.Network.VoiceChat;
 public class TLabNetworkedVRSample : MonoBehaviour
 {
     [Header("Network")]
-    [SerializeField] private TLabSyncClient m_syncClient;
-    [SerializeField] private TLabWebRTCVoiceChat m_voiceChat;
+    [SerializeField] private SyncClient m_syncClient;
+    [SerializeField] private VoiceChat m_voiceChat;
 
     private IEnumerator ExitRoomTask()
     {

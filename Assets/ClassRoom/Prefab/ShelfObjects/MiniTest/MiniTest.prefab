@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 4837571931681260860}
   - component: {fileID: 396066882383269644}
   m_Layer: 5
-  m_Name: AggregateBtn
+  m_Name: Button (Question to Result)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -957,7 +957,7 @@ Animator:
   m_GameObject: {fileID: 1928312171395968138}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 512295aae766d964f9a2eabdc34c4305, type: 2}
+  m_Controller: {fileID: 9100000, guid: cb22a2e487d970a458eb73d7dc831992, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -993,7 +993,7 @@ GameObject:
   - component: {fileID: 3776843872990967063}
   - component: {fileID: 4965700872396354100}
   m_Layer: 5
-  m_Name: Question
+  m_Name: Panel (Question)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1154,7 +1154,7 @@ Animator:
   m_GameObject: {fileID: 3244923001180124123}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cb22a2e487d970a458eb73d7dc831992, type: 2}
+  m_Controller: {fileID: 9100000, guid: 512295aae766d964f9a2eabdc34c4305, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1190,7 +1190,7 @@ GameObject:
   - component: {fileID: 358391389056588937}
   - component: {fileID: 4423191742658576316}
   m_Layer: 5
-  m_Name: Result
+  m_Name: Panel (Result)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1361,7 +1361,7 @@ GameObject:
   - component: {fileID: 1163895802247013303}
   - component: {fileID: 2351723805431393940}
   m_Layer: 0
-  m_Name: UIAnchor
+  m_Name: Text Controller (UI)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1424,6 +1424,7 @@ MonoBehaviour:
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
+  m_rbAllocated: 0
 --- !u!1 &5268698885451316248
 GameObject:
   m_ObjectHideFlags: 0
@@ -2753,7 +2754,7 @@ GameObject:
   - component: {fileID: 5706534304675119967}
   - component: {fileID: 5706534304675119966}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: Toggle (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2931,7 +2932,7 @@ GameObject:
   - component: {fileID: 5706534305156617671}
   - component: {fileID: 5706534305156617668}
   m_Layer: 5
-  m_Name: VerifyBtn
+  m_Name: Button (Check Answer)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3527,9 +3528,9 @@ GameObject:
   - component: {fileID: 5706534305590004183}
   - component: {fileID: 5706534305590004188}
   - component: {fileID: 6413540607921959474}
-  - component: {fileID: 3996577203257589760}
+  - component: {fileID: 5234449400717643236}
   m_Layer: 5
-  m_Name: QuestionUI
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3614,7 +3615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356f51d290e309d4297697615cbdb7e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_windowAnim: {fileID: 3996577203257589760}
+  m_windowAnim: {fileID: 5234449400717643236}
   m_graphs:
   - {fileID: 494333907670887787}
   - {fileID: 4969010170661598334}
@@ -3664,7 +3665,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3996577203257589760
+--- !u!114 &5234449400717643236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4171,7 +4172,7 @@ GameObject:
   - component: {fileID: 1650722348705810803}
   - component: {fileID: 4793671544720732603}
   m_Layer: 5
-  m_Name: QuestionBtn
+  m_Name: Button (Result to Question)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,140 +3,160 @@ using System.Collections;
 using UnityEngine;
 using TLab.XR.VRGrabber;
 
-public class TextController : MonoBehaviour
+namespace TLab.VRClassroom
 {
-    public class TextControllerTransform
+    public class TextController : MonoBehaviour
     {
-        public TextControllerTransform(Vector3 localPosition, Vector3 localScale, Quaternion localRotation)
+        public class TextControllerTransform
         {
-            this.localPosotion = localPosition;
-            this.localScale    = localScale;
-            this.localRotation = localRotation;
+            public TextControllerTransform(Vector3 localPosition, Vector3 localScale, Quaternion localRotation)
+            {
+                this.localPosotion = localPosition;
+                this.localScale = localScale;
+                this.localRotation = localRotation;
+            }
+
+            public Vector3 localPosotion;
+            public Vector3 localScale;
+            public Quaternion localRotation;
         }
 
-        public Vector3 localPosotion;
-        public Vector3 localScale;
-        public Quaternion localRotation;
-    }
+        [SerializeField] private Transform m_target;
 
-    [SerializeField] private Transform m_target;
+        [SerializeField] private float m_forward;
+        [SerializeField] private float m_vertical;
+        [SerializeField] private float m_horizontal;
 
-    [SerializeField] private float m_forward;
-    [SerializeField] private float m_vertical;
-    [SerializeField] private float m_horizontal;
+        [SerializeField] private bool m_enableSync = false;
+        [SerializeField] private bool m_autoUpdate = false;
 
-    [SerializeField] private bool m_enableSync = false;
-    [SerializeField] private bool m_autoUpdate = false;
+        private TLabSyncGrabbable m_grabbable;
 
-    private TLabSyncGrabbable m_grabbable;
+        private TextControllerTransform m_initialTransform;
 
-    private TextControllerTransform m_initialTransform;
-
-    private void LerpScale(Transform target, TextControllerTransform start, TextControllerTransform end, float lerpValue)
-    {
-        target.localScale = Vector3.Lerp(start.localScale, end.localScale, lerpValue);
-    }
-
-    private IEnumerator FadeInTask()
-    {
-        // 現在のTransform
-        TextControllerTransform currentTransform = new TextControllerTransform(
-            this.transform.localPosition,
-            this.transform.localScale,
-            this.transform.localRotation);
-
-        const float duration = 0.25f;
-        float current = 0.0f;
-        while(current < duration)
+        public void SetTarget(Transform taregt)
         {
-            current += Time.deltaTime;
-            LerpScale(this.transform, currentTransform, m_initialTransform, current / duration);
-            yield return null;
+            m_target = taregt;
         }
-    }
 
-    private IEnumerator FadeOutTask()
-    {
-        // 現在のTransform
-        TextControllerTransform currentTransform = new TextControllerTransform(
-            this.transform.localPosition,
-            this.transform.localScale,
-            this.transform.localRotation);
-
-        // Scaleが(0, 0, 0)のTransform(ターゲット)
-        TextControllerTransform targetTransform = new TextControllerTransform(
-            this.transform.localPosition,
-            Vector3.zero,
-            this.transform.localRotation);
-
-        const float duration = 0.25f;
-        float current = 0.0f;
-        while(current < duration)
+        private void LerpScale(Transform target, TextControllerTransform start, TextControllerTransform end, float lerpValue)
         {
-            current += Time.deltaTime;
-            LerpScale(this.transform, currentTransform, targetTransform, current / duration);
-            yield return null;
+            target.localScale = Vector3.Lerp(start.localScale, end.localScale, lerpValue);
         }
-    }
 
-    public void FadeIn()
-    {
-        StartCoroutine("FadeInTask");
-    }
-
-    public void FadeOut()
-    {
-        StartCoroutine("FadeOutTask");
-    }
-
-    public void FadeOutImmidiately()
-    {
-        m_initialTransform = new TextControllerTransform(
-            this.transform.localPosition,
-            this.transform.localScale,
-            this.transform.localRotation);
-
-        TextControllerTransform targetTransform = new TextControllerTransform(
-            this.transform.localPosition,
-            Vector3.zero,
-            this.transform.localRotation);
-
-        LerpScale(this.transform, m_initialTransform, targetTransform, 1.0f);
-    }
-
-    void Start()
-    {
-        string name = this.gameObject.name;
-        string num  = name[name.Length - 1].ToString();
-        int anchorIndex = -1;
-        Int32.TryParse(num, out anchorIndex);
-
-        if(m_enableSync == true)
+        private IEnumerator FadeInTask()
         {
-            if (anchorIndex != TLabSyncClient.Instalce.SeatIndex)
-                m_target = null;
-            else
-                m_autoUpdate = true;
+            // 現在のTransform
+            var currentTransform = new TextControllerTransform(
+                this.transform.localPosition,
+                this.transform.localScale,
+                this.transform.localRotation);
+
+            const float duration = 0.25f;
+            float current = 0.0f;
+            while (current < duration)
+            {
+                current += Time.deltaTime;
+                LerpScale(this.transform, currentTransform, m_initialTransform, current / duration);
+                yield return null;
+            }
         }
-        else if (anchorIndex != TLabSyncClient.Instalce.SeatIndex)
-            Destroy(this.gameObject);
 
-        m_grabbable = this.GetComponent<TLabSyncGrabbable>();
+        private IEnumerator FadeOutTask()
+        {
+            // 現在のTransform
+            var currentTransform = new TextControllerTransform(
+                this.transform.localPosition,
+                this.transform.localScale,
+                this.transform.localRotation);
 
-        this.transform.parent = null;
-    }
+            // Scaleが(0, 0, 0)のTransform(ターゲット)
+            var targetTransform = new TextControllerTransform(
+                this.transform.localPosition,
+                Vector3.zero,
+                this.transform.localRotation);
 
-    void Update()
-    {
-        if (m_target == null) return;
+            const float duration = 0.25f;
+            float current = 0.0f;
+            while (current < duration)
+            {
+                current += Time.deltaTime;
+                LerpScale(this.transform, currentTransform, targetTransform, current / duration);
+                yield return null;
+            }
+        }
 
-        Transform mainCamera = Camera.main.transform;
-        Vector3 diff    = mainCamera.position - m_target.position;
-        Vector3 offset  = diff.normalized * m_forward + Vector3.up * m_vertical + Vector3.Cross(diff.normalized,Vector3.up) * m_horizontal;
+        public void FadeIn()
+        {
+            StartCoroutine("FadeInTask");
+        }
 
-        this.transform.position = m_target.position + offset;
-        this.transform.LookAt(mainCamera, Vector3.up);
+        public void FadeOut()
+        {
+            StartCoroutine("FadeOutTask");
+        }
 
-        if (m_enableSync && m_autoUpdate) m_grabbable.SyncRTCTransform();
+        public void FadeOutImmidiately()
+        {
+            m_initialTransform = new TextControllerTransform(
+                this.transform.localPosition,
+                this.transform.localScale,
+                this.transform.localRotation);
+
+            var targetTransform = new TextControllerTransform(
+                this.transform.localPosition,
+                Vector3.zero,
+                this.transform.localRotation);
+
+            LerpScale(this.transform, m_initialTransform, targetTransform, 1.0f);
+        }
+
+        void Start()
+        {
+            string name = this.gameObject.name;
+            string num = name[name.Length - 1].ToString();
+            int anchorIndex = -1;
+            Int32.TryParse(num, out anchorIndex);
+
+            if (m_enableSync)
+            {
+                if (anchorIndex != SyncClient.Instance.SeatIndex)
+                {
+                    m_target = null;
+                }
+                else
+                {
+                    m_autoUpdate = true;
+                }
+            }
+            else if (anchorIndex != SyncClient.Instance.SeatIndex)
+            {
+                Destroy(this.gameObject);
+            }
+
+            m_grabbable = this.GetComponent<TLabSyncGrabbable>();
+
+            this.transform.parent = null;
+        }
+
+        void Update()
+        {
+            if (m_target == null)
+            {
+                return;
+            }
+
+            Transform mainCamera = Camera.main.transform;
+            Vector3 diff = mainCamera.position - m_target.position;
+            Vector3 offset = diff.normalized * m_forward + Vector3.up * m_vertical + Vector3.Cross(diff.normalized, Vector3.up) * m_horizontal;
+
+            this.transform.position = m_target.position + offset;
+            this.transform.LookAt(mainCamera, Vector3.up);
+
+            if (m_enableSync && m_autoUpdate)
+            {
+                m_grabbable.SyncRTCTransform();
+            }
+        }
     }
 }

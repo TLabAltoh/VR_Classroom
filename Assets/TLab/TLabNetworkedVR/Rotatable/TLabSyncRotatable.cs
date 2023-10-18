@@ -24,7 +24,7 @@ namespace TLab.XR.VRGrabber
 
         public override void SetHandAngulerVelocity(Vector3 axis, float angle)
         {
-            if (IsGrabbled == false)
+            if (!IsGrabbled)
             {
                 m_axis = axis;
                 m_angle = angle;
@@ -36,20 +36,25 @@ namespace TLab.XR.VRGrabber
         protected override void Start()
         {
             m_syncGrabbable = GetComponent<TLabSyncGrabbable>();
-            if (m_syncGrabbable == null) Destroy(this);
+            if (m_syncGrabbable == null)
+            {
+                Destroy(this);
+            }
         }
 
         protected override void Update()
         {
-            if (IsGrabbled == false && (IsSyncFromOutside == false || m_onShot == true) && m_angle > 0f)
+            if (!IsGrabbled && (!IsSyncFromOutside || m_onShot) && m_angle > 0.0f)
             {
                 this.transform.rotation = Quaternion.AngleAxis(m_angle, m_axis) * this.transform.rotation;
-                m_angle = Mathf.Clamp(m_angle - 0.1f * Time.deltaTime, 0, float.MaxValue);
+                m_angle = Mathf.Clamp(m_angle - 0.1f * Time.deltaTime, 0.0f, float.MaxValue);
 
                 m_syncGrabbable.SyncRTCTransform();
             }
             else
+            {
                 m_angle = 0f;
+            }
 
             m_onShot = false;
         }

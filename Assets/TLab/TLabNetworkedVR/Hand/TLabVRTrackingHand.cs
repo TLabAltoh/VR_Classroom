@@ -51,7 +51,7 @@ namespace TLab.XR.VRGrabber
         private Vector3 m_currentRotateAnchor;
 
         //
-        private const string thisName = "[tlabvrtrackinghand] ";
+        private const string THIS_NAME = "[tlabvrtrackinghand] ";
 
         [System.Serializable]
         public struct Gesture
@@ -95,7 +95,11 @@ namespace TLab.XR.VRGrabber
 
         public OVRBone GetFingerBone(OVRSkeleton.BoneId id)
         {
-            if (m_skeltonInitialized == false) return null;
+            if (!m_skeltonInitialized)
+            {
+                return null;
+            }
+
             return m_skeleton.Bones[(int)id];
         }
 
@@ -110,7 +114,9 @@ namespace TLab.XR.VRGrabber
 
             List<Vector3> data = new List<Vector3>();
             foreach (var bone in m_fingerBones)
+            {
                 data.Add(m_skeleton.transform.InverseTransformPoint(bone.Transform.position));
+            }
 
             g.fingerDatas = data;
             m_gestures.Add(g);
@@ -162,7 +168,10 @@ namespace TLab.XR.VRGrabber
             bool grabb = DetectGesture() == "Grabb";
             bool grabbDown = grabb;
 
-            if (m_grabbPrev == true) grabbDown = false;
+            if (m_grabbPrev)
+            {
+                grabbDown = false;
+            }
 
             m_grabbPrev = grabb;
 
@@ -176,7 +185,10 @@ namespace TLab.XR.VRGrabber
         IEnumerator WaitForSkeltonInitialized()
         {
             // https://communityforums.atmeta.com/t5/Unity-VR-Development/Bones-list-is-empty/td-p/880261
-            while (m_skeleton.Bones.Count == 0) yield return null;
+            while (m_skeleton.Bones.Count == 0)
+            {
+                yield return null;
+            }
 
             m_fingerBones = new List<OVRBone>(m_skeleton.Bones);
             m_skeltonInitialized = true;
@@ -185,7 +197,10 @@ namespace TLab.XR.VRGrabber
         void Start()
         {
             m_skeltonInitialized = false;
-            if (m_skeleton != null) StartCoroutine(WaitForSkeltonInitialized());
+            if (m_skeleton != null)
+            {
+                StartCoroutine(WaitForSkeltonInitialized());
+            }
         }
 
         void Update()
@@ -196,7 +211,10 @@ namespace TLab.XR.VRGrabber
                 return;
             }
 
-            if (!m_skeltonInitialized) return;
+            if (!m_skeltonInitialized)
+            {
+                return;
+            }
 
             m_prevRotateAnchor = m_currentRotateAnchor;
             m_currentRotateAnchor = m_hand.PointerPose.position + m_hand.PointerPose.forward * 1f;
@@ -228,8 +246,14 @@ namespace TLab.XR.VRGrabber
                         GameObject target = m_raycastHit.collider.gameObject;
                         TLabVRGrabbable grabbable = target.GetComponent<TLabVRGrabbable>();
 
-                        if (grabbable == null) return;
-                        if (grabbable.AddParent(this.gameObject) == true) m_grabbable = grabbable;
+                        if (grabbable == null)
+                        {
+                            return;
+                        }
+                        if (grabbable.AddParent(this.gameObject))
+                        {
+                            m_grabbable = grabbable;
+                        }
                     }
                 }
             }
@@ -242,29 +266,37 @@ namespace TLab.XR.VRGrabber
             {
                 if (Physics.Raycast(m_hand.PointerPose.position, m_hand.PointerPose.forward, out m_raycastHit, m_laserPointer.maxLength, m_layerMask))
                 {
-
                     GameObject target = m_raycastHit.collider.gameObject;
 
                     //
                     // Outline
                     //
 
-                    TLabOutlineSelectable selectable = target.GetComponent<TLabOutlineSelectable>();
-                    if (selectable != null) selectable.Selected = true;
+                    var selectable = target.GetComponent<OutlineSelectable>();
+                    if (selectable != null)
+                    {
+                        selectable.Selected = true;
+                    }
 
                     //
                     // PointerOn
                     //
 
-                    Animator animator = target.GetComponent<Animator>();
-                    if (animator != null) animator.SetBool("PointerOn", true);
+                    var animator = target.GetComponent<Animator>();
+                    if (animator != null)
+                    {
+                        animator.SetBool("PointerOn", true);
+                    }
 
                     //
                     // Rotate
                     //
 
-                    TLabVRRotatable rotatable = target.GetComponent<TLabVRRotatable>();
-                    if (rotatable == null) return;
+                    var rotatable = target.GetComponent<TLabVRRotatable>();
+                    if (rotatable == null)
+                    {
+                        return;
+                    }
 
                     if (m_hand.GetFingerIsPinching(OVRHand.HandFinger.Index))
                     {

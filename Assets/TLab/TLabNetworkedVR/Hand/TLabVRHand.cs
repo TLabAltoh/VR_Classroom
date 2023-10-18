@@ -39,7 +39,7 @@ namespace TLab.XR.VRGrabber
         private RaycastHit m_raycastHit;
 
         //
-        private const string thisName = "[tlabvrhand] ";
+        private const string THIS_NAME = "[tlabvrhand] ";
 
         public GameObject RaycstResult
         {
@@ -71,18 +71,27 @@ namespace TLab.XR.VRGrabber
             m_cameraRig = FindObjectOfType<OVRCameraRig>();
             m_laserPointerMaxLength = m_laserPointer.maxLength;
 
-            if (m_controller == OVRInput.Controller.RTouch) m_anchor = m_cameraRig.rightHandAnchor;
-            else if (m_controller == OVRInput.Controller.LTouch) m_anchor = m_cameraRig.leftHandAnchor;
+            if (m_controller == OVRInput.Controller.RTouch)
+            {
+                m_anchor = m_cameraRig.rightHandAnchor;
+            }
+            else if (m_controller == OVRInput.Controller.LTouch)
+            {
+                m_anchor = m_cameraRig.leftHandAnchor;
+            }
             else
             {
                 m_handInitialized = false;
-                Debug.LogError(thisName + "The controller type is not properly selected. Select RTouch or LTouch.");
+                Debug.LogError(THIS_NAME + "The controller type is not properly selected. Select RTouch or LTouch.");
             }
         }
 
         void Update()
         {
-            if (m_handInitialized == false) return;
+            if (!m_handInitialized)
+            {
+                return;
+            }
 
             Ray ray = new Ray(m_anchor.position, m_anchor.forward);
 
@@ -93,7 +102,7 @@ namespace TLab.XR.VRGrabber
                 if (m_grabbable)
                 {
                     bool grip = OVRInput.Get(m_gripAxis, m_controller) > 0.0f;
-                    if (grip == false)
+                    if (!grip)
                     {
                         m_grabbable.RemoveParent(this.gameObject);
                         m_grabbable = null;
@@ -108,23 +117,30 @@ namespace TLab.XR.VRGrabber
                     // Outline
                     //
 
-                    TLabOutlineSelectable selectable = target.GetComponent<TLabOutlineSelectable>();
-                    if (selectable != null) selectable.Selected = true;
+                    var selectable = target.GetComponent<OutlineSelectable>();
+                    if (selectable != null)
+                    {
+                        selectable.Selected = true;
+                    }
 
                     //
                     // Grip
                     //
 
                     bool grip = OVRInput.GetDown(m_gripButton, m_controller);
-                    if (grip == true)
+                    if (grip)
                     {
-                        TLabVRGrabbable grabbable = target.GetComponent<TLabVRGrabbable>();
+                        var grabbable = target.GetComponent<TLabVRGrabbable>();
 
                         if (grabbable == null)
+                        {
                             return;
+                        }
 
-                        if (grabbable.AddParent(this.gameObject) == true)
+                        if (grabbable.AddParent(this.gameObject))
+                        {
                             m_grabbable = grabbable;
+                        }
                     }
                 }
             }
@@ -135,7 +151,7 @@ namespace TLab.XR.VRGrabber
                 if (m_grabbable)
                 {
                     bool grip = OVRInput.Get(m_gripAxis, m_controller) > 0.0f;
-                    if (grip == false)
+                    if (!grip)
                     {
                         m_grabbable.RemoveParent(this.gameObject);
                         m_grabbable = null;

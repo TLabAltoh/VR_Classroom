@@ -5,22 +5,24 @@ using TLab.XR.VRGrabber;
 
 public class VoiceChatEntry : MonoBehaviour
 {
-    [SerializeField] private TLabWebRTCVoiceChat m_voiceChat;
+    [SerializeField] private VoiceChat m_voiceChat;
 
     private bool SocketIsOpen
     {
         get
         {
-            return (TLabSyncClient.Instalce != null &&
-                    TLabSyncClient.Instalce.SocketIsOpen == true &&
-                    TLabSyncClient.Instalce.SeatIndex != -1);
+            return (SyncClient.Instance != null &&
+                    SyncClient.Instance.SocketIsOpen &&
+                    SyncClient.Instance.SeatIndex != -1);
         }
     }
 
     private IEnumerator WaitForConnection()
     {
-        while (SocketIsOpen == false)
+        while (!SocketIsOpen)
+        {
             yield return null;
+        }
 
         m_voiceChat.StartVoiceChat();
 

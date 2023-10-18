@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Text;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using static TLab.XR.VRGrabber.Utility.ComponentExtention;
 
 namespace TLab.XR.VRGrabber
@@ -20,8 +17,9 @@ namespace TLab.XR.VRGrabber
 
         [Tooltip("有効化すると誰からもこのオブジェクトを掴めなくなる")]
         [SerializeField] public bool m_locked = false;
-        
-        private bool m_rbAllocated = false;
+
+        [Tooltip("Rigidbodyの更新処理を任されているか (Debug)")]
+        [SerializeField] private bool m_rbAllocated = false;
 
         private int m_grabbed = -1;
 
@@ -36,73 +34,23 @@ namespace TLab.XR.VRGrabber
         private StringBuilder builder = new StringBuilder();
 
         //
-        private const string thisName = "[tlabsyncgrabbable] ";
+        private const string THIS_NAME = "[tlabsyncgrabbable] ";
 
-        public bool IsEnableGravity
-        {
-            get
-            {
-                return (m_rb == null) ? false : m_rb.useGravity;
-            }
-        }
+        public bool IsEnableGravity { get => (m_rb == null) ? false : m_rb.useGravity; }
 
-        public bool IsUseGravity
-        {
-            get
-            {
-                return m_useGravity;
-            }
-        }
+        public bool IsUseGravity { get => m_useGravity; }
 
-        public int GrabbedIndex
-        {
-            get
-            {
-                return m_grabbed;
-            }
-        }
+        public int GrabbedIndex { get => m_grabbed; }
 
-        public bool IsGrabbLocked
-        {
-            get
-            {
-                return m_grabbed != -1;
-            }
-        }
+        public bool IsGrabbLocked { get => m_grabbed != -1; }
 
-        public bool RbAllocated
-        {
-            get
-            {
-                return m_rbAllocated;
-            }
-        }
+        public bool RbAllocated { get => m_rbAllocated; }
 
-        private bool EnableAutoSync
-        {
-            get
-            {
-                return m_enableSync && !IsGrabbLocked && (m_autoSync || m_rbAllocated && IsEnableGravity);
-            }
-        }
+        private bool EnableAutoSync { get => m_enableSync && !IsGrabbLocked && (m_autoSync || m_rbAllocated && IsEnableGravity); }
 
-        public bool IsSyncFromOutside
-        {
-            get
-            {
-                return m_isSyncFromOutside;
-            }
-        }
+        public bool IsSyncFromOutside { get => m_isSyncFromOutside; }
 
-        private bool SocketIsOpen
-        {
-            get
-            {
-                return (TLabSyncClient.Instalce != null &&
-                        TLabSyncClient.Instalce.SocketIsOpen == true &&
-                        TLabSyncClient.Instalce.SeatIndex != -1);
-            }
-        }
+        private bool SocketIsOpen { get => (SyncClient.Instance != null && SyncClient.Instance.SocketIsOpen && SyncClient.Instance.SeatIndex != -1); }
 
         public void SyncFromOutside(WebObjectInfo transform)
         {
@@ -112,11 +60,13 @@ namespace TLab.XR.VRGrabber
 
             this.transform.localScale = new Vector3(scale.x, scale.y, scale.z);
 
-            if (m_useRigidbody == true)
+            if (m_useRigidbody)
             {
                 // Rigidbodyを無効化し，同期される側でも速度を正しく計算できるようにする．
-                if (m_rbAllocated == false && m_gravityState == true)
+                if (!m_rbAllocated && m_gravityState)
+                {
                     SetGravity(false);
+                }
 
                 m_rb.MovePosition(new Vector3(position.x, position.y, position.z));
                 m_rb.MoveRotation(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
@@ -134,17 +84,23 @@ namespace TLab.XR.VRGrabber
         private IEnumerator RegistRbObj()
         {
             // if useGravity is false, doesn't regist this object to server
-            if (m_useGravity == false) yield break;
+            if (!m_useGravity)
+            {
+                yield break;
+            }
 
             // Wait for connection is opened
-            while (SocketIsOpen == false) yield return null;
+            while (!SocketIsOpen)
+            {
+                yield return null;
+            }
 
-            TLabSyncClient.Instalce.SendWsMessage(
+            SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST,
                 action: WebAction.REGISTRBOBJ,
                 transform: new WebObjectInfo { id = this.gameObject.name });
 
-            Debug.Log(thisName + "Send Rb Obj");
+            Debug.Log(THIS_NAME + "Send Rb Obj");
         }
 
         public void AllocateGravity(bool active)
@@ -155,7 +111,7 @@ namespace TLab.XR.VRGrabber
 
             SetGravity(allocated ? true : false);
 
-            Debug.Log(thisName + "rb allocated:" + allocated + " - " + this.gameObject.name);
+            Debug.Log(THIS_NAME + "rb allocated:" + allocated + " - " + this.gameObject.name);
         }
 
         public void ForceReleaseSelf()
@@ -186,12 +142,12 @@ namespace TLab.XR.VRGrabber
         {
             ForceReleaseSelf();
 
-            TLabSyncClient.Instalce.SendWsMessage(
+            SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST,
                 action: WebAction.FORCERELEASE,
                 transform: new WebObjectInfo { id = this.gameObject.name });
 
-            Debug.Log(thisName + "force release");
+            Debug.Log(THIS_NAME + "force release");
         }
 
         public void GrabbLockFromOutside(int index)
@@ -206,33 +162,39 @@ namespace TLab.XR.VRGrabber
 
                 m_grabbed = index;
 
-                if (m_rbAllocated == true)
+                if (m_rbAllocated)
+                {
                     SetGravity(false);
+                }
             }
             else
             {
                 m_grabbed = -1;
-                if (m_rbAllocated == true)
+                if (m_rbAllocated)
+                {
                     SetGravity(true);
+                }
             }
         }
 
         public void GrabbLock(bool active)
         {
-            m_grabbed = active ? TLabSyncClient.Instalce.SeatIndex : -1;
+            m_grabbed = active ? SyncClient.Instance.SeatIndex : -1;
 
-            if (m_rbAllocated == true)
+            if (m_rbAllocated)
+            {
                 SetGravity(!active);
+            }
 
             SyncTransform();
 
-            TLabSyncClient.Instalce.SendWsMessage(
+            SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST,
                 action: WebAction.GRABBLOCK,
-                seatIndex: active ? TLabSyncClient.Instalce.SeatIndex : -1,
+                seatIndex: active ? SyncClient.Instance.SeatIndex : -1,
                 transform: new WebObjectInfo { id = this.gameObject.name });
 
-            Debug.Log(thisName + "grabb lock");
+            Debug.Log(THIS_NAME + "grabb lock");
         }
 
         public void SimpleLock(bool active)
@@ -250,15 +212,18 @@ namespace TLab.XR.VRGrabber
 
             m_grabbed = active ? -2 : -1;
 
-            if (m_rbAllocated) SetGravity(!active);
+            if (m_rbAllocated)
+            {
+                SetGravity(!active);
+            }
 
-            TLabSyncClient.Instalce.SendWsMessage(
+            SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST,
                 action: WebAction.GRABBLOCK,
                 seatIndex: active ? -2 : -1,
                 transform: new WebObjectInfo { id = this.gameObject.name });
 
-            Debug.Log(thisName + "simple lock");
+            Debug.Log(THIS_NAME + "simple lock");
         }
 
         protected override void RbGripSwitch(bool grip)
@@ -268,8 +233,10 @@ namespace TLab.XR.VRGrabber
 
         public override bool AddParent(GameObject parent)
         {
-            if (m_locked == true || m_grabbed != -1 && m_grabbed != TLabSyncClient.Instalce.SeatIndex)
+            if (m_locked || m_grabbed != -1 && m_grabbed != SyncClient.Instance.SeatIndex)
+            {
                 return false;
+            }
 
             return base.AddParent(parent);
         }
@@ -308,7 +275,10 @@ namespace TLab.XR.VRGrabber
 
         public void SyncRTCTransform()
         {
-            if (m_enableSync == false) return;
+            if (!m_enableSync)
+            {
+                return;
+            }
 
             // transform
             // (3 + 4 + 3) * 4 = 40 byte
@@ -358,87 +328,90 @@ namespace TLab.XR.VRGrabber
                 }
             }
 
-            TLabSyncClient.Instalce.SendRTCMessage(packet);
+            SyncClient.Instance.SendRTCMessage(packet);
 
             m_isSyncFromOutside = false;
         }
 
         public void SyncTransform()
         {
-            if (m_enableSync == false) return;
+            if (!m_enableSync)
+            {
+                return;
+            }
 
             builder.Clear();
 
             builder.Append("{");
-            builder.Append(TLabSyncClientConst.ROLE);
+            builder.Append(SyncClientConst.ROLE);
             builder.Append(((int)WebRole.GUEST).ToString());
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.ACTION);
+            builder.Append(SyncClientConst.ACTION);
             builder.Append(((int)WebAction.SYNCTRANSFORM).ToString());
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.TRANSFORM);
+            builder.Append(SyncClientConst.TRANSFORM);
             builder.Append("{");
-            builder.Append(TLabSyncClientConst.TRANSFORM_ID);
+            builder.Append(SyncClientConst.TRANSFORM_ID);
             builder.Append("\"");
             builder.Append(this.gameObject.name);
             builder.Append("\"");
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.RIGIDBODY);
+            builder.Append(SyncClientConst.RIGIDBODY);
             builder.Append((m_useRigidbody ? "true" : "false"));
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.GRAVITY);
+            builder.Append(SyncClientConst.GRAVITY);
             builder.Append((m_useGravity ? "true" : "false"));
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.POSITION);
+            builder.Append(SyncClientConst.POSITION);
             builder.Append("{");
-            builder.Append(TLabSyncClientConst.X);
+            builder.Append(SyncClientConst.X);
             builder.Append((this.transform.position.x).ToString());
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.Y);
+            builder.Append(SyncClientConst.Y);
             builder.Append((this.transform.position.y).ToString());
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.Z);
+            builder.Append(SyncClientConst.Z);
             builder.Append((this.transform.position.z).ToString());
             builder.Append("}");
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.ROTATION);
+            builder.Append(SyncClientConst.ROTATION);
             builder.Append("{");
-            builder.Append(TLabSyncClientConst.X);
+            builder.Append(SyncClientConst.X);
             builder.Append((this.transform.rotation.x).ToString());
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.Y);
+            builder.Append(SyncClientConst.Y);
             builder.Append((this.transform.rotation.y).ToString());
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.Z);
+            builder.Append(SyncClientConst.Z);
             builder.Append((this.transform.rotation.z).ToString());
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.W);
+            builder.Append(SyncClientConst.W);
             builder.Append((this.transform.rotation.w).ToString());
             builder.Append("}");
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.SCALE);
+            builder.Append(SyncClientConst.SCALE);
             builder.Append("{");
-            builder.Append(TLabSyncClientConst.X);
+            builder.Append(SyncClientConst.X);
             builder.Append((this.transform.localScale.x).ToString());
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.Y);
+            builder.Append(SyncClientConst.Y);
             builder.Append((this.transform.localScale.y).ToString());
-            builder.Append(TLabSyncClientConst.COMMA);
+            builder.Append(SyncClientConst.COMMA);
 
-            builder.Append(TLabSyncClientConst.Z);
+            builder.Append(SyncClientConst.Z);
             builder.Append((this.transform.localScale.z).ToString());
             builder.Append("}");
             builder.Append("}");
@@ -482,19 +455,22 @@ namespace TLab.XR.VRGrabber
 
             //string json = JsonUtility.ToJson(obj);
 
-            TLabSyncClient.Instalce.SendWsMessage(json);
+            SyncClient.Instance.SendWsMessage(json);
 
             m_isSyncFromOutside = false;
         }
 
         public void ClearTransform()
         {
-            if (m_enableSync == false) return;
+            if (!m_enableSync)
+            {
+                return;
+            }
 
-            TLabSyncClient.Instalce.SendWsMessage(
+            SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST,
                 action: WebAction.CLEARTRANSFORM,
-                seatIndex: TLabSyncClient.Instalce.SeatIndex,
+                seatIndex: SyncClient.Instance.SeatIndex,
                 transform: new WebObjectInfo { id = this.gameObject.name });
         }
 
@@ -507,14 +483,16 @@ namespace TLab.XR.VRGrabber
             // Oculsu Quest 2: 72 -----> Size: 10 * 72 / 400 = 1.8 ~= 2
 
 #if UNITY_EDITOR
-            if (IsUseGravity == true && m_didnotReachCount > 10)
+            if (IsUseGravity && m_didnotReachCount > 10)
             {
 #else
-            if (IsUseGravity == true && m_didnotReachCount > 2)
+            if (IsUseGravity && m_didnotReachCount > 2)
             {
 #endif
-                if(m_grabbed == -1 && m_rbAllocated == false && m_gravityState == false)
+                if(m_grabbed == -1 && !m_rbAllocated && !m_gravityState)
+                {
                     SetGravity(true);
+                }
             }
         }
 
@@ -533,15 +511,21 @@ namespace TLab.XR.VRGrabber
         {
             int result = base.Devide();
 
-            if (result < 0) return -1;
+            if (result < 0)
+            {
+                return -1;
+            }
 
             bool active = result == 0 ? true : false;
 
             // 結合/分割を切り替えたので，誰もこのオブジェクトを掴んでいない状態にする
             TLabSyncGrabbable[] grabbables = GetComponentsInTargets<TLabSyncGrabbable>(DivideTargets);
-            foreach (TLabSyncGrabbable grabbable in grabbables) grabbable.ForceRelease();
+            foreach (TLabSyncGrabbable grabbable in grabbables)
+            {
+                grabbable.ForceRelease();
+            }
 
-            TLabSyncClient.Instalce.SendWsMessage(
+            SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST,
                 action: WebAction.DIVIDEGRABBER,
                 active: active,
@@ -554,8 +538,10 @@ namespace TLab.XR.VRGrabber
         {
             base.SetInitialChildTransform();
 
-            if (m_enableDivide == false)
+            if (!m_enableDivide)
+            {
                 return;
+            }
 
             TLabSyncGrabbable[] grabbables = GetComponentsInTargets<TLabSyncGrabbable>(DivideTargets);
             foreach (TLabSyncGrabbable grabbable in grabbables)
@@ -568,16 +554,21 @@ namespace TLab.XR.VRGrabber
 
         public void ShutdownGrabber(bool deleteCache)
         {
-            if (m_shutdown == true || SocketIsOpen == false)
+            if (m_shutdown || !SocketIsOpen)
+            {
                 return;
+            }
 
             // このオブジェクトをロックしているのが自分だったら解除する
-            if (TLabSyncClient.Instalce.SeatIndex == m_grabbed &&
-                m_grabbed != -1 &&
-                m_grabbed != -2) GrabbLock(false);
+            if (SyncClient.Instance.SeatIndex == m_grabbed && m_grabbed != -1 && m_grabbed != -2)
+            {
+                GrabbLock(false);
+            }
 
-            if (deleteCache == true)
+            if (!deleteCache)
+            {
                 ClearTransform();
+            }
 
             m_shutdown = true;
             m_enableSync = false;
@@ -585,6 +576,8 @@ namespace TLab.XR.VRGrabber
 
         protected override void Start()
         {
+            m_rbAllocated = false;
+
             base.Start();
 
             // Disable gravity untile graivity allocated from sync server
@@ -592,7 +585,7 @@ namespace TLab.XR.VRGrabber
 
             StartCoroutine(RegistRbObj());
 
-            TLabSyncClient.Instalce.AddSyncGrabbable(this.gameObject.name, this);
+            SyncClient.Instance.AddSyncGrabbable(this.gameObject.name, this);
         }
 
         protected override void Update()
@@ -603,7 +596,9 @@ namespace TLab.XR.VRGrabber
             if (m_mainParent != null)
             {
                 if (m_subParent != null && m_scaling)
+                {
                     UpdateScale();
+                }
                 else
                 {
                     m_scaleInitialDistance = -1.0f;
@@ -616,8 +611,10 @@ namespace TLab.XR.VRGrabber
             {
                 m_scaleInitialDistance = -1.0f;
 
-                if (EnableAutoSync == true)
+                if (EnableAutoSync)
+                {
                     SyncRTCTransform();
+                }
             }
 
             m_didnotReachCount++;
@@ -633,64 +630,4 @@ namespace TLab.XR.VRGrabber
             ShutdownGrabber(false);
         }
     }
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(TLabSyncGrabbable))]
-    [CanEditMultipleObjects]
-
-    public class TLabSyncGrabbableEditor : Editor
-    {
-        private void InitializeForRotateble(TLabSyncGrabbable grabbable, TLabVRRotatable rotatable)
-        {
-            grabbable.InitializeRotatable();
-            EditorUtility.SetDirty(grabbable);
-            EditorUtility.SetDirty(rotatable);
-        }
-
-        private void InitializeForDivibable(TLabSyncGrabbable grabbable, bool isRoot)
-        {
-            // Disable Rigidbody.useGrabity
-            grabbable.m_enableSync = true;
-            grabbable.m_autoSync = false;
-            grabbable.m_locked = false;
-            grabbable.UseRigidbody(false, false);
-
-            grabbable.gameObject.layer = LayerMask.NameToLayer("TLabGrabbable");
-
-            var meshFilter = grabbable.gameObject.RequireComponent<MeshFilter>();
-            var rotatable = grabbable.gameObject.RequireComponent<TLabSyncRotatable>();
-            var meshCollider = grabbable.gameObject.RequireComponent<MeshCollider>();
-            meshCollider.enabled = isRoot;
-
-            EditorUtility.SetDirty(grabbable);
-            EditorUtility.SetDirty(rotatable);
-        }
-
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-
-            serializedObject.Update();
-
-            TLabSyncGrabbable grabbable = target as TLabSyncGrabbable;
-            TLabVRRotatable rotatable = grabbable.gameObject.GetComponent<TLabVRRotatable>();
-
-            if (rotatable != null && GUILayout.Button("Initialize for Rotatable"))
-                InitializeForRotateble(grabbable, rotatable);
-
-            if (grabbable.EnableDivide == true && GUILayout.Button("Initialize for Devibable"))
-            {
-                InitializeForDivibable(grabbable, true);
-
-                foreach (GameObject divideTarget in grabbable.DivideTargets)
-                {
-                    var grabbableChild = divideTarget.gameObject.RequireComponent<TLabSyncGrabbable>();
-                    InitializeForDivibable(grabbableChild, false);
-                }
-            }
-
-            serializedObject.ApplyModifiedProperties();
-        }
-    }
-#endif
 }

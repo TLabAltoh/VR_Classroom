@@ -11,7 +11,10 @@ namespace TLab.XR.VRGrabber.Utility
             foreach (GameObject target in targets)
             {
                 T component = target.GetComponent<T>();
-                if (component != null) componentList.Add(component);
+                if (component != null)
+                {
+                    componentList.Add(component);
+                }
             }
 
             return componentList.ToArray();
@@ -21,7 +24,10 @@ namespace TLab.XR.VRGrabber.Utility
         {
             var result = self.GetComponent<T>();
 
-            if (result == null) result = self.AddComponent<T>();
+            if (result == null)
+            {
+                result = self.AddComponent<T>();
+            }
 
             return result;
         }
@@ -30,7 +36,12 @@ namespace TLab.XR.VRGrabber.Utility
         {
             var result = self.GetComponent<T>();
 
-            if (result != null) Object.Destroy(result);
+            if (result != null)
+            {
+                Object.Destroy(result);
+            }
+
+            Object.Destroy(result);
         }
     }
 }

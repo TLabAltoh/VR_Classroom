@@ -12603,14 +12603,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07d1e184178bdd48ae423d746ced571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverAddr: ws://192.168.11.12:3001
-  userID: 
-  roomID: 
-  onMessage:
+  m_serverAddr: ws://localhost:3001
+  m_userID: 
+  m_roomID: 
+  m_onMessage:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1437339803320159366}
-        m_TargetAssemblyTypeName: TLabWebRTCVoiceChat, Assembly-CSharp
+        m_TargetAssemblyTypeName: TLab.Network.VoiceChat.VoiceChat, Assembly-CSharp
         m_MethodName: OnVoice
         m_Mode: 0
         m_Arguments:

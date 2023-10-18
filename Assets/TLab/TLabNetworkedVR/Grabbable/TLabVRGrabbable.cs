@@ -10,44 +10,6 @@ namespace TLab.XR.VRGrabber
 {
     public class TLabVRGrabbable : MonoBehaviour
     {
-        public class CashTransform
-        {
-            public Vector3 LocalPosiiton
-            {
-                get
-                {
-                    return localPosition;
-                }
-            }
-
-            public Vector3 LocalScale
-            {
-                get
-                {
-                    return localScale;
-                }
-            }
-
-            public Quaternion LocalRotation
-            {
-                get
-                {
-                    return localRotation;
-                }
-            }
-
-            public CashTransform(Vector3 localPosition, Vector3 localScale, Quaternion localRotation)
-            {
-                this.localPosition = localPosition;
-                this.localRotation = localRotation;
-                this.localScale = localScale;
-            }
-
-            private Vector3 localPosition;
-            private Vector3 localScale;
-            private Quaternion localRotation;
-        }
-
         public const int PARENT_LENGTH = 2;
 
         [Header("Rigidbody Setting")]
@@ -105,43 +67,31 @@ namespace TLab.XR.VRGrabber
 
         protected List<CashTransform> m_cashTransforms = new List<CashTransform>();
 
-        private const string thisName = "[tlabvrgrabbable] ";
+        private const string THIS_NAME = "[tlabvrgrabbable] ";
 
-        public bool Grabbed
-        {
-            get
-            {
-                return m_mainParent != null;
-            }
-        }
+        public bool Grabbed { get => m_mainParent != null; }
 
-        public bool EnableDivide
-        {
-            get
-            {
-                return m_enableDivide;
-            }
-        }
+        public bool EnableDivide { get => m_enableDivide; }
 
-        public GameObject[] DivideTargets
-        {
-            get
-            {
-                return m_divideTargets;
-            }
-        }
+        public GameObject[] DivideTargets { get => m_divideTargets; }
 
 #if UNITY_EDITOR
         public virtual void InitializeRotatable()
         {
-            if (EditorApplication.isPlaying == true) return;
+            if (EditorApplication.isPlaying)
+            {
+                return;
+            }
 
             m_useGravity = false;
         }
 
         public virtual void UseRigidbody(bool rigidbody, bool gravity)
         {
-            if (EditorApplication.isPlaying == true) return;
+            if (EditorApplication.isPlaying)
+            {
+                return;
+            }
 
             m_useRigidbody = rigidbody;
             m_useGravity = gravity;
@@ -167,11 +117,14 @@ namespace TLab.XR.VRGrabber
 
         public virtual void SetGravity(bool active)
         {
-            if (m_rb == null || m_useRigidbody == false || m_useGravity == false) return;
+            if (m_rb == null || m_useRigidbody == false || m_useGravity == false)
+            {
+                return;
+            }
 
             m_gravityState = active;
 
-            if (active == true)
+            if (active)
             {
                 m_rb.isKinematic = false;
                 m_rb.useGravity = true;
@@ -214,7 +167,7 @@ namespace TLab.XR.VRGrabber
 
                 MainParentGrabbStart();
 
-                Debug.Log(thisName + parent.ToString() + " mainParent added");
+                Debug.Log(THIS_NAME + parent.ToString() + " mainParent added");
                 return true;
             }
             else if (m_subParent == null)
@@ -223,11 +176,11 @@ namespace TLab.XR.VRGrabber
 
                 SubParentGrabStart();
 
-                Debug.Log(thisName + parent.ToString() + " subParent added");
+                Debug.Log(THIS_NAME + parent.ToString() + " subParent added");
                 return true;
             }
 
-            Debug.Log(thisName + "cannot add parent");
+            Debug.Log(THIS_NAME + "cannot add parent");
             return false;
         }
 
@@ -242,7 +195,7 @@ namespace TLab.XR.VRGrabber
 
                     MainParentGrabbStart();
 
-                    Debug.Log(thisName + "m_main released and m_sub added");
+                    Debug.Log(THIS_NAME + "m_main released and m_sub added");
 
                     return true;
                 }
@@ -252,7 +205,7 @@ namespace TLab.XR.VRGrabber
 
                     m_mainParent = null;
 
-                    Debug.Log(thisName + "m_main released");
+                    Debug.Log(THIS_NAME + "m_main released");
 
                     return true;
                 }
@@ -263,7 +216,7 @@ namespace TLab.XR.VRGrabber
 
                 MainParentGrabbStart();
 
-                Debug.Log(thisName + "m_sub released");
+                Debug.Log(THIS_NAME + "m_sub released");
 
                 return true;
             }
@@ -293,10 +246,14 @@ namespace TLab.XR.VRGrabber
                 float scaleRatio = (scalingPositionMain - scalingPositionSub).magnitude / m_scaleInitialDistance;
                 this.transform.localScale = scaleRatio * m_scaleInitial;
 
-                if (m_useRigidbody == true)
+                if (m_useRigidbody)
+                {
                     m_rb.MovePosition(positionMain * 0.5f + positionSub * 0.5f);
+                }
                 else
+                {
                     this.transform.position = positionMain * 0.5f + positionSub * 0.5f;
+                }
             }
         }
 
@@ -304,7 +261,10 @@ namespace TLab.XR.VRGrabber
         {
             if (m_useRigidbody)
             {
-                if (m_positionFixed) m_rb.MovePosition(m_mainParent.transform.TransformPoint(m_mainPositionOffset));
+                if (m_positionFixed)
+                {
+                    m_rb.MovePosition(m_mainParent.transform.TransformPoint(m_mainPositionOffset));
+                }
 
                 if (m_rotateFixed)
                 {
@@ -315,7 +275,10 @@ namespace TLab.XR.VRGrabber
             }
             else
             {
-                if (m_positionFixed) this.transform.position = m_mainParent.transform.TransformPoint(m_mainPositionOffset);
+                if (m_positionFixed)
+                {
+                    this.transform.position = m_mainParent.transform.TransformPoint(m_mainPositionOffset);
+                }
 
                 if (m_rotateFixed)
                 {
@@ -351,31 +314,51 @@ namespace TLab.XR.VRGrabber
 
         protected virtual void Devide(bool active)
         {
-            if (m_enableDivide == false) return;
+            if (!m_enableDivide)
+            {
+                return;
+            }
 
             MeshCollider meshCollider = this.gameObject.GetComponent<MeshCollider>();
-            if (meshCollider == null) return;
+            if (meshCollider == null)
+            {
+                return;
+            }
 
             meshCollider.enabled = !active;
 
             MeshCollider[] childs = GetComponentsInTargets<MeshCollider>(DivideTargets);
 
-            for (int i = 0; i < childs.Length; i++) childs[i].enabled = active;
+            for (int i = 0; i < childs.Length; i++)
+            {
+                childs[i].enabled = active;
+            }
 
             TLabVRRotatable[] rotatebles = this.gameObject.GetComponentsInChildren<TLabVRRotatable>();
             for (int i = 0; i < rotatebles.Length; i++)
+            {
                 rotatebles[i].SetHandAngulerVelocity(Vector3.zero, 0.0f);
+            }
 
-            if (active == false) CreateCombineMeshCollider();
+            if (!active)
+            {
+                CreateCombineMeshCollider();
+            }
         }
 
         public virtual int Devide()
         {
-            if (m_enableDivide == false) return -1;
+            if (!m_enableDivide)
+            {
+                return -1;
+            }
 
             MeshCollider meshCollider = this.gameObject.GetComponent<MeshCollider>();
 
-            if (meshCollider == null) return -1;
+            if (meshCollider == null)
+            {
+                return -1;
+            }
 
             bool current = meshCollider.enabled;
 
@@ -399,7 +382,10 @@ namespace TLab.XR.VRGrabber
 
         public virtual void SetInitialChildTransform()
         {
-            if (m_enableDivide == false) return;
+            if (!m_enableDivide)
+            {
+                return;
+            }
 
             int index = 0;
 
@@ -414,9 +400,15 @@ namespace TLab.XR.VRGrabber
             }
 
             MeshCollider meshCollider = this.gameObject.GetComponent<MeshCollider>();
-            if (meshCollider == null) return;
+            if (meshCollider == null)
+            {
+                return;
+            }
 
-            if (meshCollider.enabled == true) CreateCombineMeshCollider();
+            if (meshCollider.enabled)
+            {
+                CreateCombineMeshCollider();
+            }
         }
 
         protected virtual void CashRbVelocity()
@@ -430,13 +422,13 @@ namespace TLab.XR.VRGrabber
 
         protected virtual void Start()
         {
-            if (m_enableDivide == true)
+            if (m_enableDivide)
             {
                 GetInitialChildTransform();
                 CreateCombineMeshCollider();
             }
 
-            if (m_useRigidbody == true)
+            if (m_useRigidbody)
             {
                 m_rb = this.gameObject.RequireComponent<Rigidbody>();
                 m_prebVels.Enqueue(m_rb.velocity);
@@ -455,7 +447,9 @@ namespace TLab.XR.VRGrabber
             if (m_mainParent != null)
             {
                 if (m_subParent != null && m_scaling)
+                {
                     UpdateScale();
+                }
                 else
                 {
                     m_scaleInitialDistance = -1.0f;
@@ -464,101 +458,9 @@ namespace TLab.XR.VRGrabber
                 }
             }
             else
-                m_scaleInitialDistance = -1.0f;
-        }
-    }
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(TLabVRGrabbable))]
-    [CanEditMultipleObjects]
-
-    public class TLabVRGrabbableEditor : Editor
-    {
-        private void InitializeForRotateble(TLabVRGrabbable grabbable, TLabVRRotatable rotatable)
-        {
-            grabbable.InitializeRotatable();
-            EditorUtility.SetDirty(grabbable);
-            EditorUtility.SetDirty(rotatable);
-        }
-
-        private void InitializeForDivibable(TLabVRGrabbable grabbable, bool isRoot)
-        {
-            // Rigidbody‚ÌUseGravity‚ð–³Œø‰»‚·‚é
-            grabbable.UseRigidbody(false, false);
-
-            grabbable.gameObject.layer = LayerMask.NameToLayer("TLabGrabbable");
-
-            var meshFilter = grabbable.gameObject.RequireComponent<MeshFilter>();
-            var rotatable = grabbable.gameObject.RequireComponent<TLabVRRotatable>();
-            var meshCollider = grabbable.gameObject.RequireComponent<MeshCollider>();
-            meshCollider.enabled = isRoot;
-
-            EditorUtility.SetDirty(grabbable);
-            EditorUtility.SetDirty(rotatable);
-        }
-
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-
-            serializedObject.Update();
-
-            TLabVRGrabbable grabbable = target as TLabVRGrabbable;
-
-            TLabVRRotatable rotatable = grabbable.gameObject.GetComponent<TLabVRRotatable>();
-
-            if (rotatable != null && GUILayout.Button("Initialize for Rotatable"))
-                InitializeForRotateble(grabbable, rotatable);
-
-            if (grabbable.EnableDivide == true && GUILayout.Button("Initialize for Devibable"))
             {
-                InitializeForDivibable(grabbable, true);
-
-                foreach (GameObject divideTarget in grabbable.DivideTargets)
-                {
-                    TLabVRGrabbable grabbableChild = divideTarget.RequireComponent<TLabVRGrabbable>();
-
-                    InitializeForDivibable(grabbableChild, false);
-                }
+                m_scaleInitialDistance = -1.0f;
             }
-
-            serializedObject.ApplyModifiedProperties();
         }
-    }
-#endif
-
-    /*
-     * Fixed Count Queue
-     * https://www.hanachiru-blog.com/entry/2020/05/05/120000
-     * */
-
-    public class FixedQueue<T> : IEnumerable<T>
-    {
-        private Queue<T> _queue;
-
-        public int Count => _queue.Count;
-
-        public int Capacity { get; private set; }
-
-        public FixedQueue(int capacity)
-        {
-            Capacity = capacity;
-            _queue = new Queue<T>(capacity);
-        }
-
-        public void Enqueue(T item)
-        {
-            _queue.Enqueue(item);
-
-            if (Count > Capacity) Dequeue();
-        }
-
-        public T Dequeue() => _queue.Dequeue();
-
-        public T Peek() => _queue.Peek();
-
-        public IEnumerator<T> GetEnumerator() => _queue.GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() => _queue.GetEnumerator();
     }
 }
