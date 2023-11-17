@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 57209349332704164}
   m_LocalRotation: {x: -0.00000014106499, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3171661833734934316}
@@ -320,6 +320,7 @@ MonoBehaviour:
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
+  m_rbAllocated: 0
 --- !u!114 &2863154327525183345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,7 +389,7 @@ Transform:
   m_GameObject: {fileID: 481612134114848234}
   m_LocalRotation: {x: -0.00000014106499, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1745634660493665203}
@@ -574,7 +575,7 @@ Transform:
   m_GameObject: {fileID: 1039871963797232046}
   m_LocalRotation: {x: -0.00000014106499, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4986461078594563507}
@@ -845,6 +846,7 @@ MonoBehaviour:
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
+  m_rbAllocated: 0
 --- !u!114 &2689573220026394622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1567,6 +1569,7 @@ MonoBehaviour:
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
+  m_rbAllocated: 0
 --- !u!64 &1678661862454671458
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2188,6 +2191,7 @@ MonoBehaviour:
   m_enableSync: 1
   m_autoSync: 0
   m_locked: 0
+  m_rbAllocated: 0
 --- !u!114 &148056869523993682
 MonoBehaviour:
   m_ObjectHideFlags: 0
