@@ -205,7 +205,7 @@ namespace TLab.XR.VRGrabber
 
         void Update()
         {
-            if (m_debugMode && Input.GetKeyDown(KeyCode.Space))
+            if (m_debugMode && UnityEngine.Input.GetKeyDown(KeyCode.Space))
             {
                 SavePose();
                 return;

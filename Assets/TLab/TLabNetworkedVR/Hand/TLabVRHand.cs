@@ -41,29 +41,11 @@ namespace TLab.XR.VRGrabber
         //
         private const string THIS_NAME = "[tlabvrhand] ";
 
-        public GameObject RaycstResult
-        {
-            get
-            {
-                return m_raycastResult;
-            }
-        }
+        public GameObject raycstResult => m_raycastResult;
 
-        public RaycastHit RaycastHit
-        {
-            get
-            {
-                return m_raycastHit;
-            }
-        }
+        public RaycastHit raycastHit => m_raycastHit;
 
-        public TLabVRGrabbable CurrentGrabbable
-        {
-            get
-            {
-                return m_grabbable;
-            }
-        }
+        public TLabVRGrabbable currentGrabbable => m_grabbable;
 
         void Start()
         {

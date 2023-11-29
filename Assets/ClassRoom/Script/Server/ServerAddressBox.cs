@@ -7,33 +7,33 @@ namespace TLab.VRClassroom
     [CreateAssetMenu(menuName = "TLab/ServerAddressBox")]
     public class ServerAddressBox : ScriptableObject
     {
-        public enum AddrType
+        public enum Protocol
         {
             WEBSOCKET,
             HTTP,
             HTTPS
         }
 
+        public static Dictionary<Protocol, string> PROTOCOL = new Dictionary<Protocol, string>
+        {
+            { Protocol.WEBSOCKET, "ws" },
+            { Protocol.HTTP, "http" },
+            { Protocol.HTTPS, "https" }
+        };
+
         [System.Serializable]
         public class ServerAddress
         {
             public string name;
             public string addr;
-            public AddrType type;
+            public Protocol protocol;
         }
 
-        [SerializeField] public ServerAddress[] m_serverAddressList;
+        [SerializeField] private ServerAddress[] m_serverAddressList;
 
-        public Dictionary<AddrType, string> m_standardDic = new Dictionary<AddrType, string>
+        public bool IsMatch(Protocol type, string addr)
         {
-            { AddrType.WEBSOCKET, "ws" },
-            { AddrType.HTTP, "http" },
-            { AddrType.HTTPS, "https" }
-        };
-
-        public bool IsMatch(AddrType type, string addr)
-        {
-            if (Regex.IsMatch(addr, m_standardDic[type] + @"://\d{1,3}(\.\d{1,3}){3}(:\d{1,7})?"))
+            if (Regex.IsMatch(addr, PROTOCOL[type] + @"://\d{1,3}(\.\d{1,3}){3}(:\d{1,7})?"))
             {
                 return true;
             }
@@ -43,34 +43,33 @@ namespace TLab.VRClassroom
             }
         }
 
-        public void SetAddress(string name, string addr)
+        public ServerAddress GetAddress(string name)
         {
             foreach (ServerAddress serverAddr in m_serverAddressList)
             {
                 if (serverAddr.name == name)
                 {
-                    if (IsMatch(serverAddr.type, addr))
-                    {
-                        serverAddr.addr = addr;
-                    }
-                }
-            }
-        }
-
-        public string GetAddress(string name)
-        {
-            foreach (ServerAddress serverAddr in m_serverAddressList)
-            {
-                if (serverAddr.name == name)
-                {
-                    if (IsMatch(serverAddr.type, serverAddr.addr))
-                    {
-                        return serverAddr.addr;
-                    }
+                    return serverAddr;
                 }
             }
 
             return null;
+        }
+
+        public void SetAddress(string name, string addr, string port = null)
+        {
+            var serverAddr = GetAddress(name);
+            if(serverAddr != null)
+            {
+                string newAddr = PROTOCOL[serverAddr.protocol] + "://" + addr;
+
+                if(port != null)
+                {
+                    newAddr += ":" + port;
+                }
+
+                serverAddr.addr = newAddr;
+            }
         }
     }
 

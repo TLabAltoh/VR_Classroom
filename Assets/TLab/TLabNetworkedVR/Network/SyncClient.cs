@@ -7,7 +7,6 @@ using UnityEditor;
 #endif
 using NativeWebSocket;
 using TLab.Network.WebRTC;
-using TLab.XR.VRGrabber.Utility;
 
 namespace TLab.XR.VRGrabber
 {

@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 using TLab.Security;
 
 namespace TLab.VRClassroom.Editor
@@ -13,7 +9,6 @@ namespace TLab.VRClassroom.Editor
 
     public class ClassroomEntryEditor : UnityEditor.Editor
     {
-
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -22,9 +17,9 @@ namespace TLab.VRClassroom.Editor
 
             if (GUILayout.Button("Regist Password"))
             {
-                string hash = TLabSecurity.GetHashString(classroomEntry.Password);
-                classroomEntry.PassHash = hash;
-                classroomEntry.Password = "";
+                string hash = TLabSecurity.GetHashString(classroomEntry.password);
+                classroomEntry.passwordHash = hash;
+                classroomEntry.password = "";
 
                 EditorUtility.SetDirty(classroomEntry);
             }

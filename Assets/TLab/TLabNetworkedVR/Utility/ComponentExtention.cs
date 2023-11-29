@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TLab.XR.VRGrabber.Utility
+namespace TLab.XR
 {
     public static class ComponentExtention
     {
