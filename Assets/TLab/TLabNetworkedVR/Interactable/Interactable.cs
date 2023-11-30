@@ -33,13 +33,13 @@ namespace TLab.XR.Interact
         [Header("Chain selectables")]
         [SerializeField] protected List<Interactable> m_selectableChain;
 
-        public virtual void OnSelected(TLabXRHand hand)
+        public virtual void Selected(TLabXRHand hand)
         {
             Debug.Log("selected");
 
             if (m_selectableChain != null)
             {
-                m_selectableChain.ForEach((s) => s.OnSelected(hand));
+                m_selectableChain.ForEach((s) => s.Selected(hand));
             }
         }
 
@@ -95,6 +95,16 @@ namespace TLab.XR.Interact
         protected virtual void OnDisable()
         {
             Interactable.UnRegister(this);
+        }
+
+        protected virtual void Start()
+        {
+
+        }
+
+        protected virtual void Update()
+        {
+
         }
     }
 }

@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
-using TLab.XR.VRGrabber.VFX;
+using TLab.XR.VFX;
 
 namespace TLab.VRClassroom.Editor
 {
@@ -26,9 +22,9 @@ namespace TLab.VRClassroom.Editor
 
             if (outlineSelectable != null)
             {
-                popupSelectable.OutlineMat = outlineSelectable.OutlineMat;
-                popupSelectable.PopupManager = manager;
-                popupSelectable.Index = index;
+                popupSelectable.outlineMat = outlineSelectable.outlineMat;
+                popupSelectable.popupManager = manager;
+                popupSelectable.index = index;
 
                 DestroyImmediate(outlineSelectable);
 
@@ -61,7 +57,7 @@ namespace TLab.VRClassroom.Editor
             {
                 Debug.Log("[popuptextmanager] revert to outline selectable " + index.ToString());
 
-                outlineSelectable.OutlineMat = popupSelectable.OutlineMat;
+                outlineSelectable.outlineMat = popupSelectable.outlineMat;
                 DestroyImmediate(popupSelectable);
             }
 

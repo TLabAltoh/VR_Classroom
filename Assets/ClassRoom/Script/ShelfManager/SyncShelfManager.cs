@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using TLab.InputField;
-using TLab.XR.VRGrabber;
+using TLab.XR.Network;
+using TLab.XR.Interact;
 
 namespace TLab.VRClassroom
 {
@@ -55,7 +56,7 @@ namespace TLab.VRClassroom
 
             // フェードインしたオブジェクトは自分の席ではない
             // -------> 現在のサーバのTransformと同期
-            bool reloadWorldData = SyncClient.Instance.SeatIndex != anchorIndex;
+            bool reloadWorldData = SyncClient.Instance.seatIndex != anchorIndex;
 
             if (reloadWorldData)
             {
@@ -95,15 +96,15 @@ namespace TLab.VRClassroom
 
             // サーバーのキャッシュを削除
 
-            foreach (TLabSyncGrabbable grabbable in instanced.GetComponentsInChildren<TLabSyncGrabbable>())
+            foreach (Grabbable grabbable in instanced.GetComponentsInChildren<Grabbable>())
             {
-                grabbable.ShutdownGrabber(true);
+                grabbable.Shutdown(true);
                 yield return null;
             }
 
             foreach (SyncAnimator animator in instanced.GetComponentsInChildren<SyncAnimator>())
             {
-                animator.ShutdownAnimator(true);
+                animator.Shutdown(true);
                 yield return null;
             }
 
@@ -299,7 +300,7 @@ namespace TLab.VRClassroom
         public void OnGuestParticipated(int anchorIndex)
         {
             // 教師側から新しい参加者に共有情報の同期を行う
-            if (SyncClient.Instance.SeatIndex == 0)
+            if (SyncClient.Instance.seatIndex == SyncClient.HOST_INDEX)
             {
                 // 棚にダウンロードしているオブジェクト
                 if (m_lastLoadURL != "")

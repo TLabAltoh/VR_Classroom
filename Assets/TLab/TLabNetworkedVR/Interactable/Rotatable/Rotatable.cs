@@ -6,16 +6,10 @@ namespace TLab.XR.Interact
 {
     public class Rotatable : Interactable
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        private Grabbable m_grabbable;
 
-        }
+        protected bool isGrabbled => m_grabbable.grabbed || m_grabbable.grabbedIndex != -1;
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        private bool isSyncFromOutside => m_grabbable.syncFromOutside;
     }
 }

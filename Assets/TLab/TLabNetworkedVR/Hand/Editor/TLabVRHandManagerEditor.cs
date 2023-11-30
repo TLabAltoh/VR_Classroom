@@ -69,16 +69,12 @@ namespace TLab.XR.VRGrabber.Editor
                     manager.ProjectConfig.handTrackingSupport = OVRProjectConfig.HandTrackingSupport.ControllersOnly;
                 }
 
-                manager.InputModule.rayTransformRight = right;
-                manager.InputModule.rayTransformLeft = left;
                 manager.VRControllerRight.SetActive(controller);
                 manager.VRControllerLeft.SetActive(controller);
                 manager.VRCustomHandRight.SetActive(customHand);
                 manager.VRCustomHandLeft.SetActive(customHand);
                 manager.VRHandRight.SetActive(hand);
                 manager.VRHandLeft.SetActive(hand);
-
-                EditorUtility.SetDirty(manager.InputModule);
 
                 EditorUtility.SetDirty(manager.ProjectConfig);
 

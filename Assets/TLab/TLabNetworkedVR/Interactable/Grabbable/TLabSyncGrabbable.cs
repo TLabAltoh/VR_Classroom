@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Text;
 using UnityEngine;
+using TLab.XR.Network;
 using static TLab.XR.ComponentExtention;
 
 namespace TLab.XR.VRGrabber
@@ -50,7 +51,7 @@ namespace TLab.XR.VRGrabber
 
         public bool IsSyncFromOutside { get => m_isSyncFromOutside; }
 
-        private bool SocketIsOpen { get => (SyncClient.Instance != null && SyncClient.Instance.SocketIsOpen && SyncClient.Instance.SeatIndex != -1); }
+        private bool SocketIsOpen { get => (SyncClient.Instance != null && SyncClient.Instance.socketIsOpen && SyncClient.Instance.seatIndex != -1); }
 
         public void SyncFromOutside(WebObjectInfo transform)
         {
@@ -179,7 +180,7 @@ namespace TLab.XR.VRGrabber
 
         public void GrabbLock(bool active)
         {
-            m_grabbed = active ? SyncClient.Instance.SeatIndex : -1;
+            m_grabbed = active ? SyncClient.Instance.seatIndex : -1;
 
             if (m_rbAllocated)
             {
@@ -191,7 +192,7 @@ namespace TLab.XR.VRGrabber
             SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST,
                 action: WebAction.GRABBLOCK,
-                seatIndex: active ? SyncClient.Instance.SeatIndex : -1,
+                seatIndex: active ? SyncClient.Instance.seatIndex : -1,
                 transform: new WebObjectInfo { id = this.gameObject.name });
 
             Debug.Log(THIS_NAME + "grabb lock");
@@ -233,7 +234,7 @@ namespace TLab.XR.VRGrabber
 
         public override bool AddParent(GameObject parent)
         {
-            if (m_locked || m_grabbed != -1 && m_grabbed != SyncClient.Instance.SeatIndex)
+            if (m_locked || m_grabbed != -1 && m_grabbed != SyncClient.Instance.seatIndex)
             {
                 return false;
             }
@@ -470,7 +471,7 @@ namespace TLab.XR.VRGrabber
             SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST,
                 action: WebAction.CLEARTRANSFORM,
-                seatIndex: SyncClient.Instance.SeatIndex,
+                seatIndex: SyncClient.Instance.seatIndex,
                 transform: new WebObjectInfo { id = this.gameObject.name });
         }
 
@@ -560,7 +561,7 @@ namespace TLab.XR.VRGrabber
             }
 
             // このオブジェクトをロックしているのが自分だったら解除する
-            if (SyncClient.Instance.SeatIndex == m_grabbed && m_grabbed != -1 && m_grabbed != -2)
+            if (SyncClient.Instance.seatIndex == m_grabbed && m_grabbed != -1 && m_grabbed != -2)
             {
                 GrabbLock(false);
             }
@@ -585,7 +586,7 @@ namespace TLab.XR.VRGrabber
 
             StartCoroutine(RegistRbObj());
 
-            SyncClient.Instance.AddSyncGrabbable(this.gameObject.name, this);
+            //SyncClient.Instance.AddSyncGrabbable(this.gameObject.name, this);
         }
 
         protected override void Update()

@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
-using static TLab.XR.VRGrabber.Utility.ComponentExtention;
 
 namespace TLab.XR.VRGrabber.Editor
 {

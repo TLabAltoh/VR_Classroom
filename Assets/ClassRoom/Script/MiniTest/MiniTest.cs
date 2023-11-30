@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using TLab.XR.VRGrabber;
+using TLab.XR.Network;
 
 namespace TLab.VRClassroom
 {

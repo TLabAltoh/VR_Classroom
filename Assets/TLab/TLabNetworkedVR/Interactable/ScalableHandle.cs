@@ -8,7 +8,7 @@ namespace TLab.XR.Interact
 
         private ScaleLogic m_logics;
 
-        public override void OnSelected(TLabXRHand hand)
+        public override void Selected(TLabXRHand hand)
         {
             if (m_hand == null)
             {
@@ -17,7 +17,7 @@ namespace TLab.XR.Interact
                 m_logics.HandleGrabbed(this);
             }
 
-            base.OnSelected(hand);
+            base.Selected(hand);
         }
 
         public override void Unselected(TLabXRHand hand)

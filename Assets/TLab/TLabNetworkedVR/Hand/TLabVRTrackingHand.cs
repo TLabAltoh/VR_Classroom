@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TLab.XR.VRGrabber.VFX;
+using TLab.XR.VFX;
 
 namespace TLab.XR.VRGrabber
 {
@@ -275,7 +275,7 @@ namespace TLab.XR.VRGrabber
                     var selectable = target.GetComponent<OutlineSelectable>();
                     if (selectable != null)
                     {
-                        selectable.Selected = true;
+                        selectable.selected = true;
                     }
 
                     //

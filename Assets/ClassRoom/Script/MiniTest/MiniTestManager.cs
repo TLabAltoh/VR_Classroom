@@ -1,5 +1,5 @@
 using UnityEngine;
-using TLab.XR.VRGrabber;
+using TLab.XR.Network;
 
 namespace TLab.VRClassroom
 {
@@ -21,7 +21,9 @@ namespace TLab.VRClassroom
         [Header("Debug")]
         [SerializeField] private int[] m_scores;
 
-        private const string THIS_NAME = "[tlabminitest] ";
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
+
+        public static int BROADCAST = -1;
 
         public static MiniTestManager Instance;
 
@@ -32,11 +34,13 @@ namespace TLab.VRClassroom
 
         public void RegistScore(int score)
         {
-            m_scores[SyncClient.Instance.SeatIndex] = score;
+            m_scores[SyncClient.Instance.seatIndex] = score;
 
             SendMiniTestActionMessage(
                 WebMiniTestAction.REGISTRATION,
-                score: score, seatIndex: SyncClient.Instance.SeatIndex, dstIndex: -1);
+                score: score,
+                seatIndex: SyncClient.Instance.seatIndex,
+                dstIndex: BROADCAST);
         }
 
         public void OnMessage(string message)
@@ -61,7 +65,7 @@ namespace TLab.VRClassroom
 
         public void SendMiniTestActionMessage(WebMiniTestAction action, int score = 0, int seatIndex = -1, int dstIndex = -1)
         {
-            m_scores[SyncClient.Instance.SeatIndex] = score;
+            m_scores[SyncClient.Instance.seatIndex] = score;
 
             var obj = new MiniTestJson
             {
@@ -75,8 +79,11 @@ namespace TLab.VRClassroom
         public void SendWsMessage(string customJson, int anchorIndex)
         {
             SyncClient.Instance.SendWsMessage(
-                role: WebRole.GUEST, action: WebAction.CUSTOMACTION, seatIndex: anchorIndex,
-                customIndex: 1, custom: customJson);
+                role: WebRole.GUEST,
+                action: WebAction.CUSTOMACTION,
+                seatIndex: anchorIndex,
+                customIndex: 1,
+                custom: customJson);
         }
 
         void Awake()
@@ -86,7 +93,7 @@ namespace TLab.VRClassroom
 
         void Start()
         {
-            m_scores = new int[SyncClient.Instance.SeatLength];
+            m_scores = new int[SyncClient.Instance.seatLength];
         }
     }
 }

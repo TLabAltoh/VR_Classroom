@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using NativeWebSocket;
+using TLab.XR.Interact;
 using TLab.Network.WebRTC;
 
-namespace TLab.XR.VRGrabber
+namespace TLab.XR.Network
 {
     [RequireComponent(typeof(WebRTCDataChannel))]
     public class SyncClient : MonoBehaviour
     {
+        // TODO: SyncAnimator Fix
+
         [Header("Server Info")]
         [Tooltip("Server address (port 5000)")]
         [SerializeField] private string m_serverAddr = "ws://192.168.11.10:5000";
@@ -51,11 +51,13 @@ namespace TLab.XR.VRGrabber
 
         private WebSocket m_websocket;
 
-        private const int SEAT_LENGTH = 5;
-        private int m_seatIndex = -1;
+        public const int SEAT_LENGTH = 5;
+        public const int HOST_INDEX = 0;
+        public const int NOT_REGISTED = -1;
+
+        private int m_seatIndex = NOT_REGISTED;
         private bool[] m_guestTable = new bool[SEAT_LENGTH];
 
-        private Hashtable m_grabbables = new Hashtable();
         private Hashtable m_animators = new Hashtable();
 
         private const string PREFAB_NAME = "OVRGuestAnchor.";
@@ -65,19 +67,17 @@ namespace TLab.XR.VRGrabber
 
         ReceiveCallback[] receiveCallbacks = new ReceiveCallback[(int)WebAction.CUSTOMACTION + 1];
 
-        public Hashtable Grabbables { get => m_grabbables; }
+        public int seatIndex => m_seatIndex;
 
-        public Hashtable Animators { get => m_animators; }
+        public int seatLength => SEAT_LENGTH;
 
-        public int SeatIndex { get => m_seatIndex; }
+        public bool socketIsNull => m_websocket == null;
 
-        public int SeatLength { get => SEAT_LENGTH; }
+        public bool socketIsOpen => socketIsNull ? false : m_websocket.State == WebSocketState.Open;
 
-        public bool SocketIsOpen { get => m_websocket == null ? false : m_websocket.State == WebSocketState.Open; }
+        public bool socketIsConnecting => socketIsNull ? false : m_websocket.State == WebSocketState.Connecting;
 
-        public bool SocketIsConnecting { get => m_websocket == null ? false : m_websocket.State == WebSocketState.Connecting; }
-
-        public bool IsHost { get => m_isHost; set => m_isHost = value; }
+        public bool isHost { get => m_isHost; set => m_isHost = value; }
 
         public void SetServerAddr(string addr)
         {
@@ -88,50 +88,6 @@ namespace TLab.XR.VRGrabber
         {
             return m_guestTable[index];
         }
-
-        #region SYNC_TARGET_UTILITY
-        public void RemoveAllGrabbers()
-        {
-            foreach (DictionaryEntry entry in m_grabbables)
-            {
-                var grabbable = entry.Value as TLabSyncGrabbable;
-                grabbable.ShutdownGrabber(false);
-            }
-
-            m_grabbables.Clear();
-        }
-
-        public void RemoveAllAnimators()
-        {
-            foreach (DictionaryEntry entry in m_animators)
-            {
-                var animator = entry.Value as SyncAnimator;
-                animator.ShutdownAnimator(false);
-            }
-
-            m_animators.Clear();
-        }
-
-        public void AddSyncGrabbable(string name, TLabSyncGrabbable grabbable)
-        {
-            m_grabbables[name] = grabbable;
-        }
-
-        public void AddSyncAnimator(string name, SyncAnimator syncAnim)
-        {
-            m_animators[name] = syncAnim;
-        }
-
-        public void RemoveGrabber(string name)
-        {
-            m_grabbables.Remove(name);
-        }
-
-        public void RemoveAnimator(string name)
-        {
-            m_animators.Remove(name);
-        }
-        #endregion SYNC_TARGET_UTILITY
 
         #region REFLESH
         /// <summary>
@@ -232,17 +188,16 @@ namespace TLab.XR.VRGrabber
                         m_rootTransform.rotation = anchor.rotation;
                     }
 
-                    m_rightHand.GetComponent<TLabSyncGrabbable>().m_enableSync = true;
-                    m_leftHand.GetComponent<TLabSyncGrabbable>().m_enableSync = true;
-                    m_cameraRig.GetComponent<TLabSyncGrabbable>().m_enableSync = true;
+                    m_rightHand.GetComponent<Grabbable>().enableSync = true;
+                    m_leftHand.GetComponent<Grabbable>().enableSync = true;
+                    m_cameraRig.GetComponent<Grabbable>().enableSync = true;
                 }
 
-                // Add TLabSyncGrabbable to hash table for fast lookup by name
-                var grabbables = FindObjectsOfType<TLabSyncGrabbable>();
-                foreach (var grabbable in grabbables)
-                {
-                    m_grabbables[grabbable.gameObject.name] = grabbable;
-                }
+                var networkedObj = FindObjectsOfType<NetworkedObject>()?.ToList();
+                networkedObj?.ForEach((g) => NetworkedObject.Register(g));
+
+                var grabbables = FindObjectsOfType<Grabbable>()?.ToList();
+                grabbables?.ForEach((g) => Grabbable.Register(g));
 
                 // Add animators to a hash table for fast lookup by name
                 var syncAnims = FindObjectsOfType<SyncAnimator>();
@@ -275,19 +230,19 @@ namespace TLab.XR.VRGrabber
 
                 if (guestRTouch != null)
                 {
-                    m_grabbables.Remove(guestRTouch.name);
+                    NetworkedObject.UnRegister(guestRTouch.name);
                     UnityEngine.GameObject.Destroy(guestRTouch);
                 }
 
                 if (guestLTouch != null)
                 {
-                    m_grabbables.Remove(guestLTouch.name);
+                    NetworkedObject.UnRegister(guestLTouch.name);
                     UnityEngine.GameObject.Destroy(guestLTouch);
                 }
 
                 if (guestHead != null)
                 {
-                    m_grabbables.Remove(guestHead.name);
+                    NetworkedObject.UnRegister(guestHead.name);
                     UnityEngine.GameObject.Destroy(guestHead);
                 }
 
@@ -319,28 +274,24 @@ namespace TLab.XR.VRGrabber
 
                 // Visualize avatars of newly joined players
 
-                if (m_guestRTouch != null)
+                foreach(var dicElem in new Dictionary<string, GameObject>
                 {
-                    GameObject guestRTouch = Instantiate(m_guestRTouch, respownPos, respownRot);
-                    guestRTouch.name = guestName + ".RTouch";
-
-                    m_grabbables[guestRTouch.name] = guestRTouch.GetComponent<TLabSyncGrabbable>();
-                }
-
-                if (m_guestLTouch != null)
+                    { ".RTouch", m_guestRTouch },
+                    { ".LTouch", m_guestLTouch },
+                    { ".Head", m_guestHead }
+                })
                 {
-                    GameObject guestLTouch = Instantiate(m_guestLTouch, respownPos, respownRot);
-                    guestLTouch.name = guestName + ".LTouch";
+                    var key = dicElem.Key;
+                    var prefab = dicElem.Value;
 
-                    m_grabbables[guestLTouch.name] = guestLTouch.GetComponent<TLabSyncGrabbable>();
-                }
+                    var guestParts = Instantiate(prefab, respownPos, respownRot);
+                    guestParts.name = guestName + key;
+                    var networkedObj = guestParts.GetComponent<NetworkedObject>();
 
-                if (m_guestHead != null)
-                {
-                    GameObject guestHead = Instantiate(m_guestHead, respownPos, respownRot);
-                    guestHead.name = guestName + ".Head";
-
-                    m_grabbables[guestHead.name] = guestHead.GetComponent<TLabSyncGrabbable>();
+                    if (networkedObj != null)
+                    {
+                        NetworkedObject.Register(guestParts.name, networkedObj);
+                    }
                 }
 
                 m_guestTable[obj.seatIndex] = true;
@@ -356,81 +307,52 @@ namespace TLab.XR.VRGrabber
             };
             receiveCallbacks[(int)WebAction.ALLOCATEGRAVITY] = (obj) => {
 
-                // Set object's gravity allocation
+                // Object's gravity allocation
 
+                var rigidbodyAllocated = obj.active;
                 var webTransform = obj.transform;
-                var grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
-                if (grabbable != null)
-                {
-                    grabbable.AllocateGravity(obj.active);
-                }
+                var grabbable = Grabbable.GetById(webTransform.id);
+                grabbable?.AllocateGravity(rigidbodyAllocated);
 
-                return;
             };
             receiveCallbacks[(int)WebAction.REGISTRBOBJ] = (obj) => { };
             receiveCallbacks[(int)WebAction.GRABBLOCK] = (obj) => {
 
                 // Grabb lock from outside
 
+                var seatIndex = obj.seatIndex;
                 var webTransform = obj.transform;
-                var grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
+                var grabbable = Grabbable.GetById(webTransform.id);
+                grabbable?.GrabbLock(seatIndex);
 
-                if (grabbable == null)
-                {
-                    return;
-                }
-
-                grabbable.GrabbLockFromOutside(obj.seatIndex);
-
-                return;
             };
             receiveCallbacks[(int)WebAction.FORCERELEASE] = (obj) => {
 
                 // Force release request
 
+                var self = false;
                 var webTransform = obj.transform;
-                var grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
+                var grabbable = Grabbable.GetById(webTransform.id);
+                grabbable?.ForceRelease(self);
 
-                if (grabbable == null)
-                {
-                    return;
-                }
-
-                grabbable.ForceReleaseFromOutside();
-
-                return;
             };
             receiveCallbacks[(int)WebAction.DIVIDEGRABBER] = (obj) => {
 
-                // Divide object
+                // Divide grabbable object
 
                 var webTransform = obj.transform;
-                var grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
+                var grabbable = Grabbable.GetById(webTransform.id);
+                grabbable?.Divide(obj.active);
 
-                if (grabbable == null)
-                {
-                    return;
-                }
-
-                grabbable.DivideFromOutside(obj.active);
-
-                return;
             };
             receiveCallbacks[(int)WebAction.SYNCTRANSFORM] = (obj) => {
 
                 // Sync transform
 
                 var webTransform = obj.transform;
-                var grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
+                var grabbable = Grabbable.GetById(webTransform.id);
+                grabbable?.SyncFromOutside(webTransform);
 
-                if (grabbable == null)
-                {
-                    return;
-                }
-
-                grabbable.SyncFromOutside(webTransform);
-
-                return;
             };
             receiveCallbacks[(int)WebAction.SYNCANIM] = (obj) => {
 
@@ -548,7 +470,7 @@ namespace TLab.XR.VRGrabber
 
         #region RTC_MESSAGE
 
-        private unsafe void LongCopy(byte* src, byte* dst, int count)
+        private static unsafe void LongCopy(byte* src, byte* dst, int count)
         {
             // https://github.com/neuecc/MessagePack-CSharp/issues/117
 
@@ -602,7 +524,7 @@ namespace TLab.XR.VRGrabber
 
             string targetName = System.Text.Encoding.UTF8.GetString(nameBytes);
 
-            var grabbable = m_grabbables[targetName] as TLabSyncGrabbable;
+            var grabbable = Grabbable.GetById(targetName);
             if (grabbable == null)
             {
                 return;
@@ -672,7 +594,7 @@ namespace TLab.XR.VRGrabber
                 m_dataChannel = GetComponent<WebRTCDataChannel>();
             }
 
-            if (m_dataChannel.EventCount == 0)
+            if (m_dataChannel.eventCount == 0)
             {
                 m_dataChannel.SetCallback(OnRTCMessage);
             }

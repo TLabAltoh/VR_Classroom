@@ -14,8 +14,9 @@ namespace TLab.VRClassroom
         [SerializeField] private string m_password = "";
         [SerializeField] private string m_passwordHash = "";
 
-        private static string HOST_SCENE = "Host";
-        private static string GUEST_SCENE = "Guest";
+        public static string ENTRY_SCENE = "Entry";
+        public static string HOST_SCENE = "Host";
+        public static string GUEST_SCENE = "Guest";
 
         public static string SHELF_SERVER = "Shelf";
         public static string SYNC_SERVER = "SyncServer";

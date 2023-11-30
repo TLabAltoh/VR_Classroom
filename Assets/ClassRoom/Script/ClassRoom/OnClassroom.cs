@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TLab.XR.VRGrabber;
+using TLab.XR.Network;
+using TLab.XR.Interact;
 using TLab.Network.VoiceChat;
 
 namespace TLab.VRClassroom
@@ -20,8 +21,9 @@ namespace TLab.VRClassroom
         private IEnumerator ExitClassroomTask()
         {
             // delete obj
-            m_syncClient.RemoveAllGrabbers();
-            m_syncClient.RemoveAllAnimators();
+
+            Grabbable.ClearRegistry();
+            SyncAnimator.ClearRegistry();
 
             yield return null;
             yield return null;
@@ -48,7 +50,7 @@ namespace TLab.VRClassroom
 
         private IEnumerator ReEnterClassroomTask()
         {
-            string scene = SyncClient.Instance.IsHost ? "Host" : "Guest";
+            string scene = SyncClient.Instance.isHost ? ClassroomEntry.HOST_SCENE : ClassroomEntry.GUEST_SCENE;
 
             yield return ExitClassroomTask();
 
@@ -61,25 +63,16 @@ namespace TLab.VRClassroom
         {
             yield return ExitClassroomTask();
 
-            SceneManager.LoadSceneAsync("Entry", LoadSceneMode.Single);
+            SceneManager.LoadSceneAsync(ClassroomEntry.ENTRY_SCENE, LoadSceneMode.Single);
 
             yield break;
         }
 
-        public void ReEnter()
-        {
-            StartCoroutine("ReEnterClassroomTask");
-        }
+        public void ReEnter() => StartCoroutine(ReEnterClassroomTask());
 
-        public void ExitClassroom()
-        {
-            StartCoroutine("BackToTheEntryTask");
-        }
+        public void ExitClassroom() => StartCoroutine(BackToTheEntryTask());
 
-        public void ShowWebView()
-        {
-            SwitchPanel(m_webViewPanel);
-        }
+        public void ShowWebView() => SwitchPanel(m_webViewPanel);
 
         /// <summary>
         /// Change the panel to the desired state

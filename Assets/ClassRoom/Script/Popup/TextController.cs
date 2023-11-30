@@ -1,7 +1,8 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using TLab.XR.VRGrabber;
+using TLab.XR.Network;
+using TLab.XR.Interact;
 
 namespace TLab.VRClassroom
 {
@@ -30,14 +31,13 @@ namespace TLab.VRClassroom
         [SerializeField] private bool m_enableSync = false;
         [SerializeField] private bool m_autoUpdate = false;
 
-        private TLabSyncGrabbable m_grabbable;
+        private Grabbable m_grabbable;
 
         private TextControllerTransform m_initialTransform;
 
-        public void SetTarget(Transform taregt)
-        {
-            m_target = taregt;
-        }
+        const float DURATION = 0.25f;
+
+        public void SetTarget(Transform taregt) => m_target = taregt;
 
         private void LerpScale(Transform target, TextControllerTransform start, TextControllerTransform end, float lerpValue)
         {
@@ -52,12 +52,11 @@ namespace TLab.VRClassroom
                 this.transform.localScale,
                 this.transform.localRotation);
 
-            const float duration = 0.25f;
             float current = 0.0f;
-            while (current < duration)
+            while (current < DURATION)
             {
                 current += Time.deltaTime;
-                LerpScale(this.transform, currentTransform, m_initialTransform, current / duration);
+                LerpScale(this.transform, currentTransform, m_initialTransform, current / DURATION);
                 yield return null;
             }
         }
@@ -76,25 +75,18 @@ namespace TLab.VRClassroom
                 Vector3.zero,
                 this.transform.localRotation);
 
-            const float duration = 0.25f;
             float current = 0.0f;
-            while (current < duration)
+            while (current < DURATION)
             {
                 current += Time.deltaTime;
-                LerpScale(this.transform, currentTransform, targetTransform, current / duration);
+                LerpScale(this.transform, currentTransform, targetTransform, current / DURATION);
                 yield return null;
             }
         }
 
-        public void FadeIn()
-        {
-            StartCoroutine("FadeInTask");
-        }
+        public void FadeIn() => StartCoroutine(FadeInTask());
 
-        public void FadeOut()
-        {
-            StartCoroutine("FadeOutTask");
-        }
+        public void FadeOut() => StartCoroutine(FadeOutTask());
 
         public void FadeOutImmidiately()
         {
@@ -115,12 +107,13 @@ namespace TLab.VRClassroom
         {
             string name = this.gameObject.name;
             string num = name[name.Length - 1].ToString();
-            int anchorIndex = -1;
+
+            int anchorIndex = SyncClient.NOT_REGISTED;
             Int32.TryParse(num, out anchorIndex);
 
             if (m_enableSync)
             {
-                if (anchorIndex != SyncClient.Instance.SeatIndex)
+                if (anchorIndex != SyncClient.Instance.seatIndex)
                 {
                     m_target = null;
                 }
@@ -129,12 +122,12 @@ namespace TLab.VRClassroom
                     m_autoUpdate = true;
                 }
             }
-            else if (anchorIndex != SyncClient.Instance.SeatIndex)
+            else if (anchorIndex != SyncClient.Instance.seatIndex)
             {
                 Destroy(this.gameObject);
             }
 
-            m_grabbable = this.GetComponent<TLabSyncGrabbable>();
+            m_grabbable = this.GetComponent<Grabbable>();
 
             this.transform.parent = null;
         }

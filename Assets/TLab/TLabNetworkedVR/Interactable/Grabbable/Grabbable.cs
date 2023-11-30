@@ -1,17 +1,17 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEditor;
+using TLab.XR.Network;
 using static TLab.XR.ComponentExtention;
 
 namespace TLab.XR.Interact
 {
-    public class Grabbable : Interactable
+    public class Grabbable : NetworkedObject
     {
         public const int PARENT_LENGTH = 2;
 
-        [Header("Rigidbody settings")]
-        [SerializeField] private bool m_useRigidbody = true;
-        [SerializeField] private bool m_useGravity = false;
+        public const int FREE = -1;
+        public const int FIXED = -2;
 
         [Header("Transform Module")]
         [SerializeField] private PositionLogic m_position;
@@ -25,20 +25,7 @@ namespace TLab.XR.Interact
         private TLabXRHand m_mainHand;
         private TLabXRHand m_subHand;
 
-        private Rigidbody m_rb;
-        private bool m_gravityState = false;
-
-#if UNITY_EDITOR
-        // Windows 12's Core i 9: 400 -----> Size: 20
-        private const int CASH_COUNT = 20;
-#else
-        // Oculsu Quest 2: 72 -----> Size: 20 * 72 / 400 = 3.6 ~= 4
-        private const int CASH_COUNT = 5;
-#endif
-
-        private FixedQueue<Vector3> m_prebVels = new FixedQueue<Vector3>(CASH_COUNT);
-        private FixedQueue<Vector3> m_prebArgs = new FixedQueue<Vector3>(CASH_COUNT);
-        private List<CashTransform> m_cashTransforms = new List<CashTransform>();
+        private int m_grabbed = FREE;
 
         public PositionLogic position => m_position;
 
@@ -50,16 +37,41 @@ namespace TLab.XR.Interact
 
         public TLabXRHand subHand => m_subHand;
 
-        public bool grabbed { get => m_mainHand != null; }
+        public bool grabbed => m_mainHand != null;
 
-        public bool enableDivide { get => m_enableDivide; }
+        public int grabbedIndex => m_grabbed;
 
-        public GameObject[] divideTargets { get => m_divideTargets; }
+        public bool enableDivide => m_enableDivide;
 
-        private string THIS_NAME { get => "[" + this.GetType().Name + "] "; }
+        public GameObject[] divideTargets => m_divideTargets;
+
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
+
+        #region REGISTRY
+
+        private static Hashtable m_registry = new Hashtable();
+
+        public static void Register(string id, Grabbable grabbable) => m_registry[id] = grabbable;
+
+        public static void UnRegister(string id) => m_registry.Remove(id);
+
+        public static void ClearRegistry()
+        {
+            foreach (DictionaryEntry entry in m_registry)
+            {
+                var grabbable = entry.Value as Grabbable;
+                grabbable.Shutdown(false);
+            }
+
+            m_registry.Clear();
+        }
+
+        public static Grabbable GetById(string id) => m_registry[id] as Grabbable;
+
+        #endregion REGISTRY
 
 #if UNITY_EDITOR
-        public virtual void InitializeRotatable()
+        public void InitializeRotatable()
         {
             if (EditorApplication.isPlaying)
             {
@@ -68,66 +80,7 @@ namespace TLab.XR.Interact
 
             m_useGravity = false;
         }
-
-        public virtual void UseRigidbody(bool rigidbody, bool gravity)
-        {
-            if (EditorApplication.isPlaying)
-            {
-                return;
-            }
-
-            m_useRigidbody = rigidbody;
-            m_useGravity = gravity;
-        }
 #endif
-
-        private Vector3 GetMaxVector(FixedQueue<Vector3> target)
-        {
-            Vector3 maxVec = Vector3.zero;
-            float maxVecMag = 0.0f;
-            foreach (Vector3 vec in target)
-            {
-                float vecMag = vec.magnitude;
-                if (vecMag > maxVecMag)
-                {
-                    maxVecMag = vecMag;
-                    maxVec = vec;
-                }
-            }
-
-            return maxVec;
-        }
-
-        public void SetGravity(bool active)
-        {
-            if (m_rb == null || m_useRigidbody == false)
-            {
-                return;
-            }
-
-            active &= m_useGravity;
-            m_gravityState = active;
-
-            if (active)
-            {
-                m_rb.isKinematic = false;
-                m_rb.useGravity = true;
-
-                m_rb.velocity = GetMaxVector(m_prebVels);
-                m_rb.angularVelocity = GetMaxVector(m_prebArgs);
-            }
-            else
-            {
-                m_rb.isKinematic = true;
-                m_rb.useGravity = false;
-                m_rb.interpolation = RigidbodyInterpolation.Interpolate;
-            }
-        }
-
-        protected virtual void RbGripSwitch(bool grip)
-        {
-            SetGravity(!grip);
-        }
 
         private void MainHandGrabbStart()
         {
@@ -171,11 +124,92 @@ namespace TLab.XR.Interact
             //}
         }
 
-        public override void OnSelected(TLabXRHand hand)
+        public void AllocateGravity(bool active)
+        {
+            m_rbAllocated = active;
+
+            bool allocated = m_grabbed == FREE && active;
+
+            SetGravity(allocated ? true : false);
+
+            Debug.Log(THIS_NAME + "rigidbody allocated:" + allocated + " - " + m_id);
+        }
+
+        public void GrabbLock(bool active)
+        {
+            m_grabbed = active ? SyncClient.Instance.seatIndex : FREE;
+
+            if (m_rbAllocated)
+            {
+                SetGravity(!active);
+            }
+
+            SyncTransform();
+
+            SyncClient.Instance.SendWsMessage(
+                role: WebRole.GUEST,
+                action: WebAction.GRABBLOCK,
+                seatIndex: m_grabbed,
+                transform: new WebObjectInfo { id = m_id });
+
+            Debug.Log(THIS_NAME + "grabb lock: " + active);
+        }
+
+        public void GrabbLock(int index)
+        {
+            if (index != FREE)
+            {
+                if (m_mainHand != null)
+                {
+                    m_mainHand = null;
+                    m_subHand = null;
+                }
+
+                m_grabbed = index;
+
+                if (m_rbAllocated)
+                {
+                    SetGravity(false);
+                }
+            }
+            else
+            {
+                m_grabbed = FREE;
+
+                if (m_rbAllocated)
+                {
+                    SetGravity(true);
+                }
+            }
+        }
+
+        public void ForceRelease(bool self)
+        {
+            if (m_mainHand != null)
+            {
+                m_mainHand = null;
+                m_subHand = null;
+                m_grabbed = FREE;
+
+                SetGravity(false);
+            }
+
+            if (self)
+            {
+                SyncClient.Instance.SendWsMessage(
+                    role: WebRole.GUEST,
+                    action: WebAction.FORCERELEASE,
+                    transform: new WebObjectInfo { id = m_id });
+            }
+
+            Debug.Log(THIS_NAME + "force release");
+        }
+
+        public override void Selected(TLabXRHand hand)
         {
             if (m_mainHand == null)
             {
-                RbGripSwitch(true);
+                SetGravity(!true);
 
                 m_mainHand = hand;
 
@@ -198,7 +232,7 @@ namespace TLab.XR.Interact
 
             Debug.Log(THIS_NAME + "cannot add hand");
 
-            base.OnSelected(hand);
+            base.Selected(hand);
         }
 
         public override void Unselected(TLabXRHand hand)
@@ -220,7 +254,7 @@ namespace TLab.XR.Interact
                 }
                 else
                 {
-                    RbGripSwitch(false);
+                    SetGravity(!true);
 
                     m_mainHand = null;
 
@@ -271,7 +305,7 @@ namespace TLab.XR.Interact
             meshCollider.sharedMesh = meshFilter.sharedMesh;
         }
 
-        private void Devide(bool active)
+        public void Divide(bool active)
         {
             if (!m_enableDivide)
             {
@@ -305,38 +339,25 @@ namespace TLab.XR.Interact
             }
         }
 
-        private int Devide()
+        public int Devide()
         {
             if (!m_enableDivide)
             {
-                return -1;
+                return FREE;
             }
 
             MeshCollider meshCollider = this.gameObject.GetComponent<MeshCollider>();
 
             if (meshCollider == null)
             {
-                return -1;
+                return FREE;
             }
 
             bool current = meshCollider.enabled;
 
-            Devide(current);
+            Divide(current);
 
             return current ? 0 : 1;
-        }
-
-        private void GetInitialChildTransform()
-        {
-            m_cashTransforms.Clear();
-            Transform[] childTransforms = GetComponentsInTargets<Transform>(divideTargets);
-            foreach (Transform childTransform in childTransforms)
-            {
-                m_cashTransforms.Add(new CashTransform(
-                    childTransform.localPosition,
-                    childTransform.localScale,
-                    childTransform.localRotation));
-            }
         }
 
         private void SetInitialChildTransform()
@@ -370,40 +391,59 @@ namespace TLab.XR.Interact
             }
         }
 
-        private void CashRbVelocity()
+        private void RbCompletion()
         {
-            if (m_rb != null)
+            // Rigidbodyの同期にラグがあるとき，メッセージが届かない間はGravityを有効にしてローカルの環境で物理演算を行う．
+            // ただし，誰かがオブジェクトを掴んでいることが分かっているときは，推測の物理演算は行わない．
+
+            // Windows 12's Core i 9: 400 -----> Size: 10
+            // Oculsu Quest 2: 72 -----> Size: 10 * 72 / 400 = 1.8 ~= 2
+
+#if UNITY_EDITOR
+            if (m_useGravity && m_didnotReachCount > 10)
             {
-                m_prebVels.Enqueue(m_rb.velocity);
-                m_prebArgs.Enqueue(m_rb.angularVelocity);
+#else
+            if (m_useGravity && m_didnotReachCount > 2)
+            {
+#endif
+                if (m_grabbed == FREE && !m_rbAllocated && !m_gravityState)
+                {
+                    SetGravity(true);
+                }
             }
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (m_enableDivide)
             {
-                GetInitialChildTransform();
+                m_cashTransforms.Clear();
+                Transform[] childTransforms = GetComponentsInTargets<Transform>(divideTargets);
+                foreach (Transform childTransform in childTransforms)
+                {
+                    m_cashTransforms.Add(new CashTransform(
+                        childTransform.localPosition,
+                        childTransform.localScale,
+                        childTransform.localRotation));
+                }
+
                 CreateCombineMeshCollider();
-            }
-
-            if (m_useRigidbody)
-            {
-                m_rb = this.gameObject.RequireComponent<Rigidbody>();
-                m_prebVels.Enqueue(m_rb.velocity);
-                m_prebArgs.Enqueue(m_rb.angularVelocity);
-
-                SetGravity(m_useGravity);
             }
 
             m_position.Start(this.transform, m_rb);
             m_rotation.Start(this.transform, m_rb);
             m_scale.Start(this.transform, m_rb);
+
+            Register(m_id, this);
         }
 
-        private void Update()
+        protected override void Update()
         {
-            CashRbVelocity();
+            base.Update();
+
+            RbCompletion();
 
             if (m_mainHand != null)
             {
@@ -424,6 +464,18 @@ namespace TLab.XR.Interact
             {
                 m_scale.UpdateOneHandLogic();
             }
+
+            SyncRTCTransform();
+        }
+
+        void OnDestroy()
+        {
+            Shutdown(false);
+        }
+
+        void OnApplicationQuit()
+        {
+            Shutdown(false);
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace TLab.XR.VRGrabber
+namespace TLab.XR.Network
 {
     [System.Serializable]
     public class AnimParameter
@@ -14,17 +14,35 @@ namespace TLab.XR.VRGrabber
     public class SyncAnimator : MonoBehaviour
     {
         [SerializeField] private Animator m_animator;
+
         private Hashtable m_parameters = new Hashtable();
 
-        private const string m_thisName = "[tlabsyncanim] ";
+        private string m_id = "";
 
-        public Animator animator
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
+
+        #region REGISTRY
+
+        private static Hashtable m_registry = new Hashtable();
+
+        public static void Register(string id, SyncAnimator syncAnimator) => m_registry[id] = syncAnimator;
+
+        public static void UnRegister(string id) => m_registry.Remove(id);
+
+        public static void ClearRegistry()
         {
-            get
+            foreach (DictionaryEntry entry in m_registry)
             {
-                return m_animator;
+                var syncAnimator = entry.Value as SyncAnimator;
+                syncAnimator.Shutdown(false);
+
+                m_registry.Clear();
             }
         }
+
+        public static SyncAnimator GetById(string id) => m_registry[id] as SyncAnimator;
+
+        #endregion REGISTRY
 
         public void SyncAnim(AnimParameter parameter)
         {
@@ -34,7 +52,7 @@ namespace TLab.XR.VRGrabber
                 action = (int)WebAction.SYNCANIM,
                 animator = new WebAnimInfo
                 {
-                    id = this.transform.name,
+                    id = m_id,
                     parameter = parameter.name
                 }
             };
@@ -58,6 +76,7 @@ namespace TLab.XR.VRGrabber
                     obj.animator.triggerVal = parameter.name;
                     break;
             }
+
             SyncClient.Instance.SendWsMessage(JsonUtility.ToJson(obj));
         }
 
@@ -90,12 +109,12 @@ namespace TLab.XR.VRGrabber
             {
                 role = (int)WebRole.GUEST,
                 action = (int)WebAction.CLEARANIM,
-                animator = new WebAnimInfo { id = this.transform.name }
+                animator = new WebAnimInfo { id = m_id }
             };
             SyncClient.Instance.SendWsMessage(JsonUtility.ToJson(obj));
         }
 
-        public void ShutdownAnimator(bool deleteCache)
+        public void Shutdown(bool deleteCache)
         {
             if (deleteCache)
             {
@@ -115,25 +134,13 @@ namespace TLab.XR.VRGrabber
             parameterInfo.lastValueHash = hashCode;
         }
 
-        public void SetInteger(string paramName, int value)
-        {
-            m_animator.SetInteger(paramName, value);
-        }
+        public void SetInteger(string paramName, int value) => m_animator.SetInteger(paramName, value);
 
-        public void SetFloat(string paramName, float value)
-        {
-            m_animator.SetFloat(paramName, value);
-        }
+        public void SetFloat(string paramName, float value) => m_animator.SetFloat(paramName, value);
 
-        public void SetBool(string paramName, bool value)
-        {
-            m_animator.SetBool(paramName, value);
-        }
+        public void SetBool(string paramName, bool value) => m_animator.SetBool(paramName, value);
 
-        public void SetTrigger(string paramName)
-        {
-            m_animator.SetTrigger(paramName);
-        }
+        public void SetTrigger(string paramName) => m_animator.SetTrigger(paramName);
 
         void Reset()
         {
@@ -145,6 +152,8 @@ namespace TLab.XR.VRGrabber
 
         void Start()
         {
+            m_id = gameObject.name;
+
             int parameterLength = m_animator.parameters.Length;
             for (int i = 0; i < parameterLength; i++)
             {
@@ -169,12 +178,12 @@ namespace TLab.XR.VRGrabber
                         break;
                 }
 
-                Debug.Log(m_thisName + parameter.name);
+                Debug.Log(THIS_NAME + parameter.name);
 
                 m_parameters[parameterInfo.name] = parameterInfo;
             }
 
-            SyncClient.Instance.AddSyncAnimator(this.gameObject.name, this);
+            Register(m_id, this);
         }
 
         void Update()
@@ -206,7 +215,6 @@ namespace TLab.XR.VRGrabber
 
                 if (prevValueHash != currentValueHash)
                 {
-                    Debug.Log("Sync animation parameter");
                     SyncAnim(parameter);
                 }
             }

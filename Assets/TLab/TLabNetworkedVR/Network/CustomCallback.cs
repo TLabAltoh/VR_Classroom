@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace TLab.XR.VRGrabber
+namespace TLab.XR
 {
     [System.Serializable]
     public class SyncClientCustomCallback

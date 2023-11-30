@@ -37,18 +37,14 @@ namespace TLab.Network.WebRTC
         private int? m_id;
 
         // this class name
-        private const string THIS_NAME = "[tlabwebrtc] ";
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
-        public int EventCount { get => m_onMessage.GetPersistentEventCount(); }
+        public int eventCount => m_onMessage.GetPersistentEventCount();
 
-        public void SetSignalingServerAddr(string addr)
-        {
-            m_serverAddr = addr;
-        }
+        public void SetSignalingServerAddr(string addr) => m_serverAddr = addr;
 
         public void SetCallback(UnityAction<string, string, byte[]> callback)
         {
-            Debug.Log("fire");
             m_onMessage.RemoveAllListeners();
             m_onMessage.AddListener(callback);
         }

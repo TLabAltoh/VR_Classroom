@@ -1,25 +1,25 @@
 using System.Collections;
 using UnityEngine;
+using TLab.XR.Network;
 using TLab.Network.VoiceChat;
-using TLab.XR.VRGrabber;
 
 public class VoiceChatEntry : MonoBehaviour
 {
     [SerializeField] private VoiceChat m_voiceChat;
 
-    private bool SocketIsOpen
+    private bool socketIsOpen
     {
         get
         {
             return (SyncClient.Instance != null &&
-                    SyncClient.Instance.SocketIsOpen &&
-                    SyncClient.Instance.SeatIndex != -1);
+                    SyncClient.Instance.socketIsOpen &&
+                    SyncClient.Instance.seatIndex != SyncClient.NOT_REGISTED);
         }
     }
 
     private IEnumerator WaitForConnection()
     {
-        while (!SocketIsOpen)
+        while (!socketIsOpen)
         {
             yield return null;
         }

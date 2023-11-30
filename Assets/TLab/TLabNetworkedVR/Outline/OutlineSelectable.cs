@@ -1,35 +1,20 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using TLab.XR.Network;
 
-namespace TLab.XR.VRGrabber.VFX
+namespace TLab.XR.VFX
 {
     public class OutlineSelectable : MonoBehaviour
     {
         [SerializeField, Range(0f, 0.1f)] protected float m_outlineWidth = 0.025f;
 
-        public virtual bool Selected
-        {
-            set
-            {
-                m_selected = value;
-            }
-        }
+        public virtual bool selected { set => m_selected = value; }
 
-        public virtual Material OutlineMat
-        {
-            get
-            {
-                return m_material;
-            }
-
-            set
-            {
-                m_material = value;
-            }
-        }
+        public virtual Material outlineMat { get => m_material; set => m_material = value; }
 
         [SerializeField] protected Material m_material;
+
         protected bool m_selected = false;
         protected bool m_prevSelected = false;
 
@@ -37,19 +22,20 @@ namespace TLab.XR.VRGrabber.VFX
         {
             string name = this.gameObject.name;
             string num = name[name.Length - 1].ToString();
-            int anchorIndex = -1;
+
+            int anchorIndex = SyncClient.NOT_REGISTED;
             Int32.TryParse(num, out anchorIndex);
 
-            if (anchorIndex != SyncClient.Instance.SeatIndex)
+            if (anchorIndex != SyncClient.Instance.seatIndex)
             {
-                Material copy = new Material(m_material);
-                MeshRenderer meshRenderer = this.GetComponent<MeshRenderer>();
+                var copy = new Material(m_material);
+                var meshRenderer = this.GetComponent<MeshRenderer>();
                 if (meshRenderer != null)
                 {
-                    Material[] materials = meshRenderer.sharedMaterials;
-                    List<Material> materialList = new List<Material>();
+                    var materials = meshRenderer.sharedMaterials;
+                    var materialList = new List<Material>();
 
-                    foreach (Material material in materials)
+                    foreach (var material in materials)
                     {
                         if (material != m_material)
                         {

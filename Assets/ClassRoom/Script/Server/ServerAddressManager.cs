@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEditor;
-using TLab.XR.VRGrabber;
+using TLab.XR.Network;
 using TLab.Network.WebRTC;
 
 namespace TLab.VRClassroom
@@ -14,7 +14,7 @@ namespace TLab.VRClassroom
         [SerializeField] private WebRTCDataChannel m_voiceChat;
         [SerializeField] private WebRTCDataChannel m_syncTransform;
 
-        private string THIS_NAME = "[addressmanager] ";
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
         private void SetSyncServerAddr()
         {

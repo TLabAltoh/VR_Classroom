@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace TLab.XR.VRGrabber
+namespace TLab.XR.Network
 {
-    // https://kazupon.org/unity-jsonutility/#i-2
     [System.Serializable]
     public class WebVector3
     {

@@ -1,5 +1,5 @@
 using UnityEngine;
-using TLab.XR.VRGrabber.VFX;
+using TLab.XR.VFX;
 
 namespace TLab.VRClassroom
 {
@@ -8,15 +8,9 @@ namespace TLab.VRClassroom
         [SerializeField] private PopupTextManager m_popupManager;
         [SerializeField] private int m_index;
 
-        public PopupTextManager PopupManager { get => m_popupManager; set => m_popupManager = value; }
+        public PopupTextManager popupManager { get => m_popupManager; set => m_popupManager = value; }
 
-        public int Index
-        {
-            set
-            {
-                m_index = value;
-            }
-        }
+        public int index { set => m_index = value; }
 
         protected override void Start()
         {

@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
-namespace TLab.XR.VRGrabber.VFX
+namespace TLab.XR.VFX
 {
 #if UNITY_EDITOR
     public class OutlineManager : MonoBehaviour
@@ -17,7 +15,7 @@ namespace TLab.XR.VRGrabber.VFX
         [SerializeField] private string m_savePathMesh;
         [SerializeField] private string m_savePathMaterial;
 
-        const float error = 1e-8f;
+        private const float ERROR = 1e-8f;
 
         // https://blog.syn-sophia.co.jp/articles/2022/10/17/outline_rendering_01
 
@@ -83,7 +81,11 @@ namespace TLab.XR.VRGrabber.VFX
                     for (int j = 0; j < vertexCount; j++)
                     {
                         var v = vertices[i] - vertices[j];
-                        if (v.sqrMagnitude < error) softEdge += normals[j];
+
+                        if (v.sqrMagnitude < ERROR)
+                        {
+                            softEdge += normals[j];
+                        }
                     }
 
                     softEdge.Normalize();
@@ -109,8 +111,12 @@ namespace TLab.XR.VRGrabber.VFX
 
                 List<Material> newMaterialList = new List<Material>();
                 for (int i = 0; i < prevMaterials.Length; i++)
+                {
                     if (prevMaterials[i] != null && prevMaterials[i].shader != m_outline)
+                    {
                         newMaterialList.Add(prevMaterials[i]);
+                    }
+                }
 
                 Material outline = new Material(m_outline);
                 outline.name = obj.name + "_Outline";
@@ -137,7 +143,8 @@ namespace TLab.XR.VRGrabber.VFX
                 }
 
                 int materialsLength = meshRenderer.sharedMaterials.Length;
-                selectable.OutlineMat = meshRenderer.sharedMaterials[materialsLength - 1];
+
+                selectable.outlineMat = meshRenderer.sharedMaterials[materialsLength - 1];
 
                 EditorUtility.SetDirty(selectable);
             }

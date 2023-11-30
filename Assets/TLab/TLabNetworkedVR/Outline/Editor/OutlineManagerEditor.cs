@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
-namespace TLab.XR.VRGrabber.VFX.Editor
+namespace TLab.XR.VFX.Editor
 {
 
     [CustomEditor(typeof(OutlineManager))]

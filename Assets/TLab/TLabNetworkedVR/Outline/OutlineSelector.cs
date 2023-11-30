@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TLab.XR.VRGrabber.VFX
+namespace TLab.XR.VFX
 {
     public class OutlineSelector : MonoBehaviour
     {
@@ -22,7 +22,7 @@ namespace TLab.XR.VRGrabber.VFX
                     return;
                 }
 
-                selectable.Selected = true;
+                selectable.selected = true;
             }
         }
     }
