@@ -33,6 +33,22 @@ namespace TLab.XR.Interact
         [Header("Chain selectables")]
         [SerializeField] protected List<Interactable> m_selectableChain;
 
+        public virtual void Hovered(TLabXRHand hand)
+        {
+            Debug.Log("hovered");
+
+        }
+
+        public virtual void WhileHovered(TLabXRHand hand)
+        {
+
+        }
+
+        public virtual void UnHovered(TLabXRHand hand)
+        {
+
+        }
+
         public virtual void Selected(TLabXRHand hand)
         {
             Debug.Log("selected");
@@ -51,13 +67,13 @@ namespace TLab.XR.Interact
             }
         }
 
-        public virtual void Unselected(TLabXRHand hand)
+        public virtual void UnSelected(TLabXRHand hand)
         {
             Debug.Log("unselected");
 
             if (m_selectableChain != null)
             {
-                m_selectableChain.ForEach((s) => s.Unselected(hand));
+                m_selectableChain.ForEach((s) => s.UnSelected(hand));
             }
         }
 

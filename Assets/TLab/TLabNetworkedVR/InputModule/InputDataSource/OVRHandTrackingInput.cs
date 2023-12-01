@@ -19,7 +19,7 @@ namespace TLab.XR.Input
 
         [SerializeField] private List<Gesture> m_gestures;
 
-        [SerializeField] private float threshold = 0.05f;
+        [SerializeField] private const float THRESHOLD = 0.05f;
 
         [SerializeField] private string m_targetGestureName;
 
@@ -47,7 +47,7 @@ namespace TLab.XR.Input
                     Vector3 currentData = m_skeleton.transform.InverseTransformPoint(m_fingerBones[i].Transform.position);
                     float distance = Vector3.Distance(currentData, gesture.fingerDatas[i]);
 
-                    if (distance > threshold)
+                    if (distance > THRESHOLD)
                     {
                         isDiscarded = true;
                         break;
@@ -102,6 +102,13 @@ namespace TLab.XR.Input
 
             var dataAsset = m_dataSource.GetData();
 
+            var rootPose = dataAsset.Root;
+            m_rootPose = new Pose
+            {
+                position = rootPose.position,
+                rotation = rootPose.rotation
+            };
+
             var pointerPose = dataAsset.PointerPose;
             m_pointerLocalPose = new Pose
             {
@@ -109,11 +116,11 @@ namespace TLab.XR.Input
                 rotation = pointerPose.rotation
             };
 
-            var rootPose = dataAsset.Root;
-            m_rootPose = new Pose
+            m_pointerPose = new Pose
             {
-                position = rootPose.position,
-                rotation = rootPose.rotation
+                // TODO: ...
+                position = pointerPose.position + rootPose.position,
+                rotation = pointerPose.rotation * rootPose.rotation
             };
 
             if (m_skeltonInitialized)

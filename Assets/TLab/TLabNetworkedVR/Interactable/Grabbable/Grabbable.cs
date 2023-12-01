@@ -235,7 +235,7 @@ namespace TLab.XR.Interact
             base.Selected(hand);
         }
 
-        public override void Unselected(TLabXRHand hand)
+        public override void UnSelected(TLabXRHand hand)
         {
             if (m_mainHand == hand)
             {
@@ -274,7 +274,7 @@ namespace TLab.XR.Interact
                 Debug.Log(THIS_NAME + "sub released");
             }
 
-            base.Unselected(hand);
+            base.UnSelected(hand);
         }
 
         public override void WhileSelected(TLabXRHand hand)

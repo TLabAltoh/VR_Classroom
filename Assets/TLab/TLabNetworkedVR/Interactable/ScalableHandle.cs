@@ -20,7 +20,7 @@ namespace TLab.XR.Interact
             base.Selected(hand);
         }
 
-        public override void Unselected(TLabXRHand hand)
+        public override void UnSelected(TLabXRHand hand)
         {
             if (m_hand == hand)
             {
@@ -29,7 +29,7 @@ namespace TLab.XR.Interact
                 m_logics.HandleUnGrabbed(this);
             }
 
-            base.Unselected(hand);
+            base.UnSelected(hand);
         }
 
         public Vector3 GetHandPos()
