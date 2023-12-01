@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TLab.XR.Interact
@@ -22,14 +20,7 @@ namespace TLab.XR.Interact
         private Quaternion m_mainQuaternionStart;
         private Quaternion m_thisQuaternionStart;
 
-        public bool enabled
-        {
-            get => m_enabled;
-            set
-            {
-                m_enabled = value;
-            }
-        }
+        public bool enabled { get => m_enabled; set => m_enabled = value; }
 
         public void OnMainHandGrabbed(TLabXRHand hand)
         {

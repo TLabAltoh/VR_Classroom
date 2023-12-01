@@ -1,3 +1,7 @@
+#define GRABBABLE
+#define POINTABLE
+
+using System.Collections.Generic;
 using UnityEngine;
 using TLab.XR.Input;
 using TLab.XR.Interact;
@@ -9,18 +13,41 @@ namespace TLab.XR
         [SerializeField] private InputDataSource m_inputDataSource;
         [SerializeField] private Transform m_pointerPos;
         [SerializeField] private Transform m_grabbPoint;
-        [SerializeField] private float m_maxDistance = 10.0f;
+        [SerializeField] private float m_maxGrabberDistance = 0.1f;
+        [SerializeField] private float m_maxPointerDistance = 0.1f;
 
-        private GameObject m_raycastResult = null;
-        private RaycastHit m_raycastHit;
+        private RaycastHit m_pointerRaycastHit;
+        private RaycastHit m_grabberRaycastHit;
+        private GameObject m_pointerResult = null;
+        private GameObject m_grabberResult = null;
 
-        private Grabbable m_grabbable;
+        private Vector3 m_prevPointerVec;
+        private Vector3 m_pointerVec;
+
+        private List<Interactable> m_selectedInteractables = new List<Interactable>();
+
+        private List<Interactable> m_hoverdInteractables = new List<Interactable>();
 
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
+
+        public GameObject pointerResult => m_pointerResult;
+
+        public GameObject grabberResult => m_grabberResult;
 
         public Transform pointerPos => m_pointerPos;
 
         public Transform grabbPoint => m_grabbPoint;
+
+        public InputDataSource inputDataSource => m_inputDataSource;
+
+        public Vector3 angulerVelocity
+        {
+            get
+            {
+                Vector3 diff = m_pointerVec - m_prevPointerVec;
+                return Vector3.Cross(diff.normalized, m_pointerVec.normalized) * diff.magnitude;
+            }
+        }
 
         void Start()
         {
@@ -29,91 +56,160 @@ namespace TLab.XR
 
         void Update()
         {
-            var pose = m_inputDataSource.pointerPose;
+            m_prevPointerVec = m_pointerVec;
 
-            var ray = new Ray(pose.position, Vector3.forward);
+            m_pointerVec = m_inputDataSource.pointerEnd;
 
-            Grabbable candidate = null;
-            float minDist = float.MaxValue;
+            var grip = m_inputDataSource.pressed;
+            var onPress = m_inputDataSource.onPress;
+            var onRelease = m_inputDataSource.onRelease;
 
-            Grabbable.registory.ForEach((g) =>
+            if (onRelease)
             {
-                if (g.Raycast(ray, out m_raycastHit, m_maxDistance))
+                m_selectedInteractables.ForEach((i) =>
                 {
-                    var tmp = m_raycastHit.distance;
-                    if (minDist > tmp)
-                    {
-                        candidate = g;
-                    }
+                    i.UnSelected(this);
+                });
+
+                m_selectedInteractables.Clear();
+            }
+
+            // Grabbable
+
+            var grabberMinDist = float.MaxValue;
+            var grabbCandidate = null as Grabbable;
+
+            foreach(var c in Grabbable.registry.Values)
+            {
+                var g = c as Grabbable;
+
+                // Žè‚Æ’Í‚ñ‚Å‚¢‚éGrabbable‚ÌŠÔ‚ÉGrabbable‚ªŠ„‚èž‚ÝCGrabbable‚ªØ‚è‘Ö‚í‚é‚Ì‚ð‚±‚±‚Å–h‚® ...
+                if(g.mainHand == this || g.subHand == this)
+                {
+                    grabbCandidate = g;
+                    break;
                 }
-            });
 
-            Grabbable.registory.ForEach((g) =>
-            {
-                bool grip = m_inputDataSource.pressed;
-                bool onPress = m_inputDataSource.onPress;
-                bool onRelease = m_inputDataSource.onRelease;
-
-                if (g.Raycast(ray, out m_raycastHit, m_maxDistance))
+                if (g.Spherecast(m_grabbPoint.position, out m_grabberRaycastHit, m_maxGrabberDistance))
                 {
-                    if (m_grabbable != null)
+                    var tmp = m_grabberRaycastHit.distance;
+                    if (grabberMinDist > tmp)
                     {
-                        if (!grip)
-                        {
-                            m_grabbable.UnSelected(this);
-                            m_grabbable = null;
-                        }
+                        grabbCandidate = g;
+                        grabberMinDist = tmp;
                     }
-                    else
-                    {
-                        var target = m_raycastHit.collider.gameObject;
-                        m_raycastResult = target;
 
-                        //
-                        // Outline
-                        //
+                    Debug.Log("grabbable hit");
+                }
+            }
 
-                        //var selectable = target.GetComponent<OutlineSelectable>();
-                        //if (selectable != null)
-                        //{
-                        //    selectable.selected = true;
-                        //}
+#if GRABBABLE
+            if (grabbCandidate != null as Grabbable)
+            {
+                var target = grabbCandidate.srufaceCollider.gameObject;
 
-                        //
-                        // Grip
-                        //
+                m_grabberResult = target;
 
-                        //bool grip = OVRInput.GetDown(m_gripButton, m_controller);
-                        //if (grip)
-                        //{
-                        //    var grabbable = target.GetComponent<TLabVRGrabbable>();
+                var selectedContain = m_selectedInteractables.Contains(grabbCandidate);
 
-                        //    if (grabbable == null)
-                        //    {
-                        //        return;
-                        //    }
+                var hoveredContain = m_hoverdInteractables.Contains(grabbCandidate);
 
-                        //    if (grabbable.AddParent(this.gameObject))
-                        //    {
-                        //        m_grabbable = grabbable;
-                        //    }
-                        //}
-                    }
+                // Hover
+
+                if (!hoveredContain)
+                {
+                    m_hoverdInteractables.Add(grabbCandidate);
+                    grabbCandidate.Hovered(this);
                 }
                 else
                 {
-                    if (m_grabbable)
+                    grabbCandidate.WhileHovered(this);
+                }
+
+                // Select
+
+                if (onPress && !selectedContain)
+                {
+                    m_selectedInteractables.Add(grabbCandidate);
+                    grabbCandidate.Selected(this);
+                }
+                else if (grip && selectedContain)
+                {
+                    grabbCandidate.WhileSelected(this);
+                }
+            }
+            else
+            {
+                m_grabberResult = null;
+            }
+
+#endif
+
+            // Pointable
+
+            var pointerMinDist = float.MaxValue;
+            var pointerCandidate = null as Pointable;
+
+            Pointable.registry.ForEach((p) =>
+            {
+                if (p.Spherecast(m_pointerPos.position, out m_pointerRaycastHit, m_maxPointerDistance))
+                {
+                    var tmp = m_pointerRaycastHit.distance;
+                    if (pointerMinDist > tmp)
                     {
-                        if (!grip)
-                        {
-                            m_grabbable.UnSelected(this);
-                            m_grabbable = null;
-                        }
+                        pointerCandidate = p;
+                        pointerMinDist = tmp;
                     }
 
-                    m_raycastResult = null;
+                    Debug.Log("pointable hit");
+                }
+                else if (m_hoverdInteractables.Contains(p))
+                {
+                    p.UnHovered(this);
+                    m_hoverdInteractables.Remove(p);
                 }
             });
+
+#if POINTABLE
+            if (pointerCandidate != null as Pointable)
+            {
+                var target = grabbCandidate.srufaceCollider.gameObject;
+
+                m_pointerResult = target;
+
+                var selectedContain = m_selectedInteractables.Contains(pointerCandidate);
+
+                var hoveredContain = m_hoverdInteractables.Contains(pointerCandidate);
+
+                // Hover
+
+                if (!hoveredContain)
+                {
+                    m_hoverdInteractables.Add(pointerCandidate);
+                    pointerCandidate.Hovered(this);
+                }
+                else
+                {
+                    pointerCandidate.WhileHovered(this);
+                }
+
+                // Select
+
+                if (onPress && !selectedContain)
+                {
+                    m_selectedInteractables.Add(pointerCandidate);
+                    pointerCandidate.Selected(this);
+                }
+                else if (onRelease && selectedContain)
+                {
+                    pointerCandidate.UnSelected(this);
+                }
+            }
+            else
+            {
+                m_pointerResult = null;
+            }
+#endif
         }
     }
 }

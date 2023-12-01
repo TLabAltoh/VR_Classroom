@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Oculus.Interaction;
 using Oculus.Interaction.Input;
 
 namespace TLab.XR.Input
@@ -13,15 +14,19 @@ namespace TLab.XR.Input
             public List<Vector3> fingerDatas;
         }
 
+        [Header("OVR Hand")]
+
         [SerializeField] private FromOVRHandDataSource m_dataSource;
+
+        [SerializeField] private RayInteractor m_rayInteractor;
 
         [SerializeField] private OVRSkeleton m_skeleton;
 
         [SerializeField] private List<Gesture> m_gestures;
 
-        [SerializeField] private const float THRESHOLD = 0.05f;
-
         [SerializeField] private string m_targetGestureName;
+
+        [SerializeField] private const float THRESHOLD = 0.05f;
 
 #if UNITY_EDITOR
         [SerializeField] private bool m_editMode = false;
@@ -36,12 +41,15 @@ namespace TLab.XR.Input
         private string DetectGesture()
         {
             string result = null;
+
             float currentMin = Mathf.Infinity;
 
             foreach (var gesture in m_gestures)
             {
                 float sumDistance = 0.0f;
+
                 bool isDiscarded = false;
+
                 for (int i = 0; i < m_fingerBones.Count; i++)
                 {
                     Vector3 currentData = m_skeleton.transform.InverseTransformPoint(m_fingerBones[i].Transform.position);
@@ -59,6 +67,7 @@ namespace TLab.XR.Input
                 if (!isDiscarded && sumDistance < currentMin)
                 {
                     currentMin = sumDistance;
+
                     result = gesture.name;
                 }
             }
@@ -110,18 +119,15 @@ namespace TLab.XR.Input
             };
 
             var pointerPose = dataAsset.PointerPose;
-            m_pointerLocalPose = new Pose
+            m_pointerPose = new Pose
             {
                 position = pointerPose.position,
                 rotation = pointerPose.rotation
             };
 
-            m_pointerPose = new Pose
-            {
-                // TODO: ...
-                position = pointerPose.position + rootPose.position,
-                rotation = pointerPose.rotation * rootPose.rotation
-            };
+            m_pointerOrigin = m_rayInteractor.Origin;
+
+            m_pointerEnd = m_rayInteractor.End;
 
             if (m_skeltonInitialized)
             {

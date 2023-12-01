@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7704272846166769611}
-  - component: {fileID: 7704272846166769604}
+  - component: {fileID: 377480635110621487}
   m_Layer: 0
   m_Name: LeftHand
   m_TagString: Untagged
@@ -65,7 +65,7 @@ Transform:
   m_Father: {fileID: 7704272847027320026}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7704272846166769604
+--- !u!114 &377480635110621487
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,18 +74,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7704272846166769610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 093052c55b1357a488efcce81f8fb2c1, type: 3}
+  m_Script: {fileID: 11500000, guid: f860115ee3b41c94884f02527681afe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_handDataSource: {fileID: 0}
-  m_controller: 0
-  m_laserPointer: {fileID: 0}
-  m_maxDistance: 10
-  m_gripAxis: 0
-  m_gripButton: 0
-  m_layerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  m_inputDataSource: {fileID: 0}
+  m_pointerPos: {fileID: 0}
+  m_grabbPoint: {fileID: 0}
+  m_maxGrabberDistance: 0.1
+  m_maxPointerDistance: 0.1
 --- !u!1 &7704272846334409194
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,6 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7704272846334409195}
+  - component: {fileID: 2682979694731971042}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -117,6 +114,23 @@ Transform:
   m_Father: {fileID: 7704272847027320026}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2682979694731971042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704272846334409194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f860115ee3b41c94884f02527681afe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inputDataSource: {fileID: 0}
+  m_pointerPos: {fileID: 0}
+  m_grabbPoint: {fileID: 0}
+  m_maxGrabberDistance: 0.1
+  m_maxPointerDistance: 0.1
 --- !u!1 &7704272846865642013
 GameObject:
   m_ObjectHideFlags: 0
