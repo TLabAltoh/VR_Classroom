@@ -6,27 +6,35 @@ namespace TLab.XR.Interact
 {
     public class Interactable : MonoBehaviour
     {
+        #region REGISTRY
+
         private static List<Interactable> m_registry = new List<Interactable>();
 
         public static List<Interactable> registry => m_registry;
 
-        // TODO: Added hover handling ...
+        protected static string REGISTRY = "[registry] ";
 
-        public static void Register(Interactable selectable)
+        protected static void Register(Interactable interactable)
         {
-            if (!m_registry.Contains(selectable))
+            if (!m_registry.Contains(interactable))
             {
-                m_registry.Add(selectable);
+                m_registry.Add(interactable);
+
+                Debug.Log(REGISTRY + "interactable registered in the registry: " + interactable.gameObject.name);
             }
         }
 
-        public static void UnRegister(Interactable selectable)
+        protected static void UnRegister(Interactable interactable)
         {
-            if (m_registry.Contains(selectable))
+            if (m_registry.Contains(interactable))
             {
-                m_registry.Remove(selectable);
+                m_registry.Remove(interactable);
+
+                Debug.Log(REGISTRY + "deregistered interactable from the registry.: " + interactable.gameObject.name);
             }
         }
+
+        #endregion
 
         [Header("Raycat target")]
         [SerializeField] protected bool m_colliderEnable = false;
@@ -35,8 +43,10 @@ namespace TLab.XR.Interact
         [Header("Chain interactables")]
         [SerializeField] protected List<Interactable> m_interactableChain;
 
-        protected List<TLabXRHand> m_hoverHands;
-        protected List<TLabXRHand> m_selectHands;
+        protected List<TLabXRHand> m_hoverHands = new List<TLabXRHand>();
+        protected List<TLabXRHand> m_selectHands = new List<TLabXRHand>();
+
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
         public Collider srufaceCollider => m_collider;
 

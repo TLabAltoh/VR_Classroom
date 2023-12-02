@@ -29,14 +29,14 @@ namespace TLab.XR.Interact
         {
             m_mainHand = hand;
 
-            m_mainPositionOffset = m_mainHand.grabbPoint.InverseTransformPoint(m_targetTransform.position);
+            m_mainPositionOffset = m_mainHand.grabbPointer.InverseTransformPoint(m_targetTransform.position);
         }
 
         public void OnSubHandGrabbed(TLabXRHand hand)
         {
             m_subHand = hand;
 
-            m_subPositionOffset = m_subHand.grabbPoint.InverseTransformPoint(m_targetTransform.position);
+            m_subPositionOffset = m_subHand.grabbPointer.InverseTransformPoint(m_targetTransform.position);
         }
 
         public void OnMainHandReleased(TLabXRHand hand)
@@ -59,8 +59,8 @@ namespace TLab.XR.Interact
         {
             if (m_enabled && m_mainHand != null && m_subHand != null)
             {
-                var updatedPositionMain = m_mainHand.grabbPoint.TransformPoint(m_mainPositionOffset);
-                var updatedPositionSub = m_subHand.grabbPoint.TransformPoint(m_subPositionOffset);
+                var updatedPositionMain = m_mainHand.grabbPointer.TransformPoint(m_mainPositionOffset);
+                var updatedPositionSub = m_subHand.grabbPointer.TransformPoint(m_subPositionOffset);
                 var updatedPosition = Vector3.Lerp(updatedPositionMain, updatedPositionSub, 0.5f);
 
                 if (m_targetRigidbody)
@@ -78,7 +78,7 @@ namespace TLab.XR.Interact
         {
             if (m_enabled && m_mainHand != null)
             {
-                var updatedPosition = m_mainHand.grabbPoint.TransformPoint(m_mainPositionOffset);
+                var updatedPosition = m_mainHand.grabbPointer.TransformPoint(m_mainPositionOffset);
                 if (m_targetRigidbody)
                 {
                     m_targetRigidbody.MovePosition(updatedPosition);

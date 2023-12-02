@@ -1,4 +1,4 @@
-#define GRABBABLE
+#define HANDLE
 #define POINTABLE
 
 using System.Collections.Generic;
@@ -11,10 +11,9 @@ namespace TLab.XR
     public class TLabXRHand : MonoBehaviour
     {
         [SerializeField] private InputDataSource m_inputDataSource;
-        [SerializeField] private Transform m_pointerPos;
-        [SerializeField] private Transform m_grabbPoint;
-        [SerializeField] private float m_maxGrabberDistance = 0.1f;
-        [SerializeField] private float m_maxPointerDistance = 0.1f;
+
+        [SerializeField] private float m_maxGrabberDistance = 0.05f;
+        [SerializeField] private float m_maxPointerDistance = 0.05f;
 
         private RaycastHit m_pointerRaycastHit;
         private RaycastHit m_grabberRaycastHit;
@@ -34,9 +33,9 @@ namespace TLab.XR
 
         public GameObject grabberResult => m_grabberResult;
 
-        public Transform pointerPos => m_pointerPos;
+        public Transform pointer => m_inputDataSource.pointer.transform;
 
-        public Transform grabbPoint => m_grabbPoint;
+        public Transform grabbPointer => m_inputDataSource.grabbPointer.transform;
 
         public InputDataSource inputDataSource => m_inputDataSource;
 
@@ -58,13 +57,18 @@ namespace TLab.XR
         {
             m_prevPointerVec = m_pointerVec;
 
-            m_pointerVec = m_inputDataSource.pointerEnd;
+            m_pointerVec = m_inputDataSource.pointerPos - m_inputDataSource.pointerOrigin;
 
-            var grip = m_inputDataSource.pressed;
+            var press = m_inputDataSource.pressed;
+            var grip = m_inputDataSource.grabbed;
+
             var onPress = m_inputDataSource.onPress;
-            var onRelease = m_inputDataSource.onRelease;
+            var onGrab = m_inputDataSource.onGrab;
 
-            if (onRelease)
+            var onRelease = m_inputDataSource.onRelease;
+            var onFree = m_inputDataSource.onFree;
+
+            if (onFree || onRelease)
             {
                 m_selectedInteractables.ForEach((i) =>
                 {
@@ -74,68 +78,64 @@ namespace TLab.XR
                 m_selectedInteractables.Clear();
             }
 
-            // Grabbable
+            // Handle
 
-            var grabberMinDist = float.MaxValue;
-            var grabbCandidate = null as Grabbable;
+            var handleMinDist = float.MaxValue;
+            var handleCandidate = null as Handle;
 
-            foreach(var c in Grabbable.registry.Values)
+            Handle.registry.ForEach((h) =>
             {
-                var g = c as Grabbable;
-
-                // Žè‚Æ’Í‚ñ‚Å‚¢‚éGrabbable‚ÌŠÔ‚ÉGrabbable‚ªŠ„‚èž‚ÝCGrabbable‚ªØ‚è‘Ö‚í‚é‚Ì‚ð‚±‚±‚Å–h‚® ...
-                if(g.mainHand == this || g.subHand == this)
-                {
-                    grabbCandidate = g;
-                    break;
-                }
-
-                if (g.Spherecast(m_grabbPoint.position, out m_grabberRaycastHit, m_maxGrabberDistance))
+                if (h.Spherecast(m_inputDataSource.grabbPointerPos, out m_grabberRaycastHit, m_maxGrabberDistance))
                 {
                     var tmp = m_grabberRaycastHit.distance;
-                    if (grabberMinDist > tmp)
+                    if (handleMinDist > tmp)
                     {
-                        grabbCandidate = g;
-                        grabberMinDist = tmp;
+                        handleCandidate = h;
+                        handleMinDist = tmp;
                     }
 
-                    Debug.Log("grabbable hit");
+                    Debug.Log("handle hit");
                 }
-            }
+                else if (m_hoverdInteractables.Contains(h))
+                {
+                    h.UnHovered(this);
+                    m_hoverdInteractables.Remove(h);
+                }
+            });
 
-#if GRABBABLE
-            if (grabbCandidate != null as Grabbable)
+#if HANDLE
+            if (handleCandidate != null as Handle)
             {
-                var target = grabbCandidate.srufaceCollider.gameObject;
+                var target = handleCandidate.srufaceCollider.gameObject;
 
                 m_grabberResult = target;
 
-                var selectedContain = m_selectedInteractables.Contains(grabbCandidate);
+                var selectedContain = m_selectedInteractables.Contains(handleCandidate);
 
-                var hoveredContain = m_hoverdInteractables.Contains(grabbCandidate);
+                var hoveredContain = m_hoverdInteractables.Contains(handleCandidate);
 
                 // Hover
 
                 if (!hoveredContain)
                 {
-                    m_hoverdInteractables.Add(grabbCandidate);
-                    grabbCandidate.Hovered(this);
+                    m_hoverdInteractables.Add(handleCandidate);
+                    handleCandidate.Hovered(this);
                 }
                 else
                 {
-                    grabbCandidate.WhileHovered(this);
+                    handleCandidate.WhileHovered(this);
                 }
 
                 // Select
 
-                if (onPress && !selectedContain)
+                if (onGrab && !selectedContain)
                 {
-                    m_selectedInteractables.Add(grabbCandidate);
-                    grabbCandidate.Selected(this);
+                    m_selectedInteractables.Add(handleCandidate);
+                    handleCandidate.Selected(this);
                 }
                 else if (grip && selectedContain)
                 {
-                    grabbCandidate.WhileSelected(this);
+                    handleCandidate.WhileSelected(this);
                 }
             }
             else
@@ -152,7 +152,7 @@ namespace TLab.XR
 
             Pointable.registry.ForEach((p) =>
             {
-                if (p.Spherecast(m_pointerPos.position, out m_pointerRaycastHit, m_maxPointerDistance))
+                if (p.Spherecast(m_inputDataSource.pointerPos, out m_pointerRaycastHit, m_maxPointerDistance))
                 {
                     var tmp = m_pointerRaycastHit.distance;
                     if (pointerMinDist > tmp)
@@ -173,7 +173,7 @@ namespace TLab.XR
 #if POINTABLE
             if (pointerCandidate != null as Pointable)
             {
-                var target = grabbCandidate.srufaceCollider.gameObject;
+                var target = pointerCandidate.srufaceCollider.gameObject;
 
                 m_pointerResult = target;
 
@@ -200,9 +200,9 @@ namespace TLab.XR
                     m_selectedInteractables.Add(pointerCandidate);
                     pointerCandidate.Selected(this);
                 }
-                else if (onRelease && selectedContain)
+                else if (press && selectedContain)
                 {
-                    pointerCandidate.UnSelected(this);
+                    pointerCandidate.WhileSelected(this);
                 }
             }
             else

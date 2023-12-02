@@ -22,30 +22,20 @@ namespace TLab.VRClassroom
         {
             // delete obj
 
-            Grabbable.ClearRegistry();
+            ExclusiveController.ClearRegistry();
             SyncAnimator.ClearRegistry();
 
-            yield return null;
-            yield return null;
+            yield return new WaitForSeconds(0.5f);
 
             // close socket
             m_voiceChat.CloseRTC();
             m_syncClient.CloseRTC();
 
-            yield return null;
-            yield return null;
+            yield return new WaitForSeconds(0.5f);
 
             m_syncClient.Exit();
 
-            yield return null;
-            yield return null;
-
-            float remain = 1.5f;
-            while (remain > 0)
-            {
-                remain -= Time.deltaTime;
-                yield return null;
-            }
+            yield return new WaitForSeconds(2.5f);
         }
 
         private IEnumerator ReEnterClassroomTask()

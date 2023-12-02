@@ -2,27 +2,27 @@ using System.Collections.Generic;
 
 namespace TLab.XR.Interact
 {
-    public class Pointable : Interactable
+    public class Handle : Interactable
     {
         #region REGISTRY
 
-        private static List<Pointable> m_registry = new List<Pointable>();
+        private static List<Handle> m_registry = new List<Handle>();
 
-        public static new List<Pointable> registry => m_registry;
+        public static new List<Handle> registry => m_registry;
 
-        public static void Register(Pointable pointable)
+        public static void Register(Handle handle)
         {
-            if (!m_registry.Contains(pointable))
+            if (!m_registry.Contains(handle))
             {
-                m_registry.Add(pointable);
+                m_registry.Add(handle);
             }
         }
 
-        public static void UnRegister(Pointable pointable)
+        public static void UnRegister(Handle handle)
         {
-            if (m_registry.Contains(pointable))
+            if (m_registry.Contains(handle))
             {
-                m_registry.Remove(pointable);
+                m_registry.Remove(handle);
             }
         }
 
@@ -59,14 +59,14 @@ namespace TLab.XR.Interact
         {
             base.OnEnable();
 
-            Pointable.Register(this);
+            Handle.Register(this);
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
 
-            Pointable.UnRegister(this);
+            Handle.UnRegister(this);
         }
     }
 }

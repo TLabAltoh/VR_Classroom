@@ -20,23 +20,43 @@ namespace TLab.XR.Input
 
         [SerializeField] private RayInteractor m_rayInteractor;
 
+        [Header("OVR Pointer")]
+
+#if UNITY_EDITOR
+        [SerializeField] private Transform m_pointerDebug;
+
+        [SerializeField] private Transform m_grabbPointerDebug;
+#endif
+
+        [SerializeField] private Transform m_indexNull;
+
+        [SerializeField] private Transform m_thumbNull;
+
+        [Header("Gesture")]
+
         [SerializeField] private OVRSkeleton m_skeleton;
 
         [SerializeField] private List<Gesture> m_gestures;
 
-        [SerializeField] private string m_targetGestureName;
+        [SerializeField] private List<string> m_targetGestures;
 
-        [SerializeField] private const float THRESHOLD = 0.05f;
+        [SerializeField] private float THRESHOLD = 0.1f;
 
 #if UNITY_EDITOR
         [SerializeField] private bool m_editMode = false;
+
+        [SerializeField] private KeyCode m_recordKey = KeyCode.Space;
 #endif
 
         private bool m_skeltonInitialized = false;
 
-        private bool m_fired = false;
+        private bool m_grabFired = false;
+
+        private bool m_triggerFired = false;
 
         private List<OVRBone> m_fingerBones;
+
+        private const float AVERAGE = 0.5f;
 
         private string DetectGesture()
         {
@@ -102,7 +122,7 @@ namespace TLab.XR.Input
 #if UNITY_EDITOR
             if (m_editMode)
             {
-                if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
+                if (UnityEngine.Input.GetKeyDown(m_recordKey))
                 {
                     SavePose();
                 }
@@ -127,26 +147,77 @@ namespace TLab.XR.Input
 
             m_pointerOrigin = m_rayInteractor.Origin;
 
-            m_pointerEnd = m_rayInteractor.End;
+            m_pointerPos = m_rayInteractor.End;
+
+            m_grabbPointer.transform.position = Vector3.Lerp(m_indexNull.position, m_thumbNull.position, AVERAGE);
+            m_grabbPointer.transform.rotation = Quaternion.Lerp(m_indexNull.rotation, m_thumbNull.rotation, AVERAGE);
+
+            m_grabbPointerPos = m_grabbPointer.transform.position;
+
+#if UNITY_EDITOR
+            if(m_pointerDebug != null)
+            {
+                m_pointerDebug.position = m_pointerPos;
+            }
+
+            if(m_grabbPointerDebug != null)
+            {
+                m_grabbPointerDebug.position = m_grabbPointerPos;
+            }
+#endif
+
+            // Detect Pinch Input
+
+            bool triggerFired = dataAsset.IsFingerPinching[(int)OVRHand.HandFinger.Index];
+            bool prevTriggerFired = m_triggerFired;
+
+            m_triggerFired = triggerFired;
+
+            m_pressed = m_triggerFired;
+
+            m_onPress = false;
+
+            m_onRelease = false;
+
+            if (triggerFired && !prevTriggerFired)
+            {
+                m_onPress = true;
+            }
+            else if (!triggerFired && prevTriggerFired)
+            {
+                m_onRelease = true;
+            }
+
+            // Detect Grab Input
 
             if (m_skeltonInitialized)
             {
-                bool fired = DetectGesture() == m_targetGestureName;
-                bool prevFired = m_fired;
+                string gesture = DetectGesture();
 
-                m_pressed = m_fired;
+                bool grabFired = false;
 
-                m_onPress = false;
-
-                m_onRelease = false;
-
-                if (fired && !prevFired)
+                m_targetGestures.ForEach((g) =>
                 {
-                    m_onPress = true;
+                    grabFired = grabFired || (gesture == g);
+                });
+
+                bool prevGrabFired = m_grabFired;
+
+                m_grabFired = grabFired;
+
+                m_grabbed = m_grabFired;
+
+                m_onGrab = false;
+
+                m_onFree = false;
+
+                if (grabFired && !prevGrabFired)
+                {
+                    m_onGrab = true;
                 }
-                else if (!fired && prevFired)
+                else if (!grabFired && prevGrabFired)
                 {
-                    m_onRelease = true;
+                    m_onFree = true;
                 }
             }
             else

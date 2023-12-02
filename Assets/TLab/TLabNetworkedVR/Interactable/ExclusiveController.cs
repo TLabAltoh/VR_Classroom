@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEditor;
@@ -6,12 +7,14 @@ using static TLab.XR.ComponentExtention;
 
 namespace TLab.XR.Interact
 {
-    public class Grabbable : NetworkedObject
+    public class ExclusiveController : NetworkedObject
     {
-        public const int PARENT_LENGTH = 2;
-
-        public const int FREE = -1;
-        public const int FIXED = -2;
+        public enum HandType
+        {
+            MAIN_HAND,
+            SUB_HAND,
+            NONE
+        };
 
         // Rigidbodyの同期にラグがあるとき，メッセージが届かない間はGravityを有効にしてローカルの環境で物理演算を行う．
         // ただし，誰かがオブジェクトを掴んでいることが分かっているときは，推測の物理演算は行わない．
@@ -25,6 +28,56 @@ namespace TLab.XR.Interact
         private const int PACKET_LOSS_LIMIT = 2;
 #endif
 
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
+
+        #region REGISTRY
+
+        private static Hashtable m_registry = new Hashtable();
+
+        public static Hashtable registry => m_registry;
+
+        protected static void Register(string id, ExclusiveController controller)
+        {
+            if (!m_registry.ContainsKey(id))
+            {
+                m_registry[id] = controller;
+
+                Debug.Log(REGISTRY + "controller registered in the registry: " + id);
+            }
+        }
+
+        protected static new void UnRegister(string id)
+        {
+            if (m_registry.ContainsKey(id))
+            {
+                m_registry.Remove(id);
+
+                Debug.Log(REGISTRY + "deregistered controller from the registry.: " + id);
+            }
+        }
+
+        public static new void ClearRegistry()
+        {
+            var gameobjects = new List<GameObject>();
+
+            foreach (DictionaryEntry entry in m_registry)
+            {
+                var controller = entry.Value as ExclusiveController;
+                gameobjects.Add(controller.gameObject);
+            }
+
+            for (int i = 0; i < gameobjects.Count; i++)
+            {
+                Destroy(gameobjects[i]);
+            }
+
+            m_registry.Clear();
+        }
+
+        public static new ExclusiveController GetById(string id) => m_registry[id] as ExclusiveController;
+
+        #endregion REGISTRY
+
         [Header("Transform Module")]
         [SerializeField] private PositionLogic m_position;
         [SerializeField] private RotationLogic m_rotation;
@@ -34,10 +87,27 @@ namespace TLab.XR.Interact
         [SerializeField] protected bool m_enableDivide = false;
         [SerializeField] protected GameObject[] m_divideTargets;
 
+        protected List<CashTransform> m_cashTransforms = new List<CashTransform>();
+
+        public const int FREE = -1;
+        public const int FIXED = -2;
+
+        private int m_grabbedIndex = FREE;
+
         private TLabXRHand m_mainHand;
         private TLabXRHand m_subHand;
 
-        private int m_grabbed = FREE;
+        public bool grabbed => m_grabbedIndex != FREE && m_grabbedIndex != FIXED;
+
+        public int grabbedIndex => m_grabbedIndex;
+
+        public bool isFree => m_grabbedIndex == FREE;
+
+        public bool grabbByMe => grabbed && (m_grabbedIndex == SyncClient.Instance.seatIndex);
+
+        public TLabXRHand mainHand => m_mainHand;
+
+        public TLabXRHand subHand => m_subHand;
 
         public PositionLogic position => m_position;
 
@@ -45,44 +115,9 @@ namespace TLab.XR.Interact
 
         public ScaleLogic scale => m_scale;
 
-        public TLabXRHand mainHand => m_mainHand;
-
-        public TLabXRHand subHand => m_subHand;
-
-        public bool grabbed => m_mainHand != null;
-
-        public int grabbedIndex => m_grabbed;
-
         public bool enableDivide => m_enableDivide;
 
         public GameObject[] divideTargets => m_divideTargets;
-
-        private string THIS_NAME => "[" + this.GetType().Name + "] ";
-
-#region REGISTRY
-
-        private static Hashtable m_registry = new Hashtable();
-
-        public static new Hashtable registry => m_registry;
-
-        public static void Register(string id, Grabbable grabbable) => m_registry[id] = grabbable;
-
-        public static new void UnRegister(string id) => m_registry.Remove(id);
-
-        public static new void ClearRegistry()
-        {
-            foreach (DictionaryEntry entry in m_registry)
-            {
-                var grabbable = entry.Value as Grabbable;
-                grabbable.Shutdown(false);
-            }
-
-            m_registry.Clear();
-        }
-
-        public static new Grabbable GetById(string id) => m_registry[id] as Grabbable;
-
-#endregion REGISTRY
 
 #if UNITY_EDITOR
         public void InitializeRotatable()
@@ -124,27 +159,11 @@ namespace TLab.XR.Interact
             m_scale.OnSubHandReleased(m_subHand);
         }
 
-        private void IgnoreCollision(TLabXRHand hand, bool ignore)
-        {
-            // TODO: add physics base hand ...
-
-            //if (hand.physicsHand == null)
-            //{
-            //    return;
-            //}
-
-            //var jointPairs = hand.physicsHand.jointPairs;
-            //foreach (JointPair jointPair in jointPairs)
-            //{
-            //    jointPair.slave.colliders.ForEach((c) => Physics.IgnoreCollision(c, m_collider, ignore));
-            //}
-        }
-
         public void AllocateGravity(bool active)
         {
             m_rbAllocated = active;
 
-            bool allocated = m_grabbed == FREE && active;
+            bool allocated = m_grabbedIndex == FREE && active;
 
             SetGravity(allocated ? true : false);
 
@@ -153,7 +172,7 @@ namespace TLab.XR.Interact
 
         public void GrabbLock(bool active)
         {
-            m_grabbed = active ? SyncClient.Instance.seatIndex : FREE;
+            m_grabbedIndex = active ? SyncClient.Instance.seatIndex : FREE;
 
             if (m_rbAllocated)
             {
@@ -165,7 +184,7 @@ namespace TLab.XR.Interact
             SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST,
                 action: WebAction.GRABBLOCK,
-                seatIndex: m_grabbed,
+                seatIndex: m_grabbedIndex,
                 transform: new WebObjectInfo { id = m_id });
 
             Debug.Log(THIS_NAME + "grabb lock: " + active);
@@ -181,7 +200,7 @@ namespace TLab.XR.Interact
                     m_subHand = null;
                 }
 
-                m_grabbed = index;
+                m_grabbedIndex = index;
 
                 if (m_rbAllocated)
                 {
@@ -190,7 +209,7 @@ namespace TLab.XR.Interact
             }
             else
             {
-                m_grabbed = FREE;
+                m_grabbedIndex = FREE;
 
                 if (m_rbAllocated)
                 {
@@ -199,13 +218,42 @@ namespace TLab.XR.Interact
             }
         }
 
+        public void SimpleLock(bool active)
+        {
+            /*
+                -1 : No one is grabbing
+                -2 : No one grabbed, but Rigidbody does not calculate
+            */
+
+            // Ensure that the object you are grasping does not cover
+            // If someone has already grabbed the object, overwrite it
+
+            // parse.seatIndex	: player index that is grabbing the object
+            // seatIndex		: index of the socket actually communicating
+
+            m_grabbedIndex = active ? FIXED : FREE;
+
+            if (m_rbAllocated)
+            {
+                SetGravity(!active);
+            }
+
+            SyncClient.Instance.SendWsMessage(
+                role: WebRole.GUEST,
+                action: WebAction.GRABBLOCK,
+                seatIndex: m_grabbedIndex,
+                transform: new WebObjectInfo { id = this.gameObject.name });
+
+            Debug.Log(THIS_NAME + "simple lock");
+        }
+
         public void ForceRelease(bool self)
         {
             if (m_mainHand != null)
             {
                 m_mainHand = null;
                 m_subHand = null;
-                m_grabbed = FREE;
+                m_grabbedIndex = FREE;
 
                 SetGravity(false);
             }
@@ -221,82 +269,6 @@ namespace TLab.XR.Interact
             Debug.Log(THIS_NAME + "force release");
         }
 
-        public override void Selected(TLabXRHand hand)
-        {
-            if (m_mainHand == null)
-            {
-                SetGravity(!true);
-
-                m_mainHand = hand;
-
-                MainHandGrabbStart();
-
-                IgnoreCollision(hand, true);
-
-                Debug.Log(THIS_NAME + hand.ToString() + " mainHand added");
-            }
-            else if (m_subHand == null)
-            {
-                m_subHand = hand;
-
-                SubHandGrabbStart();
-
-                IgnoreCollision(hand, true);
-
-                Debug.Log(THIS_NAME + hand.ToString() + " subHand added");
-            }
-
-            Debug.Log(THIS_NAME + "cannot add hand");
-
-            base.Selected(hand);
-        }
-
-        public override void UnSelected(TLabXRHand hand)
-        {
-            if (m_mainHand == hand)
-            {
-                MainHandGrabbEnd();
-
-                IgnoreCollision(m_mainHand, false);
-
-                if (m_subHand != null)
-                {
-                    m_mainHand = m_subHand;
-                    m_subHand = null;
-
-                    MainHandGrabbStart();
-
-                    Debug.Log(THIS_NAME + "main released and sub added");
-                }
-                else
-                {
-                    SetGravity(!true);
-
-                    m_mainHand = null;
-
-                    Debug.Log(THIS_NAME + "main released");
-                }
-            }
-            else if (m_subHand == hand)
-            {
-                SubHandGrabbEnd();
-
-                IgnoreCollision(m_subHand, false);
-
-                m_subHand = null;
-
-                MainHandGrabbStart();
-
-                Debug.Log(THIS_NAME + "sub released");
-            }
-
-            base.UnSelected(hand);
-        }
-
-        public override void WhileSelected(TLabXRHand hand)
-        {
-            base.WhileSelected(hand);
-        }
 
         private void CreateCombineMeshCollider()
         {
@@ -351,12 +323,12 @@ namespace TLab.XR.Interact
                 rotatable.Stop();
             }
 
-            // 結合/分割を切り替えたので，divideTargetsが持つGrabbableを含めて
-            // Grabbableを誰も掴んでいない状態にする
-            var grabbables = GetComponentsInTargets<Grabbable>(divideTargets);
-            foreach (var grabbable in grabbables)
+            // 結合/分割を切り替えたので，divideTargetsが持つExclusiveControllerを含めて
+            // ExclusiveControllerを誰も掴んでいない状態にする
+            var controllers = GetComponentsInTargets<ExclusiveController>(divideTargets);
+            foreach (var controller in controllers)
             {
-                grabbable.ForceRelease(true);
+                controller.ForceRelease(true);
             }
 
             if (!active)
@@ -387,7 +359,7 @@ namespace TLab.XR.Interact
             Divide(divide);
         }
 
-        private void SetInitialChildTransform()
+        public void SetInitialChildTransform()
         {
             if (!m_enableDivide)
             {
@@ -437,6 +409,103 @@ namespace TLab.XR.Interact
             }
         }
 
+        public HandType GetHandType(TLabXRHand hand)
+        {
+            if(m_mainHand == hand)
+            {
+                return HandType.MAIN_HAND;
+            }
+
+            if(m_subHand == hand)
+            {
+                return HandType.SUB_HAND;
+            }
+
+            return HandType.NONE;
+        }
+
+        public HandType OnGrabbed(TLabXRHand hand)
+        {
+            if (m_locked || (!isFree && !grabbByMe))
+            {
+                return HandType.NONE;
+            }
+
+            if (m_mainHand == null)
+            {
+                GrabbLock(true);
+
+                m_mainHand = hand;
+
+                MainHandGrabbStart();
+
+                Debug.Log(THIS_NAME + hand.ToString() + " mainHand added");
+
+                return HandType.MAIN_HAND;
+            }
+            else if (m_subHand == null)
+            {
+                m_subHand = hand;
+
+                SubHandGrabbStart();
+
+                Debug.Log(THIS_NAME + hand.ToString() + " subHand added");
+
+                return HandType.SUB_HAND;
+            }
+
+            return HandType.NONE;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <returns>Subhand promoted to mainhand.</returns>
+        public bool OnRelease(TLabXRHand hand)
+        {
+            if (m_mainHand == hand)
+            {
+                MainHandGrabbEnd();
+
+                if (m_subHand != null)
+                {
+                    m_mainHand = m_subHand;
+                    m_subHand = null;
+
+                    MainHandGrabbStart();
+
+                    Debug.Log(THIS_NAME + "main released and sub added");
+
+                    return true;
+                }
+                else
+                {
+                    GrabbLock(false);
+
+                    m_mainHand = null;
+
+                    Debug.Log(THIS_NAME + "main released");
+
+                    return false;
+                }
+            }
+            else if (m_subHand == hand)
+            {
+                SubHandGrabbEnd();
+
+                m_subHand = null;
+
+                MainHandGrabbStart();
+
+                Debug.Log(THIS_NAME + "sub released");
+
+                return false;
+            }
+
+            return false;
+        }
+
         protected override void Start()
         {
             base.Start();
@@ -465,7 +534,7 @@ namespace TLab.XR.Interact
                 // 2. rbAllocated == false  : このオブジェクトの重力の計算が自分の担当ではない (誰かが計算している)
                 // 3. gravityState == false : このデバイスは重力計算を実行していない (Rigidbody.useGravity == false)
 
-                if (m_grabbed == FREE && !m_rbAllocated && !m_gravityState)
+                if (m_grabbedIndex == FREE && !m_rbAllocated && !m_gravityState)
                 {
                     SetGravity(true);
 
@@ -487,24 +556,41 @@ namespace TLab.XR.Interact
                     m_rotation.UpdateOneHandLogic();
                     // TODO: scaleにOneHandLogicは必要ないかも ...
                 }
+
+                SyncRTCTransform();
             }
             else
             {
                 // ハンドルを掴んでオブジェクトのサイズを変更する処理
-                m_scale.UpdateOneHandLogic();
+                if (isFree && m_scale.UpdateHandleLogic())
+                {
+                    SyncRTCTransform();
+                }
+            }
+        }
+
+        private void Shutdown()
+        {
+            if (grabbByMe)
+            {
+                GrabbLock(false);
             }
 
-            SyncRTCTransform();
+            UnRegister(m_id);
         }
 
-        void OnDestroy()
+        protected override void OnDestroy()
         {
-            Shutdown(false);
+            Shutdown();
+
+            base.OnDestroy();
         }
 
-        void OnApplicationQuit()
+        protected override void OnApplicationQuit()
         {
-            Shutdown(false);
+            Shutdown();
+
+            base.OnApplicationQuit();
         }
     }
 }

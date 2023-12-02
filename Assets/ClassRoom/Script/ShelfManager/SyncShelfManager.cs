@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using TLab.InputField;
@@ -96,15 +96,15 @@ namespace TLab.VRClassroom
 
             // サーバーのキャッシュを削除
 
-            foreach (Grabbable grabbable in instanced.GetComponentsInChildren<Grabbable>())
+            foreach (ExclusiveController controller in instanced.GetComponentsInChildren<ExclusiveController>())
             {
-                grabbable.Shutdown(true);
+                controller.ClearTransform();
                 yield return null;
             }
 
             foreach (SyncAnimator animator in instanced.GetComponentsInChildren<SyncAnimator>())
             {
-                animator.Shutdown(true);
+                animator.ClearAnim();
                 yield return null;
             }
 

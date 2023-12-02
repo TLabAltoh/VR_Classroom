@@ -7,7 +7,7 @@ using TLab.XR.Network;
 
 namespace TLab.XR.Interact
 {
-    public class NetworkedObject : Interactable
+    public class NetworkedObject : MonoBehaviour
     {
         [Header("Sync Setting")]
 
@@ -19,9 +19,9 @@ namespace TLab.XR.Interact
 
         [Header("Rigidbody settings")]
 
-        [SerializeField] protected bool m_useGravity = false;
-
         [SerializeField] protected bool m_useRigidbody = false;
+
+        [SerializeField] protected bool m_useGravity = false;
 
 #if UNITY_EDITOR
         [SerializeField] protected bool m_rbAllocated = false;
@@ -49,12 +49,12 @@ namespace TLab.XR.Interact
 
         protected FixedQueue<Vector3> m_prebArgs = new FixedQueue<Vector3>(CASH_COUNT);
 
-        protected List<CashTransform> m_cashTransforms = new List<CashTransform>();
-
         // https://www.fenet.jp/dotnet/column/language/4836/
         // A fast approach to string processing
 
         private StringBuilder m_builder = new StringBuilder();
+
+        public Rigidbody rb => m_rb;
 
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
@@ -78,16 +78,44 @@ namespace TLab.XR.Interact
 
         private static Hashtable m_registry = new Hashtable();
 
-        public static void Register(string id, NetworkedObject grabbable) => m_registry[id] = grabbable;
+        protected static string REGISTRY = "[registry] ";
 
-        public static void UnRegister(string id) => m_registry.Remove(id);
+        protected static void Register(string id, NetworkedObject networkedObject)
+        {
+            if (!m_registry.ContainsKey(id))
+            {
+                m_registry[id] = networkedObject;
+
+                Debug.Log(REGISTRY + "networkedObject registered in the registry: " + id);
+            }
+        }
+
+        protected static void UnRegister(string id)
+        {
+            if (m_registry.ContainsKey(id))
+            {
+                m_registry.Remove(id);
+
+                Debug.Log(REGISTRY + "deregistered networkedObject from the registry.: " + id);
+            }
+        }
 
         public static void ClearRegistry()
         {
+            // TODO: 一度に多くのオブジェクトを廃棄するときに，どんな負荷が加わるかが予想できない
+            // 非同期的に廃棄を行う方法を検討する．
+
+            var gameobjects = new List<GameObject>();
+
             foreach (DictionaryEntry entry in m_registry)
             {
-                var grabbable = entry.Value as NetworkedObject;
-                grabbable.Shutdown(false);
+                var networkedObject = entry.Value as NetworkedObject;
+                gameobjects.Add(networkedObject.gameObject);
+            }
+
+            for (int i = 0; i < gameobjects.Count; i++)
+            {
+                Destroy(gameobjects[i]);
             }
 
             m_registry.Clear();
@@ -462,12 +490,12 @@ namespace TLab.XR.Interact
 
             m_shutdown = true;
             m_enableSync = false;
+
+            UnRegister(m_id);
         }
 
-        protected override void Start()
+        protected virtual void Start()
         {
-            base.Start();
-
             m_rbAllocated = false;
 
             if (m_useRigidbody)
@@ -481,16 +509,26 @@ namespace TLab.XR.Interact
 
             StartCoroutine(RegistRigidbodyObject());
 
+            m_id = gameObject.name;
+
             Register(m_id, this);
         }
 
-        protected override void Update()
+        protected virtual void Update()
         {
-            base.Update();
-
             CashRbVelocity();
 
             m_didnotReachCount++;
+        }
+
+        protected virtual void OnDestroy()
+        {
+            Shutdown(false);
+        }
+
+        protected virtual void OnApplicationQuit()
+        {
+            Shutdown(false);
         }
     }
 }

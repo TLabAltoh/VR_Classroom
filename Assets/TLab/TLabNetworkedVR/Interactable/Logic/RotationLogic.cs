@@ -26,7 +26,7 @@ namespace TLab.XR.Interact
         {
             m_mainHand = hand;
 
-            m_mainQuaternionStart = m_mainHand.grabbPoint.rotation;
+            m_mainQuaternionStart = m_mainHand.grabbPointer.rotation;
             m_thisQuaternionStart = m_targetTransform.rotation;
         }
 
@@ -58,13 +58,13 @@ namespace TLab.XR.Interact
                 if (m_targetRigidbody != null)
                 {
                     // https://qiita.com/yaegaki/items/4d5a6af1d1738e102751
-                    Quaternion deltaQuaternion = Quaternion.identity * m_mainHand.grabbPoint.rotation * Quaternion.Inverse(m_mainQuaternionStart);
+                    Quaternion deltaQuaternion = Quaternion.identity * m_mainHand.grabbPointer.rotation * Quaternion.Inverse(m_mainQuaternionStart);
                     m_targetRigidbody.MoveRotation(deltaQuaternion * m_thisQuaternionStart);
                 }
                 else
                 {
                     // https://qiita.com/yaegaki/items/4d5a6af1d1738e102751
-                    Quaternion deltaQuaternion = Quaternion.identity * m_mainHand.grabbPoint.rotation * Quaternion.Inverse(m_mainQuaternionStart);
+                    Quaternion deltaQuaternion = Quaternion.identity * m_mainHand.grabbPointer.rotation * Quaternion.Inverse(m_mainQuaternionStart);
                     m_targetTransform.rotation = deltaQuaternion * m_thisQuaternionStart;
                 }
             }

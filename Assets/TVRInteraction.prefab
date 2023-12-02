@@ -78,10 +78,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inputDataSource: {fileID: 0}
-  m_pointerPos: {fileID: 0}
-  m_grabbPoint: {fileID: 0}
-  m_maxGrabberDistance: 0.1
-  m_maxPointerDistance: 0.1
+  m_maxGrabberDistance: 0.05
+  m_maxPointerDistance: 0.05
 --- !u!1 &7704272846334409194
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,10 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inputDataSource: {fileID: 0}
-  m_pointerPos: {fileID: 0}
-  m_grabbPoint: {fileID: 0}
-  m_maxGrabberDistance: 0.1
-  m_maxPointerDistance: 0.1
+  m_maxGrabberDistance: 0.05
+  m_maxPointerDistance: 0.05
 --- !u!1 &7704272846865642013
 GameObject:
   m_ObjectHideFlags: 0

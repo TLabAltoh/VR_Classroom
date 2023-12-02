@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
@@ -31,13 +32,20 @@ namespace TLab.XR.Network
 
         public static void ClearRegistry()
         {
+            var gameobjects = new List<GameObject>();
+
             foreach (DictionaryEntry entry in m_registry)
             {
-                var syncAnimator = entry.Value as SyncAnimator;
-                syncAnimator.Shutdown(false);
-
-                m_registry.Clear();
+                var grabbable = entry.Value as SyncAnimator;
+                gameobjects.Add(grabbable.gameObject);
             }
+
+            for (int i = 0; i < gameobjects.Count; i++)
+            {
+                Destroy(gameobjects[i]);
+            }
+
+            m_registry.Clear();
         }
 
         public static SyncAnimator GetById(string id) => m_registry[id] as SyncAnimator;
@@ -120,6 +128,8 @@ namespace TLab.XR.Network
             {
                 ClearAnim();
             }
+
+            UnRegister(m_id);
         }
 
         private void OnChangeParameter(string paramName, int hashCode)
@@ -218,6 +228,16 @@ namespace TLab.XR.Network
                     SyncAnim(parameter);
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            Shutdown(false);
+        }
+
+        private void OnApplicationQuit()
+        {
+            Shutdown(false);
         }
     }
 }

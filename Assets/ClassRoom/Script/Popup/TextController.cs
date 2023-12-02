@@ -31,7 +31,7 @@ namespace TLab.VRClassroom
         [SerializeField] private bool m_enableSync = false;
         [SerializeField] private bool m_autoUpdate = false;
 
-        private Grabbable m_grabbable;
+        private NetworkedObject m_networkedObject;
 
         private TextControllerTransform m_initialTransform;
 
@@ -127,7 +127,7 @@ namespace TLab.VRClassroom
                 Destroy(this.gameObject);
             }
 
-            m_grabbable = this.GetComponent<Grabbable>();
+            m_networkedObject = GetComponent<NetworkedObject>();
 
             this.transform.parent = null;
         }
@@ -148,7 +148,7 @@ namespace TLab.VRClassroom
 
             if (m_enableSync && m_autoUpdate)
             {
-                m_grabbable.SyncRTCTransform();
+                m_networkedObject.SyncRTCTransform();
             }
         }
     }

@@ -121,7 +121,7 @@ namespace TLab.XR.Interact
 
             if (m_mainHand != null)
             {
-                m_initialDist = Vector3.Distance(m_mainHand.grabbPoint.position, m_subHand.grabbPoint.position);
+                m_initialDist = Vector3.Distance(m_mainHand.grabbPointer.position, m_subHand.grabbPointer.position);
 
                 m_initialScaleOnGrabStart = m_targetTransform.localScale;
             }
@@ -187,7 +187,7 @@ namespace TLab.XR.Interact
         {
             if (m_enabled && m_mainHand != null && m_subHand != null && m_fcnt == 0)
             {
-                var currentDist = Vector3.Distance(m_mainHand.grabbPoint.position, m_subHand.grabbPoint.position);
+                var currentDist = Vector3.Distance(m_mainHand.grabbPointer.position, m_subHand.grabbPointer.position);
 
                 var scaleFactor = currentDist / m_initialDist;
 
@@ -204,9 +204,16 @@ namespace TLab.XR.Interact
 
         public void UpdateOneHandLogic()
         {
+
+        }
+
+        public bool UpdateHandleLogic()
+        {
+            bool updated = false;
+
             if (m_enabled && m_handleSelected != null && m_fcnt == 0)
             {
-                m_currentGrabPoint = m_handleSelected.GetHandPos();
+                m_currentGrabPoint = m_handleSelected.handPos;
 
                 float initialDist = Vector3.Dot(m_initialGrabPoint - m_oppositeCorner, m_diagonalDir);
                 float currentDist = Vector3.Dot(m_currentGrabPoint - m_oppositeCorner, m_diagonalDir);
@@ -229,10 +236,14 @@ namespace TLab.XR.Interact
                 m_targetTransform.localScale = newScale;
 
                 UpdateHandleScale();
+
+                updated = true;
             }
 
             m_fcnt += 1;
             m_fcnt %= REST_INTERVAL;
+
+            return updated;
         }
 
         public void HandleGrabbed(ScalableHandle handle)
@@ -241,7 +252,7 @@ namespace TLab.XR.Interact
             {
                 m_handleSelected = handle;
 
-                m_initialGrabPoint = handle.GetHandPos();
+                m_initialGrabPoint = handle.handPos;
 
                 m_initialScaleOnGrabStart = m_targetTransform.localScale;
 

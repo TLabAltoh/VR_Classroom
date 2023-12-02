@@ -49,6 +49,8 @@ namespace TLab.XR.Network
 
         public static SyncClient Instance;
 
+        public static bool Initialized => Instance != null;
+
         private WebSocket m_websocket;
 
         public const int SEAT_LENGTH = 5;
@@ -58,10 +60,11 @@ namespace TLab.XR.Network
         private int m_seatIndex = NOT_REGISTED;
         private bool[] m_guestTable = new bool[SEAT_LENGTH];
 
+        private const string PREFAB_NAME = "OVRGuestAnchor.";
+
         private Hashtable m_animators = new Hashtable();
 
-        private const string PREFAB_NAME = "OVRGuestAnchor.";
-        private const string THIS_NAME = "[tlabsyncclient] ";
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
         private delegate void ReceiveCallback(TLabSyncJson obj);
 
@@ -72,6 +75,8 @@ namespace TLab.XR.Network
         public int seatLength => SEAT_LENGTH;
 
         public bool socketIsNull => m_websocket == null;
+
+        public bool registed => socketIsNull ? false : m_seatIndex != NOT_REGISTED;
 
         public bool socketIsOpen => socketIsNull ? false : m_websocket.State == WebSocketState.Open;
 
@@ -188,22 +193,9 @@ namespace TLab.XR.Network
                         m_rootTransform.rotation = anchor.rotation;
                     }
 
-                    m_rightHand.GetComponent<Grabbable>().enableSync = true;
-                    m_leftHand.GetComponent<Grabbable>().enableSync = true;
-                    m_cameraRig.GetComponent<Grabbable>().enableSync = true;
-                }
-
-                var networkedObj = FindObjectsOfType<NetworkedObject>()?.ToList();
-                networkedObj?.ForEach((g) => NetworkedObject.Register(g));
-
-                var grabbables = FindObjectsOfType<Grabbable>()?.ToList();
-                grabbables?.ForEach((g) => Grabbable.Register(g));
-
-                // Add animators to a hash table for fast lookup by name
-                var syncAnims = FindObjectsOfType<SyncAnimator>();
-                foreach (var syncAnim in syncAnims)
-                {
-                    m_animators[syncAnim.gameObject.name] = syncAnim;
+                    m_rightHand.GetComponent<ExclusiveController>().enableSync = true;
+                    m_leftHand.GetComponent<ExclusiveController>().enableSync = true;
+                    m_cameraRig.GetComponent<ExclusiveController>().enableSync = true;
                 }
 
                 // Connect to signaling server
@@ -230,19 +222,16 @@ namespace TLab.XR.Network
 
                 if (guestRTouch != null)
                 {
-                    NetworkedObject.UnRegister(guestRTouch.name);
                     UnityEngine.GameObject.Destroy(guestRTouch);
                 }
 
                 if (guestLTouch != null)
                 {
-                    NetworkedObject.UnRegister(guestLTouch.name);
                     UnityEngine.GameObject.Destroy(guestLTouch);
                 }
 
                 if (guestHead != null)
                 {
-                    NetworkedObject.UnRegister(guestHead.name);
                     UnityEngine.GameObject.Destroy(guestHead);
                 }
 
@@ -286,12 +275,14 @@ namespace TLab.XR.Network
 
                     var guestParts = Instantiate(prefab, respownPos, respownRot);
                     guestParts.name = guestName + key;
-                    var networkedObj = guestParts.GetComponent<NetworkedObject>();
 
-                    if (networkedObj != null)
-                    {
-                        NetworkedObject.Register(guestParts.name, networkedObj);
-                    }
+                    // TODO: Instantiate()の後，Start()が呼び出されるタイミングを調査する
+                    //var networkedObj = guestParts.GetComponent<NetworkedObject>();
+
+                    //if (networkedObj != null)
+                    //{
+                    //    NetworkedObject.Register(guestParts.name, networkedObj);
+                    //}
                 }
 
                 m_guestTable[obj.seatIndex] = true;
@@ -311,8 +302,8 @@ namespace TLab.XR.Network
 
                 var rigidbodyAllocated = obj.active;
                 var webTransform = obj.transform;
-                var grabbable = Grabbable.GetById(webTransform.id);
-                grabbable?.AllocateGravity(rigidbodyAllocated);
+                var controller = ExclusiveController.GetById(webTransform.id);
+                controller?.AllocateGravity(rigidbodyAllocated);
 
             };
             receiveCallbacks[(int)WebAction.REGISTRBOBJ] = (obj) => { };
@@ -322,8 +313,8 @@ namespace TLab.XR.Network
 
                 var seatIndex = obj.seatIndex;
                 var webTransform = obj.transform;
-                var grabbable = Grabbable.GetById(webTransform.id);
-                grabbable?.GrabbLock(seatIndex);
+                var controller = ExclusiveController.GetById(webTransform.id);
+                controller?.GrabbLock(seatIndex);
 
             };
             receiveCallbacks[(int)WebAction.FORCERELEASE] = (obj) => {
@@ -332,8 +323,8 @@ namespace TLab.XR.Network
 
                 var self = false;
                 var webTransform = obj.transform;
-                var grabbable = Grabbable.GetById(webTransform.id);
-                grabbable?.ForceRelease(self);
+                var controller = ExclusiveController.GetById(webTransform.id);
+                controller?.ForceRelease(self);
 
             };
             receiveCallbacks[(int)WebAction.DIVIDEGRABBER] = (obj) => {
@@ -341,8 +332,8 @@ namespace TLab.XR.Network
                 // Divide grabbable object
 
                 var webTransform = obj.transform;
-                var grabbable = Grabbable.GetById(webTransform.id);
-                grabbable?.Divide(obj.active);
+                var controller = ExclusiveController.GetById(webTransform.id);
+                controller?.Divide(obj.active);
 
             };
             receiveCallbacks[(int)WebAction.SYNCTRANSFORM] = (obj) => {
@@ -350,8 +341,8 @@ namespace TLab.XR.Network
                 // Sync transform
 
                 var webTransform = obj.transform;
-                var grabbable = Grabbable.GetById(webTransform.id);
-                grabbable?.SyncFromOutside(webTransform);
+                var controller = ExclusiveController.GetById(webTransform.id);
+                controller?.SyncFromOutside(webTransform);
 
             };
             receiveCallbacks[(int)WebAction.SYNCANIM] = (obj) => {
@@ -524,8 +515,8 @@ namespace TLab.XR.Network
 
             string targetName = System.Text.Encoding.UTF8.GetString(nameBytes);
 
-            var grabbable = Grabbable.GetById(targetName);
-            if (grabbable == null)
+            var controller = ExclusiveController.GetById(targetName);
+            if (controller == null)
             {
                 return;
             }
@@ -550,7 +541,7 @@ namespace TLab.XR.Network
                 scale = new WebVector3 { x = rtcTransform[7], y = rtcTransform[8], z = rtcTransform[9] }
             };
 
-            grabbable.SyncFromOutside(webTransform);
+            controller.SyncFromOutside(webTransform);
         }
 
         public void SendRTCMessage(byte[] bytes)
@@ -575,7 +566,7 @@ namespace TLab.XR.Network
 
         public async void SendWsMessage(string json)
         {
-            if (m_websocket != null && m_websocket.State == WebSocketState.Open)
+            if (socketIsOpen)
             {
                 await m_websocket.SendText(json);
             }

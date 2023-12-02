@@ -2,39 +2,36 @@ using UnityEngine;
 
 namespace TLab.XR.Interact
 {
-    public class ScalableHandle : Interactable
+    public class ScalableHandle : Handle
     {
         private TLabXRHand m_hand;
 
         private ScaleLogic m_logics;
 
+        public Vector3 handPos => m_hand.grabbPointer.position;
+
         public override void Selected(TLabXRHand hand)
         {
+            base.Selected(hand);
+
             if (m_hand == null)
             {
                 m_hand = hand;
 
                 m_logics.HandleGrabbed(this);
             }
-
-            base.Selected(hand);
         }
 
         public override void UnSelected(TLabXRHand hand)
         {
+            base.UnSelected(hand);
+
             if (m_hand == hand)
             {
                 m_hand = null;
 
                 m_logics.HandleUnGrabbed(this);
             }
-
-            base.UnSelected(hand);
-        }
-
-        public Vector3 GetHandPos()
-        {
-            return m_hand.grabbPoint.position;
         }
 
         public override void WhileSelected(TLabXRHand hand)
