@@ -22,9 +22,9 @@ namespace TLab.VRClassroom.Editor
         {
             base.OnInspectorGUI();
 
-            if (GUILayout.Button("Set Server Addr"))
+            if (GUILayout.Button("Regist Server Address"))
             {
-                instance.SetServerAddr();
+                instance.RegistServerAddress();
             }
         }
     }

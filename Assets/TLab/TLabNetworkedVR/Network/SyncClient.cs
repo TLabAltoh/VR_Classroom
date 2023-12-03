@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using NativeWebSocket;
 using TLab.XR.Interact;
+using TLab.XR.Humanoid;
 using TLab.Network.WebRTC;
 
 namespace TLab.XR.Network
@@ -13,27 +13,20 @@ namespace TLab.XR.Network
     {
         // TODO: SyncAnimator Fix
 
-        [Header("Server Info")]
-        [Tooltip("Server address (port 5000)")]
+        [Header("Sync Server Address (port 5000)")]
         [SerializeField] private string m_serverAddr = "ws://192.168.11.10:5000";
 
-        [Tooltip("Your own avatar model (must be registered to enable synchronization)")]
-        [Header("Own Avator")]
-        [SerializeField] private GameObject m_cameraRig;
-        [SerializeField] private GameObject m_rightHand;
-        [SerializeField] private GameObject m_leftHand;
-        [SerializeField] private Transform m_rootTransform;
+        [Header("Body Tracker")]
+        [SerializeField] private Transform m_cameraRig;
+        [SerializeField] private BodyTracker.TrackTarget[] m_trackTargets;
 
         [Tooltip("The avatar model of the other party as seen from you")]
-        [Header("Guest Avator")]
-        [SerializeField] private GameObject m_guestHead;
-        [SerializeField] private GameObject m_guestRTouch;
-        [SerializeField] private GameObject m_guestLTouch;
+        [Header("Guest Avator Preset")]
+        [SerializeField] private AvatorConfig m_avatorConfig;
 
         [Tooltip("Responce position of each player")]
         [Header("Respown Anchor")]
-        [SerializeField] private Transform m_hostAnchor;
-        [SerializeField] private Transform[] m_guestAnchors;
+        [SerializeField] private Transform[] m_respownAnchors;
 
         [Tooltip("WebRTCDatachannel for synchronizing Transforms between players")]
         [Header("WebRTCDataChannel")]
@@ -44,7 +37,7 @@ namespace TLab.XR.Network
         [SerializeField] private CustomCallback[] m_customCallbacks;
 
         [Tooltip("Whether the user is Host")]
-        [Header("User role")]
+        [Header("User Role")]
         [SerializeField] private bool m_isHost = false;
 
         public static SyncClient Instance;
@@ -170,38 +163,27 @@ namespace TLab.XR.Network
 
                 // Enable sync own avator
 
-                if (m_leftHand != null && m_rightHand != null && m_cameraRig != null)
+                var userName = PREFAB_NAME + obj.seatIndex.ToString();
+
+                foreach (var trackTarget in m_trackTargets)
                 {
-                    var guestName = PREFAB_NAME + obj.seatIndex.ToString();
+                    var parts = trackTarget.parts;
+                    var target = trackTarget.target;
 
-                    m_rightHand.name = guestName + ".RTouch";
-                    m_leftHand.name = guestName + ".LTouch";
-                    m_cameraRig.name = guestName + ".Head";
+                    target.name = userName + parts.ToString();
 
-                    m_cameraRig.transform.localPosition = Vector3.zero;
-                    m_cameraRig.transform.localRotation = Quaternion.identity;
-
-                    if (m_seatIndex == 0)
-                    {
-                        m_rootTransform.position = m_hostAnchor.position;
-                        m_rootTransform.rotation = m_hostAnchor.rotation;
-                    }
-                    else
-                    {
-                        var anchor = m_guestAnchors[m_seatIndex - 1];
-                        m_rootTransform.position = anchor.position;
-                        m_rootTransform.rotation = anchor.rotation;
-                    }
-
-                    m_rightHand.GetComponent<ExclusiveController>().enableSync = true;
-                    m_leftHand.GetComponent<ExclusiveController>().enableSync = true;
-                    m_cameraRig.GetComponent<ExclusiveController>().enableSync = true;
+                    var tracker = target.gameObject.AddComponent<BodyTracker>();
+                    tracker.enabled = true;
                 }
 
-                // Connect to signaling server
-                m_dataChannel.Join(this.gameObject.name + "_" + m_seatIndex.ToString(), "VR_Class");
+                m_cameraRig.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
-                return;
+                var anchor = m_respownAnchors[m_seatIndex];
+                m_cameraRig.SetPositionAndRotation(anchor.position, anchor.rotation);
+
+                // Connect to signaling server
+                m_dataChannel.Join(gameObject.name + "_" + m_seatIndex.ToString(), "VR_Class");
+
             };
             receiveCallbacks[(int)WebAction.EXIT] = (obj) => { };
             receiveCallbacks[(int)WebAction.GUESTDISCONNECT] = (obj) => {
@@ -216,28 +198,11 @@ namespace TLab.XR.Network
 
                 string guestName = PREFAB_NAME + obj.seatIndex.ToString();
 
-                GameObject guestRTouch = GameObject.Find(guestName + ".RTouch");
-                GameObject guestLTouch = GameObject.Find(guestName + ".LTouch");
-                GameObject guestHead = GameObject.Find(guestName + ".Head");
-
-                if (guestRTouch != null)
-                {
-                    UnityEngine.GameObject.Destroy(guestRTouch);
-                }
-
-                if (guestLTouch != null)
-                {
-                    UnityEngine.GameObject.Destroy(guestLTouch);
-                }
-
-                if (guestHead != null)
-                {
-                    UnityEngine.GameObject.Destroy(guestHead);
-                }
+                BodyTracker.ClearRegistry();
 
                 m_guestTable[obj.seatIndex] = false;
 
-                foreach (CustomCallback callback in m_customCallbacks)
+                foreach (var callback in m_customCallbacks)
                 {
                     callback.OnGuestDisconnected(obj.seatIndex);
                 }
@@ -263,18 +228,13 @@ namespace TLab.XR.Network
 
                 // Visualize avatars of newly joined players
 
-                foreach(var dicElem in new Dictionary<string, GameObject>
+                foreach (var avatorParts in m_avatorConfig.body)
                 {
-                    { ".RTouch", m_guestRTouch },
-                    { ".LTouch", m_guestLTouch },
-                    { ".Head", m_guestHead }
-                })
-                {
-                    var key = dicElem.Key;
-                    var prefab = dicElem.Value;
+                    var parts = avatorParts.parts.ToString();
+                    var prefab = avatorParts.prefab;
 
                     var guestParts = Instantiate(prefab, respownPos, respownRot);
-                    guestParts.name = guestName + key;
+                    guestParts.name = guestName + parts;
 
                     // TODO: Instantiate()の後，Start()が呼び出されるタイミングを調査する
                     //var networkedObj = guestParts.GetComponent<NetworkedObject>();
@@ -287,7 +247,7 @@ namespace TLab.XR.Network
 
                 m_guestTable[obj.seatIndex] = true;
 
-                foreach (CustomCallback callback in m_customCallbacks)
+                foreach (var callback in m_customCallbacks)
                 {
                     callback.OnGuestParticipated(obj.seatIndex);
                 }
@@ -341,8 +301,8 @@ namespace TLab.XR.Network
                 // Sync transform
 
                 var webTransform = obj.transform;
-                var controller = ExclusiveController.GetById(webTransform.id);
-                controller?.SyncFromOutside(webTransform);
+                var networkedObject = NetworkedObject.GetById(webTransform.id);
+                networkedObject?.SyncFromOutside(webTransform);
 
             };
             receiveCallbacks[(int)WebAction.SYNCANIM] = (obj) => {
@@ -350,16 +310,9 @@ namespace TLab.XR.Network
                 // Sync animation
 
                 var webAnimator = obj.animator;
-                var syncAnim = m_animators[webAnimator.id] as SyncAnimator;
+                var syncAnim = SyncAnimator.GetById(webAnimator.id);
+                syncAnim?.SyncAnimFromOutside(webAnimator);
 
-                if (syncAnim == null)
-                {
-                    return;
-                }
-
-                syncAnim.SyncAnimFromOutside(webAnimator);
-
-                return;
             };
             receiveCallbacks[(int)WebAction.CLEARTRANSFORM] = (obj) => { };
             receiveCallbacks[(int)WebAction.CLEARANIM] = (obj) => { };

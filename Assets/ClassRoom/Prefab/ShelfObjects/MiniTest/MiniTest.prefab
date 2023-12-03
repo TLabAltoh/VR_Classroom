@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 5435598933977942963}
   - component: {fileID: 8175264662104679806}
   m_Layer: 0
-  m_Name: thairoid01_low_part01_Group6344_Group18522
+  m_Name: Parts000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -556,7 +556,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1363922096909279858}
-  m_Mesh: {fileID: 4300000, guid: 1282ecb452e22f54f8427dc5fabac258, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 580acfa4c1188c04fb688fb4645a52b9, type: 2}
 --- !u!23 &8175264662104679806
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1277,7 +1277,7 @@ GameObject:
   - component: {fileID: 5122180064392917851}
   - component: {fileID: 5083013017417835718}
   m_Layer: 0
-  m_Name: thairoid01_low_part02_Group6344_Group24638.001
+  m_Name: Parts002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1305,7 +1305,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3874093626475291749}
-  m_Mesh: {fileID: 4300000, guid: f36d37fb35a14264a95f5fc27e540896, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 4a12f92d50c31b342b22be09c47ec8f8, type: 2}
 --- !u!23 &5083013017417835718
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1327,7 +1327,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: ca28ca6341cc82940805172600bb7e01, type: 2}
-  - {fileID: 2100000, guid: 1682b7cf22c5ead4f97509b15075fd06, type: 2}
+  - {fileID: 2100000, guid: 7b85ee8959d74db45a652c1744640d9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4054,7 +4054,7 @@ GameObject:
   - component: {fileID: 1668963330801281932}
   - component: {fileID: 4466541330046981128}
   m_Layer: 0
-  m_Name: thairoid01_low_part02_Group6344_Group24638
+  m_Name: Parts001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4082,7 +4082,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6796896327857020902}
-  m_Mesh: {fileID: 4300000, guid: 4ba83e91b4b08d74ba32c9b70e581a94, type: 2}
+  m_Mesh: {fileID: 4300000, guid: f5a5ab1c030d05b4688eeee892c269cf, type: 2}
 --- !u!23 &4466541330046981128
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4745,10 +4745,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e4057746dbc6d4395994f3b852d4f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_outlineTargets: []
+  m_outlineTargets:
+  - {fileID: 1363922096909279858}
+  - {fileID: 6796896327857020902}
+  - {fileID: 3874093626475291749}
   m_outline: {fileID: 4800000, guid: cb74c94b3f9560344b9e9ce73d796a5f, type: 3}
-  m_savePathMesh: Assets/ClassRoom/Prefab/MiniTest/OutlineMesh
-  m_savePathMaterial: Assets/ClassRoom/Prefab/MiniTest/OutlineMaterial
+  m_savePathMesh: Assets/Classroom/Prefab/ShelfObjects/MiniTest/OutlineMesh
+  m_savePathMaterial: Assets/Classroom/Prefab/ShelfObjects/MiniTest/OutlineMaterial
 --- !u!114 &5568836357443914710
 MonoBehaviour:
   m_ObjectHideFlags: 0

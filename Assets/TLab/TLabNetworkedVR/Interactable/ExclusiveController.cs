@@ -78,6 +78,9 @@ namespace TLab.XR.Interact
 
         #endregion REGISTRY
 
+        [Header("Exclusive Sync Settings")]
+        [SerializeField] protected bool m_locked = false;
+
         [Header("Transform Module")]
         [SerializeField] private PositionLogic m_position;
         [SerializeField] private RotationLogic m_rotation;
@@ -100,6 +103,8 @@ namespace TLab.XR.Interact
         public bool grabbed => m_grabbedIndex != FREE && m_grabbedIndex != FIXED;
 
         public int grabbedIndex => m_grabbedIndex;
+
+        public bool locked => m_locked;
 
         public bool isFree => m_grabbedIndex == FREE;
 

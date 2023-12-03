@@ -590,7 +590,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9132622068279262454}
-  - component: {fileID: 8734500713407765279}
+  - component: {fileID: 6163181181335271222}
   - component: {fileID: 6530710217201467848}
   - component: {fileID: 6831233037385194731}
   m_Layer: 0
@@ -622,7 +622,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8734500713407765279
+--- !u!114 &6163181181335271222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -631,20 +631,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8500060301043820108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab401de70ff42c44f8dc454d728a6e75, type: 3}
+  m_Script: {fileID: 11500000, guid: d4426bb1cb8f2104fbcedc2ef7f8bf2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_enableSync: 0
+  m_locked: 1
+  m_id: 
   m_useRigidbody: 0
   m_useGravity: 0
-  m_positionFixed: 0
-  m_rotateFixed: 0
-  m_scaling: 0
-  m_scalingFactor: 0
-  m_enableDivide: 0
-  m_divideAnchors: []
-  m_enableSync: 0
-  m_autoSync: 0
-  m_locked: 1
+  m_rbAllocated: 0
 --- !u!114 &6530710217201467848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,6 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7c505fb2b1c8f43bfdc0e68ed0b888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_useWebRTC: 1
 --- !u!82 &6831233037385194731
 AudioSource:
   m_ObjectHideFlags: 0

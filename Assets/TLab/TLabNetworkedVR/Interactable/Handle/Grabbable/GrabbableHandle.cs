@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace TLab.XR.Interact
 {
+    [RequireComponent(typeof(ExclusiveController))]
     public class GrabbableHandle : Handle
     {
         private ExclusiveController m_controller;

@@ -10,13 +10,12 @@ namespace TLab.VRClassroom
         [SerializeField] private ServerAddressBox m_serverAddressBox;
 
         [SerializeField] private SyncClient m_syncClient;
-        [SerializeField] private SyncShelfManager m_shelfManager;
         [SerializeField] private WebRTCDataChannel m_voiceChat;
         [SerializeField] private WebRTCDataChannel m_syncTransform;
 
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
-        private void SetSyncServerAddr()
+        private void RegistSyncServerAddress()
         {
             string addr = m_serverAddressBox.GetAddress(ClassroomEntry.SYNC_SERVER)?.addr;
 
@@ -25,7 +24,7 @@ namespace TLab.VRClassroom
                 return;
             }
 
-            Debug.Log(THIS_NAME + "set address: " + addr);
+            Debug.Log(THIS_NAME + "set sync server address: " + addr);
 
             m_syncClient.SetServerAddr(addr);
 
@@ -34,25 +33,7 @@ namespace TLab.VRClassroom
 #endif
         }
 
-        private void SetShelfServerAddr()
-        {
-            string addr = m_serverAddressBox.GetAddress(ClassroomEntry.SHELF_SERVER)?.addr;
-
-            if (addr == null)
-            {
-                return;
-            }
-
-            Debug.Log(THIS_NAME + "set address: " + addr);
-
-            m_shelfManager.SetServerAddr(addr);
-
-#if UNITY_EDITOR
-            EditorUtility.SetDirty(m_shelfManager);
-#endif
-        }
-
-        private void SetSignalingServerAddr()
+        private void RegistSignalingServerAddress()
         {
             string addr = m_serverAddressBox.GetAddress(ClassroomEntry.SIGNALING_SERVER)?.addr;
 
@@ -61,7 +42,7 @@ namespace TLab.VRClassroom
                 return;
             }
 
-            Debug.Log(THIS_NAME + "set address: " + addr);
+            Debug.Log(THIS_NAME + "set signaling address: " + addr);
 
             m_voiceChat.SetSignalingServerAddr(addr);
             m_syncTransform.SetSignalingServerAddr(addr);
@@ -72,11 +53,15 @@ namespace TLab.VRClassroom
 #endif
         }
 
-        public void SetServerAddr()
+        public void RegistServerAddress()
         {
-            SetSyncServerAddr();
-            SetShelfServerAddr();
-            SetSignalingServerAddr();
+            RegistSyncServerAddress();
+            RegistSignalingServerAddress();
+        }
+
+        void Awake()
+        {
+            RegistServerAddress();
         }
     }
 }

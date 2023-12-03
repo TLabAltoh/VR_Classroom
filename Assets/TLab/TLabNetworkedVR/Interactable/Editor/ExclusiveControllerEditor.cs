@@ -35,21 +35,41 @@ namespace TLab.XR.Interact.Editor
             base.OnInspectorGUI();
 
             var controller = target as ExclusiveController;
-            var rotatable = controller.gameObject.GetComponent<Rotatable>();
 
+            var rotatable = controller.gameObject.GetComponent<Rotatable>();
             if (rotatable != null && GUILayout.Button("Initialize for Rotatable"))
             {
                 InitializeForRotateble(controller, rotatable);
             }
 
-            if (controller.enableDivide == true && GUILayout.Button("Initialize for Devibable"))
+            if (controller.enableDivide && GUILayout.Button("Initialize for Devibable"))
             {
                 InitializeForDivibable(controller, true);
 
-                foreach (GameObject divideTarget in controller.divideTargets)
+                foreach (var divideTarget in controller.divideTargets)
                 {
-                    var grabbableChild = divideTarget.gameObject.RequireComponent<ExclusiveController>();
-                    InitializeForDivibable(grabbableChild, false);
+                    GameObjectUtility.RemoveMonoBehavioursWithMissingScript(divideTarget);
+
+                    var controllerChild = divideTarget.gameObject.RequireComponent<ExclusiveController>();
+                    InitializeForDivibable(controllerChild, false);
+
+                    var tlabGrabbableChild = divideTarget.gameObject.GetComponent<VRGrabber.TLabVRGrabbable>();
+                    if(tlabGrabbableChild != null)
+                    {
+                        DestroyImmediate(tlabGrabbableChild);
+                    }
+
+                    divideTarget.gameObject.RequireComponent<GrabbableHandle>();
+
+                    var tlabRotatableChild = divideTarget.gameObject.GetComponent<VRGrabber.TLabVRRotatable>();
+                    if (tlabRotatableChild != null)
+                    {
+                        DestroyImmediate(tlabRotatableChild);
+                    }
+
+                    divideTarget.gameObject.RequireComponent<Rotatable>();
+
+                    EditorUtility.SetDirty(divideTarget);
                 }
             }
         }

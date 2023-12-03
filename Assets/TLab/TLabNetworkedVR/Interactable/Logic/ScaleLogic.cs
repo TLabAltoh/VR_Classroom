@@ -294,8 +294,10 @@ namespace TLab.XR.Interact
             return obj;
         }
 
-        public void Start(Transform targetTransform, Rigidbody targetRigidbody = null)
+        IEnumerator Initialize(Transform targetTransform, Rigidbody targetRigidbody = null)
         {
+            yield return null;
+
             m_targetTransform = targetTransform;
             m_targetRigidbody = targetRigidbody;
 
@@ -314,6 +316,8 @@ namespace TLab.XR.Interact
                         for (float z = -halfZ; z <= halfZ; z += 2 * halfZ)
                         {
                             m_cornerHandles.Add(CreateHandle(new Vector3(x, y, z), Quaternion.identity, m_cornerHandle));
+
+                            yield return null;
                         }
                     }
                 }
@@ -338,6 +342,8 @@ namespace TLab.XR.Interact
                             }
 
                             m_edgeHandles.Add(CreateHandle(new Vector3(x, y, z), Quaternion.LookRotation(new Vector3(dirX, dirY, dirZ).normalized), m_edgeHandle));
+
+                            yield return null;
                         }
                     }
                 }
@@ -384,6 +390,8 @@ namespace TLab.XR.Interact
                             var handlePair = new LinkPair() { handleAxis = handleAxis, iniScale = localScale, handle = handle };
 
                             m_linkHandles.Add(handlePair);
+
+                            yield return null;
                         }
                     }
                 }
@@ -392,6 +400,11 @@ namespace TLab.XR.Interact
             UpdateHandleScale();
 
             enabled = m_enabled;
+        }
+
+        public void Start(Transform targetTransform, Rigidbody targetRigidbody = null)
+        {
+            CoroutineHandler.StartStaticCoroutine(Initialize(targetTransform, targetRigidbody));
         }
     }
 }

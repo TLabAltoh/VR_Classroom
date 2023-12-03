@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace TLab.XR.Interact
 {
+    [RequireComponent(typeof(ExclusiveController))]
     public class Rotatable : Pointable
     {
         #region REGISTRY

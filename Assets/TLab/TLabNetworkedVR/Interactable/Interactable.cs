@@ -112,7 +112,7 @@ namespace TLab.XR.Interact
 
         public virtual bool Raycast(Ray ray, out RaycastHit hit, float maxDistance)
         {
-            if (m_collider == null || !m_colliderEnable)
+            if (m_collider == null || !m_collider.enabled ||  !m_colliderEnable)
             {
                 hit = new RaycastHit();
                 return false;
@@ -123,7 +123,7 @@ namespace TLab.XR.Interact
 
         public virtual bool Spherecast(Vector3 point, out RaycastHit hit, float maxDistance)
         {
-            if (m_collider == null || !m_colliderEnable)
+            if (m_collider == null || !m_collider.enabled || !m_colliderEnable)
             {
                 hit = new RaycastHit();
                 return false;
