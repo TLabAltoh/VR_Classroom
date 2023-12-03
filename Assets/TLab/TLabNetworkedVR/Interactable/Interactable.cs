@@ -52,8 +52,6 @@ namespace TLab.XR.Interact
 
         public virtual void Hovered(TLabXRHand hand)
         {
-            Debug.Log("hovered. name: " + gameObject.name);
-
             m_hoverHands.Add(hand);
 
             if (m_interactableChain != null)
@@ -72,8 +70,6 @@ namespace TLab.XR.Interact
 
         public virtual void UnHovered(TLabXRHand hand)
         {
-            Debug.Log("unhovered. name: " + gameObject.name);
-
             m_hoverHands.Remove(hand);
 
             if (m_interactableChain != null)
@@ -84,8 +80,6 @@ namespace TLab.XR.Interact
 
         public virtual void Selected(TLabXRHand hand)
         {
-            Debug.Log("selected. name: " + gameObject.name);
-
             if (m_interactableChain != null)
             {
                 m_interactableChain.ForEach((s) => s.Selected(hand));
@@ -102,8 +96,6 @@ namespace TLab.XR.Interact
 
         public virtual void UnSelected(TLabXRHand hand)
         {
-            Debug.Log("unselected. name: " + gameObject.name);
-
             if (m_interactableChain != null)
             {
                 m_interactableChain.ForEach((s) => s.UnSelected(hand));

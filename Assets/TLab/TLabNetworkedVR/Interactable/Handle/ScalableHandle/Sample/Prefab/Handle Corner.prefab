@@ -110,6 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a7de7799001444f98b744be4b4d334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 0
+  m_colliderEnable: 1
   m_collider: {fileID: 2829403621978348673}
   m_interactableChain: []

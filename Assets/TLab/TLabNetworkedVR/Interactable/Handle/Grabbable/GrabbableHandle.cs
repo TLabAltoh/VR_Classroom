@@ -123,6 +123,11 @@ namespace TLab.XR.Interact
             base.UnSelected(hand);
         }
 
+        public override void WhileSelected(TLabXRHand hand)
+        {
+            base.WhileSelected(hand);
+        }
+
         protected override void Start()
         {
             base.Start();

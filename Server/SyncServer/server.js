@@ -218,7 +218,7 @@ function allocateRigidbodyTask() {
 				undefined       OVRGuestAnchor.0.Head
 			 * ```
 			 */
-			console.log("seat " + seatIndex + " . " + rbTable[value.transform.id] + "\t" + value.transform.id);
+			console.log("seat " + seatIndex + " . " + value.transform.id + "\t" + ((rbTable[value.transform.id] === seatIndex) ? "allocated" : "not allocated"));
 		});
 	}
 }

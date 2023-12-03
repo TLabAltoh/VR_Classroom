@@ -26,10 +26,13 @@ namespace TLab.VRClassroom
 
             Debug.Log(THIS_NAME + "set sync server address: " + addr);
 
-            m_syncClient.SetServerAddr(addr);
+            m_syncClient?.SetServerAddr(addr);
 
 #if UNITY_EDITOR
-            EditorUtility.SetDirty(m_syncClient);
+            if(m_syncClient != null)
+            {
+                EditorUtility.SetDirty(m_syncClient);
+            }
 #endif
         }
 
@@ -44,12 +47,19 @@ namespace TLab.VRClassroom
 
             Debug.Log(THIS_NAME + "set signaling address: " + addr);
 
-            m_voiceChat.SetSignalingServerAddr(addr);
-            m_syncTransform.SetSignalingServerAddr(addr);
+            m_voiceChat?.SetSignalingServerAddr(addr);
+            m_syncTransform?.SetSignalingServerAddr(addr);
 
 #if UNITY_EDITOR
-            EditorUtility.SetDirty(m_voiceChat);
-            EditorUtility.SetDirty(m_syncTransform);
+            if(m_voiceChat != null)
+            {
+                EditorUtility.SetDirty(m_voiceChat);
+            }
+            
+            if(m_syncTransform != null)
+            {
+                EditorUtility.SetDirty(m_syncTransform);
+            }
 #endif
         }
 

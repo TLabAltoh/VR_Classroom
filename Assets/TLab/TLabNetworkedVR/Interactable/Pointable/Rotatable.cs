@@ -30,7 +30,7 @@ namespace TLab.XR.Interact
 
         #endregion
 
-        [SerializeField] private float m_rotateSpeed = 100f;
+        [SerializeField] private float m_rotateSpeed = 10f;
 
         private ExclusiveController m_controller;
 
