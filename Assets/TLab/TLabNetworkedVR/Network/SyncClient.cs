@@ -40,6 +40,8 @@ namespace TLab.XR.Network
         [Header("User Role")]
         [SerializeField] private bool m_isHost = false;
 
+        [SerializeField] private bool m_selfDebug = false;
+
 #if UNITY_EDITOR
         [SerializeField] private bool m_debug = false;
 #endif
@@ -573,6 +575,15 @@ namespace TLab.XR.Network
                 m_seatIndex = HOST_INDEX;
             }
 #endif
+
+            if (m_selfDebug)
+            {
+#if UNITY_EDITOR
+                m_isHost = false;
+#elif UNITY_ANDROID
+                m_isHost = true;
+#endif
+            }
         }
 
         void Update()

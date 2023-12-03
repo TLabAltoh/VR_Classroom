@@ -1510,11 +1510,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableSync: 0
-  m_locked: 0
-  m_id: 
+  m_hash: 1867862475
   m_useRigidbody: 0
   m_useGravity: 0
   m_rbAllocated: 0
+  m_locked: 0
   m_position:
     m_enabled: 1
   m_rotation:

@@ -27,7 +27,13 @@ namespace TLab.VRClassroom
 
     public class SyncShelfManager : ShelfManager
     {
-        [SerializeField] public TLabInputField m_inputField;
+        [Header("Custom Message Index")]
+
+        [SerializeField] private int m_customIndex = 0;
+
+        [Header("Download Settings")]
+
+        [SerializeField] private TLabInputField m_inputField;
         [SerializeField] private string m_downloadUrl;
         [SerializeField] private int m_downloadIndex;
 
@@ -38,12 +44,9 @@ namespace TLab.VRClassroom
 
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
-        public string downloadUrl { get => m_downloadUrl; set => m_downloadUrl = value; }
+        public const int BROADCAST = -1;
 
-        public void SetServerAddr(string url)
-        {
-            m_downloadUrl = url;
-        }
+        public string downloadUrl { get => m_downloadUrl; set => m_downloadUrl = value; }
 
         protected override IEnumerator FadeIn(int objIndex, int anchorIndex)
         {
@@ -65,8 +68,6 @@ namespace TLab.VRClassroom
                 string objName = m_shelfObjInfos[objIndex].instanced[anchorIndex].name;
                 SyncClient.Instance.UniReflesh(objName);
             }
-
-            Debug.Log(THIS_NAME + "fade in");
 
             yield break;
         }
@@ -114,8 +115,6 @@ namespace TLab.VRClassroom
             shelfObjInfo.instanced.Remove(anchorIndex);
             Destroy(instanced);
 
-            Debug.Log(THIS_NAME + "fade out");
-
             yield break;
         }
 
@@ -157,12 +156,12 @@ namespace TLab.VRClassroom
 
         private void TakeOutFromOutside(int objIndex)
         {
-            StartCoroutine(FadeIn(objIndex, 0));
+            StartCoroutine(FadeIn(objIndex, SyncClient.HOST_INDEX));
         }
 
         private void PutAwayFromOutside(int objIndex)
         {
-            StartCoroutine(FadeOut(objIndex, 0));
+            StartCoroutine(FadeOut(objIndex, SyncClient.HOST_INDEX));
         }
 
         private void ShareFromOutside(int objIndex)
@@ -236,6 +235,7 @@ namespace TLab.VRClassroom
         #endregion LOAD_MODEL_FROM_URL
 
         #region SEND_MESSAGE
+
         /// <summary>
         /// 指定した座席にメッセージをユニキャスト
         /// </summary>
@@ -245,12 +245,12 @@ namespace TLab.VRClassroom
         {
             SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST, action: WebAction.CUSTOMACTION,
-                seatIndex: dstIndex, customIndex: 0, custom: message);
+                seatIndex: dstIndex, customIndex: m_customIndex, custom: message);
 
             return;
         }
 
-        public void SendShelfActionMessage(WebShelfAction action, int objIndex, string url = null, int dstIndex = -1)
+        public void SendShelfActionMessage(WebShelfAction action, int objIndex, string url = null, int dstIndex = BROADCAST)
         {
             SyncShelfJson obj = new SyncShelfJson
             {
@@ -262,17 +262,16 @@ namespace TLab.VRClassroom
             string json = JsonUtility.ToJson(obj);
             SendWsMessage(json, dstIndex);
         }
+
         #endregion SEND_MESSAGE
 
         #region ON_MESSAGE
-        public SyncShelfJson GetJson(string message)
-        {
-            return JsonUtility.FromJson<SyncShelfJson>(message);
-        }
+
+        public SyncShelfJson GetJson(string message) => JsonUtility.FromJson<SyncShelfJson>(message);
 
         public void OnMessage(string message)
         {
-            SyncShelfJson obj = GetJson(message);
+            var obj = GetJson(message);
 
 #if UNITY_EDITOR
             Debug.Log(THIS_NAME + "OnMessage - " + message);
@@ -297,6 +296,7 @@ namespace TLab.VRClassroom
                     break;
             }
         }
+
         #endregion ON_MESSAGE
 
         public void OnGuestParticipated(int anchorIndex)

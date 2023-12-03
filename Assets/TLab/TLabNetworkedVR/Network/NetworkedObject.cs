@@ -23,8 +23,9 @@ namespace TLab.XR.Network
         [SerializeField] protected bool m_useGravity = false;
 
 #if UNITY_EDITOR
-        [SerializeField] protected bool m_rbAllocated = false;
+        [SerializeField]
 #endif
+        protected bool m_rbAllocated = false;
 
         protected Rigidbody m_rb;
 
@@ -52,6 +53,8 @@ namespace TLab.XR.Network
         // A fast approach to string processing
 
         private StringBuilder m_builder = new StringBuilder();
+
+        public string id => m_id;
 
         public Rigidbody rb => m_rb;
 
