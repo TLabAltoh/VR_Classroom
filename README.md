@@ -47,6 +47,8 @@ Online classes in VR space using Websocket and WebRTC
 - Oculus Integration (Install from asset store)  
 - ProBuilder (Install from asset store)  
 - Android Logcat (Install from upm)  
+- [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners.git)  
+- [SDF Toolkit](https://assetstore.unity.com/packages/tools/utilities/sdf-toolkit-free-50191)  
 - node (v16.15.0)  
 - [bHaptics](https://assetstore.unity.com/packages/tools/integration/bhaptics-haptic-plugin-76647)
 - [NativeWebsocket](https://github.com/endel/NativeWebSocket)
