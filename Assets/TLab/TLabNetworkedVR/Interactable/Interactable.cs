@@ -153,11 +153,14 @@ namespace TLab.XR.Interact
 #if UNITY_EDITOR
         protected virtual void OnValidate()
         {
-            m_collider = GetComponent<Collider>();
-
-            if(m_collider != null)
+            if (m_collider == null)
             {
-                EditorUtility.SetDirty(this);
+                m_collider = GetComponent<Collider>();
+
+                if (m_collider != null)
+                {
+                    EditorUtility.SetDirty(this);
+                }
             }
         }
 #endif

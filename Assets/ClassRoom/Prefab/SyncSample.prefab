@@ -579,6 +579,7 @@ MonoBehaviour:
   m_gizmoYColor: {r: 0, g: 1, b: 0, a: 1}
   m_gizmoZColor: {r: 0, g: 0, b: 1, a: 1}
   m_gizmoSize: {x: 0.1, y: 0.1, z: 0.5}
+  m_enable: 1
 --- !u!1 &380769608305740481
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,6 +924,7 @@ MonoBehaviour:
   m_gizmoYColor: {r: 0, g: 1, b: 0, a: 1}
   m_gizmoZColor: {r: 0, g: 0, b: 1, a: 1}
   m_gizmoSize: {x: 0.1, y: 0.1, z: 0.5}
+  m_enable: 1
 --- !u!1 &604994239881654364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,6 +1608,7 @@ MonoBehaviour:
   m_gizmoYColor: {r: 0, g: 1, b: 0, a: 1}
   m_gizmoZColor: {r: 0, g: 0, b: 1, a: 1}
   m_gizmoSize: {x: 0.1, y: 0.1, z: 0.5}
+  m_enable: 1
 --- !u!1 &1179414589501493004
 GameObject:
   m_ObjectHideFlags: 0
@@ -2049,7 +2052,7 @@ GameObject:
   - component: {fileID: 7233979636701837350}
   - component: {fileID: 4011125155031496614}
   - component: {fileID: 7583559258770852458}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Panel (Menu)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2167,6 +2170,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 0
+  m_meshCollider: {fileID: 0}
   m_divideTargets: []
 --- !u!114 &5697778327950516051
 MonoBehaviour:
@@ -3034,6 +3038,7 @@ MonoBehaviour:
   m_gizmoYColor: {r: 0, g: 1, b: 0, a: 1}
   m_gizmoZColor: {r: 0, g: 0, b: 1, a: 1}
   m_gizmoSize: {x: 0.1, y: 0.1, z: 0.5}
+  m_enable: 1
 --- !u!1 &1992072393889468464
 GameObject:
   m_ObjectHideFlags: 0
@@ -3186,7 +3191,7 @@ GameObject:
   - component: {fileID: 8813469050457650306}
   - component: {fileID: 2632405471053152630}
   - component: {fileID: 1654498255892223675}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3304,6 +3309,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 0
+  m_meshCollider: {fileID: 0}
   m_divideTargets: []
 --- !u!114 &7255394124604754676
 MonoBehaviour:
@@ -3733,7 +3739,7 @@ GameObject:
   - component: {fileID: 3250772653702283083}
   - component: {fileID: 1925375233002902550}
   - component: {fileID: 4889988176431637455}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3852,6 +3858,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 0
+  m_meshCollider: {fileID: 0}
   m_divideTargets: []
 --- !u!114 &4149102674960491539
 MonoBehaviour:
@@ -4389,6 +4396,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   m_isHost: 0
+  m_selfDebug: 0
   m_debug: 0
 --- !u!114 &3332692767466806577
 MonoBehaviour:
@@ -4423,7 +4431,7 @@ GameObject:
   - component: {fileID: 8061848434889591006}
   - component: {fileID: 7226923730905809234}
   - component: {fileID: 1167956419836348979}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4558,6 +4566,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 0
+  m_meshCollider: {fileID: 0}
   m_divideTargets: []
 --- !u!114 &8061848434889591006
 MonoBehaviour:
@@ -4787,6 +4796,7 @@ MonoBehaviour:
   m_gizmoYColor: {r: 0, g: 1, b: 0, a: 1}
   m_gizmoZColor: {r: 0, g: 0, b: 1, a: 1}
   m_gizmoSize: {x: 0.1, y: 0.1, z: 0.5}
+  m_enable: 1
 --- !u!1 &2501855395159909413
 GameObject:
   m_ObjectHideFlags: 0
@@ -6502,6 +6512,7 @@ MonoBehaviour:
   m_gizmoYColor: {r: 0, g: 1, b: 0, a: 1}
   m_gizmoZColor: {r: 0, g: 0, b: 1, a: 1}
   m_gizmoSize: {x: 0.1, y: 0.1, z: 0.5}
+  m_enable: 1
 --- !u!1 &4006753120531559661
 GameObject:
   m_ObjectHideFlags: 0
@@ -6779,6 +6790,7 @@ MonoBehaviour:
   m_gizmoYColor: {r: 0, g: 1, b: 0, a: 1}
   m_gizmoZColor: {r: 0, g: 0, b: 1, a: 1}
   m_gizmoSize: {x: 0.1, y: 0.1, z: 0.5}
+  m_enable: 1
 --- !u!1 &4244327659625011678
 GameObject:
   m_ObjectHideFlags: 0
@@ -10563,6 +10575,7 @@ MonoBehaviour:
   m_gizmoYColor: {r: 0, g: 1, b: 0, a: 1}
   m_gizmoZColor: {r: 0, g: 0, b: 1, a: 1}
   m_gizmoSize: {x: 0.1, y: 0.1, z: 0.5}
+  m_enable: 1
 --- !u!1 &6976177091248399067
 GameObject:
   m_ObjectHideFlags: 0
@@ -11631,6 +11644,7 @@ MonoBehaviour:
   m_gizmoYColor: {r: 0, g: 1, b: 0, a: 1}
   m_gizmoZColor: {r: 0, g: 0, b: 1, a: 1}
   m_gizmoSize: {x: 0.1, y: 0.1, z: 0.5}
+  m_enable: 1
 --- !u!1 &7411773738028711617
 GameObject:
   m_ObjectHideFlags: 0
@@ -11717,7 +11731,7 @@ GameObject:
   - component: {fileID: 51165877579667889}
   - component: {fileID: 1193243598608288878}
   - component: {fileID: 4864388287750263669}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Panel (WebView)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11834,6 +11848,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 0
+  m_meshCollider: {fileID: 0}
   m_divideTargets: []
 --- !u!114 &51165877579667889
 MonoBehaviour:
@@ -12525,6 +12540,7 @@ MonoBehaviour:
   m_gizmoYColor: {r: 0, g: 1, b: 0, a: 1}
   m_gizmoZColor: {r: 0, g: 0, b: 1, a: 1}
   m_gizmoSize: {x: 0.1, y: 0.1, z: 0.5}
+  m_enable: 1
 --- !u!1 &8358150919090946547
 GameObject:
   m_ObjectHideFlags: 0
@@ -13176,7 +13192,7 @@ GameObject:
   - component: {fileID: 7398910927869976790}
   - component: {fileID: 1189731163241441735}
   - component: {fileID: 4281294481738068071}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Panel (Teacher)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13294,6 +13310,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 0
+  m_meshCollider: {fileID: 0}
   m_divideTargets: []
 --- !u!114 &2185638562919833790
 MonoBehaviour:

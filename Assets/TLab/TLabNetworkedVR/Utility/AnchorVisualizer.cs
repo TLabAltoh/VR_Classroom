@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace TLab.XR
 {
+#if UNITY_EDITOR
     public class AnchorVisualizer : MonoBehaviour
     {
         [Header("Gizmo Settings")]
@@ -14,10 +15,17 @@ namespace TLab.XR
 
         [SerializeField] private Vector3 m_gizmoSize = new Vector3(0.1f, 0.1f, 0.5f);
 
+        [SerializeField] bool m_enable = true;
+
         private const float HALF = 0.5f;
 
         void OnDrawGizmos()
         {
+            if (!m_enable)
+            {
+                return;
+            }
+
             Gizmos.color = m_gizmoXColor;
 
             var cache = Gizmos.matrix;
@@ -42,4 +50,5 @@ namespace TLab.XR
             Gizmos.matrix = cache;
         }
     }
+#endif
 }

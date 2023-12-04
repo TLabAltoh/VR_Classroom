@@ -72,6 +72,11 @@ namespace TLab.XR.Interact.Editor
                     EditorUtility.SetDirty(divideTarget);
                 }
             }
+
+            if (GUILayout.Button("Create Hash ID"))
+            {
+                controller.CreateHashID();
+            }
         }
     }
 }

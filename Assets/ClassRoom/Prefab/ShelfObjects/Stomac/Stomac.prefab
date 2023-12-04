@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 2117929202008758508}
   - component: {fileID: 75910033359348514}
   - component: {fileID: 5669967759145747803}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Parts001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableSync: 1
-  m_hash: 833866110
+  m_hash: 1096241522
   m_useRigidbody: 0
   m_useGravity: 0
   m_rbAllocated: 0
@@ -365,6 +365,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 0
+  m_meshCollider: {fileID: 0}
   m_divideTargets: []
 --- !u!114 &4161475898173356856
 MonoBehaviour:
@@ -821,7 +822,7 @@ GameObject:
   - component: {fileID: 6026592823730263769}
   - component: {fileID: 6189894985319327199}
   - component: {fileID: 8835255739353522643}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Parts000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -940,7 +941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableSync: 1
-  m_hash: 1580430755
+  m_hash: 1557589659
   m_useRigidbody: 0
   m_useGravity: 0
   m_rbAllocated: 0
@@ -959,6 +960,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 0
+  m_meshCollider: {fileID: 0}
   m_divideTargets: []
 --- !u!114 &8611633542125132077
 MonoBehaviour:
@@ -1635,7 +1637,7 @@ GameObject:
   - component: {fileID: 147521810796693402}
   - component: {fileID: 925266798198144040}
   - component: {fileID: 1656375059757448562}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Stomac
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1751,7 +1753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableSync: 1
-  m_hash: 1303248574
+  m_hash: 1722459541
   m_useRigidbody: 0
   m_useGravity: 0
   m_rbAllocated: 0
@@ -1770,6 +1772,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 1
+  m_meshCollider: {fileID: 0}
   m_divideTargets:
   - {fileID: 1217565560033562147}
   - {fileID: 417446322599737717}
@@ -2312,7 +2315,7 @@ GameObject:
   - component: {fileID: 4203651099475091789}
   - component: {fileID: 1091095278213219769}
   - component: {fileID: 5246749678639753400}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Parts002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2431,7 +2434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableSync: 1
-  m_hash: 2079392216
+  m_hash: 802655216
   m_useRigidbody: 0
   m_useGravity: 0
   m_rbAllocated: 0
@@ -2450,6 +2453,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 0
+  m_meshCollider: {fileID: 0}
   m_divideTargets: []
 --- !u!114 &9145559197026456939
 MonoBehaviour:

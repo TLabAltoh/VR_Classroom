@@ -495,12 +495,17 @@ namespace TLab.XR.Network
         }
 
 #if UNITY_EDITOR
-        protected virtual void OnValidate()
+        public virtual void CreateHashID()
         {
             var r = new System.Random();
             var v = r.Next();
 
             m_hash = v.GetHashCode().ToString();
+        }
+
+        protected virtual void OnValidate()
+        {
+
         }
 #endif
 

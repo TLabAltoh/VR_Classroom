@@ -88,6 +88,7 @@ namespace TLab.XR.Interact
 
         [Header("Divided Settings")]
         [SerializeField] protected bool m_enableDivide = false;
+        [SerializeField] protected MeshCollider m_meshCollider;
         [SerializeField] protected GameObject[] m_divideTargets;
 
         protected List<CashTransform> m_cashTransforms = new List<CashTransform>();
@@ -277,25 +278,24 @@ namespace TLab.XR.Interact
 
         private void CreateCombineMeshCollider()
         {
-            var meshFilter = this.gameObject.RequireComponent<MeshFilter>();
+            var meshColliders = GetComponentsInTargets<MeshCollider>(divideTargets);
 
-            var meshFilters = GetComponentsInTargets<MeshFilter>(divideTargets);
+            var combine = new CombineInstance[meshColliders.Length];
 
-            var combine = new CombineInstance[meshFilters.Length];
-
-            for (int i = 0; i < meshFilters.Length; i++)
+            for (int i = 0; i < meshColliders.Length; i++)
             {
-                combine[i].mesh = meshFilters[i].sharedMesh;
-                combine[i].transform = this.gameObject.transform.worldToLocalMatrix * meshFilters[i].transform.localToWorldMatrix;
+                combine[i].mesh = meshColliders[i].sharedMesh;
+                combine[i].transform = gameObject.transform.worldToLocalMatrix * meshColliders[i].transform.localToWorldMatrix;
             }
 
             var mesh = new Mesh();
             mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
             mesh.CombineMeshes(combine);
-            meshFilter.sharedMesh = mesh;
 
-            var meshCollider = this.gameObject.RequireComponent<MeshCollider>();
-            meshCollider.sharedMesh = meshFilter.sharedMesh;
+            if (m_meshCollider != null)
+            {
+                m_meshCollider.sharedMesh = mesh;
+            }
         }
 
         public void Divide(bool active)
