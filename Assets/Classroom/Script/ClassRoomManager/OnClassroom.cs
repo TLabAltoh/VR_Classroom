@@ -11,6 +11,7 @@ namespace TLab.VRClassroom
     {
         [Header("Menu Panel")]
         [SerializeField] private Transform m_centerEyeAnchor;
+        [SerializeField] private Transform m_keyborad;
         [SerializeField] private Transform m_targetPanel;
         [SerializeField] private Transform m_webViewPanel;
 

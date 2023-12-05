@@ -23,6 +23,11 @@ namespace TLab.VRClassroom.Editor
 
                 EditorUtility.SetDirty(classroomEntry);
             }
+
+            if (GUILayout.Button("Password Test"))
+            {
+                classroomEntry.PasswordTest("192.168.3.11 -p 1234");
+            }
         }
     }
 }

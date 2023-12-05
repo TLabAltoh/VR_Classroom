@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TLab.InputField;
 using TLab.Security;
+using TLab.InputField;
 
 namespace TLab.VRClassroom
 {
@@ -44,10 +44,18 @@ namespace TLab.VRClassroom
 
             // -a 123 -b 123 -c 123 ...
             var splited = argment.Split("-");
+
+#if UNITY_EDITOR
             foreach (string command in splited)
             {
-                var key = command.Split(" ")[0];
-                var value = command.Split(" ")[2];
+                Debug.Log("command: " + command);
+            }
+#endif
+
+            for (int i = 1; i < splited.Length; i++)
+            {
+                var key = splited[i].Split(" ")[0];
+                var value = splited[i].Split(" ")[1];
 
                 commandDic[key] = value;
             }
@@ -72,14 +80,38 @@ namespace TLab.VRClassroom
             string scene = ConfirmPassword(password) ? HOST_SCENE : GUEST_SCENE;
 
             m_serverAddressBox.SetAddress(SYNC_SERVER, ipAddr, "5000");
-            m_serverAddressBox.SetAddress(SIGNALING_SERVER, ipAddr, ":3001");
+            m_serverAddressBox.SetAddress(SIGNALING_SERVER, ipAddr, "3001");
 
             StartCoroutine(ChangeScene(scene));
         }
 
+#if UNITY_EDITOR
+        public void PasswordTest(string argments)
+        {
+            // 192.168.1.1 -p 1234 -a 1234 -b 1234 ...
+            var splited = argments.Split(" ");
+            var ipAddr = splited[0];
+            var argment = "";
+            for (int i = 1; i < splited.Length; i++)
+            {
+                argment += splited[i] + " ";
+            }
+
+            Debug.Log("argment:" + argment);
+
+            var commands = ParseCommand(argment);
+            var password = commands["p"];
+
+            Debug.Log("password: " + password);
+
+            string scene = ConfirmPassword(password) ? HOST_SCENE : GUEST_SCENE;
+
+            Debug.Log("scene: " + scene);
+        }
+#endif
+
         public void Exit()
         {
-            Debug.Log("---------");
             Application.Quit();
         }
     }

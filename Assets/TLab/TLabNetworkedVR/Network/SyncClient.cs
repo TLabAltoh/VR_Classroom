@@ -11,7 +11,7 @@ namespace TLab.XR.Network
     [RequireComponent(typeof(WebRTCDataChannel))]
     public class SyncClient : MonoBehaviour
     {
-        // TODO: SyncAnimator Fix
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
         [Header("Sync Server Address (port 5000)")]
         [SerializeField] private string m_serverAddr = "ws://192.168.11.10:5000";
@@ -27,6 +27,7 @@ namespace TLab.XR.Network
         [Tooltip("Responce position of each player")]
         [Header("Respown Anchor")]
         [SerializeField] private Transform[] m_respownAnchors;
+        [SerializeField] private Transform m_instantiateAnchor;
 
         [Tooltip("WebRTCDatachannel for synchronizing Transforms between players")]
         [Header("WebRTCDataChannel")]
@@ -59,11 +60,9 @@ namespace TLab.XR.Network
         private int m_seatIndex = NOT_REGISTED;
         private bool[] m_guestTable = new bool[SEAT_LENGTH];
 
+        // 大文字にしたい
         private const string PREFAB_NAME = "OVRGuestAnchor.";
-
-        private Hashtable m_animators = new Hashtable();
-
-        private string THIS_NAME => "[" + this.GetType().Name + "] ";
+        private Queue<GameObject>[] m_avatorInstanceQueue = new Queue<GameObject>[SEAT_LENGTH];
 
         private delegate void ReceiveCallback(TLabSyncJson obj);
 
@@ -83,14 +82,33 @@ namespace TLab.XR.Network
 
         public bool isHost { get => m_isHost; set => m_isHost = value; }
 
-        public void SetServerAddr(string addr)
+        public string serverAddr => m_serverAddr;
+
+        public void SetServerAddr(string addr) => m_serverAddr = addr;
+
+        public bool IsGuestExist(int index) => m_guestTable[index];
+
+        public void CacheAvator(int seatIndex, GameObject go)
         {
-            m_serverAddr = addr;
+            if (m_avatorInstanceQueue[seatIndex] == null)
+            {
+                m_avatorInstanceQueue[seatIndex] = new Queue<GameObject>();
+            }
+
+            m_avatorInstanceQueue[seatIndex].Enqueue(go);
         }
 
-        public bool IsGuestExist(int index)
+        public void DeleteAvator(int seatIndex)
         {
-            return m_guestTable[index];
+            var avatorInstanceQueue = m_avatorInstanceQueue[seatIndex];
+            if (avatorInstanceQueue != null)
+            {
+                while (avatorInstanceQueue.Count > 0)
+                {
+                    var go = avatorInstanceQueue.Dequeue();
+                    BodyTracker.ClearObject(go);
+                }
+            }
         }
 
         #region REFLESH
@@ -180,6 +198,8 @@ namespace TLab.XR.Network
 
                     var tracker = target.gameObject.AddComponent<BodyTracker>();
                     tracker.enabled = true;
+
+                    CacheAvator(HOST_INDEX, tracker.gameObject);
                 }
 
                 m_cameraRig.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
@@ -202,9 +222,7 @@ namespace TLab.XR.Network
                     return;
                 }
 
-                string guestName = PREFAB_NAME + obj.seatIndex.ToString();
-
-                BodyTracker.ClearRegistry();
+                DeleteAvator(obj.seatIndex);
 
                 m_guestTable[obj.seatIndex] = false;
 
@@ -227,9 +245,6 @@ namespace TLab.XR.Network
                     return;
                 }
 
-                Vector3 respownPos = new Vector3(0.0f, -0.5f, 0.0f);
-                Quaternion respownRot = Quaternion.identity;
-
                 string guestName = PREFAB_NAME + obj.seatIndex.ToString();
 
                 // Visualize avatars of newly joined players
@@ -239,7 +254,17 @@ namespace TLab.XR.Network
                     var parts = avatorParts.parts.ToString();
                     var prefab = avatorParts.prefab;
 
-                    var guestParts = Instantiate(prefab, respownPos, respownRot);
+                    var guestParts = null as GameObject;
+
+                    if (m_instantiateAnchor != null)
+                    {
+                        guestParts = Instantiate(prefab, m_instantiateAnchor.position, m_instantiateAnchor.rotation);
+                    }
+                    else
+                    {
+                        guestParts = Instantiate(prefab);
+                    }
+                    
                     guestParts.name = guestName + parts;
 
                     // TODO: Instantiate()の後，Start()が呼び出されるタイミングを調査する
@@ -249,6 +274,8 @@ namespace TLab.XR.Network
                     //{
                     //    NetworkedObject.Register(guestParts.name, networkedObj);
                     //}
+
+                    CacheAvator(obj.seatIndex, guestParts);
                 }
 
                 m_guestTable[obj.seatIndex] = true;
@@ -567,6 +594,14 @@ namespace TLab.XR.Network
 
         void Start()
         {
+            for (int i = 0; i < m_avatorInstanceQueue.Length; i++)
+            {
+                if (m_avatorInstanceQueue[i] != null)
+                {
+                    m_avatorInstanceQueue[i] = new Queue<GameObject>();
+                }
+            }
+
             ConnectServerAsync();
 
 #if UNITY_EDITOR

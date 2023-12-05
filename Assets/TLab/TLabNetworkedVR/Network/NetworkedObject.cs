@@ -8,6 +8,75 @@ namespace TLab.XR.Network
 {
     public class NetworkedObject : MonoBehaviour
     {
+        #region REGISTRY
+
+        private static Hashtable m_registry = new Hashtable();
+
+        protected static string REGISTRY = "[registry] ";
+
+        protected static void Register(string id, NetworkedObject networkedObject)
+        {
+            if (!m_registry.ContainsKey(id))
+            {
+                m_registry[id] = networkedObject;
+
+                Debug.Log(REGISTRY + "networkedObject registered in the registry: " + id);
+            }
+        }
+
+        protected static void UnRegister(string id)
+        {
+            if (m_registry.ContainsKey(id))
+            {
+                m_registry.Remove(id);
+
+                Debug.Log(REGISTRY + "deregistered networkedObject from the registry.: " + id);
+            }
+        }
+
+        public static void ClearRegistry()
+        {
+            // TODO: 一度に多くのオブジェクトを廃棄するときに，どんな負荷が加わるかが予想できない
+            // 非同期的に廃棄を行う方法を検討する．
+
+            var gameobjects = new List<GameObject>();
+
+            foreach (DictionaryEntry entry in m_registry)
+            {
+                var networkedObject = entry.Value as NetworkedObject;
+                gameobjects.Add(networkedObject.gameObject);
+            }
+
+            for (int i = 0; i < gameobjects.Count; i++)
+            {
+                Destroy(gameobjects[i]);
+            }
+
+            m_registry.Clear();
+        }
+
+        public static void ClearObject(GameObject go)
+        {
+            if (go.GetComponent<NetworkedObject>() != null)
+            {
+                Destroy(go);
+            }
+        }
+
+        public static void ClearObject(string id)
+        {
+            var go = GetById(id).gameObject;
+
+            if (go != null)
+            {
+                ClearObject(go);
+            }
+        }
+
+        public static NetworkedObject GetById(string id) => m_registry[id] as NetworkedObject;
+
+        #endregion REGISTRY
+
         [Header("Sync Setting")]
 
         [SerializeField] protected bool m_enableSync = false;
@@ -73,57 +142,6 @@ namespace TLab.XR.Network
         public bool syncFromOutside => m_syncFromOutside;
 
         public bool socketIsOpen => (SyncClient.Instance != null && SyncClient.Instance.socketIsOpen && SyncClient.Instance.seatIndex != -1);
-
-        #region REGISTRY
-
-        private static Hashtable m_registry = new Hashtable();
-
-        protected static string REGISTRY = "[registry] ";
-
-        protected static void Register(string id, NetworkedObject networkedObject)
-        {
-            if (!m_registry.ContainsKey(id))
-            {
-                m_registry[id] = networkedObject;
-
-                Debug.Log(REGISTRY + "networkedObject registered in the registry: " + id);
-            }
-        }
-
-        protected static void UnRegister(string id)
-        {
-            if (m_registry.ContainsKey(id))
-            {
-                m_registry.Remove(id);
-
-                Debug.Log(REGISTRY + "deregistered networkedObject from the registry.: " + id);
-            }
-        }
-
-        public static void ClearRegistry()
-        {
-            // TODO: 一度に多くのオブジェクトを廃棄するときに，どんな負荷が加わるかが予想できない
-            // 非同期的に廃棄を行う方法を検討する．
-
-            var gameobjects = new List<GameObject>();
-
-            foreach (DictionaryEntry entry in m_registry)
-            {
-                var networkedObject = entry.Value as NetworkedObject;
-                gameobjects.Add(networkedObject.gameObject);
-            }
-
-            for (int i = 0; i < gameobjects.Count; i++)
-            {
-                Destroy(gameobjects[i]);
-            }
-
-            m_registry.Clear();
-        }
-
-        public static NetworkedObject GetById(string id) => m_registry[id] as NetworkedObject;
-
-        #endregion REGISTRY
 
         protected static unsafe void LongCopy(byte* src, byte* dst, int count)
         {
@@ -524,7 +542,7 @@ namespace TLab.XR.Network
 
             StartCoroutine(RegistRigidbodyObject());
 
-            m_id = gameObject.name;
+            m_id = gameObject.name + m_hash;
 
             Register(m_id, this);
         }

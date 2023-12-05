@@ -1,27 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TLab.XR.Network;
 
-namespace TLab.XR.Humanoid
+namespace TLab.XR.Network
 {
-    public class BodyTracker : NetworkedObject
+    public class SimpleTracker : NetworkedObject
     {
-        private string THIS_NAME => "[" + this.GetType().Name + "] ";
-
         #region REGISTRY
 
         private static Hashtable m_registry = new Hashtable();
 
         public static Hashtable registry => m_registry;
 
-        protected static void Register(string id, BodyTracker tracker)
+        protected static void Register(string id, SimpleTracker tracker)
         {
             if (!m_registry.ContainsKey(id))
             {
                 m_registry[id] = tracker;
 
-                Debug.Log(REGISTRY + "body tracker registered in the registry: " + id);
+                Debug.Log(REGISTRY + "simple tracker registered in the registry: " + id);
             }
         }
 
@@ -31,7 +28,7 @@ namespace TLab.XR.Humanoid
             {
                 m_registry.Remove(id);
 
-                Debug.Log(REGISTRY + "deregistered body tracker from the registry.: " + id);
+                Debug.Log(REGISTRY + "deregistered simple tracker from the registry.: " + id);
             }
         }
 
@@ -41,7 +38,7 @@ namespace TLab.XR.Humanoid
 
             foreach (DictionaryEntry entry in m_registry)
             {
-                var tracker = entry.Value as BodyTracker;
+                var tracker = entry.Value as SimpleTracker;
                 gameobjects.Add(tracker.gameObject);
             }
 
@@ -55,7 +52,7 @@ namespace TLab.XR.Humanoid
 
         public static new void ClearObject(GameObject go)
         {
-            if (go.GetComponent<BodyTracker>() != null)
+            if (go.GetComponent<SimpleTracker>() != null)
             {
                 Destroy(go);
             }
@@ -71,26 +68,18 @@ namespace TLab.XR.Humanoid
             }
         }
 
-        public static new BodyTracker GetById(string id) => m_registry[id] as BodyTracker;
+        public static new SimpleTracker GetById(string id) => m_registry[id] as SimpleTracker;
 
         #endregion REGISTRY
 
-        [System.Serializable]
-        public class TrackTarget
-        {
-            public AvatorConfig.BodyParts parts;
-
-            public Transform target;
-        }
-
-        [SerializeField] private AvatorConfig.BodyParts m_bodyParts;
-
-        public AvatorConfig.BodyParts bodyParts => m_bodyParts;
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
         public void Shutdown() => UnRegister(m_id);
 
         protected override void Start()
         {
+            m_useGravity = false;
+
             base.Start();
 
             Register(m_id, this);
@@ -98,8 +87,6 @@ namespace TLab.XR.Humanoid
 
         protected override void Update()
         {
-            m_useGravity = false;
-
             base.Update();
 
             SyncRTCTransform();

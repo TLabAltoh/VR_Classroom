@@ -3,14 +3,14 @@ using UnityEditor;
 
 namespace TLab.XR.Network
 {
-    [CustomEditor(typeof(NetworkedObject))]
-    public class NetworkedObjectEditor : UnityEditor.Editor
+    [CustomEditor(typeof(SimpleTracker))]
+    public class SimpleTrackerEditor : UnityEditor.Editor
     {
-        private NetworkedObject instance;
+        private SimpleTracker instance;
 
         private void OnEnable()
         {
-            instance = target as NetworkedObject;
+            instance = target as SimpleTracker;
         }
 
         public override void OnInspectorGUI()

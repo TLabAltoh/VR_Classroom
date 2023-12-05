@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace TLab.XR.Network
+namespace TLab.XR.Humanoid
 {
-    [CustomEditor(typeof(NetworkedObject))]
-    public class NetworkedObjectEditor : UnityEditor.Editor
+    [CustomEditor(typeof(BodyTracker))]
+    public class BodyTrackerEditor : UnityEditor.Editor
     {
-        private NetworkedObject instance;
+        private BodyTracker instance;
 
         private void OnEnable()
         {
-            instance = target as NetworkedObject;
+            instance = target as BodyTracker;
         }
 
         public override void OnInspectorGUI()

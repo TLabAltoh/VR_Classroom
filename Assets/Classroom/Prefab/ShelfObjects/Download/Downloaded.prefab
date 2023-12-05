@@ -91,7 +91,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
 --- !u!114 &8436862207671038438
@@ -144,6 +144,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 1
+  m_meshCollider: {fileID: 0}
   m_divideTargets:
   - {fileID: 5793588875083435147}
   - {fileID: 7583179141977903108}
@@ -177,7 +178,7 @@ MonoBehaviour:
   m_colliderEnable: 0
   m_collider: {fileID: 1125652014745663372}
   m_interactableChain: []
-  m_rotateSpeed: 100
+  m_rotateSpeed: 10
 --- !u!1 &3195231755618534307
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +548,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 289301614986012343, guid: 5e847c448830ca240a6a8e70aa1170a9, type: 3}
 --- !u!114 &945730616522281348
@@ -599,6 +600,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 0
+  m_meshCollider: {fileID: 0}
   m_divideTargets: []
 --- !u!114 &8118701422634049949
 MonoBehaviour:
@@ -612,10 +614,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88be8493e828dfb4190da04fd3bb7d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 0
+  m_colliderEnable: 1
   m_collider: {fileID: 6480892799859749788}
   m_interactableChain: []
-  m_rotateSpeed: 100
+  m_rotateSpeed: 10
 --- !u!114 &2443787431404731371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,7 +630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d001aedc777f9444b08a68b60ee12d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 0
+  m_colliderEnable: 1
   m_collider: {fileID: 6480892799859749788}
   m_interactableChain: []
 --- !u!1 &6535127503908738846
@@ -782,7 +784,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1579241630799410176, guid: 5e847c448830ca240a6a8e70aa1170a9, type: 3}
 --- !u!114 &5961978902664283360
@@ -834,6 +836,7 @@ MonoBehaviour:
     m_cornerHandle: {fileID: 0}
     m_boundBoxSize: {x: 1, y: 1, z: 1}
   m_enableDivide: 0
+  m_meshCollider: {fileID: 0}
   m_divideTargets: []
 --- !u!114 &3951595340506148616
 MonoBehaviour:
@@ -847,10 +850,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88be8493e828dfb4190da04fd3bb7d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 0
+  m_colliderEnable: 1
   m_collider: {fileID: 6163988047557589981}
   m_interactableChain: []
-  m_rotateSpeed: 100
+  m_rotateSpeed: 10
 --- !u!114 &4434918013866410982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,7 +866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d001aedc777f9444b08a68b60ee12d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 0
+  m_colliderEnable: 1
   m_collider: {fileID: 6163988047557589981}
   m_interactableChain: []
 --- !u!1 &8822672036907967701
