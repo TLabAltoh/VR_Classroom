@@ -87,10 +87,16 @@ namespace TLab.XR.Humanoid
 
         public AvatorConfig.BodyParts bodyParts => m_bodyParts;
 
+        private bool m_self = false;
+
+        public bool self { get => m_self; set => m_self = value; }
+
         public void Shutdown() => UnRegister(m_id);
 
         protected override void Start()
         {
+            m_useGravity = false;
+
             base.Start();
 
             Register(m_id, this);
@@ -98,11 +104,12 @@ namespace TLab.XR.Humanoid
 
         protected override void Update()
         {
-            m_useGravity = false;
-
             base.Update();
 
-            SyncRTCTransform();
+            if (m_self)
+            {
+                SyncRTCTransform();
+            }
         }
 
         protected override void OnApplicationQuit()

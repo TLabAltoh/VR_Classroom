@@ -15,6 +15,7 @@ namespace TLab.XR.Network
 
         [Header("Sync Server Address (port 5000)")]
         [SerializeField] private string m_serverAddr = "ws://192.168.11.10:5000";
+        [SerializeField] private string m_roomName = "VR_Classroom";
 
         [Header("Body Tracker")]
         [SerializeField] private Transform m_cameraRig;
@@ -61,7 +62,8 @@ namespace TLab.XR.Network
         private bool[] m_guestTable = new bool[SEAT_LENGTH];
 
         // 大文字にしたい
-        private const string PREFAB_NAME = "OVRGuestAnchor.";
+        private const string COMMA = ".";
+        private const string PREFAB_NAME = "OVR_GUEST_ANCHOR";
         private Queue<GameObject>[] m_avatorInstanceQueue = new Queue<GameObject>[SEAT_LENGTH];
 
         private delegate void ReceiveCallback(TLabSyncJson obj);
@@ -149,6 +151,13 @@ namespace TLab.XR.Network
         #endregion REFLESH
 
         #region CONNECT_SERVER
+        private string GetBodyTrackerName(string playerName, int seatIndex, AvatorConfig.BodyParts parts)
+        {
+            // playerNameは現在使用していない
+
+            return PREFAB_NAME + COMMA + seatIndex.ToString() + COMMA + parts.ToString();
+        }
+
         /// <summary>
         /// Send exit notice to the server.
         /// Exit only and do not close the socket
@@ -187,19 +196,19 @@ namespace TLab.XR.Network
 
                 // Enable sync own avator
 
-                var userName = PREFAB_NAME + obj.seatIndex.ToString();
-
                 foreach (var trackTarget in m_trackTargets)
                 {
                     var parts = trackTarget.parts;
                     var target = trackTarget.target;
 
-                    target.name = userName + parts.ToString();
+                    var trackerName = GetBodyTrackerName("", obj.seatIndex, parts);
+                    target.name = trackerName;
 
                     var tracker = target.gameObject.AddComponent<BodyTracker>();
-                    tracker.enabled = true;
+                    tracker.enableSync = true;
+                    tracker.self = true;
 
-                    CacheAvator(HOST_INDEX, tracker.gameObject);
+                    CacheAvator(obj.seatIndex, tracker.gameObject);
                 }
 
                 if (m_instantiateAnchor != null)
@@ -216,7 +225,7 @@ namespace TLab.XR.Network
 
                 // Connect to signaling server
                 var userID = gameObject.name + "_" + m_seatIndex.ToString();
-                var roomID = "VR_Class";
+                var roomID = m_roomName;
                 m_dataChannel.Join(userID, roomID);
 
             };
@@ -242,7 +251,6 @@ namespace TLab.XR.Network
 
                 Debug.Log(THIS_NAME + "guest disconncted: " + obj.seatIndex.ToString());
 
-                return;
             };
             receiveCallbacks[(int)WebAction.GUESTPARTICIPATION] = (obj) => {
 
@@ -254,13 +262,11 @@ namespace TLab.XR.Network
                     return;
                 }
 
-                string guestName = PREFAB_NAME + obj.seatIndex.ToString();
-
                 // Visualize avatars of newly joined players
 
                 foreach (var avatorParts in m_avatorConfig.body)
                 {
-                    var parts = avatorParts.parts.ToString();
+                    var parts = avatorParts.parts;
                     var prefab = avatorParts.prefab;
 
                     var guestParts = null as GameObject;
@@ -273,8 +279,9 @@ namespace TLab.XR.Network
                     {
                         guestParts = Instantiate(prefab);
                     }
-                    
-                    guestParts.name = guestName + parts;
+
+                    var trackerName = GetBodyTrackerName("", obj.seatIndex, parts);
+                    guestParts.name = trackerName;
 
                     // TODO: Instantiate()の後，Start()が呼び出されるタイミングを調査する
                     //var networkedObj = guestParts.GetComponent<NetworkedObject>();
@@ -365,7 +372,6 @@ namespace TLab.XR.Network
 
                 m_customCallbacks[obj.customIndex].OnMessage(obj.custom);
 
-                return;
             };
 
             m_websocket = new WebSocket(m_serverAddr);
@@ -510,9 +516,11 @@ namespace TLab.XR.Network
 
             string targetName = System.Text.Encoding.UTF8.GetString(nameBytes);
 
-            var controller = ExclusiveController.GetById(targetName);
-            if (controller == null)
+            var networkedObject = NetworkedObject.GetById(targetName);
+            if (networkedObject == null)
             {
+                Debug.Log("not found");
+
                 return;
             }
 
@@ -536,7 +544,7 @@ namespace TLab.XR.Network
                 scale = new WebVector3 { x = rtcTransform[7], y = rtcTransform[8], z = rtcTransform[9] }
             };
 
-            controller.SyncFromOutside(webTransform);
+            networkedObject.SyncFromOutside(webTransform);
         }
 
         public void SendRTCMessage(byte[] bytes)

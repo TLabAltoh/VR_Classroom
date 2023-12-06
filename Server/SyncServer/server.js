@@ -120,6 +120,12 @@ const UNIREFRESHTRANSFORM = 16;
 const UNIREFRESHANIM = 17;
 const CUSTOMACTION = 18;
 
+const OVR_GUEST_ANCHOR = "OVR_GUEST_ANCHOR";
+const COMMA = ".";
+const R_HAND = "R_HAND";
+const L_HAND = "L_HAND";
+const HEAD = "HEAD";
+
 ////////////////////////////////////////////////////////////////////////////////////////
 
 // #endregion Const values
@@ -213,9 +219,9 @@ function allocateRigidbodyTask() {
 				0       Cylinder.Gravity
 				0       Sphere.Gravity
 				0       Cube.Gravity
-				undefined       OVRGuestAnchor.0.RTouch
-				undefined       OVRGuestAnchor.0.LTouch
-				undefined       OVRGuestAnchor.0.Head
+				undefined       OVR_GUEST_ANCHOR.0.R_HAND
+				undefined       OVR_GUEST_ANCHOR.0.L_HAND
+				undefined       OVR_GUEST_ANCHOR.0.HEAD
 			 * ```
 			 */
 			console.log("seat " + seatIndex + " . " + value.transform.id + "\t" + ((rbTable[value.transform.id] === seatIndex) ? "allocated" : "not allocated"));
@@ -402,10 +408,10 @@ function onJoined(seatIndex, socket) {
 
 	console.log("sending current world data");
 
-	// Remove transforms for controllers that already exist
-	delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".RTouch"];
-	delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".LTouch"];
-	delete syncObjects["OVRGuestAnchor." + seatIndex.toString() + ".Head"];
+	// Remove transforms for player body tracker that already exist
+	delete syncObjects[OVR_GUEST_ANCHOR + COMMA + seatIndex.toString() + COMMA + R_HAND];
+	delete syncObjects[OVR_GUEST_ANCHOR + COMMA + seatIndex.toString() + COMMA + L_HAND];
+	delete syncObjects[OVR_GUEST_ANCHOR + COMMA + seatIndex.toString() + COMMA + HEAD];
 
 	sendCurrentWoldData(socket);
 

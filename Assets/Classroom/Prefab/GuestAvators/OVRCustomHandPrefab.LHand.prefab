@@ -2000,7 +2000,7 @@ GameObject:
   - component: {fileID: 4927695388962516}
   - component: {fileID: 114320645607636018}
   - component: {fileID: 114674612155881938}
-  - component: {fileID: 7659057229779498811}
+  - component: {fileID: 856704115811510396}
   m_Layer: 0
   m_Name: OVRCustomHandPrefab.LHand
   m_TagString: Untagged
@@ -2127,7 +2127,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   retargetingType: 0
---- !u!114 &7659057229779498811
+--- !u!114 &856704115811510396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2136,15 +2136,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1732268206786806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4426bb1cb8f2104fbcedc2ef7f8bf2f, type: 3}
+  m_Script: {fileID: 11500000, guid: ed795df9b6bf57d4294afc739409e072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableSync: 0
-  m_locked: 1
-  m_id: 
+  m_hash: 
   m_useRigidbody: 0
   m_useGravity: 0
   m_rbAllocated: 0
+  m_bodyParts: 1
 --- !u!1 &1738046394478382
 GameObject:
   m_ObjectHideFlags: 0

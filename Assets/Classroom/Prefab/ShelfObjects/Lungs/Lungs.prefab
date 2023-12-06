@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf2a74d69b1c1e41916d2a7afdff5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _facing: 0
+  _facing: 1
   _doubleSided: 0
 --- !u!1 &1073206816296296109
 GameObject:
@@ -742,9 +742,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TLabSyncGrabbable, Assembly-CSharp
-        m_MethodName: OnDevideButtonClick
+      - m_Target: {fileID: 8826481839643745224}
+        m_TargetAssemblyTypeName: TLab.XR.Interact.ExclusiveController, Assembly-CSharp
+        m_MethodName: Devide
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -858,7 +858,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: f1473a7f8a4cbc342b2a8ee5f24ed394, type: 2}
+  m_Mesh: {fileID: 2819390830917720852, guid: 61edc8319e9fdc349950fa8657133157, type: 3}
 --- !u!114 &7745744798895969098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -871,7 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 1
+  m_colliderEnable: 0
   m_collider: {fileID: 8286343582198528119}
   m_interactableChain: []
   m_outlineWidth: 0.025
@@ -926,7 +926,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 8286343582198528119}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 7745744798895969098}
   m_rotateSpeed: 10
 --- !u!114 &4968031533834133792
 MonoBehaviour:
@@ -1513,8 +1514,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TLabSyncGrabbable, Assembly-CSharp
+      - m_Target: {fileID: 8826481839643745224}
+        m_TargetAssemblyTypeName: TLab.XR.Interact.ExclusiveController, Assembly-CSharp
         m_MethodName: SetInitialChildTransform
         m_Mode: 1
         m_Arguments:
@@ -1629,7 +1630,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: c022a5a619a89c24a89b03dbd5de1034, type: 2}
+  m_Mesh: {fileID: 8673573882879419680, guid: 61edc8319e9fdc349950fa8657133157, type: 3}
 --- !u!114 &5247822254894732442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1697,7 +1698,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 7775649021619674571}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 5247822254894732442}
   m_rotateSpeed: 10
 --- !u!114 &5534841365988418455
 MonoBehaviour:
@@ -2089,7 +2091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf2a74d69b1c1e41916d2a7afdff5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _facing: 0
+  _facing: 1
   _doubleSided: 0
 --- !u!1 &6435272789913855642
 GameObject:
@@ -2195,7 +2197,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 32d07deeadf298e44ab3a82c6b1718ac, type: 2}
+  m_Mesh: {fileID: 466654829616604500, guid: 61edc8319e9fdc349950fa8657133157, type: 3}
 --- !u!114 &3211982351550417404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2208,7 +2210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 1
+  m_colliderEnable: 0
   m_collider: {fileID: 5775972285293248800}
   m_interactableChain: []
   m_outlineWidth: 0.025
@@ -2263,7 +2265,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 5775972285293248800}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 3211982351550417404}
   m_rotateSpeed: 10
 --- !u!114 &3668109900501215041
 MonoBehaviour:

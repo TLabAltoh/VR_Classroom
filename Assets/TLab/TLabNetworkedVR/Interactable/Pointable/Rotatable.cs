@@ -57,7 +57,7 @@ namespace TLab.XR.Interact
                 m_axis = Vector3.one;
                 m_angle = ZERO_ANGLE;
 
-                m_onShot = true;
+                m_onShot = false;
             }
         }
 

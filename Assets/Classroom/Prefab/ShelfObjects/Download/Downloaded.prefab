@@ -616,7 +616,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 6480892799859749788}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 945730616522281348}
   m_rotateSpeed: 10
 --- !u!114 &2443787431404731371
 MonoBehaviour:
@@ -852,7 +853,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 6163988047557589981}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 5961978902664283360}
   m_rotateSpeed: 10
 --- !u!114 &4434918013866410982
 MonoBehaviour:

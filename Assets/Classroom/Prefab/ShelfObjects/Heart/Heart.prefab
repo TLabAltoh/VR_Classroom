@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf2a74d69b1c1e41916d2a7afdff5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _facing: 0
+  _facing: 1
   _doubleSided: 0
 --- !u!1 &517569802485887251
 GameObject:
@@ -846,7 +846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf2a74d69b1c1e41916d2a7afdff5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _facing: 0
+  _facing: 1
   _doubleSided: 0
 --- !u!1 &2965315127827116281
 GameObject:
@@ -1174,7 +1174,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 4135499739505318662}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 2106112051074376347}
   m_rotateSpeed: 10
 --- !u!114 &2557930258007956668
 MonoBehaviour:
@@ -1347,9 +1348,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TLabSyncGrabbable, Assembly-CSharp
-        m_MethodName: OnDevideButtonClick
+      - m_Target: {fileID: 5354145859027914412}
+        m_TargetAssemblyTypeName: TLab.XR.Interact.ExclusiveController, Assembly-CSharp
+        m_MethodName: Devide
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1573,7 +1574,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 3366942053323888224}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 950358396226714013}
   m_rotateSpeed: 10
 --- !u!114 &7438474557516449121
 MonoBehaviour:
@@ -1882,8 +1884,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TLabSyncGrabbable, Assembly-CSharp
+      - m_Target: {fileID: 5354145859027914412}
+        m_TargetAssemblyTypeName: TLab.XR.Interact.ExclusiveController, Assembly-CSharp
         m_MethodName: SetInitialChildTransform
         m_Mode: 1
         m_Arguments:
@@ -2194,7 +2196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 1450179680999059686}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 2039912415651997131}
   m_rotateSpeed: 10
 --- !u!114 &1982157628431398519
 MonoBehaviour:
@@ -2629,7 +2632,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 4231760839646844334}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 9077615121910801009}
   m_rotateSpeed: 10
 --- !u!114 &1636822021611607284
 MonoBehaviour:
@@ -3038,7 +3042,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 6574806578950470035}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 7997701478816255478}
   m_rotateSpeed: 10
 --- !u!114 &1829515876637532002
 MonoBehaviour:
@@ -3582,7 +3587,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 2452504053232591368}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 170547329690722461}
   m_rotateSpeed: 10
 --- !u!114 &4570093960035903009
 MonoBehaviour:
@@ -4244,7 +4250,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 957217231400528743}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 3392021665116636050}
   m_rotateSpeed: 10
 --- !u!114 &6621357649371524144
 MonoBehaviour:
@@ -4467,7 +4474,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 6811140239048628630}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 8828712136412731381}
   m_rotateSpeed: 10
 --- !u!114 &3572445998877933391
 MonoBehaviour:
@@ -4690,7 +4698,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 4211761680946207419}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 4554423236948268272}
   m_rotateSpeed: 10
 --- !u!114 &3691902851213232380
 MonoBehaviour:
@@ -6239,7 +6248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 4184963623351701000}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 1528269750936279290}
   m_rotateSpeed: 10
 --- !u!114 &7165810066791134403
 MonoBehaviour:
@@ -6674,7 +6684,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 6645329746281818958}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 266034604550184615}
   m_rotateSpeed: 10
 --- !u!114 &5971018785256837436
 MonoBehaviour:

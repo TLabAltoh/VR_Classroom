@@ -74,6 +74,10 @@ namespace TLab.XR.Network
 
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
+        private bool m_self = false;
+
+        public bool self { get => m_self; set => m_self = value; }
+
         public void Shutdown() => UnRegister(m_id);
 
         protected override void Start()
@@ -89,7 +93,10 @@ namespace TLab.XR.Network
         {
             base.Update();
 
-            SyncRTCTransform();
+            if (m_self)
+            {
+                SyncRTCTransform();
+            }
         }
 
         protected override void OnApplicationQuit()

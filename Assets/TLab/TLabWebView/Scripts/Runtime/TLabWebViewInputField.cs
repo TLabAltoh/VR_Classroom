@@ -45,7 +45,7 @@ namespace TLab.Android.WebView
 
             if (m_keyborad.isMobile)
             {
-                m_keyborad.HideKeyborad(hide);
+                m_keyborad.HideKeyborad(false);
             }
         }
 

@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 1
+  m_colliderEnable: 0
   m_collider: {fileID: 6859720837250765433}
   m_interactableChain: []
   m_outlineWidth: 0.025
@@ -377,7 +377,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 6859720837250765433}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 7271517763347703517}
   m_rotateSpeed: 10
 --- !u!114 &2117929202008758508
 MonoBehaviour:
@@ -917,7 +918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 1
+  m_colliderEnable: 0
   m_collider: {fileID: 6622753790855876529}
   m_interactableChain: []
   m_outlineWidth: 0.025
@@ -972,7 +973,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 6622753790855876529}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 5068335273851233996}
   m_rotateSpeed: 10
 --- !u!114 &6026592823730263769
 MonoBehaviour:
@@ -1145,9 +1147,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TLabSyncGrabbable, Assembly-CSharp
-        m_MethodName: OnDevideButtonClick
+      - m_Target: {fileID: 5875813185027778777}
+        m_TargetAssemblyTypeName: TLab.XR.Interact.ExclusiveController, Assembly-CSharp
+        m_MethodName: Devide
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1583,7 +1585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf2a74d69b1c1e41916d2a7afdff5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _facing: 0
+  _facing: 1
   _doubleSided: 0
 --- !u!1 &4546283873774758824
 GameObject:
@@ -2499,8 +2501,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TLabSyncGrabbable, Assembly-CSharp
+      - m_Target: {fileID: 5875813185027778777}
+        m_TargetAssemblyTypeName: TLab.XR.Interact.ExclusiveController, Assembly-CSharp
         m_MethodName: SetInitialChildTransform
         m_Mode: 1
         m_Arguments:
@@ -2628,7 +2630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 1
+  m_colliderEnable: 0
   m_collider: {fileID: 695751755429394512}
   m_interactableChain: []
   m_outlineWidth: 0.025
@@ -2683,7 +2685,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 695751755429394512}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 6497020771969342007}
   m_rotateSpeed: 10
 --- !u!114 &4203651099475091789
 MonoBehaviour:
@@ -2778,5 +2781,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf2a74d69b1c1e41916d2a7afdff5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _facing: 0
+  _facing: 1
   _doubleSided: 0
