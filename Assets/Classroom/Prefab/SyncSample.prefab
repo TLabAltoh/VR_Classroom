@@ -4884,7 +4884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf2a74d69b1c1e41916d2a7afdff5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _facing: 0
+  _facing: 1
   _doubleSided: 0
 --- !u!1 &2535881331851819844
 GameObject:
@@ -6017,7 +6017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf2a74d69b1c1e41916d2a7afdff5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _facing: 0
+  _facing: 1
   _doubleSided: 0
 --- !u!1 &3560911425419494539
 GameObject:
@@ -6252,7 +6252,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3593637830565265804}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.009705315, y: 0.009705315, z: 0.009705315}
   m_ConstrainProportionsScale: 0
@@ -6260,7 +6260,7 @@ RectTransform:
   - {fileID: 6080623833336046101}
   m_Father: {fileID: 436487994024592069}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -6681,9 +6681,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3927491241971932534}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -2.3, y: 1.1999998, z: 0.1}
-  m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4627204996771281097}
@@ -6691,7 +6691,7 @@ Transform:
   - {fileID: 5503874064588882945}
   m_Father: {fileID: 1992072394097134739}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &4548913972944582192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7175,6 +7175,7 @@ GameObject:
   - component: {fileID: 2134020956312786331}
   - component: {fileID: 6423369289166116869}
   - component: {fileID: 8398320405951922030}
+  - component: {fileID: 221582535533181813}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -7248,6 +7249,23 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!114 &221582535533181813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4244327659625011678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &4251154153048335821
 GameObject:
   m_ObjectHideFlags: 0
@@ -8023,9 +8041,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_centerEyeAnchor: {fileID: 0}
-  m_keyborad: {fileID: 436487994024592069}
   m_targetPanel: {fileID: 2051104810557448224}
   m_webViewPanel: {fileID: 4138787191626660670}
+  m_keyborad: {fileID: 4837045556181577763}
+  m_keyboradInteractable: {fileID: 7824618727614551890}
   m_syncClient: {fileID: 1992072394669093082}
   m_voiceChat: {fileID: 0}
 --- !u!1 &4877810475803910663
@@ -16392,6 +16411,38 @@ PrefabInstance:
     - target: {fileID: 4393841344855865600, guid: 58607dc0d897b2b46a8496ffaa5fa6a1, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449721481549372445, guid: 58607dc0d897b2b46a8496ffaa5fa6a1, type: 3}
+      propertyPath: m_anchor
+      value: 
+      objectReference: {fileID: 436487994024592069}
+    - target: {fileID: 4449721481549372445, guid: 58607dc0d897b2b46a8496ffaa5fa6a1, type: 3}
+      propertyPath: m_onHide.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449721481549372445, guid: 58607dc0d897b2b46a8496ffaa5fa6a1, type: 3}
+      propertyPath: m_onHide.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449721481549372445, guid: 58607dc0d897b2b46a8496ffaa5fa6a1, type: 3}
+      propertyPath: m_onHide.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 535945441839912813}
+    - target: {fileID: 4449721481549372445, guid: 58607dc0d897b2b46a8496ffaa5fa6a1, type: 3}
+      propertyPath: m_onHide.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449721481549372445, guid: 58607dc0d897b2b46a8496ffaa5fa6a1, type: 3}
+      propertyPath: m_onHide.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnHideKeyborad
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449721481549372445, guid: 58607dc0d897b2b46a8496ffaa5fa6a1, type: 3}
+      propertyPath: m_onHide.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TLab.VRClassroom.OnClassroom, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449721481549372445, guid: 58607dc0d897b2b46a8496ffaa5fa6a1, type: 3}
+      propertyPath: m_onHide.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4547862427221126562, guid: 58607dc0d897b2b46a8496ffaa5fa6a1, type: 3}
       propertyPath: m_AnchorMax.y

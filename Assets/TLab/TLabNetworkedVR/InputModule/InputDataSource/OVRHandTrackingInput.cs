@@ -190,7 +190,7 @@ namespace TLab.XR.Input
 
             // Detect Grab Input
 
-            if (m_skeltonInitialized)
+            if ((m_skeleton != null) && m_skeltonInitialized)
             {
                 string gesture = DetectGesture();
 

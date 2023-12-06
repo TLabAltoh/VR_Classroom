@@ -1,34 +1,44 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Oculus.Interaction;
+using TLab.InputField;
 using TLab.XR.Network;
-using TLab.XR.Interact;
 using TLab.Network.VoiceChat;
 
 namespace TLab.VRClassroom
 {
+    // 目標はTLab.XR.Input.InputDataSourceのみが，プラグインに依存するソースコードにしたい
+
     public class OnClassroom : MonoBehaviour
     {
         [Header("Menu Panel")]
         [SerializeField] private Transform m_centerEyeAnchor;
-        [SerializeField] private Transform m_keyborad;
         [SerializeField] private Transform m_targetPanel;
         [SerializeField] private Transform m_webViewPanel;
+
+        // TODO: RayInteractableを参照しない方法を検討する
+        [Header("Keyborad")]
+        [SerializeField] private TLabVKeyborad m_keyborad;
+        [SerializeField] private RayInteractable m_keyboradInteractable;
 
         [Header("Network")]
         [SerializeField] private SyncClient m_syncClient;
         [SerializeField] private VoiceChat m_voiceChat;
 
+        private const float HALF = 0.5f;
+
+        private Vector3 cameraPos => Camera.main.transform.position;
+
         private IEnumerator ExitClassroomTask()
         {
-            // delete obj
-
-            ExclusiveController.ClearRegistry();
+            // clear networked objct
+            NetworkedObject.ClearRegistry();
             SyncAnimator.ClearRegistry();
 
             yield return new WaitForSeconds(0.5f);
 
-            // close socket
+            // close webrtc socket
             m_voiceChat.CloseRTC();
             m_syncClient.CloseRTC();
 
@@ -65,20 +75,50 @@ namespace TLab.VRClassroom
 
         public void ShowWebView() => SwitchPanel(m_webViewPanel);
 
+        private Vector3 GetEyeDirectionPos(float xOffset = 0f, float yOffset = 0f, float zOffset = 0f)
+        {
+            return m_centerEyeAnchor.position +
+                    m_centerEyeAnchor.right * xOffset +
+                    m_centerEyeAnchor.up * yOffset +
+                    m_centerEyeAnchor.forward * zOffset;
+        }
+
+        /// <summary>
+        /// TLabVKeyborad.onHideで呼び出すコールバック
+        /// </summary>
+        /// <param name="keyborad"></param>
+        /// <param name="hide"></param>
+        public void OnHideKeyborad(TLabVKeyborad keyborad, bool hide)
+        {
+            var active = !hide;
+
+            // enable or disable keyborad's ray interactable
+            m_keyboradInteractable.enabled = active;
+
+            if (active)
+            {
+                // パネルよりも少し下に表示
+                const float SCALE = 0.75f;
+                var position = GetEyeDirectionPos(0f, -HALF * SCALE, HALF * SCALE);
+                m_keyborad.SetTransform(position, cameraPos, Vector3.up);
+            }
+        }
+
         /// <summary>
         /// Change the panel to the desired state
         /// </summary>
         /// <param name="target"></param>
         /// <param name="active"></param>
-        private void SwitchPanel(Transform target, bool active)
+        private void SwitchPanel(
+            Transform target, bool active,
+            float xOffset = 0f, float yOffset = 0f, float zOffset = 0f)
         {
             target.gameObject.SetActive(active);
 
-            target.transform.position = m_centerEyeAnchor.position + m_centerEyeAnchor.forward * 0.5f;
-
-            if (active == true)
+            if (active)
             {
-                target.LookAt(Camera.main.transform, Vector3.up);
+                target.transform.position = GetEyeDirectionPos(xOffset, yOffset, zOffset);
+                target.LookAt(cameraPos, Vector3.up);
             }
         }
 
@@ -86,13 +126,13 @@ namespace TLab.VRClassroom
         /// Reverses the state of the panel
         /// </summary>
         /// <param name="target"></param>
-        /// <returns></returns>
+        /// <returns>panel's current state</returns>
         private bool SwitchPanel(Transform target)
         {
             bool active = target.gameObject.activeSelf;
-            SwitchPanel(target, !active);
+            SwitchPanel(target, !active, zOffset: HALF);
 
-            return active;
+            return !active;
         }
 
         private void Start()
@@ -102,6 +142,8 @@ namespace TLab.VRClassroom
 
         private void Update()
         {
+            // TODO: TLab.XR.Input.InputDataSourceからの入力でパネルの切り替えを実行
+            // できるようにする
             if (OVRInput.GetDown(OVRInput.Button.Start))
             {
                 if (!SwitchPanel(m_targetPanel))

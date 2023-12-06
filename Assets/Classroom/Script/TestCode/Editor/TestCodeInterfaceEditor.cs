@@ -21,6 +21,11 @@ namespace TLab.VRClassroom
             {
                 instance.ArrayInstantiateTest();
             }
+
+            if (GUILayout.Button("Collider Test"))
+            {
+                instance.MeshColliderClosestPoint();
+            }
         }
     }
 }

@@ -8,6 +8,10 @@ namespace TLab.XR.Interact.Editor
     [CanEditMultipleObjects]
     public class ExclusiveControllerEditor : UnityEditor.Editor
     {
+        // Editor created on the assumption that the controller
+        // uses the grabbableHandle and rotateble; modify as
+        // appropriate to suit your needs.
+
         private void InitializeForRotateble(ExclusiveController controller, Rotatable rotatable)
         {
             controller.InitializeRotatable();
@@ -24,10 +28,13 @@ namespace TLab.XR.Interact.Editor
             var meshFilter = controller.gameObject.RequireComponent<MeshFilter>();
             var rotatable = controller.gameObject.RequireComponent<Rotatable>();
             var meshCollider = controller.gameObject.RequireComponent<MeshCollider>();
+            meshCollider.convex = true;     // meshCollider.ClosestPoint only works with convex = true
             meshCollider.enabled = isRoot;
 
             EditorUtility.SetDirty(controller);
             EditorUtility.SetDirty(rotatable);
+            EditorUtility.SetDirty(meshFilter);
+            EditorUtility.SetDirty(meshCollider);
         }
 
         public override void OnInspectorGUI()

@@ -202,13 +202,22 @@ namespace TLab.XR.Network
                     CacheAvator(HOST_INDEX, tracker.gameObject);
                 }
 
-                m_cameraRig.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                if (m_instantiateAnchor != null)
+                {
+                    m_cameraRig.SetLocalPositionAndRotation(m_instantiateAnchor.position, m_instantiateAnchor.rotation);
+                }
+                else
+                {
+                    m_cameraRig.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                }
 
                 var anchor = m_respownAnchors[m_seatIndex];
                 m_cameraRig.SetPositionAndRotation(anchor.position, anchor.rotation);
 
                 // Connect to signaling server
-                m_dataChannel.Join(gameObject.name + "_" + m_seatIndex.ToString(), "VR_Class");
+                var userID = gameObject.name + "_" + m_seatIndex.ToString();
+                var roomID = "VR_Class";
+                m_dataChannel.Join(userID, roomID);
 
             };
             receiveCallbacks[(int)WebAction.EXIT] = (obj) => { };
