@@ -13881,6 +13881,10 @@ MonoBehaviour:
   m_romajiBOX: {fileID: 5572544816999795458}
   m_symbolBOX: {fileID: 6014961633439098267}
   m_operatorBOX: {fileID: 4108242326666228828}
+  m_anchor: {fileID: 0}
+  m_onHide:
+    m_PersistentCalls:
+      m_Calls: []
   m_inputFieldBase: {fileID: 0}
 --- !u!1 &7118965853204549547
 GameObject:
