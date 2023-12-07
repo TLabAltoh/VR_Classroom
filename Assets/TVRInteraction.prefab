@@ -43,6 +43,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7704272846166769611}
   - component: {fileID: 377480635110621487}
+  - component: {fileID: 5168105092691148108}
+  - component: {fileID: 4332659120338444371}
+  - component: {fileID: 7937364110295180298}
   m_Layer: 0
   m_Name: LeftHand
   m_TagString: Untagged
@@ -78,8 +81,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inputDataSource: {fileID: 0}
-  m_maxGrabberDistance: 0.05
-  m_maxPointerDistance: 0.05
+--- !u!114 &5168105092691148108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704272846166769610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f62730a15a504c459f0a5f4ed14bda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hand: {fileID: 377480635110621487}
+  m_maxDistance: 0.05
+--- !u!114 &4332659120338444371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704272846166769610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6a91204e507cc49b750299e5ad9f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hand: {fileID: 377480635110621487}
+  m_maxDistance: 0.05
+--- !u!114 &7937364110295180298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704272846166769610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aa361c53a912c64a9c645f9a0354164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hand: {fileID: 377480635110621487}
+  m_maxDistance: 0.05
+  m_pokePointer: {fileID: 0}
+  m_gesture: Poke
 --- !u!1 &7704272846334409194
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +135,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7704272846334409195}
   - component: {fileID: 2682979694731971042}
+  - component: {fileID: 693056741715154730}
+  - component: {fileID: 1030426549621934209}
+  - component: {fileID: 8243804666725597495}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -125,8 +173,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inputDataSource: {fileID: 0}
-  m_maxGrabberDistance: 0.05
-  m_maxPointerDistance: 0.05
+--- !u!114 &693056741715154730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704272846334409194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f62730a15a504c459f0a5f4ed14bda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hand: {fileID: 2682979694731971042}
+  m_maxDistance: 0.05
+--- !u!114 &1030426549621934209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704272846334409194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6a91204e507cc49b750299e5ad9f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hand: {fileID: 2682979694731971042}
+  m_maxDistance: 0.05
+--- !u!114 &8243804666725597495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704272846334409194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aa361c53a912c64a9c645f9a0354164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hand: {fileID: 2682979694731971042}
+  m_maxDistance: 0.05
+  m_pokePointer: {fileID: 0}
+  m_gesture: Poke
 --- !u!1 &7704272846865642013
 GameObject:
   m_ObjectHideFlags: 0
