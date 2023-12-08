@@ -7,6 +7,9 @@ namespace TLab.InputField
         [Header("Keyborad")]
         [SerializeField] protected TLabVKeyborad m_keyborad;
 
+        [Header("Option")]
+        [SerializeField] protected bool m_activeOnAwake = false;
+
         public bool inputFieldIsActive => m_keyborad.inputFieldBase == this;
 
         #region KEY_EVENT
@@ -37,7 +40,13 @@ namespace TLab.InputField
 
         #endregion FOUCUS_EVENT
 
-        protected virtual void Start() { }
+        protected virtual void Start()
+        {
+            if (m_activeOnAwake)
+            {
+                m_keyborad.SwitchInputField(this);
+            }
+        }
 
         protected virtual void Update() { }
     }
