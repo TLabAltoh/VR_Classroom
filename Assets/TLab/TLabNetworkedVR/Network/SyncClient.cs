@@ -42,10 +42,10 @@ namespace TLab.XR.Network
         [Header("User Role")]
         [SerializeField] private bool m_isHost = false;
 
-        [SerializeField] private bool m_selfDebug = false;
+        [SerializeField] private bool m_buildDebug = false;
 
 #if UNITY_EDITOR
-        [SerializeField] private bool m_debug = false;
+        [SerializeField] private bool m_editorDebug = false;
 #endif
 
         public static SyncClient Instance;
@@ -622,13 +622,13 @@ namespace TLab.XR.Network
             ConnectServerAsync();
 
 #if UNITY_EDITOR
-            if (m_debug)
+            if (m_editorDebug)
             {
-                m_seatIndex = HOST_INDEX;
+                m_isHost = true;
             }
 #endif
 
-            if (m_selfDebug)
+            if (m_buildDebug)
             {
 #if UNITY_EDITOR
                 m_isHost = false;

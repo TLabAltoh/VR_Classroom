@@ -69,6 +69,8 @@ namespace TLab.XR
 
         private Pointer[] m_pointersToProcessScratch = Array.Empty<Pointer>();
 
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
+
         private static CanvasModule m_instance = null;
 
         private static CanvasModule Instance => m_instance;
@@ -144,6 +146,10 @@ namespace TLab.XR
 
         private void HandlePointerEvent(Canvas canvas, PointerEvent evt)
         {
+#if UNITY_EDITOR
+            Debug.Log(THIS_NAME + "Pointer Event Fired ! :" + evt.type.ToString());
+#endif
+
             Pointer pointer;
 
             switch (evt.type)
@@ -189,6 +195,8 @@ namespace TLab.XR
             Action<PointerEvent> pointerCanvasAction = (args) => HandlePointerEvent(pointerCanvas.canvas, args);
             m_pointerCanvasActionMap.Add(pointerCanvas, pointerCanvasAction);
             pointerCanvas.whenPointerEventRaised += pointerCanvasAction;
+
+            Debug.Log(THIS_NAME + "Pointable Canvas: " + pointerCanvas.name + " callback registed");
         }
 
         private void RemovePointerCanvas(PointableCanvas pointerCanvas)
@@ -210,6 +218,8 @@ namespace TLab.XR
                 m_pointersForDeletion.Add(pointer);
                 m_pointerMap.Remove(pointerID);
             }
+
+            Debug.Log(THIS_NAME + "Pointable Canvas: " + pointerCanvas.name + " callback removed");
         }
 
         public static void RegisterPointableCanvas(PointableCanvas pointerCanvas)
@@ -584,17 +594,17 @@ namespace TLab.XR
 
         protected override void Start()
         {
-            base.Start();
-
-            m_started = true;
+            this.BeginStart(ref m_started, () => base.Start());
+            this.EndStart(ref m_started);
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
+
             if (m_started)
             {
-                m_pointerEventCamera = gameObject.AddComponent<Camera>();
+                m_pointerEventCamera = gameObject.RequireComponent<Camera>();
                 m_pointerEventCamera.nearClipPlane = 0.1f;
 
                 // We do not need this camera to be enabled to serve this module's purposes:

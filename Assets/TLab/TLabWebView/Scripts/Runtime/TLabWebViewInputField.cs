@@ -39,12 +39,11 @@ namespace TLab.Android.WebView
 
         public override void OnFocus()
         {
-            base.OnFocus();
+            var notActive = !inputFieldIsActive;
 
-            var hide = !inputFieldIsActive;
-
-            if (m_keyborad.isMobile)
+            if (m_keyborad.isMobile && notActive)
             {
+                m_keyborad.SwitchInputField(this);
                 m_keyborad.HideKeyborad(false);
             }
         }

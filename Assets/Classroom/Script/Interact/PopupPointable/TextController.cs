@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using TLab.XR.Network;
-using TLab.XR.Interact;
 
 namespace TLab.VRClassroom
 {
@@ -31,13 +29,19 @@ namespace TLab.VRClassroom
         [SerializeField] private bool m_enableSync = false;
         [SerializeField] private bool m_autoUpdate = false;
 
+        [SerializeField] private SeatIdentifier m_identifier;
+
         private NetworkedObject m_networkedObject;
 
         private TextControllerTransform m_initialTransform;
 
         const float DURATION = 0.25f;
 
+#if UNITY_EDITOR
+        public void SetIdentifier(SeatIdentifier identifier) => m_identifier = identifier;
+
         public void SetTarget(Transform taregt) => m_target = taregt;
+#endif
 
         private void LerpScale(Transform target, TextControllerTransform start, TextControllerTransform end, float lerpValue)
         {
@@ -105,11 +109,7 @@ namespace TLab.VRClassroom
 
         void Start()
         {
-            string name = this.gameObject.name;
-            string num = name[name.Length - 1].ToString();
-
-            int anchorIndex = SyncClient.NOT_REGISTED;
-            Int32.TryParse(num, out anchorIndex);
+            int anchorIndex = m_identifier.seatIndex;
 
             if (m_enableSync)
             {
@@ -121,10 +121,6 @@ namespace TLab.VRClassroom
                 {
                     m_autoUpdate = true;
                 }
-            }
-            else if (anchorIndex != SyncClient.Instance.seatIndex)
-            {
-                Destroy(this.gameObject);
             }
 
             m_networkedObject = GetComponent<NetworkedObject>();

@@ -2,9 +2,7 @@ using System.Collections;
 using System.IO;
 using System.IO.Compression;
 using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 using TLab.Network.WebRTC;
 
 namespace TLab.Network.VoiceChat
@@ -57,8 +55,7 @@ namespace TLab.Network.VoiceChat
 
         private Hashtable m_voicePlayers = new Hashtable();
 
-        //
-        private const string THIS_NAME = "[tlabvoicechat] ";
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
         /*
          * Obtain microphone input in real time

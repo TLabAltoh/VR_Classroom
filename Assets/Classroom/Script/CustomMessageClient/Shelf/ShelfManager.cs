@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using TLab.XR.Network;
 
 namespace TLab.VRClassroom
 {
@@ -54,7 +52,7 @@ namespace TLab.VRClassroom
             instanced = Instantiate(shelfObjInfo.obj, anchor.position, anchor.rotation);
             instanced.name = instanced.name + "_" + anchorIndex.ToString();
 
-            // 分割可能オブジェクトの場合，子オブジェクトも名前を変更
+            // 子階層のオブジェクトの名前もすべて変更
             Transform[] transforms = instanced.gameObject.GetComponentsInChildren<Transform>();
             foreach (Transform childTransform in transforms)
             {
@@ -65,6 +63,10 @@ namespace TLab.VRClassroom
 
                 childTransform.gameObject.name = childTransform.gameObject.name + "_" + anchorIndex.ToString();
             }
+
+            // SeatIdentifierにこのオブジェクトがどの席にインスタンス化されたものなのかを記録する
+            var identifier = instanced.GetComponent<SeatIdentifier>();
+            identifier.seatIndex = anchorIndex;
 
             // インスタンス化したオブジェクトの参照を保持する
             shelfObjInfo.instanced[anchorIndex] = instanced;

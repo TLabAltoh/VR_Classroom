@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TLab.XR.Network;
 
 namespace TLab.VRClassroom
 {
@@ -13,6 +14,8 @@ namespace TLab.VRClassroom
         }
 
         public PointerPopupPair[] pointerPairs => m_pointerPairs;
+
+        [SerializeField] protected SeatIdentifier m_identifier;
 
         [SerializeField] protected TextController[] m_controllers;
 
@@ -85,10 +88,16 @@ namespace TLab.VRClassroom
                 return;
             }
 
+            foreach (var controller in m_controllers)
+            {
+                controller.SetIdentifier(m_identifier);
+            }
+
             foreach (var popupPair in m_pointerPairs)
             {
                 if (popupPair.controller != null && popupPair.target != null)
                 {
+                    popupPair.controller.SetIdentifier(m_identifier);
                     popupPair.controller.SetTarget(popupPair.target.transform);
                 }
             }

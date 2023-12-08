@@ -60,7 +60,7 @@ namespace TLab.XR.Interact
         {
             base.Hovered(interactor);
 
-            whenPointerEventRaised.Invoke(
+            whenPointerEventRaised?.Invoke(
                 new PointerEvent(interactor.identifier, PointerEventType.HOVER, interactor.pointer));
         }
 
@@ -73,7 +73,7 @@ namespace TLab.XR.Interact
         {
             base.UnHovered(interactor);
 
-            whenPointerEventRaised.Invoke(
+            whenPointerEventRaised?.Invoke(
                 new PointerEvent(interactor.identifier, PointerEventType.UNHOVER, interactor.pointer));
         }
 
@@ -81,7 +81,7 @@ namespace TLab.XR.Interact
         {
             base.Selected(interactor);
 
-            whenPointerEventRaised.Invoke(
+            whenPointerEventRaised?.Invoke(
                 new PointerEvent(interactor.identifier, PointerEventType.SELECT, interactor.pointer));
         }
 
@@ -89,7 +89,7 @@ namespace TLab.XR.Interact
         {
             base.WhileSelected(interactor);
 
-            whenPointerEventRaised.Invoke(
+            whenPointerEventRaised?.Invoke(
                 new PointerEvent(interactor.identifier, PointerEventType.MOVE, interactor.pointer));
         }
 
@@ -97,7 +97,7 @@ namespace TLab.XR.Interact
         {
             base.UnSelected(interactor);
 
-            whenPointerEventRaised.Invoke(
+            whenPointerEventRaised?.Invoke(
                 new PointerEvent(interactor.identifier, PointerEventType.UNSELECT, interactor.pointer));
         }
 

@@ -48,20 +48,24 @@ namespace TLab.XR.Interact
 
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
-        protected bool m_hovered = false;
+        public List<Interactor> hovereds => m_hovereds;
 
-        protected bool m_selected = false;
-
-        public bool hovered => m_hovered;
-
-        public bool selected => m_selected;
+        public List<Interactor> selecteds => m_selecteds;
 
         public Collider srufaceCollider => m_collider;
 
+        public virtual bool IsHoveres(Interactor interactor)
+        {
+            return m_hovereds.Contains(interactor);
+        }
+
+        public virtual bool IsSelectes(Interactor interactor)
+        {
+            return m_selecteds.Contains(interactor);
+        }
+
         public virtual void Hovered(Interactor interactor)
         {
-            m_hovered = true;
-
             m_hovereds.Add(interactor);
 
             if (m_interactableChain != null)
@@ -80,8 +84,6 @@ namespace TLab.XR.Interact
 
         public virtual void UnHovered(Interactor interactor)
         {
-            m_hovered = false;
-
             m_hovereds.Remove(interactor);
 
             if (m_interactableChain != null)
@@ -92,7 +94,7 @@ namespace TLab.XR.Interact
 
         public virtual void Selected(Interactor interactor)
         {
-            m_selected = true;
+            m_selecteds.Add(interactor);
 
             if (m_interactableChain != null)
             {
@@ -110,7 +112,7 @@ namespace TLab.XR.Interact
 
         public virtual void UnSelected(Interactor interactor)
         {
-            m_selected = false;
+            m_selecteds.Remove(interactor);
 
             if (m_interactableChain != null)
             {

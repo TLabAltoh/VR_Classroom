@@ -32,9 +32,7 @@ namespace TLab.XR.Interact
 
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
-        protected List<Interactable> m_selecteds = new List<Interactable>();
-
-        protected List<Interactable> m_hovereds = new List<Interactable>();
+        protected Interactable m_interactable;
 
         protected bool m_pressed = false;
 
@@ -72,6 +70,21 @@ namespace TLab.XR.Interact
 
         public int identifier => m_identifier;
 
+        protected virtual void UpdateRaycast()
+        {
+
+        }
+
+        protected virtual void UpdateInput()
+        {
+
+        }
+
+        protected virtual void Process()
+        {
+
+        }
+
         protected virtual void Awake()
         {
             m_identifier = GenerateIdentifier();
@@ -79,7 +92,7 @@ namespace TLab.XR.Interact
 
         protected virtual void Start()
         {
-
+            UpdateInput();
         }
 
         protected virtual void Update()
@@ -87,6 +100,10 @@ namespace TLab.XR.Interact
             // TODO: ここで行う処理を共通化したい．どのサブクラスでも同じような
             // 処理を実行している．ただ，Spherecast()の対象の型が異なるため，
             // 型指定のパラメータからはアクセスできない ...
+
+            UpdateInput();
+
+            Process();
         }
     }
 }

@@ -17,6 +17,7 @@ namespace TLab.VRClassroom
         public static string ENTRY_SCENE = "Entry";
         public static string HOST_SCENE = "Host";
         public static string GUEST_SCENE = "Guest";
+        public static string DEMO_SCENE = "Demo Scene";
 
         public static string SHELF_SERVER = "Shelf";
         public static string SYNC_SERVER = "SyncServer";
@@ -61,6 +62,26 @@ namespace TLab.VRClassroom
             }
 
             return commandDic;
+        }
+
+        public void EnterDemoScene()
+        {
+            var splited = m_inputField.text.Split(" ");
+            var ipAddr = splited[0];
+            var argment = "";
+            for (int i = 1; i < splited.Length; i++)
+            {
+                argment += splited[i] + " ";
+            }
+
+            var commands = ParseCommand(argment);
+
+            string scene = DEMO_SCENE;
+
+            m_serverAddressBox.SetAddress(SYNC_SERVER, ipAddr, "5000");
+            m_serverAddressBox.SetAddress(SIGNALING_SERVER, ipAddr, "3001");
+
+            StartCoroutine(ChangeScene(scene));
         }
 
         public void Enter()

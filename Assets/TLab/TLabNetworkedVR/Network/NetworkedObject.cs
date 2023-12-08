@@ -501,7 +501,7 @@ namespace TLab.XR.Network
                 return;
             }
 
-            if (!deleteCache)
+            if (deleteCache)
             {
                 ClearTransform();
             }

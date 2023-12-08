@@ -55,7 +55,9 @@ namespace TLab.XR.Interact
         private void Register()
         {
             CanvasModule.RegisterPointableCanvas(this);
+
             PointableCanvas.Register(this);
+
             m_registered = true;
         }
 
@@ -67,6 +69,7 @@ namespace TLab.XR.Interact
             }
 
             CanvasModule.UnregisterPointableCanvas(this);
+
             PointableCanvas.UnRegister(this);
 
             m_registered = false;
@@ -74,14 +77,14 @@ namespace TLab.XR.Interact
 
         protected override void Start()
         {
-            base.Start();
-
-            m_started = true;
+            this.BeginStart(ref m_started, () => base.Start());
+            this.EndStart(ref m_started);
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
+
             if (m_started)
             {
                 Register();

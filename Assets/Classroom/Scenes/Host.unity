@@ -2788,6 +2788,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TVRInteraction
       objectReference: {fileID: 0}
+    - target: {fileID: 7937364110295180298, guid: 30f1bbfab9340974d99bc78875a9cc4f, type: 3}
+      propertyPath: m_pokePointer
+      value: 
+      objectReference: {fileID: 2146486235}
+    - target: {fileID: 8243804666725597495, guid: 30f1bbfab9340974d99bc78875a9cc4f, type: 3}
+      propertyPath: m_pokePointer
+      value: 
+      objectReference: {fileID: 2146486243}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30f1bbfab9340974d99bc78875a9cc4f, type: 3}
 --- !u!4 &931970026 stripped
@@ -2884,6 +2892,32 @@ MonoBehaviour:
     - {x: -0.17027162, y: -0.057946805, z: 0.0059449957}
     - {x: -0.16810986, y: -0.04533331, z: 0.022638023}
     - {x: -0.14669465, y: -0.03285584, z: 0.043786094}
+  - name: Poke
+    fingerDatas:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: -0.020068992, y: -0.011553999, z: -0.010497007}
+    - {x: -0.03740757, y: -0.02242994, z: -0.024594339}
+    - {x: -0.06394108, y: -0.03688918, z: -0.03659398}
+    - {x: -0.09447825, y: -0.049482808, z: -0.029462984}
+    - {x: -0.09599621, y: -0.007316456, z: -0.0235507}
+    - {x: -0.132149, y: -0.01830812, z: -0.026811242}
+    - {x: -0.1546889, y: -0.02724525, z: -0.02846989}
+    - {x: -0.09564659, y: -0.0025431507, z: -0.0017259138}
+    - {x: -0.10263514, y: -0.044889253, z: -0.00089358306}
+    - {x: -0.075631045, y: -0.04737288, z: -0.0057504256}
+    - {x: -0.08869372, y: -0.0065293084, z: 0.017465292}
+    - {x: -0.08667889, y: -0.045277473, z: 0.013564786}
+    - {x: -0.061486542, y: -0.040385023, z: 0.006668856}
+    - {x: -0.034073535, y: -0.009419829, z: 0.02299854}
+    - {x: -0.07789583, y: -0.013691176, z: 0.035054103}
+    - {x: -0.07624298, y: -0.04303403, z: 0.026109444}
+    - {x: -0.05690011, y: -0.039458152, z: 0.021048104}
+    - {x: -0.11141541, y: -0.057394788, z: -0.01343982}
+    - {x: -0.1766768, y: -0.031461954, z: -0.028569758}
+    - {x: -0.058143307, y: -0.030330552, z: -0.0110769225}
+    - {x: -0.048625667, y: -0.020078387, z: 0.0025883322}
+    - {x: -0.044428412, y: -0.02167249, z: 0.017845703}
   m_targetGestures:
   - Grabb
   - Pinch
@@ -2964,12 +2998,49 @@ MonoBehaviour:
     - {x: 0.17400205, y: 0.050716493, z: 0.002104347}
     - {x: 0.1707839, y: 0.03328948, z: -0.01875271}
     - {x: 0.14719005, y: 0.023631733, z: -0.04580202}
+  - name: Poke
+    fingerDatas:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0.020069, y: 0.011553998, z: 0.010496999}
+    - {x: 0.036028784, y: 0.019309686, z: 0.027897524}
+    - {x: 0.062988415, y: 0.02656191, z: 0.04456103}
+    - {x: 0.09237761, y: 0.03789752, z: 0.032323748}
+    - {x: 0.09599623, y: 0.007316455, z: 0.023550684}
+    - {x: 0.12798968, y: 0.027527804, z: 0.026080422}
+    - {x: 0.14792071, y: 0.041383993, z: 0.027274428}
+    - {x: 0.09564661, y: 0.0025431553, z: 0.0017259098}
+    - {x: 0.10579397, y: 0.044244286, z: 0.00084754283}
+    - {x: 0.078696616, y: 0.047327135, z: 0.00474742}
+    - {x: 0.088693775, y: 0.0065293075, z: -0.017465238}
+    - {x: 0.096724525, y: 0.044651132, z: -0.01575453}
+    - {x: 0.07138467, y: 0.04498325, z: -0.0077591003}
+    - {x: 0.034073554, y: 0.009419833, z: -0.02299857}
+    - {x: 0.077895835, y: 0.013691184, z: -0.03505406}
+    - {x: 0.08701456, y: 0.042420577, z: -0.029120076}
+    - {x: 0.06846656, y: 0.043566346, z: -0.02092196}
+    - {x: 0.097557835, y: 0.043904085, z: 0.009015036}
+    - {x: 0.16778164, y: 0.051715452, z: 0.027023973}
+    - {x: 0.06560976, y: 0.026586961, z: 0.009565467}
+    - {x: 0.060561817, y: 0.023407955, z: -0.0043260786}
+    - {x: 0.05804427, y: 0.024459712, z: -0.018016648}
   m_targetGestures:
   - Grabb
   - Pinch
   THRESHOLD: 0.05
   m_editMode: 0
   m_recordKey: 32
+--- !u!114 &931970034 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 693056741715154730, guid: 30f1bbfab9340974d99bc78875a9cc4f, type: 3}
+  m_PrefabInstance: {fileID: 931970025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931970027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f62730a15a504c459f0a5f4ed14bda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1023963605
 Mesh:
   m_ObjectHideFlags: 0
@@ -4668,7 +4739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1914940661}
   - component: {fileID: 1914940660}
-  - component: {fileID: 1914940659}
+  - component: {fileID: 1914940662}
   m_Layer: 0
   m_Name: CanvasModule
   m_TagString: Untagged
@@ -4676,20 +4747,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1914940659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914940658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2518c50cb3fc6a6458d4b743c2f69c7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  _useInitialPressPositionForDrag: 1
 --- !u!114 &1914940660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4720,6 +4777,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1914940662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914940658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad2ec97b1aad9c41afb8e49f7ce61a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_useInitialPressPositionForDrag: 1
 --- !u!43 &1965602080
 Mesh:
   m_ObjectHideFlags: 0
@@ -5037,7 +5108,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-59860
+  m_Name: pb_Mesh314270
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6830,11 +6901,15 @@ PrefabInstance:
       objectReference: {fileID: 2014581313}
     - target: {fileID: 1992072394071876174, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_VersionIndex
-      value: 7960
+      value: 8011
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394097134738, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Name
       value: SyncSample
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992072394097134738, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394097134739, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_RootOrder
@@ -10232,6 +10307,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6335365621003125849, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_interactor
+      value: 
+      objectReference: {fileID: 931970034}
+    - target: {fileID: 6335365621003125849, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_inputDataSource
+      value: 
+      objectReference: {fileID: 931970030}
     - target: {fileID: 6375551673546260335, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

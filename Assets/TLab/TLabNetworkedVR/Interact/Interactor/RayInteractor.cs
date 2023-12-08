@@ -4,52 +4,8 @@ namespace TLab.XR.Interact
     {
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
-        protected override void Awake()
+        protected override void UpdateRaycast()
         {
-            base.Awake();
-        }
-
-        protected override void Start()
-        {
-            base.Start();
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-
-            m_pointer = m_hand.pointer;
-
-            m_pressed = m_hand.pressed;
-
-            m_onPress = m_hand.onPress;
-
-            m_onRelease = m_hand.onRelease;
-
-            m_angulerVelocity = m_hand.angulerVelocity;
-
-            if (m_pressed)
-            {
-                m_selecteds.ForEach((i) =>
-                {
-                    i.WhileSelected(this);
-                });
-            }
-            else if (m_onRelease)
-            {
-                m_selecteds.ForEach((i) =>
-                {
-                    i.UnSelected(this);
-                });
-
-                m_selecteds.Clear();
-            }
-
-            m_hovereds.ForEach((i) =>
-            {
-                i.WhileHovered(this);
-            });
-
             var minDist = float.MaxValue;
             var candidate = null as Pointable;
 
@@ -64,11 +20,6 @@ namespace TLab.XR.Interact
                         minDist = tmp;
                     }
                 }
-                else if (m_hovereds.Contains(h))
-                {
-                    h.UnHovered(this);
-                    m_hovereds.Remove(h);
-                }
             });
 
             if (candidate != null as Pointable)
@@ -77,29 +28,73 @@ namespace TLab.XR.Interact
 
                 m_raycastResult = target;
 
-                var selectedContain = m_selecteds.Contains(candidate);
+                m_interactable = candidate;
 
-                var hoveredContain = m_hovereds.Contains(candidate);
+                m_interactable.Hovered(this);
+            }
+            else
+            {
+                m_interactable = null;
+                m_raycastResult = null;
+            }
+        }
 
-                // Hover
+        protected override void UpdateInput()
+        {
+            m_pointer = m_hand.pointer;
 
-                if (!hoveredContain)
+            m_pressed = m_hand.pressed;
+
+            m_onPress = m_hand.onPress;
+
+            m_onRelease = m_hand.onRelease;
+
+            m_angulerVelocity = m_hand.angulerVelocity;
+        }
+
+        protected override void Process()
+        {
+            base.Process();
+
+            if (m_interactable != null)
+            {
+                if (m_interactable.Spherecast(m_pointer.position, out m_raycastHit, m_maxDistance))
                 {
-                    m_hovereds.Add(candidate);
-                    candidate.Hovered(this);
+                    m_interactable.WhileHovered(this);
+
+                    if (m_interactable.IsSelectes(this))
+                    {
+                        if (m_pressed)
+                        {
+                            m_interactable.WhileSelected(this);
+                        }
+                        else
+                        {
+                            m_interactable.UnSelected(this);
+                        }
+                    }
+                    else
+                    {
+                        if (m_onPress)
+                        {
+                            m_interactable.Selected(this);
+                        }
+                    }
                 }
-
-                // Select
-
-                if (m_onPress && !selectedContain)
+                else
                 {
-                    m_selecteds.Add(candidate);
-                    candidate.Selected(this);
+                    if (m_interactable.IsSelectes(this))
+                    {
+                        m_interactable.UnSelected(this);
+                    }
+
+                    m_interactable.UnHovered(this);
+                    m_interactable = null;
                 }
             }
             else
             {
-                m_raycastResult = null;
+                UpdateRaycast();
             }
         }
     }
