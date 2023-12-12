@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Oculus.Interaction;
 using Oculus.Interaction.Input;
 
 namespace TLab.XR.Input
@@ -16,23 +15,9 @@ namespace TLab.XR.Input
 
         [Header("OVR Hand")]
 
+        [SerializeField] private HandRef m_hand;
+
         [SerializeField] private FromOVRHandDataSource m_dataSource;
-
-        [SerializeField] private RayInteractor m_rayInteractor;
-
-        [Header("OVR Pointer")]
-
-#if UNITY_EDITOR
-        [SerializeField] private Transform m_pointerDebug;
-
-        [SerializeField] private Transform m_grabbPointerDebug;
-#endif
-
-        [Header("Grabb Pointer")]
-
-        [SerializeField] private Transform m_indexNull;
-
-        [SerializeField] private Transform m_thumbNull;
 
         [Header("Gesture")]
 
@@ -40,7 +25,9 @@ namespace TLab.XR.Input
 
         [SerializeField] private List<Gesture> m_gestures;
 
-        [SerializeField] private List<string> m_targetGestures;
+        [SerializeField] private List<string> m_grabGestures;
+
+        [SerializeField] private List<string> m_rayHideGestures;
 
         [SerializeField] private float THRESHOLD = 0.1f;
 
@@ -61,6 +48,20 @@ namespace TLab.XR.Input
         private const string DEFAULT_GESTUR_NAME = "New Gesture";
 
         private const float AVERAGE = 0.5f;
+
+        public bool rayHide
+        {
+            get
+            {
+                bool active = false;
+                m_rayHideGestures.ForEach((g) =>
+                {
+                    active |= (g == m_currentGesture);
+                });
+
+                return active;
+            }
+        }
 
         private string DetectGesture()
         {
@@ -134,44 +135,15 @@ namespace TLab.XR.Input
             }
 #endif
 
+            // Update Pose
+
             var dataAsset = m_dataSource.GetData();
 
-            var rootPose = dataAsset.Root;
-            m_rootPose = new Input.Pose
-            {
-                position = rootPose.position,
-                rotation = rootPose.rotation
-            };
+            m_hand.GetRootPose(out m_rootPose);
 
-            var pointerPose = dataAsset.PointerPose;
-            m_pointerPose = new Input.Pose
-            {
-                position = pointerPose.position,
-                rotation = pointerPose.rotation
-            };
+            m_hand.GetPointerPose(out m_pointerPose);
 
-            m_pointerOrigin = m_rayInteractor.Origin;
-
-            m_pointerPos = m_rayInteractor.End;
-
-            m_grabbPointer.transform.position = Vector3.Lerp(m_indexNull.position, m_thumbNull.position, AVERAGE);
-            m_grabbPointer.transform.rotation = Quaternion.Lerp(m_indexNull.rotation, m_thumbNull.rotation, AVERAGE);
-
-            m_grabbPointerPos = m_grabbPointer.transform.position;
-
-#if UNITY_EDITOR
-            if(m_pointerDebug != null)
-            {
-                m_pointerDebug.position = m_pointerPos;
-            }
-
-            if(m_grabbPointerDebug != null)
-            {
-                m_grabbPointerDebug.position = m_grabbPointerPos;
-            }
-#endif
-
-            // Detect Pinch Input
+            // Detect Trigger Press
 
             bool triggerFired = dataAsset.IsFingerPinching[(int)OVRHand.HandFinger.Index];
             bool prevTriggerFired = m_triggerFired;
@@ -193,7 +165,7 @@ namespace TLab.XR.Input
                 m_onRelease = true;
             }
 
-            // Detect Grab Input
+            // Detect Grab Press
 
             if ((m_skeleton != null) && m_skeltonInitialized)
             {
@@ -201,7 +173,7 @@ namespace TLab.XR.Input
 
                 bool grabFired = false;
 
-                m_targetGestures.ForEach((g) =>
+                m_grabGestures.ForEach((g) =>
                 {
                     grabFired = grabFired || (m_currentGesture == g);
                 });

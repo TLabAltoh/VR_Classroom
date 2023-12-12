@@ -23,7 +23,7 @@ namespace TLab.VRClassroom.Editor
                 popupPointable = target.AddComponent<PopupPointable>();
             }
 
-            if (outlinePointable != null)
+            if (popupPointable != null)
             {
                 popupPointable.outlineMat = outlinePointable.outlineMat;
                 popupPointable.popupManager = manager;

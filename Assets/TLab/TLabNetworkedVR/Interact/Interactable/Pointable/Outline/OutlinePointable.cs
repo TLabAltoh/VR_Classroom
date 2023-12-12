@@ -55,7 +55,10 @@ namespace TLab.XR.Interact
         {
             base.UnHovered(interactor);
 
-            m_material.SetFloat(OUTLINE_WIDTH, ZERO_WIDTH);
+            if (!IsHovered())
+            {
+                m_material.SetFloat(OUTLINE_WIDTH, ZERO_WIDTH);
+            }
         }
     }
 }

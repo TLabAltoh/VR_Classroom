@@ -122,6 +122,13 @@ namespace TLab.VRClassroom
                     m_autoUpdate = true;
                 }
             }
+            else
+            {
+                if (anchorIndex != SyncClient.Instance.seatIndex)
+                {
+                    Destroy(gameObject);    // ìÆçÏñ¢ämîF
+                }
+            }
 
             m_networkedObject = GetComponent<NetworkedObject>();
 

@@ -8,8 +8,7 @@ namespace TLab.XR.Interact
         [Header("TLab XR Hand")]
         [SerializeField] protected TLabXRHand m_hand;
 
-        [Header("Raycst Settings")]
-        [SerializeField] protected float m_maxDistance = 0.05f;
+        [SerializeField] protected Transform m_pointer;
 
         protected static List<int> m_identifiers = new List<int>();
 
@@ -34,6 +33,12 @@ namespace TLab.XR.Interact
 
         protected Interactable m_interactable;
 
+        protected int m_identifier;
+
+        protected RaycastHit m_raycastHit;
+
+        protected GameObject m_raycastResult = null;
+
         protected bool m_pressed = false;
 
         protected bool m_onPress = false;
@@ -42,15 +47,21 @@ namespace TLab.XR.Interact
 
         protected float m_pressStrength = 0.0f;
 
-        protected Transform m_pointer;
-
-        protected RaycastHit m_raycastHit;
-
-        protected GameObject m_raycastResult = null;
-
         protected Vector3 m_angulerVelocity;
 
-        protected int m_identifier;
+        public int identifier => m_identifier;
+
+        public Transform pointer => m_pointer;
+
+        // Raycast Result
+
+        public RaycastHit raycastHit => m_raycastHit;
+
+        public GameObject raycastResult => m_raycastResult;
+
+        // Interactor input
+
+        public float pressStrength => m_pressStrength;
 
         public bool pressed => m_pressed;
 
@@ -58,17 +69,7 @@ namespace TLab.XR.Interact
 
         public bool onRelease => m_onRelease;
 
-        public float pressStrength => m_pressStrength;
-
-        public Transform pointer => m_pointer;
-
-        public RaycastHit raycastHit => m_raycastHit;
-
-        public GameObject raycastResult => m_raycastResult;
-
         public Vector3 angulerVelocity => m_angulerVelocity;
-
-        public int identifier => m_identifier;
 
         protected virtual void UpdateRaycast()
         {

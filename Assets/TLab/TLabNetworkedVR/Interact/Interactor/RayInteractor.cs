@@ -1,17 +1,26 @@
+using UnityEngine;
+
 namespace TLab.XR.Interact
 {
     public class RayInteractor : Interactor
     {
+        [Header("Raycast Settings")]
+        [SerializeField] private float m_maxDistance = 5.0f;
+
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
         protected override void UpdateRaycast()
         {
+            base.UpdateRaycast();
+
             var minDist = float.MaxValue;
             var candidate = null as Pointable;
 
+            var ray = new Ray(m_hand.pointerPose.position, m_hand.pointerPose.forward);
+
             Pointable.registry.ForEach((h) =>
             {
-                if (h.Spherecast(m_pointer.position, out m_raycastHit, m_maxDistance))
+                if (h.Raycast(ray, out m_raycastHit, m_maxDistance))
                 {
                     var tmp = m_raycastHit.distance;
                     if (minDist > tmp)
@@ -24,6 +33,8 @@ namespace TLab.XR.Interact
 
             if (candidate != null as Pointable)
             {
+                m_pointer.position = m_raycastHit.point;
+
                 var target = candidate.srufaceCollider.gameObject;
 
                 m_raycastResult = target;
@@ -41,7 +52,7 @@ namespace TLab.XR.Interact
 
         protected override void UpdateInput()
         {
-            m_pointer = m_hand.pointer;
+            base.UpdateInput();
 
             m_pressed = m_hand.pressed;
 
@@ -58,8 +69,11 @@ namespace TLab.XR.Interact
 
             if (m_interactable != null)
             {
-                if (m_interactable.Spherecast(m_pointer.position, out m_raycastHit, m_maxDistance))
+                var ray = new Ray(m_hand.pointerPose.position, m_hand.pointerPose.forward);
+                if (m_interactable.Raycast(ray, out m_raycastHit, m_maxDistance))
                 {
+                    m_pointer.position = m_raycastHit.point;
+
                     m_interactable.WhileHovered(this);
 
                     if (m_interactable.IsSelectes(this))

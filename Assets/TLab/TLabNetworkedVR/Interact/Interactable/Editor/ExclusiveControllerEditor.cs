@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEditor;
 
+#if TLAB_WITH_OCULUS_SDK
+using Oculus.Interaction;
+using Oculus.Interaction.Surfaces;
+#endif
 
 namespace TLab.XR.Interact.Editor
 {
@@ -15,26 +19,46 @@ namespace TLab.XR.Interact.Editor
         private void InitializeForRotateble(ExclusiveController controller, Rotatable rotatable)
         {
             controller.InitializeRotatable();
+            rotatable.rotateSpeed = 10f;
             EditorUtility.SetDirty(controller);
             EditorUtility.SetDirty(rotatable);
         }
 
-        private void InitializeForDivibable(ExclusiveController controller, bool isRoot)
+        private void InitializeForDivibable(GameObject target, bool isRoot)
         {
-            // Disable Rigidbody.useGrabity
-            controller.enableSync = true;
-            controller.UseRigidbody(false, false);
+            var meshFilter = target.RequireComponent<MeshFilter>();
 
-            var meshFilter = controller.gameObject.RequireComponent<MeshFilter>();
-            var rotatable = controller.gameObject.RequireComponent<Rotatable>();
-            var meshCollider = controller.gameObject.RequireComponent<MeshCollider>();
-            meshCollider.convex = true;     // meshCollider.ClosestPoint only works with convex = true
+            var meshCollider = target.RequireComponent<MeshCollider>();
             meshCollider.enabled = isRoot;
+            meshCollider.convex = true;     // meshCollider.ClosestPoint only works with convex = true
 
-            EditorUtility.SetDirty(controller);
-            EditorUtility.SetDirty(rotatable);
+            var controller = target.RequireComponent<ExclusiveController>();
+            controller.enableSync = true;
+            controller.CreateHashID();
+            controller.UseRigidbody(false, false);  // Disable Rigidbody.useGrabity
+
+            var grabbable = target.RequireComponent<Grabbable>();
+            grabbable.enableCollision = true;
+
+            var rotatable = target.RequireComponent<Rotatable>();
+            rotatable.enableCollision = true;
+            rotatable.rotateSpeed = 10f;
+
+#if TLAB_WITH_OCULUS_SDK
+            var rayInteractable = target.RequireComponent<RayInteractable>();
+            var colliderSurface = target.RequireComponent<ColliderSurface>();
+#endif
+
             EditorUtility.SetDirty(meshFilter);
             EditorUtility.SetDirty(meshCollider);
+            EditorUtility.SetDirty(controller);
+            EditorUtility.SetDirty(rotatable);
+            EditorUtility.SetDirty(grabbable);
+
+#if TLAB_WITH_OCULUS_SDK
+            EditorUtility.SetDirty(rayInteractable);
+            EditorUtility.SetDirty(colliderSurface);
+#endif
         }
 
         public override void OnInspectorGUI()
@@ -51,14 +75,13 @@ namespace TLab.XR.Interact.Editor
 
             if (controller.enableDivide && GUILayout.Button("Initialize for Devibable"))
             {
-                InitializeForDivibable(controller, true);
+                InitializeForDivibable(controller.gameObject, true);
 
                 foreach (var divideTarget in controller.divideTargets)
                 {
                     GameObjectUtility.RemoveMonoBehavioursWithMissingScript(divideTarget);
 
-                    var controllerChild = divideTarget.gameObject.RequireComponent<ExclusiveController>();
-                    InitializeForDivibable(controllerChild, false);
+                    InitializeForDivibable(divideTarget, false);
 
                     var tlabGrabbableChild = divideTarget.gameObject.GetComponent<VRGrabber.TLabVRGrabbable>();
                     if(tlabGrabbableChild != null)
@@ -66,15 +89,11 @@ namespace TLab.XR.Interact.Editor
                         DestroyImmediate(tlabGrabbableChild);
                     }
 
-                    divideTarget.gameObject.RequireComponent<Grabbable>();
-
                     var tlabRotatableChild = divideTarget.gameObject.GetComponent<VRGrabber.TLabVRRotatable>();
                     if (tlabRotatableChild != null)
                     {
                         DestroyImmediate(tlabRotatableChild);
                     }
-
-                    divideTarget.gameObject.RequireComponent<Rotatable>();
 
                     EditorUtility.SetDirty(divideTarget);
                 }

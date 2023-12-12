@@ -1,7 +1,12 @@
-﻿namespace TLab.XR.Interact
+﻿using UnityEngine;
+
+namespace TLab.XR.Interact
 {
     public class GrabInteractor : Interactor
     {
+        [Header("Grab Settings")]
+        [SerializeField] private float m_hoverThreshold = 0.05f;
+
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
         protected override void UpdateRaycast()
@@ -11,7 +16,7 @@
 
             Handle.registry.ForEach((h) =>
             {
-                if (h.Spherecast(m_pointer.position, out m_raycastHit, m_maxDistance))
+                if (h.Spherecast(m_pointer.position, out m_raycastHit, m_hoverThreshold))
                 {
                     var tmp = m_raycastHit.distance;
                     if (minDist > tmp)
@@ -43,8 +48,6 @@
         {
             base.UpdateInput();
 
-            m_pointer = m_hand.grabbPointer;
-
             m_pressed = m_hand.grabbed;
 
             m_onPress = m_hand.onGrab;
@@ -60,7 +63,7 @@
 
             if (m_interactable != null)
             {
-                if (m_interactable.Spherecast(m_pointer.position, out m_raycastHit, m_maxDistance))
+                if (m_interactable.Spherecast(m_pointer.position, out m_raycastHit, m_hoverThreshold))
                 {
                     m_interactable.WhileHovered(this);
 

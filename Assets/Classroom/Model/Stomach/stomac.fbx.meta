@@ -3,17 +3,12 @@ guid: 4b684dc0200a8ef4b91f58a01006be39
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: stomach
-    second: {fileID: 2100000, guid: b535d8d09ba024b4fa2c1eb55e8caebf, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

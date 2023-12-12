@@ -46,6 +46,8 @@ namespace TLab.XR.Interact
 
         public static float ZERO_ANGLE = 0.0f;
 
+        public float rotateSpeed { get => m_rotateSpeed; set => m_rotateSpeed = value; }
+
         private bool grabbled => m_controller.grabbed;
 
         private bool syncFromOutside => m_controller.syncFromOutside;

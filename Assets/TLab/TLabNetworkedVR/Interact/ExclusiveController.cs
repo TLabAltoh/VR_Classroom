@@ -383,6 +383,12 @@ namespace TLab.XR.Interact
                 childTransform.localScale = cashTransform.LocalScale;
             }
 
+            var rotatables = this.gameObject.GetComponentsInChildren<Rotatable>();
+            foreach (var rotatable in rotatables)
+            {
+                rotatable.Stop();   // ìÆçÏñ¢åüèÿ
+            }
+
             var meshCollider = gameObject.GetComponent<MeshCollider>();
             if (meshCollider == null)
             {

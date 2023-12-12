@@ -7,8 +7,8 @@ namespace TLab.XR
     {
         [SerializeField] private InputDataSource m_inputDataSource;
 
-        private Vector3 m_prevPointerVec;
-        private Vector3 m_pointerVec;
+        private Quaternion m_prevHandRotation;
+        private Quaternion m_handRotation;
 
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
@@ -20,7 +20,28 @@ namespace TLab.XR
 
         public string currentGesture => m_inputDataSource.currentGesture;
 
-        // Ray Interactor's Pointer
+        // Pose
+
+        public Pose pointerPose => m_inputDataSource.pointerPose;
+
+        public Pose rootPose => m_inputDataSource.rootPose;
+
+        public Vector3 angulerVelocity
+        {
+            get
+            {
+                // https://nekojara.city/unity-object-angular-velocity
+                var diffRotation = Quaternion.Inverse(m_prevHandRotation) * m_handRotation;
+
+                diffRotation.ToAngleAxis(out var angle, out var axis);
+
+                return m_handRotation * axis * (angle / Time.deltaTime);
+            }
+        }
+
+        // Ray Interactor's Input
+
+        public float pressStrength => m_inputDataSource.pressStrength;
 
         public bool pressed => m_inputDataSource.pressed;
 
@@ -28,13 +49,9 @@ namespace TLab.XR
 
         public bool onRelease => m_inputDataSource.onRelease;
 
-        public float pressStrength => m_inputDataSource.pressStrength;
+        // Grab Interactor's Input
 
-        public Vector3 pointerPos => m_inputDataSource.pointerPos;
-
-        public Transform pointer => m_inputDataSource.pointer.transform;
-
-        // Grab Interactor's Pointer
+        public float grabStrength => m_inputDataSource.grabStrength;
 
         public bool grabbed => m_inputDataSource.grabbed;
 
@@ -42,27 +59,10 @@ namespace TLab.XR
 
         public bool onFree => m_inputDataSource.onFree;
 
-        public float grabStrength => m_inputDataSource.grabStrength;
-
-        public Vector3 grabbPointerPos => m_inputDataSource.grabbPointerPos;
-
-        public Transform grabbPointer => m_inputDataSource.grabbPointer.transform;
-
-
-        public Vector3 angulerVelocity
-        {
-            get
-            {
-                Vector3 diff = m_pointerVec - m_prevPointerVec;
-                return Vector3.Cross(diff.normalized, m_pointerVec.normalized) * diff.magnitude;
-            }
-        }
-
         void Update()
         {
-            m_prevPointerVec = m_pointerVec;
-
-            m_pointerVec = m_inputDataSource.pointerPos - m_inputDataSource.pointerOrigin;
+            m_prevHandRotation = m_handRotation;
+            m_handRotation = m_inputDataSource.rootPose.rotation;
         }
     }
 }

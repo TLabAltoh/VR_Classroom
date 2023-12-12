@@ -4,8 +4,8 @@ namespace TLab.XR.Interact
 {
     class PokeInteractor : Interactor
     {
-        [Header("Poke Pointer")]
-        [SerializeField] private Transform m_pokePointer;
+        [Header("Poke Settings")]
+        [SerializeField] private float m_hoverThreshold = 0.05f;
         [SerializeField] private float m_selectThreshold = 0.01f;
 
         [Header("Target Gesture")]
@@ -20,7 +20,7 @@ namespace TLab.XR.Interact
 
             Pointable.registry.ForEach((h) =>
             {
-                if (h.Spherecast(m_pointer.position, out m_raycastHit, m_maxDistance))
+                if (h.Spherecast(m_pointer.position, out m_raycastHit, m_hoverThreshold))
                 {
                     var tmp = m_raycastHit.distance;
                     if (minDist > tmp)
@@ -52,8 +52,6 @@ namespace TLab.XR.Interact
         {
             base.UpdateInput();
 
-            m_pointer = m_pokePointer;
-
             // pressed, onPress, onReleaseはポインターとパネルの距離で決まるので，
             // ここでは定義できない ...
 
@@ -74,7 +72,7 @@ namespace TLab.XR.Interact
             {
                 if (m_interactable != null)
                 {
-                    if (m_interactable.Spherecast(m_pointer.position, out m_raycastHit, m_maxDistance))
+                    if (m_interactable.Spherecast(m_pointer.position, out m_raycastHit, m_hoverThreshold))
                     {
                         m_interactable.WhileHovered(this);
 

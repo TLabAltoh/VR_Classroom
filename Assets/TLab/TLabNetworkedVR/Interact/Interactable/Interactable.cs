@@ -54,9 +54,21 @@ namespace TLab.XR.Interact
 
         public Collider srufaceCollider => m_collider;
 
+        public bool enableCollision { get => m_colliderEnable; set => m_colliderEnable = value; }
+
+        public virtual bool IsHovered()
+        {
+            return m_hovereds.Count > 0;
+        }
+
         public virtual bool IsHoveres(Interactor interactor)
         {
             return m_hovereds.Contains(interactor);
+        }
+
+        public virtual bool IsSelected()
+        {
+            return m_selecteds.Count > 0;
         }
 
         public virtual bool IsSelectes(Interactor interactor)
@@ -120,6 +132,8 @@ namespace TLab.XR.Interact
             }
         }
 
+        #region RAYCAST
+
         public virtual bool Raycast(Ray ray, out RaycastHit hit, float maxDistance)
         {
             if (m_collider == null || !m_collider.enabled ||  !m_colliderEnable)
@@ -147,6 +161,8 @@ namespace TLab.XR.Interact
 
             return hit.distance < maxDistance;
         }
+
+        #endregion RAYCAST
 
         protected virtual void OnEnable()
         {
