@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TLab.XR.VRGrabber.VFX;
 
 namespace TLab.XR.VRGrabber
 {
@@ -205,7 +204,7 @@ namespace TLab.XR.VRGrabber
 
         void Update()
         {
-            if (m_debugMode && Input.GetKeyDown(KeyCode.Space))
+            if (m_debugMode && UnityEngine.Input.GetKeyDown(KeyCode.Space))
             {
                 SavePose();
                 return;
@@ -267,16 +266,6 @@ namespace TLab.XR.VRGrabber
                 if (Physics.Raycast(m_hand.PointerPose.position, m_hand.PointerPose.forward, out m_raycastHit, m_laserPointer.maxLength, m_layerMask))
                 {
                     GameObject target = m_raycastHit.collider.gameObject;
-
-                    //
-                    // Outline
-                    //
-
-                    var selectable = target.GetComponent<OutlineSelectable>();
-                    if (selectable != null)
-                    {
-                        selectable.Selected = true;
-                    }
 
                     //
                     // PointerOn

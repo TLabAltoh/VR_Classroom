@@ -37,18 +37,14 @@ namespace TLab.Network.WebRTC
         private int? m_id;
 
         // this class name
-        private const string THIS_NAME = "[tlabwebrtc] ";
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
-        public int EventCount { get => m_onMessage.GetPersistentEventCount(); }
+        public int eventCount => m_onMessage.GetPersistentEventCount();
 
-        public void SetSignalingServerAddr(string addr)
-        {
-            m_serverAddr = addr;
-        }
+        public void SetSignalingServerAddr(string addr) => m_serverAddr = addr;
 
         public void SetCallback(UnityAction<string, string, byte[]> callback)
         {
-            Debug.Log("fire");
             m_onMessage.RemoveAllListeners();
             m_onMessage.AddListener(callback);
         }
@@ -514,8 +510,10 @@ namespace TLab.Network.WebRTC
         }
         #endregion UTILITY
 
-        public async void ConnectToSignalintServer()
+        private async IAsyncEnumerator<int> ConnectServerTask()
         {
+            yield return -1;
+
             Debug.Log(THIS_NAME + "create call back start");
             Debug.Log(THIS_NAME + "connect to signaling server start");
 
@@ -547,6 +545,38 @@ namespace TLab.Network.WebRTC
 
             // waiting for messages
             await m_websocket.Connect();
+
+            yield break;
+        }
+
+        private IEnumerator ConnectToSignalingServerStart()
+        {
+            // I don't know how many frames it takes to close the Websocket client.
+            // So I'll wait for one frame anyway.
+
+            yield return null;
+
+            if (m_websocket != null)
+            {
+                m_websocket.Close();
+                m_websocket = null;
+            }
+
+            yield return null;
+
+            IAsyncEnumerator<int> task = ConnectServerTask();
+            task.MoveNextAsync();
+
+            yield return null;
+
+            task.MoveNextAsync();
+
+            yield break;
+        }
+
+        public void ConnectToSignalintServer()
+        {
+            StartCoroutine(ConnectToSignalingServerStart());
         }
 
         private void Start()
@@ -557,7 +587,10 @@ namespace TLab.Network.WebRTC
         void Update()
         {
 #if !UNITY_WEBGL || UNITY_EDITOR
-            m_websocket.DispatchMessageQueue();
+            if (m_websocket != null)
+            {
+                m_websocket.DispatchMessageQueue();
+            }
 #endif
         }
 

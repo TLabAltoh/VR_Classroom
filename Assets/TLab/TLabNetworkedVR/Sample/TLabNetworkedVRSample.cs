@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using TLab.XR.VRGrabber;
+using TLab.XR.Interact;
+using TLab.XR.Network;
 using TLab.Network.VoiceChat;
 
 public class TLabNetworkedVRSample : MonoBehaviour
@@ -14,30 +13,21 @@ public class TLabNetworkedVRSample : MonoBehaviour
     private IEnumerator ExitRoomTask()
     {
         // delete obj
-        m_syncClient.RemoveAllGrabbers();
-        m_syncClient.RemoveAllAnimators();
 
-        yield return null;
-        yield return null;
+        ExclusiveController.ClearRegistry();
+        SyncAnimator.ClearRegistry();
+
+        yield return new WaitForSeconds(0.5f);
 
         // close socket
         m_voiceChat.CloseRTC();
         m_syncClient.CloseRTC();
 
-        yield return null;
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
 
         m_syncClient.Exit();
 
-        yield return null;
-        yield return null;
-
-        float remain = 1.5f;
-        while (remain > 0)
-        {
-            remain -= Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(2.5f);
     }
 
     private void Start()

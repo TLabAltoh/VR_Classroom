@@ -20,4 +20,4 @@ Clone the repository or download it from the release and place it under any Unit
 
 ### How to use
 - Open Scenes/TLabVKeyboradSample.unity to see a ready-to-run and build sample
-- Simply placing MobileKeyborad.prefab on any canvas will also work!
+- Simply placing Keyborad.prefab on any canvas will also work!

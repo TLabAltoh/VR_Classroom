@@ -9,8 +9,6 @@ namespace TLab.XR.VRGrabber
         public OVRProjectConfig ProjectConfig => m_projectConfig;
 #endif
 
-        public TLabOVRInputModule InputModule => m_inputModule;
-
         public TLabVRHand VRControllerHandRight => m_vrControllerHandRight;
 
         public TLabVRHand VRControllerHandLeft => m_vrControllerHandLeft;
@@ -35,8 +33,6 @@ namespace TLab.XR.VRGrabber
         [SerializeField] private OVRProjectConfig m_projectConfig;
 #endif
 
-        [SerializeField] private TLabOVRInputModule m_inputModule;
-
         [SerializeField] private TLabVRHand m_vrControllerHandRight;
         [SerializeField] private TLabVRHand m_vrControllerHandLeft;
         [SerializeField] private TLabVRTrackingHand m_vrTrackingHandRight;
@@ -48,14 +44,5 @@ namespace TLab.XR.VRGrabber
         [SerializeField] private GameObject m_vrControllerLeft;
         [SerializeField] private GameObject m_vrCustomHandRight;
         [SerializeField] private GameObject m_vrCustomHandLeft;
-
-        private void Start()
-        {
-            if (m_vrTrackingHandLeft.enabled || m_vrTrackingHandRight)
-            {
-                m_inputModule.rayTransformLeft = m_vrTrackingHandLeft.PointerPose;
-                m_inputModule.rayTransformRight = m_vrTrackingHandRight.PointerPose;
-            }
-        }
     }
 }

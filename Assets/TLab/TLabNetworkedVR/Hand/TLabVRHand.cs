@@ -1,5 +1,4 @@
 using UnityEngine;
-using TLab.XR.VRGrabber.VFX;
 
 namespace TLab.XR.VRGrabber
 {
@@ -41,29 +40,11 @@ namespace TLab.XR.VRGrabber
         //
         private const string THIS_NAME = "[tlabvrhand] ";
 
-        public GameObject RaycstResult
-        {
-            get
-            {
-                return m_raycastResult;
-            }
-        }
+        public GameObject raycstResult => m_raycastResult;
 
-        public RaycastHit RaycastHit
-        {
-            get
-            {
-                return m_raycastHit;
-            }
-        }
+        public RaycastHit raycastHit => m_raycastHit;
 
-        public TLabVRGrabbable CurrentGrabbable
-        {
-            get
-            {
-                return m_grabbable;
-            }
-        }
+        public TLabVRGrabbable currentGrabbable => m_grabbable;
 
         void Start()
         {
@@ -112,16 +93,6 @@ namespace TLab.XR.VRGrabber
                 {
                     GameObject target = m_raycastHit.collider.gameObject;
                     m_raycastResult = target;
-
-                    //
-                    // Outline
-                    //
-
-                    var selectable = target.GetComponent<OutlineSelectable>();
-                    if (selectable != null)
-                    {
-                        selectable.Selected = true;
-                    }
 
                     //
                     // Grip

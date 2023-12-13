@@ -1,40 +1,34 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using NativeWebSocket;
+using TLab.XR.Interact;
+using TLab.XR.Humanoid;
 using TLab.Network.WebRTC;
-using TLab.XR.VRGrabber.Utility;
 
-namespace TLab.XR.VRGrabber
+namespace TLab.XR.Network
 {
     [RequireComponent(typeof(WebRTCDataChannel))]
     public class SyncClient : MonoBehaviour
     {
-        [Header("Server Info")]
-        [Tooltip("Server address (port 5000)")]
-        [SerializeField] private string m_serverAddr = "ws://192.168.11.10:5000";
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
-        [Tooltip("Your own avatar model (must be registered to enable synchronization)")]
-        [Header("Own Avator")]
-        [SerializeField] private GameObject m_cameraRig;
-        [SerializeField] private GameObject m_rightHand;
-        [SerializeField] private GameObject m_leftHand;
-        [SerializeField] private Transform m_rootTransform;
+        [Header("Sync Server Address (port 5000)")]
+        [SerializeField] private string m_serverAddr = "ws://192.168.11.10:5000";
+        [SerializeField] private string m_roomName = "VR_Classroom";
+
+        [Header("Body Tracker")]
+        [SerializeField] private Transform m_cameraRig;
+        [SerializeField] private BodyTracker.TrackTarget[] m_trackTargets;
 
         [Tooltip("The avatar model of the other party as seen from you")]
-        [Header("Guest Avator")]
-        [SerializeField] private GameObject m_guestHead;
-        [SerializeField] private GameObject m_guestRTouch;
-        [SerializeField] private GameObject m_guestLTouch;
+        [Header("Guest Avator Preset")]
+        [SerializeField] private AvatorConfig m_avatorConfig;
 
         [Tooltip("Responce position of each player")]
         [Header("Respown Anchor")]
-        [SerializeField] private Transform m_hostAnchor;
-        [SerializeField] private Transform[] m_guestAnchors;
+        [SerializeField] private Transform[] m_respownAnchors;
+        [SerializeField] private Transform m_instantiateAnchor;
 
         [Tooltip("WebRTCDatachannel for synchronizing Transforms between players")]
         [Header("WebRTCDataChannel")]
@@ -45,94 +39,79 @@ namespace TLab.XR.VRGrabber
         [SerializeField] private CustomCallback[] m_customCallbacks;
 
         [Tooltip("Whether the user is Host")]
-        [Header("User role")]
+        [Header("User Role")]
         [SerializeField] private bool m_isHost = false;
+
+        [SerializeField] private bool m_buildDebug = false;
+
+#if UNITY_EDITOR
+        [SerializeField] private bool m_editorDebug = false;
+#endif
 
         public static SyncClient Instance;
 
+        public static bool Initialized => Instance != null;
+
         private WebSocket m_websocket;
 
-        private const int SEAT_LENGTH = 5;
-        private int m_seatIndex = -1;
+        public const int SEAT_LENGTH = 5;
+        public const int HOST_INDEX = 0;
+        public const int NOT_REGISTED = -1;
+
+        private int m_seatIndex = NOT_REGISTED;
         private bool[] m_guestTable = new bool[SEAT_LENGTH];
 
-        private Hashtable m_grabbables = new Hashtable();
-        private Hashtable m_animators = new Hashtable();
-
-        private const string PREFAB_NAME = "OVRGuestAnchor.";
-        private const string THIS_NAME = "[tlabsyncclient] ";
+        // 大文字にしたい
+        private const string COMMA = ".";
+        private const string PREFAB_NAME = "OVR_GUEST_ANCHOR";
+        private Queue<GameObject>[] m_avatorInstanceQueue = new Queue<GameObject>[SEAT_LENGTH];
 
         private delegate void ReceiveCallback(TLabSyncJson obj);
 
         ReceiveCallback[] receiveCallbacks = new ReceiveCallback[(int)WebAction.CUSTOMACTION + 1];
 
-        public Hashtable Grabbables { get => m_grabbables; }
+        public int seatIndex => m_seatIndex;
 
-        public Hashtable Animators { get => m_animators; }
+        public int seatLength => SEAT_LENGTH;
 
-        public int SeatIndex { get => m_seatIndex; }
+        public bool socketIsNull => m_websocket == null;
 
-        public int SeatLength { get => SEAT_LENGTH; }
+        public bool registed => socketIsNull ? false : m_seatIndex != NOT_REGISTED;
 
-        public bool SocketIsOpen { get => m_websocket == null ? false : m_websocket.State == WebSocketState.Open; }
+        public bool socketIsOpen => socketIsNull ? false : m_websocket.State == WebSocketState.Open;
 
-        public bool SocketIsConnecting { get => m_websocket == null ? false : m_websocket.State == WebSocketState.Connecting; }
+        public bool socketIsConnecting => socketIsNull ? false : m_websocket.State == WebSocketState.Connecting;
 
-        public bool IsHost { get => m_isHost; set => m_isHost = value; }
+        public bool isHost { get => m_isHost; set => m_isHost = value; }
 
-        public void SetServerAddr(string addr)
+        public string serverAddr => m_serverAddr;
+
+        public void SetServerAddr(string addr) => m_serverAddr = addr;
+
+        public bool IsGuestExist(int index) => m_guestTable[index];
+
+        public void CacheAvator(int seatIndex, GameObject go)
         {
-            m_serverAddr = addr;
-        }
-
-        public bool IsGuestExist(int index)
-        {
-            return m_guestTable[index];
-        }
-
-        #region SYNC_TARGET_UTILITY
-        public void RemoveAllGrabbers()
-        {
-            foreach (DictionaryEntry entry in m_grabbables)
+            if (m_avatorInstanceQueue[seatIndex] == null)
             {
-                var grabbable = entry.Value as TLabSyncGrabbable;
-                grabbable.ShutdownGrabber(false);
+                m_avatorInstanceQueue[seatIndex] = new Queue<GameObject>();
             }
 
-            m_grabbables.Clear();
+            m_avatorInstanceQueue[seatIndex].Enqueue(go);
         }
 
-        public void RemoveAllAnimators()
+        public void DeleteAvator(int seatIndex)
         {
-            foreach (DictionaryEntry entry in m_animators)
+            var avatorInstanceQueue = m_avatorInstanceQueue[seatIndex];
+            if (avatorInstanceQueue != null)
             {
-                var animator = entry.Value as SyncAnimator;
-                animator.ShutdownAnimator(false);
+                while (avatorInstanceQueue.Count > 0)
+                {
+                    var go = avatorInstanceQueue.Dequeue();
+                    BodyTracker.ClearObject(go);
+                }
             }
-
-            m_animators.Clear();
         }
-
-        public void AddSyncGrabbable(string name, TLabSyncGrabbable grabbable)
-        {
-            m_grabbables[name] = grabbable;
-        }
-
-        public void AddSyncAnimator(string name, SyncAnimator syncAnim)
-        {
-            m_animators[name] = syncAnim;
-        }
-
-        public void RemoveGrabber(string name)
-        {
-            m_grabbables.Remove(name);
-        }
-
-        public void RemoveAnimator(string name)
-        {
-            m_animators.Remove(name);
-        }
-        #endregion SYNC_TARGET_UTILITY
 
         #region REFLESH
         /// <summary>
@@ -172,6 +151,13 @@ namespace TLab.XR.VRGrabber
         #endregion REFLESH
 
         #region CONNECT_SERVER
+        private string GetBodyTrackerName(string playerName, int seatIndex, AvatorConfig.BodyParts parts)
+        {
+            // playerNameは現在使用していない
+
+            return PREFAB_NAME + COMMA + seatIndex.ToString() + COMMA + parts.ToString();
+        }
+
         /// <summary>
         /// Send exit notice to the server.
         /// Exit only and do not close the socket
@@ -210,52 +196,38 @@ namespace TLab.XR.VRGrabber
 
                 // Enable sync own avator
 
-                if (m_leftHand != null && m_rightHand != null && m_cameraRig != null)
+                foreach (var trackTarget in m_trackTargets)
                 {
-                    var guestName = PREFAB_NAME + obj.seatIndex.ToString();
+                    var parts = trackTarget.parts;
+                    var target = trackTarget.target;
 
-                    m_rightHand.name = guestName + ".RTouch";
-                    m_leftHand.name = guestName + ".LTouch";
-                    m_cameraRig.name = guestName + ".Head";
+                    var trackerName = GetBodyTrackerName("", obj.seatIndex, parts);
+                    target.name = trackerName;
 
-                    m_cameraRig.transform.localPosition = Vector3.zero;
-                    m_cameraRig.transform.localRotation = Quaternion.identity;
+                    var tracker = target.gameObject.AddComponent<BodyTracker>();
+                    tracker.enableSync = true;
+                    tracker.self = true;
 
-                    if (m_seatIndex == 0)
-                    {
-                        m_rootTransform.position = m_hostAnchor.position;
-                        m_rootTransform.rotation = m_hostAnchor.rotation;
-                    }
-                    else
-                    {
-                        var anchor = m_guestAnchors[m_seatIndex - 1];
-                        m_rootTransform.position = anchor.position;
-                        m_rootTransform.rotation = anchor.rotation;
-                    }
-
-                    m_rightHand.GetComponent<TLabSyncGrabbable>().m_enableSync = true;
-                    m_leftHand.GetComponent<TLabSyncGrabbable>().m_enableSync = true;
-                    m_cameraRig.GetComponent<TLabSyncGrabbable>().m_enableSync = true;
+                    CacheAvator(obj.seatIndex, tracker.gameObject);
                 }
 
-                // Add TLabSyncGrabbable to hash table for fast lookup by name
-                var grabbables = FindObjectsOfType<TLabSyncGrabbable>();
-                foreach (var grabbable in grabbables)
+                if (m_instantiateAnchor != null)
                 {
-                    m_grabbables[grabbable.gameObject.name] = grabbable;
+                    m_cameraRig.SetLocalPositionAndRotation(m_instantiateAnchor.position, m_instantiateAnchor.rotation);
+                }
+                else
+                {
+                    m_cameraRig.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                 }
 
-                // Add animators to a hash table for fast lookup by name
-                var syncAnims = FindObjectsOfType<SyncAnimator>();
-                foreach (var syncAnim in syncAnims)
-                {
-                    m_animators[syncAnim.gameObject.name] = syncAnim;
-                }
+                var anchor = m_respownAnchors[m_seatIndex];
+                m_cameraRig.SetPositionAndRotation(anchor.position, anchor.rotation);
 
                 // Connect to signaling server
-                m_dataChannel.Join(this.gameObject.name + "_" + m_seatIndex.ToString(), "VR_Class");
+                var userID = gameObject.name + "_" + m_seatIndex.ToString();
+                var roomID = m_roomName;
+                m_dataChannel.Join(userID, roomID);
 
-                return;
             };
             receiveCallbacks[(int)WebAction.EXIT] = (obj) => { };
             receiveCallbacks[(int)WebAction.GUESTDISCONNECT] = (obj) => {
@@ -268,40 +240,17 @@ namespace TLab.XR.VRGrabber
                     return;
                 }
 
-                string guestName = PREFAB_NAME + obj.seatIndex.ToString();
-
-                GameObject guestRTouch = GameObject.Find(guestName + ".RTouch");
-                GameObject guestLTouch = GameObject.Find(guestName + ".LTouch");
-                GameObject guestHead = GameObject.Find(guestName + ".Head");
-
-                if (guestRTouch != null)
-                {
-                    m_grabbables.Remove(guestRTouch.name);
-                    UnityEngine.GameObject.Destroy(guestRTouch);
-                }
-
-                if (guestLTouch != null)
-                {
-                    m_grabbables.Remove(guestLTouch.name);
-                    UnityEngine.GameObject.Destroy(guestLTouch);
-                }
-
-                if (guestHead != null)
-                {
-                    m_grabbables.Remove(guestHead.name);
-                    UnityEngine.GameObject.Destroy(guestHead);
-                }
+                DeleteAvator(obj.seatIndex);
 
                 m_guestTable[obj.seatIndex] = false;
 
-                foreach (CustomCallback callback in m_customCallbacks)
+                foreach (var callback in m_customCallbacks)
                 {
                     callback.OnGuestDisconnected(obj.seatIndex);
                 }
 
                 Debug.Log(THIS_NAME + "guest disconncted: " + obj.seatIndex.ToString());
 
-                return;
             };
             receiveCallbacks[(int)WebAction.GUESTPARTICIPATION] = (obj) => {
 
@@ -313,40 +262,41 @@ namespace TLab.XR.VRGrabber
                     return;
                 }
 
-                Vector3 respownPos = new Vector3(0.0f, -0.5f, 0.0f);
-                Quaternion respownRot = Quaternion.identity;
-
-                string guestName = PREFAB_NAME + obj.seatIndex.ToString();
-
                 // Visualize avatars of newly joined players
 
-                if (m_guestRTouch != null)
+                foreach (var avatorParts in m_avatorConfig.body)
                 {
-                    GameObject guestRTouch = Instantiate(m_guestRTouch, respownPos, respownRot);
-                    guestRTouch.name = guestName + ".RTouch";
+                    var parts = avatorParts.parts;
+                    var prefab = avatorParts.prefab;
 
-                    m_grabbables[guestRTouch.name] = guestRTouch.GetComponent<TLabSyncGrabbable>();
-                }
+                    var guestParts = null as GameObject;
 
-                if (m_guestLTouch != null)
-                {
-                    GameObject guestLTouch = Instantiate(m_guestLTouch, respownPos, respownRot);
-                    guestLTouch.name = guestName + ".LTouch";
+                    if (m_instantiateAnchor != null)
+                    {
+                        guestParts = Instantiate(prefab, m_instantiateAnchor.position, m_instantiateAnchor.rotation);
+                    }
+                    else
+                    {
+                        guestParts = Instantiate(prefab);
+                    }
 
-                    m_grabbables[guestLTouch.name] = guestLTouch.GetComponent<TLabSyncGrabbable>();
-                }
+                    var trackerName = GetBodyTrackerName("", obj.seatIndex, parts);
+                    guestParts.name = trackerName;
 
-                if (m_guestHead != null)
-                {
-                    GameObject guestHead = Instantiate(m_guestHead, respownPos, respownRot);
-                    guestHead.name = guestName + ".Head";
+                    // TODO: Instantiate()の後，Start()が呼び出されるタイミングを調査する
+                    //var networkedObj = guestParts.GetComponent<NetworkedObject>();
 
-                    m_grabbables[guestHead.name] = guestHead.GetComponent<TLabSyncGrabbable>();
+                    //if (networkedObj != null)
+                    //{
+                    //    NetworkedObject.Register(guestParts.name, networkedObj);
+                    //}
+
+                    CacheAvator(obj.seatIndex, guestParts);
                 }
 
                 m_guestTable[obj.seatIndex] = true;
 
-                foreach (CustomCallback callback in m_customCallbacks)
+                foreach (var callback in m_customCallbacks)
                 {
                     callback.OnGuestParticipated(obj.seatIndex);
                 }
@@ -357,97 +307,61 @@ namespace TLab.XR.VRGrabber
             };
             receiveCallbacks[(int)WebAction.ALLOCATEGRAVITY] = (obj) => {
 
-                // Set object's gravity allocation
+                // Object's gravity allocation
 
+                var rigidbodyAllocated = obj.active;
                 var webTransform = obj.transform;
-                var grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
-                if (grabbable != null)
-                {
-                    grabbable.AllocateGravity(obj.active);
-                }
+                var controller = ExclusiveController.GetById(webTransform.id);
+                controller?.AllocateGravity(rigidbodyAllocated);
 
-                return;
             };
             receiveCallbacks[(int)WebAction.REGISTRBOBJ] = (obj) => { };
             receiveCallbacks[(int)WebAction.GRABBLOCK] = (obj) => {
 
                 // Grabb lock from outside
 
+                var seatIndex = obj.seatIndex;
                 var webTransform = obj.transform;
-                var grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
+                var controller = ExclusiveController.GetById(webTransform.id);
+                controller?.GrabbLock(seatIndex);
 
-                if (grabbable == null)
-                {
-                    return;
-                }
-
-                grabbable.GrabbLockFromOutside(obj.seatIndex);
-
-                return;
             };
             receiveCallbacks[(int)WebAction.FORCERELEASE] = (obj) => {
 
                 // Force release request
 
+                var self = false;
                 var webTransform = obj.transform;
-                var grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
+                var controller = ExclusiveController.GetById(webTransform.id);
+                controller?.ForceRelease(self);
 
-                if (grabbable == null)
-                {
-                    return;
-                }
-
-                grabbable.ForceReleaseFromOutside();
-
-                return;
             };
             receiveCallbacks[(int)WebAction.DIVIDEGRABBER] = (obj) => {
 
-                // Divide object
+                // Divide grabbable object
 
                 var webTransform = obj.transform;
-                var grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
+                var controller = ExclusiveController.GetById(webTransform.id);
+                controller?.Divide(obj.active);
 
-                if (grabbable == null)
-                {
-                    return;
-                }
-
-                grabbable.DivideFromOutside(obj.active);
-
-                return;
             };
             receiveCallbacks[(int)WebAction.SYNCTRANSFORM] = (obj) => {
 
                 // Sync transform
 
                 var webTransform = obj.transform;
-                var grabbable = m_grabbables[webTransform.id] as TLabSyncGrabbable;
+                var networkedObject = NetworkedObject.GetById(webTransform.id);
+                networkedObject?.SyncFromOutside(webTransform);
 
-                if (grabbable == null)
-                {
-                    return;
-                }
-
-                grabbable.SyncFromOutside(webTransform);
-
-                return;
             };
             receiveCallbacks[(int)WebAction.SYNCANIM] = (obj) => {
 
                 // Sync animation
 
                 var webAnimator = obj.animator;
-                var syncAnim = m_animators[webAnimator.id] as SyncAnimator;
+                var syncAnim = SyncAnimator.GetById(webAnimator.id);
+                syncAnim?.SyncAnimFromOutside(webAnimator);
 
-                if (syncAnim == null)
-                {
-                    return;
-                }
-
-                syncAnim.SyncAnimFromOutside(webAnimator);
-
-                return;
             };
             receiveCallbacks[(int)WebAction.CLEARTRANSFORM] = (obj) => { };
             receiveCallbacks[(int)WebAction.CLEARANIM] = (obj) => { };
@@ -458,7 +372,6 @@ namespace TLab.XR.VRGrabber
 
                 m_customCallbacks[obj.customIndex].OnMessage(obj.custom);
 
-                return;
             };
 
             m_websocket = new WebSocket(m_serverAddr);
@@ -549,7 +462,7 @@ namespace TLab.XR.VRGrabber
 
         #region RTC_MESSAGE
 
-        private unsafe void LongCopy(byte* src, byte* dst, int count)
+        private static unsafe void LongCopy(byte* src, byte* dst, int count)
         {
             // https://github.com/neuecc/MessagePack-CSharp/issues/117
 
@@ -603,9 +516,11 @@ namespace TLab.XR.VRGrabber
 
             string targetName = System.Text.Encoding.UTF8.GetString(nameBytes);
 
-            var grabbable = m_grabbables[targetName] as TLabSyncGrabbable;
-            if (grabbable == null)
+            var networkedObject = NetworkedObject.GetById(targetName);
+            if (networkedObject == null)
             {
+                Debug.Log("not found");
+
                 return;
             }
 
@@ -629,7 +544,7 @@ namespace TLab.XR.VRGrabber
                 scale = new WebVector3 { x = rtcTransform[7], y = rtcTransform[8], z = rtcTransform[9] }
             };
 
-            grabbable.SyncFromOutside(webTransform);
+            networkedObject.SyncFromOutside(webTransform);
         }
 
         public void SendRTCMessage(byte[] bytes)
@@ -654,7 +569,7 @@ namespace TLab.XR.VRGrabber
 
         public async void SendWsMessage(string json)
         {
-            if (m_websocket != null && m_websocket.State == WebSocketState.Open)
+            if (socketIsOpen)
             {
                 await m_websocket.SendText(json);
             }
@@ -673,7 +588,7 @@ namespace TLab.XR.VRGrabber
                 m_dataChannel = GetComponent<WebRTCDataChannel>();
             }
 
-            if (m_dataChannel.EventCount == 0)
+            if (m_dataChannel.eventCount == 0)
             {
                 m_dataChannel.SetCallback(OnRTCMessage);
             }
@@ -696,7 +611,31 @@ namespace TLab.XR.VRGrabber
 
         void Start()
         {
+            for (int i = 0; i < m_avatorInstanceQueue.Length; i++)
+            {
+                if (m_avatorInstanceQueue[i] != null)
+                {
+                    m_avatorInstanceQueue[i] = new Queue<GameObject>();
+                }
+            }
+
             ConnectServerAsync();
+
+#if UNITY_EDITOR
+            if (m_editorDebug)
+            {
+                m_isHost = true;
+            }
+#endif
+
+            if (m_buildDebug)
+            {
+#if UNITY_EDITOR
+                m_isHost = false;
+#elif UNITY_ANDROID
+                m_isHost = true;
+#endif
+            }
         }
 
         void Update()

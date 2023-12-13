@@ -9,6 +9,9 @@ Online classes in VR space using Websocket and WebRTC
 - Download object from external server (using AssetBundle)  
 - Control of object sharing from the teacher's side  
 
+## Documentation
+[click here (hackmd)](https://hackmd.io/4d4vad8jT_igwNi_5GZrEQ)
+
 ## Screenshot
 [![Youtube](Media/VR_Classroom.jpg)](https://www.youtube.com/watch?v=SZBbz0wVcFc)  
 <table>
@@ -47,6 +50,8 @@ Online classes in VR space using Websocket and WebRTC
 - Oculus Integration (Install from asset store)  
 - ProBuilder (Install from asset store)  
 - Android Logcat (Install from upm)  
+- [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners.git)  
+- [SDF Toolkit](https://assetstore.unity.com/packages/tools/utilities/sdf-toolkit-free-50191)  
 - node (v16.15.0)  
 - [bHaptics](https://assetstore.unity.com/packages/tools/integration/bhaptics-haptic-plugin-76647)
 - [NativeWebsocket](https://github.com/endel/NativeWebSocket)
