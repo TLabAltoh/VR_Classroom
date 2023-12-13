@@ -23,6 +23,10 @@ namespace TLab.XR.Interact
         }
 
         [SerializeField] private bool m_enabled = true;
+        [SerializeField] private bool m_smooth = false;
+
+        [SerializeField] [Range(0.01f, 1f)]
+        private float m_lerp = 0.1f;
 
         [SerializeField] private bool m_useLinkHandle = true;
         [SerializeField] private bool m_useEdgeHandle = true;
@@ -75,6 +79,24 @@ namespace TLab.XR.Interact
                 m_edgeHandles.ForEach((obj) => obj.SetActive(m_enabled && m_useEdgeHandle));
 
                 m_linkHandles.ForEach((pair) => pair.handle.SetActive(m_enabled && m_useLinkHandle));
+            }
+        }
+
+        public bool smooth
+        {
+            get => m_smooth;
+            set
+            {
+                m_smooth = value;
+            }
+        }
+
+        public float lerp
+        {
+            get => m_lerp;
+            set
+            {
+                m_lerp = Mathf.Clamp(0.01f, 1f, value);
             }
         }
 
@@ -191,7 +213,16 @@ namespace TLab.XR.Interact
 
                 var scaleFactor = currentDist / m_initialDist;
 
-                Vector3 newScale = m_initialScaleOnGrabStart * scaleFactor;
+                Vector3 newScale;
+
+                if (m_smooth)
+                {
+                    newScale = Vector3.Lerp(m_targetTransform.localScale, m_initialScaleOnGrabStart * scaleFactor, m_lerp);
+                }
+                else
+                {
+                    newScale = m_initialScaleOnGrabStart * scaleFactor;
+                }
 
                 m_targetTransform.localScale = newScale;
 

@@ -28,15 +28,13 @@ namespace TLab.VRClassroom.Editor
                 popupPointable.outlineMat = outlinePointable.outlineMat;
                 popupPointable.popupManager = manager;
                 popupPointable.index = index;
+                popupPointable.enableCollision = false;
 
                 DestroyImmediate(outlinePointable);
 
-                Debug.Log(NAME + "update to popupPointable " + index.ToString());
-            }
-
-            if (popupPointable != null)
-            {
                 EditorUtility.SetDirty(popupPointable);
+
+                Debug.Log(NAME + "update to popupPointable " + index.ToString());
             }
 
             Debug.Log(NAME + BAR);
@@ -69,6 +67,8 @@ namespace TLab.VRClassroom.Editor
 
             if (outlinePointable != null)
             {
+                outlinePointable.enableCollision = false;
+
                 EditorUtility.SetDirty(outlinePointable);
             }
 

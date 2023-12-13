@@ -62,7 +62,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1745634660493665203}
   - component: {fileID: 1019172130920422516}
-  - component: {fileID: 8351038208074646500}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -112,23 +111,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 32767
   m_TargetDisplay: 0
---- !u!114 &8351038208074646500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 140494861655897586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &223460177041922154
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +121,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3171661833734934316}
   - component: {fileID: 9161568190177111804}
-  - component: {fileID: 7967996821716946360}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -189,23 +170,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 32767
   m_TargetDisplay: 0
---- !u!114 &7967996821716946360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 223460177041922154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &481612134114848234
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,7 +871,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 32767
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &588860458815805670
 MonoBehaviour:
@@ -941,9 +905,9 @@ GameObject:
   - component: {fileID: 4186215413871182288}
   - component: {fileID: 6874818287757104866}
   - component: {fileID: 584326627168018730}
+  - component: {fileID: 4992884907096082228}
   - component: {fileID: 2901931635926892702}
   - component: {fileID: 8513968695642042676}
-  - component: {fileID: 4992884907096082228}
   m_Layer: 0
   m_Name: Stomac000
   m_TagString: Untagged
@@ -1044,17 +1008,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableSync: 1
-  m_hash: 804930229
+  m_hash: 356333497
   m_useRigidbody: 0
   m_useGravity: 0
   m_rbAllocated: 0
   m_locked: 0
   m_position:
     m_enabled: 1
+    m_smooth: 1
+    m_lerp: 0.1
   m_rotation:
     m_enabled: 1
+    m_smooth: 0
+    m_lerp: 0.5
   m_scale:
     m_enabled: 1
+    m_smooth: 0
+    m_lerp: 0.5
     m_useLinkHandle: 1
     m_useEdgeHandle: 1
     m_useCornerHandle: 1
@@ -1094,8 +1064,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 3667217100594462279}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 4992884907096082228}
   m_rotateSpeed: 10
+--- !u!114 &4992884907096082228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982353406284597610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_colliderEnable: 0
+  m_collider: {fileID: 3667217100594462279}
+  m_interactableChain: []
+  m_outlineWidth: 0.025
+  m_material: {fileID: 2100000, guid: 10a12fc6012443341a9ae6c871631340, type: 2}
+  m_popupManager: {fileID: 831294290196811143}
+  m_index: 0
 --- !u!114 &2901931635926892702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,25 +1120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 3667217100594462279}
---- !u!114 &4992884907096082228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1982353406284597610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_colliderEnable: 0
-  m_collider: {fileID: 3667217100594462279}
-  m_interactableChain: []
-  m_outlineWidth: 0.025
-  m_material: {fileID: 2100000, guid: 10a12fc6012443341a9ae6c871631340, type: 2}
-  m_popupManager: {fileID: 831294290196811143}
-  m_index: 0
 --- !u!1 &2706917089805826090
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,8 +1198,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.22167853, y: 0.10410732, z: 0.038267493}
-  m_Center: {x: -0.0011757463, y: 0.0011757016, z: 0.0011757016}
+  m_Size: {x: 0.21663314, y: 0.09686661, z: 0.0021413527}
+  m_Center: {x: 0.000057119876, y: 0.00000949949, z: 0.00009278394}
 --- !u!114 &313098565505544497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1252,7 +1223,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4986461078594563507}
   - component: {fileID: 4165068273594102432}
-  - component: {fileID: 7263364341878729422}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1302,23 +1272,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 32767
   m_TargetDisplay: 0
---- !u!114 &7263364341878729422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3264536183671828887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &4446470958371825973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,9 +1287,9 @@ GameObject:
   - component: {fileID: 1826073386665935224}
   - component: {fileID: 413579715785238607}
   - component: {fileID: 5259605026076924353}
+  - component: {fileID: 5138642671204923697}
   - component: {fileID: 8780540049745218563}
   - component: {fileID: 5731794961768843143}
-  - component: {fileID: 5138642671204923697}
   m_Layer: 0
   m_Name: Stomac002
   m_TagString: Untagged
@@ -1437,17 +1390,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableSync: 1
-  m_hash: 1078221056
+  m_hash: 422324697
   m_useRigidbody: 0
   m_useGravity: 0
   m_rbAllocated: 0
   m_locked: 0
   m_position:
     m_enabled: 1
+    m_smooth: 1
+    m_lerp: 0.1
   m_rotation:
     m_enabled: 1
+    m_smooth: 0
+    m_lerp: 0.5
   m_scale:
     m_enabled: 1
+    m_smooth: 0
+    m_lerp: 0.5
     m_useLinkHandle: 1
     m_useEdgeHandle: 1
     m_useCornerHandle: 1
@@ -1487,8 +1446,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 5037087320617848561}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 5138642671204923697}
   m_rotateSpeed: 10
+--- !u!114 &5138642671204923697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4446470958371825973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_colliderEnable: 0
+  m_collider: {fileID: 5037087320617848561}
+  m_interactableChain: []
+  m_outlineWidth: 0.025
+  m_material: {fileID: 2100000, guid: d1f45a32e32bbb744ae1d9269c87cdcc, type: 2}
+  m_popupManager: {fileID: 831294290196811143}
+  m_index: 2
 --- !u!114 &8780540049745218563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1523,25 +1502,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 5037087320617848561}
---- !u!114 &5138642671204923697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4446470958371825973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_colliderEnable: 0
-  m_collider: {fileID: 5037087320617848561}
-  m_interactableChain: []
-  m_outlineWidth: 0.025
-  m_material: {fileID: 2100000, guid: d1f45a32e32bbb744ae1d9269c87cdcc, type: 2}
-  m_popupManager: {fileID: 831294290196811143}
-  m_index: 2
 --- !u!1 &4546283873774758824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,7 +1590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87dcdfb393da40c4594e21b3bf323e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 0
+  m_colliderEnable: 1
   m_collider: {fileID: 5332357331315919102}
   m_interactableChain: []
   m_canvas: {fileID: 2099195780309656306}
@@ -1692,7 +1652,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 32767
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &2083416009653084401
 MonoBehaviour:
@@ -1840,17 +1800,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableSync: 1
-  m_hash: 919151471
+  m_hash: 1905765437
   m_useRigidbody: 0
   m_useGravity: 0
   m_rbAllocated: 0
   m_locked: 0
   m_position:
     m_enabled: 1
+    m_smooth: 1
+    m_lerp: 0.1
   m_rotation:
     m_enabled: 1
+    m_smooth: 0
+    m_lerp: 0.5
   m_scale:
     m_enabled: 1
+    m_smooth: 0
+    m_lerp: 0.5
     m_useLinkHandle: 1
     m_useEdgeHandle: 1
     m_useCornerHandle: 1
@@ -1981,8 +1947,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.21932712, y: 0.10175589, z: 0.02886182}
-  m_Center: {x: -0.000000044703484, y: -0.000000014901161, z: -0.0011757016}
+  m_Size: {x: 0.2181637, y: 0.0972037, z: 0.0013123881}
+  m_Center: {x: 0.00021488965, y: -0.000000013038516, z: 0.00003716722}
 --- !u!114 &4149011369591403495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2084,7 +2050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87dcdfb393da40c4594e21b3bf323e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colliderEnable: 0
+  m_colliderEnable: 1
   m_collider: {fileID: 6525571174422692193}
   m_interactableChain: []
   m_canvas: {fileID: 3312217652663540829}
@@ -2507,9 +2473,9 @@ GameObject:
   - component: {fileID: 4294128628988463851}
   - component: {fileID: 7136786674698926318}
   - component: {fileID: 1351215231324556729}
+  - component: {fileID: 1850557347410184375}
   - component: {fileID: 3612317334058284315}
   - component: {fileID: 7606027439902494309}
-  - component: {fileID: 1850557347410184375}
   m_Layer: 0
   m_Name: Stomac001
   m_TagString: Untagged
@@ -2610,17 +2576,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enableSync: 1
-  m_hash: 862593332
+  m_hash: 418503692
   m_useRigidbody: 0
   m_useGravity: 0
   m_rbAllocated: 0
   m_locked: 0
   m_position:
     m_enabled: 1
+    m_smooth: 1
+    m_lerp: 0.1
   m_rotation:
     m_enabled: 1
+    m_smooth: 0
+    m_lerp: 0.5
   m_scale:
     m_enabled: 1
+    m_smooth: 0
+    m_lerp: 0.5
     m_useLinkHandle: 1
     m_useEdgeHandle: 1
     m_useCornerHandle: 1
@@ -2660,8 +2632,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 8183474814740104352}
-  m_interactableChain: []
+  m_interactableChain:
+  - {fileID: 1850557347410184375}
   m_rotateSpeed: 10
+--- !u!114 &1850557347410184375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727148151393247418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_colliderEnable: 0
+  m_collider: {fileID: 8183474814740104352}
+  m_interactableChain: []
+  m_outlineWidth: 0.025
+  m_material: {fileID: 2100000, guid: a12838445ffa7374db747b14fa823149, type: 2}
+  m_popupManager: {fileID: 831294290196811143}
+  m_index: 1
 --- !u!114 &3612317334058284315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2696,22 +2688,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 8183474814740104352}
---- !u!114 &1850557347410184375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8727148151393247418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30c3475d35bdbbe49a38833f01bc788f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_colliderEnable: 0
-  m_collider: {fileID: 8183474814740104352}
-  m_interactableChain: []
-  m_outlineWidth: 0.025
-  m_material: {fileID: 2100000, guid: a12838445ffa7374db747b14fa823149, type: 2}
-  m_popupManager: {fileID: 831294290196811143}
-  m_index: 1

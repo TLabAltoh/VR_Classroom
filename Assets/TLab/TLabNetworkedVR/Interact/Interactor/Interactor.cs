@@ -89,6 +89,8 @@ namespace TLab.XR.Interact
         protected virtual void Awake()
         {
             m_identifier = GenerateIdentifier();
+
+            Debug.Log(THIS_NAME + "identifier: " + m_identifier);
         }
 
         protected virtual void Start()

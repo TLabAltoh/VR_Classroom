@@ -9561,7 +9561,7 @@ MonoBehaviour:
   - Pinch
   m_rayHideGestures:
   - Poke
-  THRESHOLD: 0.035
+  THRESHOLD: 0.05
   m_editMode: 0
   m_recordKey: 32
 --- !u!4 &183181524335217154 stripped
@@ -9673,7 +9673,7 @@ MonoBehaviour:
   - Pinch
   m_rayHideGestures:
   - Poke
-  THRESHOLD: 0.035
+  THRESHOLD: 0.05
   m_editMode: 0
   m_recordKey: 32
 --- !u!114 &3796528280693268637

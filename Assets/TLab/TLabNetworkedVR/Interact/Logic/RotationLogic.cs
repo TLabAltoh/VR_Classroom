@@ -7,6 +7,11 @@ namespace TLab.XR.Interact
     {
         [SerializeField] private bool m_enabled = true;
 
+        [SerializeField] private bool m_smooth = false;
+
+        [SerializeField] [Range(0.01f, 1f)]
+        private float m_lerp = 0.1f;
+
         //[SerializeField] private bool m_trackX = true;
         //[SerializeField] private bool m_trackY = true;
         //[SerializeField] private bool m_trackZ = true;
@@ -21,6 +26,24 @@ namespace TLab.XR.Interact
         private Quaternion m_thisQuaternionStart;
 
         public bool enabled { get => m_enabled; set => m_enabled = value; }
+
+        public bool smooth
+        {
+            get => m_smooth;
+            set
+            {
+                m_smooth = value;
+            }
+        }
+
+        public float lerp
+        {
+            get => m_lerp;
+            set
+            {
+                m_lerp = Mathf.Clamp(0.01f, 1f, value);
+            }
+        }
 
         public void OnMainHandGrabbed(Interactor interactor)
         {
@@ -55,16 +78,27 @@ namespace TLab.XR.Interact
         {
             if (m_enabled && m_mainHand != null)
             {
-                if (m_targetRigidbody != null)
+                Quaternion deltaQuaternion;
+
+                if (m_smooth)
                 {
-                    // https://qiita.com/yaegaki/items/4d5a6af1d1738e102751
-                    Quaternion deltaQuaternion = Quaternion.identity * m_mainHand.pointer.rotation * Quaternion.Inverse(m_mainQuaternionStart);
-                    m_targetRigidbody.MoveRotation(deltaQuaternion * m_thisQuaternionStart);
+                    deltaQuaternion = Quaternion.Lerp(
+                        Quaternion.identity * m_targetTransform.rotation * Quaternion.Inverse(m_mainQuaternionStart),
+                        Quaternion.identity * m_mainHand.pointer.rotation * Quaternion.Inverse(m_mainQuaternionStart),
+                        m_lerp);
                 }
                 else
                 {
                     // https://qiita.com/yaegaki/items/4d5a6af1d1738e102751
-                    Quaternion deltaQuaternion = Quaternion.identity * m_mainHand.pointer.rotation * Quaternion.Inverse(m_mainQuaternionStart);
+                    deltaQuaternion = Quaternion.identity * m_mainHand.pointer.rotation * Quaternion.Inverse(m_mainQuaternionStart);
+                }
+
+                if (m_targetRigidbody != null)
+                {
+                    m_targetRigidbody.MoveRotation(deltaQuaternion * m_thisQuaternionStart);
+                }
+                else
+                {
                     m_targetTransform.rotation = deltaQuaternion * m_thisQuaternionStart;
                 }
             }

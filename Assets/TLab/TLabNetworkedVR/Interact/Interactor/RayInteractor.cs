@@ -9,6 +9,9 @@ namespace TLab.XR.Interact
 
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
+        private Vector3 m_prevRayDir = Vector3.zero;
+        private Vector3 m_rayDir = Vector3.zero;
+
         protected override void UpdateRaycast()
         {
             base.UpdateRaycast();
@@ -54,13 +57,19 @@ namespace TLab.XR.Interact
         {
             base.UpdateInput();
 
+            m_prevRayDir = m_rayDir;
+            m_rayDir = m_hand.pointerPose.forward;
+
             m_pressed = m_hand.pressed;
 
             m_onPress = m_hand.onPress;
 
             m_onRelease = m_hand.onRelease;
 
-            m_angulerVelocity = m_hand.angulerVelocity;
+            var diff = m_prevRayDir - m_rayDir;
+            var cross = Vector3.Cross(m_rayDir, diff.normalized) * diff.magnitude;
+
+            m_angulerVelocity = cross;
         }
 
         protected override void Process()

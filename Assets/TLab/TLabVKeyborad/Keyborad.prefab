@@ -9303,6 +9303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_keyborad: {fileID: 4449721481549372445}
+  m_activeOnAwake: 0
   m_inputText: {fileID: 2427026501612935423}
   m_placeholder: {fileID: 18712571303950289}
   m_openImage: {fileID: 339214291701173883}

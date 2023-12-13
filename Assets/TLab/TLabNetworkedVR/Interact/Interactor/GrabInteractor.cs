@@ -63,7 +63,7 @@ namespace TLab.XR.Interact
 
             if (m_interactable != null)
             {
-                if (m_interactable.Spherecast(m_pointer.position, out m_raycastHit, m_hoverThreshold))
+                if (m_pressed || m_interactable.Spherecast(m_pointer.position, out m_raycastHit, m_hoverThreshold))
                 {
                     m_interactable.WhileHovered(this);
 

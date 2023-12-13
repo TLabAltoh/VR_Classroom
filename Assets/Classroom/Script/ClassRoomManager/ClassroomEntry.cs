@@ -96,9 +96,14 @@ namespace TLab.VRClassroom
             }
 
             var commands = ParseCommand(argment);
-            var password = commands["p"];
+            string scene = GUEST_SCENE;
 
-            string scene = ConfirmPassword(password) ? HOST_SCENE : GUEST_SCENE;
+            if (commands.ContainsKey("p"))
+            {
+                var password = commands["p"];
+
+                scene = ConfirmPassword(password) ? HOST_SCENE : scene;
+            }
 
             m_serverAddressBox.SetAddress(SYNC_SERVER, ipAddr, "5000");
             m_serverAddressBox.SetAddress(SIGNALING_SERVER, ipAddr, "3001");

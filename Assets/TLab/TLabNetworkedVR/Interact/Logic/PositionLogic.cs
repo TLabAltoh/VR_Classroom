@@ -6,6 +6,10 @@ namespace TLab.XR.Interact
     public class PositionLogic
     {
         [SerializeField] private bool m_enabled = true;
+        [SerializeField] private bool m_smooth = false;
+
+        [SerializeField] [Range(0.01f, 1f)]
+        private float m_lerp = 0.1f;
 
         private Interactor m_mainHand;
         private Interactor m_subHand;
@@ -22,6 +26,24 @@ namespace TLab.XR.Interact
             set
             {
                 m_enabled = value;
+            }
+        }
+
+        public bool smooth
+        {
+            get => m_smooth;
+            set
+            {
+                m_smooth = value;
+            }
+        }
+
+        public float lerp
+        {
+            get => m_lerp;
+            set
+            {
+                m_lerp = Mathf.Clamp(0.01f, 1f, value);
             }
         }
 
@@ -59,8 +81,19 @@ namespace TLab.XR.Interact
         {
             if (m_enabled && m_mainHand != null && m_subHand != null)
             {
-                var updatedPositionMain = m_mainHand.pointer.TransformPoint(m_mainPositionOffset);
-                var updatedPositionSub = m_subHand.pointer.TransformPoint(m_subPositionOffset);
+                Vector3 updatedPositionMain, updatedPositionSub;
+
+                if (m_smooth)
+                {
+                    updatedPositionMain = Vector3.Lerp(m_targetTransform.position, m_mainHand.pointer.TransformPoint(m_mainPositionOffset), m_lerp);
+                    updatedPositionSub = Vector3.Lerp(m_targetTransform.position, m_subHand.pointer.TransformPoint(m_subPositionOffset), m_lerp);
+                }
+                else
+                {
+                    updatedPositionMain = m_mainHand.pointer.TransformPoint(m_mainPositionOffset);
+                    updatedPositionSub = m_subHand.pointer.TransformPoint(m_subPositionOffset);
+                }
+
                 var updatedPosition = Vector3.Lerp(updatedPositionMain, updatedPositionSub, 0.5f);
 
                 if (m_targetRigidbody)
@@ -78,7 +111,17 @@ namespace TLab.XR.Interact
         {
             if (m_enabled && m_mainHand != null)
             {
-                var updatedPosition = m_mainHand.pointer.TransformPoint(m_mainPositionOffset);
+                Vector3 updatedPosition;
+
+                if (m_smooth)
+                {
+                    updatedPosition = Vector3.Lerp(m_targetTransform.position, m_mainHand.pointer.TransformPoint(m_mainPositionOffset), m_lerp);
+                }
+                else
+                {
+                    updatedPosition = m_mainHand.pointer.TransformPoint(m_mainPositionOffset);
+                }
+                
                 if (m_targetRigidbody)
                 {
                     m_targetRigidbody.MovePosition(updatedPosition);

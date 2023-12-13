@@ -73,7 +73,12 @@ namespace TLab.VRClassroom
 
         public void ExitClassroom() => StartCoroutine(BackToTheEntryTask());
 
-        public void ShowWebView() => SwitchPanel(m_webViewPanel);
+        public void ShowWebView()
+        {
+            bool active = SwitchPanel(m_webViewPanel);
+
+            m_keyborad.HideKeyborad(!active);
+        }
 
         private Vector3 GetEyeDirectionPos(float xOffset = 0f, float yOffset = 0f, float zOffset = 0f)
         {
@@ -109,15 +114,13 @@ namespace TLab.VRClassroom
         /// </summary>
         /// <param name="target"></param>
         /// <param name="active"></param>
-        private void SwitchPanel(
-            Transform target, bool active,
-            float xOffset = 0f, float yOffset = 0f, float zOffset = 0f)
+        private void SwitchPanel(Transform target, bool active, Vector3 offset)
         {
             target.gameObject.SetActive(active);
 
             if (active)
             {
-                target.transform.position = GetEyeDirectionPos(xOffset, yOffset, zOffset);
+                target.transform.position = GetEyeDirectionPos(xOffset: offset.x, yOffset: offset.y, zOffset: offset.z);
                 target.LookAt(cameraPos, Vector3.up);
             }
         }
@@ -130,14 +133,15 @@ namespace TLab.VRClassroom
         private bool SwitchPanel(Transform target)
         {
             bool active = target.gameObject.activeSelf;
-            SwitchPanel(target, !active, zOffset: HALF);
+            SwitchPanel(target, !active, new Vector3(0f, 0f, HALF));
 
             return !active;
         }
 
         private void Start()
         {
-            SwitchPanel(m_targetPanel, false);
+            m_keyborad.HideKeyborad(true);
+            SwitchPanel(m_targetPanel, false, Vector3.zero);
         }
 
         private void Update()
@@ -148,7 +152,13 @@ namespace TLab.VRClassroom
             {
                 if (!SwitchPanel(m_targetPanel))
                 {
-                    SwitchPanel(m_webViewPanel, false);
+                    SwitchPanel(m_webViewPanel, false, Vector3.zero);
+
+                    // Guestë§Ç…ÇÕçuã`éëóøÇµÇ©ópà”ÇµÇƒÇ¢Ç»Ç¢
+                    if (!SyncClient.Instance.isHost)
+                    {
+                        m_keyborad.HideKeyborad(true);
+                    }
                 }
             }
         }

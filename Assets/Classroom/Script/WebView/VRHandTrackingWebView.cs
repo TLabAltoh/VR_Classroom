@@ -4,13 +4,10 @@ using TLab.Android.WebView;
 
 namespace TLab.VRClassroom
 {
-    public class VRHandTrackingWebView : MonoBehaviour
+    public class VRHandTrackingWebView : Pointable
     {
         [Header("Target WebView")]
         [SerializeField] private TLabWebView m_tlabWebView;
-
-        [Header("Input Settings")]
-        [SerializeField] private Interactor m_interactor;
         [SerializeField] private RectTransform m_webViewRect;
 
         private int m_lastXPos;
@@ -36,9 +33,30 @@ namespace TLab.VRClassroom
             m_onTheWeb = false;
         }
 
-        void Update()
+        public override void Selected(Interactor interactor)
         {
-            Vector3 invertPositoin = m_webViewRect.transform.InverseTransformPoint(m_interactor.pointer.position);
+            base.Selected(interactor);
+
+            DispatchEvent(TOUCH_DOWN, interactor);
+        }
+
+        public override void WhileSelected(Interactor interactor)
+        {
+            base.WhileSelected(interactor);
+
+            DispatchEvent(TOUCH_MOVE, interactor);
+        }
+
+        public override void UnSelected(Interactor interactor)
+        {
+            base.UnSelected(interactor);
+
+            DispatchEvent(TOUCH_UP, interactor);
+        }
+
+        private void DispatchEvent(int eventNum, Interactor interactor)
+        {
+            Vector3 invertPositoin = m_webViewRect.transform.InverseTransformPoint(interactor.pointer.position);
 
             // https://docs.unity3d.com/jp/2018.4/ScriptReference/Transform.InverseTransformPoint.html
             invertPositoin.z *= m_webViewRect.transform.lossyScale.z;
@@ -55,20 +73,6 @@ namespace TLab.VRClassroom
 
                 m_lastXPos = (int)(uvX * m_tlabWebView.WebWidth);
                 m_lastYPos = (int)(uvY * m_tlabWebView.WebHeight);
-
-                int eventNum = (int)TouchPhase.Stationary;
-                if (m_interactor.onRelease)
-                {
-                    eventNum = TOUCH_UP;
-                }
-                else if (m_interactor.onPress)
-                {
-                    eventNum = TOUCH_DOWN;
-                }
-                else if (m_interactor.pressed)
-                {
-                    eventNum = TOUCH_MOVE;
-                }
 
                 m_tlabWebView.TouchEvent(m_lastXPos, m_lastYPos, eventNum);
             }
