@@ -41,7 +41,7 @@ namespace TLab.XR.Interact
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            Debug.Log("saved process mesh: " + path);
+            Debug.Log("Saved Process Mesh: " + path);
         }
 
         public void SaveManaterial(Material outline, ref Material[] newMaterials, MeshRenderer meshRenderer)
@@ -63,7 +63,7 @@ namespace TLab.XR.Interact
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            Debug.Log("saved material: " + path);
+            Debug.Log("Saved Material: " + path);
         }
 
         public void ProcessMesh(GameObject obj)

@@ -93,9 +93,7 @@ namespace TLab.XR.Network
         public void CacheAvator(int seatIndex, GameObject go)
         {
             if (m_avatorInstanceQueue[seatIndex] == null)
-            {
                 m_avatorInstanceQueue[seatIndex] = new Queue<GameObject>();
-            }
 
             m_avatorInstanceQueue[seatIndex].Enqueue(go);
         }
@@ -114,6 +112,7 @@ namespace TLab.XR.Network
         }
 
         #region REFLESH
+
         /// <summary>
         /// Let the server organize cached object information (e.g., Rigidbody allocation)
         /// Request the results of organized object information.
@@ -128,8 +127,6 @@ namespace TLab.XR.Network
                 active = reloadWorldData
             };
             SendWsMessage(JsonUtility.ToJson(obj));
-
-            Debug.Log(THIS_NAME + "force reflesh");
         }
 
         /// <summary>
@@ -145,12 +142,12 @@ namespace TLab.XR.Network
                 transform = new WebObjectInfo { id = targetName }
             };
             SendWsMessage(JsonUtility.ToJson(obj));
-
-            Debug.Log(THIS_NAME + "reflesh " + targetName);
         }
+
         #endregion REFLESH
 
         #region CONNECT_SERVER
+
         private string GetBodyTrackerName(string playerName, int seatIndex, AvatorConfig.BodyParts parts)
         {
             // playerNameは現在使用していない
@@ -256,9 +253,9 @@ namespace TLab.XR.Network
 
                 // Processing when guest joins
 
-                // If guest already exists
                 if (m_guestTable[obj.seatIndex])
                 {
+                    Debug.LogError("Guest Already Exists:" + obj.seatIndex);
                     return;
                 }
 
@@ -271,25 +268,10 @@ namespace TLab.XR.Network
 
                     var guestParts = null as GameObject;
 
-                    if (m_instantiateAnchor != null)
-                    {
-                        guestParts = Instantiate(prefab, m_instantiateAnchor.position, m_instantiateAnchor.rotation);
-                    }
-                    else
-                    {
-                        guestParts = Instantiate(prefab);
-                    }
+                    guestParts = m_instantiateAnchor != null ? Instantiate(prefab, m_instantiateAnchor.position, m_instantiateAnchor.rotation) : Instantiate(prefab);
 
                     var trackerName = GetBodyTrackerName("", obj.seatIndex, parts);
                     guestParts.name = trackerName;
-
-                    // TODO: Instantiate()の後，Start()が呼び出されるタイミングを調査する
-                    //var networkedObj = guestParts.GetComponent<NetworkedObject>();
-
-                    //if (networkedObj != null)
-                    //{
-                    //    NetworkedObject.Register(guestParts.name, networkedObj);
-                    //}
 
                     CacheAvator(obj.seatIndex, guestParts);
                 }
@@ -384,8 +366,6 @@ namespace TLab.XR.Network
                         SyncClientConst.ACTION + ((int)WebAction.REGIST).ToString() +
                     "}";
 
-                Debug.Log(THIS_NAME + json);
-
                 SendWsMessage(json);
 
                 Debug.Log(THIS_NAME + "Connection open!");
@@ -414,7 +394,6 @@ namespace TLab.XR.Network
                 receiveCallbacks[obj.action].Invoke(obj);
             };
 
-            // waiting for messages
             await m_websocket.Connect();
 
             yield break;
@@ -454,10 +433,8 @@ namespace TLab.XR.Network
         /// <summary>
         /// Connect to a Websocekt server asynchronously
         /// </summary>
-        public void ConnectServerAsync()
-        {
-            StartCoroutine(ConnectServerTaskStart());
-        }
+        public void ConnectServerAsync() => StartCoroutine(ConnectServerTaskStart());
+
         #endregion CONNECT_SERVER
 
         #region RTC_MESSAGE
@@ -519,7 +496,7 @@ namespace TLab.XR.Network
             var networkedObject = NetworkedObject.GetById(targetName);
             if (networkedObject == null)
             {
-                Debug.Log("not found");
+                Debug.LogError("Target Networked Object Not Found");
 
                 return;
             }
@@ -547,13 +524,12 @@ namespace TLab.XR.Network
             networkedObject.SyncFromOutside(webTransform);
         }
 
-        public void SendRTCMessage(byte[] bytes)
-        {
-            m_dataChannel.SendRTCMsg(bytes);
-        }
+        public void SendRTCMessage(byte[] bytes) => m_dataChannel.SendRTCMsg(bytes);
+
         #endregion RTC_MESSAGE
 
         #region WEBSOCKET_MESSAGE
+
         public void SendWsMessage(WebRole role, WebAction action,
                                   int seatIndex = -1, bool active = false,
                                   WebObjectInfo transform = null, WebAnimInfo animator = null, int customIndex = -1, string custom = "")
@@ -570,62 +546,42 @@ namespace TLab.XR.Network
         public async void SendWsMessage(string json)
         {
             if (socketIsOpen)
-            {
                 await m_websocket.SendText(json);
-            }
         }
+
         #endregion WEBSOCKET_MESSAGE
 
-        public void CloseRTC()
-        {
-            m_dataChannel.Exit();
-        }
+        public void CloseRTC() => m_dataChannel.Exit();
 
         public void ConfirmRTCCallbackRegisted()
         {
             if (m_dataChannel == null)
-            {
                 m_dataChannel = GetComponent<WebRTCDataChannel>();
-            }
 
             if (m_dataChannel.eventCount == 0)
-            {
                 m_dataChannel.SetCallback(OnRTCMessage);
-            }
         }
 
-        void Reset()
-        {
-            ConfirmRTCCallbackRegisted();
-        }
+        void Reset() => ConfirmRTCCallbackRegisted();
 
         void Awake()
         {
             Instance = this;
 
             if (m_dataChannel == null)
-            {
                 m_dataChannel = GetComponent<WebRTCDataChannel>();
-            }
         }
 
         void Start()
         {
             for (int i = 0; i < m_avatorInstanceQueue.Length; i++)
-            {
                 if (m_avatorInstanceQueue[i] != null)
-                {
                     m_avatorInstanceQueue[i] = new Queue<GameObject>();
-                }
-            }
 
             ConnectServerAsync();
 
 #if UNITY_EDITOR
-            if (m_editorDebug)
-            {
-                m_isHost = true;
-            }
+            if (m_editorDebug) m_isHost = true;
 #endif
 
             if (m_buildDebug)
@@ -642,30 +598,20 @@ namespace TLab.XR.Network
         {
 #if !UNITY_WEBGL || UNITY_EDITOR
             if (m_websocket != null)
-            {
                 m_websocket.DispatchMessageQueue();
-            }
 #endif
         }
 
         private async void CloseWebSocket()
         {
             if (m_websocket != null)
-            {
                 await m_websocket.Close();
-            }
 
             m_websocket = null;
         }
 
-        void OnDestroy()
-        {
-            CloseWebSocket();
-        }
+        void OnDestroy() => CloseWebSocket();
 
-        void OnApplicationQuit()
-        {
-            CloseWebSocket();
-        }
+        void OnApplicationQuit() => CloseWebSocket();
     }
 }

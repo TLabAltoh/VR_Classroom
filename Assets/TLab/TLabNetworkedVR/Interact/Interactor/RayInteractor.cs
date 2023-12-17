@@ -88,28 +88,20 @@ namespace TLab.XR.Interact
                     if (m_interactable.IsSelectes(this))
                     {
                         if (m_pressed)
-                        {
                             m_interactable.WhileSelected(this);
-                        }
                         else
-                        {
                             m_interactable.UnSelected(this);
-                        }
                     }
                     else
                     {
                         if (m_onPress)
-                        {
                             m_interactable.Selected(this);
-                        }
                     }
                 }
                 else
                 {
                     if (m_interactable.IsSelectes(this))
-                    {
                         m_interactable.UnSelected(this);
-                    }
 
                     m_interactable.UnHovered(this);
                     m_interactable = null;

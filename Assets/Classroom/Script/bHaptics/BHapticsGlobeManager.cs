@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
+using Oculus.Interaction.Input;
 #if WIN || UNITY_EDITOR
 using Bhaptics.SDK2;
 #endif
-using TLab.XR.VRGrabber;
 
 namespace TLab.VRClassroom
 {
@@ -20,42 +20,18 @@ namespace TLab.VRClassroom
 
             private LayerMask m_layer;
 
-            public float GetVelocity
-            {
-                get
-                {
-                    return (m_position - m_prevPosition).magnitude / Time.deltaTime;
-                }
-            }
+            public float GetVelocity => (m_position - m_prevPosition).magnitude / Time.deltaTime;
 
-            public int GetHit
-            {
-                get
-                {
-                    return (m_onHit == true) ? (int)(GetVelocity * 25) : 0;
-                }
-            }
+            public int GetHit => (m_onHit == true) ? (int)(GetVelocity * 25) : 0;
 
-            public Vector3 Position
-            {
-                get
-                {
-                    return m_position;
-                }
-            }
+            public Vector3 Position => m_position;
 
-            public Vector3 PrevPosition
-            {
-                get
-                {
-                    return m_prevPosition;
-                }
-            }
+            public Vector3 PrevPosition => m_prevPosition;
 
-            public BHapticsGlobeJointInfo(OVRBone m_bone, LayerMask targetLayer)
+            public BHapticsGlobeJointInfo(OVRBone bone, LayerMask targetLayer)
             {
-                this.m_bone = m_bone;
-                this.m_layer = targetLayer;
+                m_bone = bone;
+                m_layer = targetLayer;
             }
 
             public void Update()
@@ -63,7 +39,7 @@ namespace TLab.VRClassroom
                 m_prevPosition = m_position;
                 m_position = m_bone.Transform.position;
 
-                if (m_hit == true)
+                if (m_hit)
                 {
                     // m_hit‚ªfalse‚É‚È‚é‚Ü‚Åm_onHit‚ðtrue‚É‚Å‚«‚È‚¢
                     m_hit = Physics.CheckSphere(m_position, 0.005f, m_layer);
@@ -77,8 +53,10 @@ namespace TLab.VRClassroom
             }
         }
 
-        [SerializeField] private TLabVRTrackingHand m_rightHand;
-        [SerializeField] private TLabVRTrackingHand m_leftHand;
+        [SerializeField] private FromOVRHandDataSource m_rightHand;
+        [SerializeField] private FromOVRHandDataSource m_leftHand;
+        [SerializeField] private OVRSkeleton m_rightSkelton;
+        [SerializeField] private OVRSkeleton m_leftSkelton;
         [SerializeField] private LayerMask m_layer;
 
         private BHapticsGlobeJointInfo[] m_rightJointInfos;
@@ -86,60 +64,47 @@ namespace TLab.VRClassroom
 
         private IEnumerator LateStart()
         {
-            // right hand
-
-            while (!m_rightHand.SkeltonInitialized)
-            {
+            while (!m_rightSkelton.IsInitialized)
                 yield return null;
-            }
 
             m_rightJointInfos = new BHapticsGlobeJointInfo[6];
 
-            m_rightJointInfos[0] = new BHapticsGlobeJointInfo(m_rightHand.GetFingerBone(OVRSkeleton.BoneId.Hand_ThumbTip), m_layer);
-            m_rightJointInfos[1] = new BHapticsGlobeJointInfo(m_rightHand.GetFingerBone(OVRSkeleton.BoneId.Hand_IndexTip), m_layer);
-            m_rightJointInfos[2] = new BHapticsGlobeJointInfo(m_rightHand.GetFingerBone(OVRSkeleton.BoneId.Hand_MiddleTip), m_layer);
-            m_rightJointInfos[3] = new BHapticsGlobeJointInfo(m_rightHand.GetFingerBone(OVRSkeleton.BoneId.Hand_RingTip), m_layer);
-            m_rightJointInfos[4] = new BHapticsGlobeJointInfo(m_rightHand.GetFingerBone(OVRSkeleton.BoneId.Hand_PinkyTip), m_layer);
-            m_rightJointInfos[5] = new BHapticsGlobeJointInfo(m_rightHand.GetFingerBone(OVRSkeleton.BoneId.Hand_WristRoot), m_layer);
+            var rightBones = m_rightSkelton.Bones;
+            m_rightJointInfos[0] = new BHapticsGlobeJointInfo(rightBones[(int)OVRSkeleton.BoneId.Hand_ThumbTip], m_layer);
+            m_rightJointInfos[1] = new BHapticsGlobeJointInfo(rightBones[(int)OVRSkeleton.BoneId.Hand_IndexTip], m_layer);
+            m_rightJointInfos[2] = new BHapticsGlobeJointInfo(rightBones[(int)OVRSkeleton.BoneId.Hand_MiddleTip], m_layer);
+            m_rightJointInfos[3] = new BHapticsGlobeJointInfo(rightBones[(int)OVRSkeleton.BoneId.Hand_RingTip], m_layer);
+            m_rightJointInfos[4] = new BHapticsGlobeJointInfo(rightBones[(int)OVRSkeleton.BoneId.Hand_PinkyTip], m_layer);
+            m_rightJointInfos[5] = new BHapticsGlobeJointInfo(rightBones[(int)OVRSkeleton.BoneId.Hand_WristRoot], m_layer);
 
-            // left hand
-
-            while (!m_leftHand.SkeltonInitialized)
-            {
+            while (!m_leftSkelton.IsInitialized)
                 yield return null;
-            }
 
             m_leftJointInfos = new BHapticsGlobeJointInfo[6];
 
-            m_leftJointInfos[0] = new BHapticsGlobeJointInfo(m_leftHand.GetFingerBone(OVRSkeleton.BoneId.Hand_ThumbTip), m_layer);
-            m_leftJointInfos[1] = new BHapticsGlobeJointInfo(m_leftHand.GetFingerBone(OVRSkeleton.BoneId.Hand_IndexTip), m_layer);
-            m_leftJointInfos[2] = new BHapticsGlobeJointInfo(m_leftHand.GetFingerBone(OVRSkeleton.BoneId.Hand_MiddleTip), m_layer);
-            m_leftJointInfos[3] = new BHapticsGlobeJointInfo(m_leftHand.GetFingerBone(OVRSkeleton.BoneId.Hand_RingTip), m_layer);
-            m_leftJointInfos[4] = new BHapticsGlobeJointInfo(m_leftHand.GetFingerBone(OVRSkeleton.BoneId.Hand_PinkyTip), m_layer);
-            m_leftJointInfos[5] = new BHapticsGlobeJointInfo(m_leftHand.GetFingerBone(OVRSkeleton.BoneId.Hand_WristRoot), m_layer);
+            var leftBones = m_leftSkelton.Bones;
+            m_leftJointInfos[0] = new BHapticsGlobeJointInfo(leftBones[(int)OVRSkeleton.BoneId.Hand_ThumbTip], m_layer);
+            m_leftJointInfos[1] = new BHapticsGlobeJointInfo(leftBones[(int)OVRSkeleton.BoneId.Hand_IndexTip], m_layer);
+            m_leftJointInfos[2] = new BHapticsGlobeJointInfo(leftBones[(int)OVRSkeleton.BoneId.Hand_MiddleTip], m_layer);
+            m_leftJointInfos[3] = new BHapticsGlobeJointInfo(leftBones[(int)OVRSkeleton.BoneId.Hand_RingTip], m_layer);
+            m_leftJointInfos[4] = new BHapticsGlobeJointInfo(leftBones[(int)OVRSkeleton.BoneId.Hand_PinkyTip], m_layer);
+            m_leftJointInfos[5] = new BHapticsGlobeJointInfo(leftBones[(int)OVRSkeleton.BoneId.Hand_WristRoot], m_layer);
         }
 
-        void Start()
-        {
-            StartCoroutine("LateStart");
-        }
+        void Start() => StartCoroutine(LateStart());
 
         void Update()
         {
             if (m_rightJointInfos != null)
             {
                 foreach (BHapticsGlobeJointInfo jointInfo in m_rightJointInfos)
-                {
                     jointInfo.Update();
-                }
             }
 
             if (m_leftJointInfos != null)
             {
                 foreach (BHapticsGlobeJointInfo jointInfo in m_leftJointInfos)
-                {
                     jointInfo.Update();
-                }
             }
 
 #if Win || UNITY_EDITOR

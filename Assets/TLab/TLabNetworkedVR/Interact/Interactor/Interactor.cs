@@ -18,10 +18,7 @@ namespace TLab.XR.Interact
             {
                 int identifier = Random.Range(0, int.MaxValue);
 
-                if (m_identifiers.Contains(identifier))
-                {
-                    continue;
-                }
+                if (m_identifiers.Contains(identifier)) continue;
 
                 m_identifiers.Add(identifier);
 
@@ -71,41 +68,19 @@ namespace TLab.XR.Interact
 
         public Vector3 angulerVelocity => m_angulerVelocity;
 
-        protected virtual void UpdateRaycast()
-        {
+        protected virtual void UpdateRaycast(){}
 
-        }
+        protected virtual void UpdateInput(){}
 
-        protected virtual void UpdateInput()
-        {
+        protected virtual void Process(){}
 
-        }
+        protected virtual void Awake() => m_identifier = GenerateIdentifier();
 
-        protected virtual void Process()
-        {
-
-        }
-
-        protected virtual void Awake()
-        {
-            m_identifier = GenerateIdentifier();
-
-            Debug.Log(THIS_NAME + "identifier: " + m_identifier);
-        }
-
-        protected virtual void Start()
-        {
-            UpdateInput();
-        }
+        protected virtual void Start() => UpdateInput();
 
         protected virtual void Update()
         {
-            // TODO: ここで行う処理を共通化したい．どのサブクラスでも同じような
-            // 処理を実行している．ただ，Spherecast()の対象の型が異なるため，
-            // 型指定のパラメータからはアクセスできない ...
-
             UpdateInput();
-
             Process();
         }
     }

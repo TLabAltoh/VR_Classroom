@@ -83,18 +83,6 @@ namespace TLab.XR.Interact.Editor
 
                     InitializeForDivibable(divideTarget, false);
 
-                    var tlabGrabbableChild = divideTarget.gameObject.GetComponent<VRGrabber.TLabVRGrabbable>();
-                    if(tlabGrabbableChild != null)
-                    {
-                        DestroyImmediate(tlabGrabbableChild);
-                    }
-
-                    var tlabRotatableChild = divideTarget.gameObject.GetComponent<VRGrabber.TLabVRRotatable>();
-                    if (tlabRotatableChild != null)
-                    {
-                        DestroyImmediate(tlabRotatableChild);
-                    }
-
                     EditorUtility.SetDirty(divideTarget);
                 }
             }

@@ -30,9 +30,7 @@ namespace TLab.XR.Interact
                 foreach (var material in materials)
                 {
                     if (material != m_material)
-                    {
                         materialList.Add(material);
-                    }
                 }
 
                 materialList.Add(copy);
@@ -56,9 +54,7 @@ namespace TLab.XR.Interact
             base.UnHovered(interactor);
 
             if (!IsHovered())
-            {
                 m_material.SetFloat(OUTLINE_WIDTH, ZERO_WIDTH);
-            }
         }
     }
 }

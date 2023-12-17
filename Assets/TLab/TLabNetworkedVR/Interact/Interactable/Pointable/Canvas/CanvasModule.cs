@@ -146,10 +146,6 @@ namespace TLab.XR
 
         private void HandlePointerEvent(Canvas canvas, PointerEvent evt)
         {
-#if UNITY_EDITOR
-            Debug.Log(THIS_NAME + "Pointer Event Fired ! :" + evt.type.ToString());
-#endif
-
             Pointer pointer;
 
             switch (evt.type)

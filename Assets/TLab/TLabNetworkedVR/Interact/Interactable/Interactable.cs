@@ -16,22 +16,12 @@ namespace TLab.XR.Interact
 
         protected static void Register(Interactable interactable)
         {
-            if (!m_registry.Contains(interactable))
-            {
-                m_registry.Add(interactable);
-
-                Debug.Log(REGISTRY + "interactable registered in the registry: " + interactable.gameObject.name);
-            }
+            if (!m_registry.Contains(interactable)) m_registry.Add(interactable);
         }
 
         protected static void UnRegister(Interactable interactable)
         {
-            if (m_registry.Contains(interactable))
-            {
-                m_registry.Remove(interactable);
-
-                Debug.Log(REGISTRY + "deregistered interactable from the registry.: " + interactable.gameObject.name);
-            }
+            if (m_registry.Contains(interactable)) m_registry.Remove(interactable);
         }
 
         #endregion
@@ -56,42 +46,26 @@ namespace TLab.XR.Interact
 
         public bool enableCollision { get => m_colliderEnable; set => m_colliderEnable = value; }
 
-        public virtual bool IsHovered()
-        {
-            return m_hovereds.Count > 0;
-        }
+        public virtual bool IsHovered() => m_hovereds.Count > 0;
 
-        public virtual bool IsHoveres(Interactor interactor)
-        {
-            return m_hovereds.Contains(interactor);
-        }
+        public virtual bool IsHoveres(Interactor interactor) => m_hovereds.Contains(interactor);
 
-        public virtual bool IsSelected()
-        {
-            return m_selecteds.Count > 0;
-        }
+        public virtual bool IsSelected() => m_selecteds.Count > 0;
 
-        public virtual bool IsSelectes(Interactor interactor)
-        {
-            return m_selecteds.Contains(interactor);
-        }
+        public virtual bool IsSelectes(Interactor interactor) => m_selecteds.Contains(interactor);
 
         public virtual void Hovered(Interactor interactor)
         {
             m_hovereds.Add(interactor);
 
             if (m_interactableChain != null)
-            {
                 m_interactableChain.ForEach((s) => s.Hovered(interactor));
-            }
         }
 
         public virtual void WhileHovered(Interactor interactor)
         {
             if (m_interactableChain != null)
-            {
                 m_interactableChain.ForEach((s) => s.WhileHovered(interactor));
-            }
         }
 
         public virtual void UnHovered(Interactor interactor)
@@ -99,9 +73,7 @@ namespace TLab.XR.Interact
             m_hovereds.Remove(interactor);
 
             if (m_interactableChain != null)
-            {
                 m_interactableChain.ForEach((s) => s.UnHovered(interactor));
-            }
         }
 
         public virtual void Selected(Interactor interactor)
@@ -109,17 +81,13 @@ namespace TLab.XR.Interact
             m_selecteds.Add(interactor);
 
             if (m_interactableChain != null)
-            {
                 m_interactableChain.ForEach((s) => s.Selected(interactor));
-            }
         }
 
         public virtual void WhileSelected(Interactor interactor)
         {
             if (m_interactableChain != null)
-            {
                 m_interactableChain.ForEach((s) => s.WhileSelected(interactor));
-            }
         }
 
         public virtual void UnSelected(Interactor interactor)
@@ -127,9 +95,7 @@ namespace TLab.XR.Interact
             m_selecteds.Remove(interactor);
 
             if (m_interactableChain != null)
-            {
                 m_interactableChain.ForEach((s) => s.UnSelected(interactor));
-            }
         }
 
         #region RAYCAST
@@ -164,25 +130,13 @@ namespace TLab.XR.Interact
 
         #endregion RAYCAST
 
-        protected virtual void OnEnable()
-        {
-            Interactable.Register(this);
-        }
+        protected virtual void OnEnable() => Interactable.Register(this);
 
-        protected virtual void OnDisable()
-        {
-            Interactable.UnRegister(this);
-        }
+        protected virtual void OnDisable() => Interactable.UnRegister(this);
 
-        protected virtual void Start()
-        {
+        protected virtual void Start(){}
 
-        }
-
-        protected virtual void Update()
-        {
-
-        }
+        protected virtual void Update(){}
 
 #if UNITY_EDITOR
         protected virtual void OnValidate()
@@ -192,9 +146,7 @@ namespace TLab.XR.Interact
                 m_collider = GetComponent<Collider>();
 
                 if (m_collider != null)
-                {
                     EditorUtility.SetDirty(this);
-                }
             }
         }
 #endif

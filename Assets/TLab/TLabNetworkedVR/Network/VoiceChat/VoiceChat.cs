@@ -14,6 +14,8 @@ namespace TLab.Network.VoiceChat
         [Header("RTCDataChannel")]
         [SerializeField] private WebRTCDataChannel m_dataChannel;
 
+        [SerializeField] private string m_roomName = "VoiceChat";
+
         [Header("Audio Info")]
         [Tooltip("Playback the sound recorded from the microphone yourself or")]
         [SerializeField] private bool m_loopBackSelf = false;
@@ -22,10 +24,6 @@ namespace TLab.Network.VoiceChat
         [SerializeField] public bool m_isStreaming = false;
 
         public static VoiceChat Instance;
-
-        //
-        // Own sound
-        //
 
         private AudioSource m_microphoneSource;
         private AudioClip m_microphoneClip;
@@ -48,10 +46,6 @@ namespace TLab.Network.VoiceChat
         private const int SIZE_OF_FLOAT_LOG2 = 2;
         private const int FREQUENCY = 44100;
         private const double TIME_LENGTH = (double)VOICE_BUFFER_SIZE / (double)FREQUENCY;
-
-        //
-        // Other's sound
-        //
 
         private Hashtable m_voicePlayers = new Hashtable();
 
@@ -78,18 +72,9 @@ namespace TLab.Network.VoiceChat
 
             float[][] internalBuffers = new float[redundancy][];
 
-            public float[] buf
-            {
-                get
-                {
-                    return internalBuffers[index];
-                }
-            }
+            public float[] buf => internalBuffers[index];
 
-            public void Cycle()
-            {
-                index = (index + 1) % redundancy;
-            }
+            public void Cycle() => index = (index + 1) % redundancy;
 
             public POTBuf(int POT)
             {
@@ -109,15 +94,9 @@ namespace TLab.Network.VoiceChat
         }
 #endif
 
-        public void RegistClient(string name, VoiceChatPlayer player)
-        {
-            m_voicePlayers[name] = player;
-        }
+        public void RegistClient(string name, VoiceChatPlayer player) => m_voicePlayers[name] = player;
 
-        public void ReleaseClient(string name)
-        {
-            m_voicePlayers.Remove(name);
-        }
+        public void ReleaseClient(string name) => m_voicePlayers.Remove(name);
 
         private void SetupBuffers()
         {
@@ -158,18 +137,12 @@ namespace TLab.Network.VoiceChat
             }
         }
 
-        public void SendVoice(byte[] voice)
-        {
-            m_dataChannel.SendRTCMsg(voice);
-        }
+        public void SendVoice(byte[] voice) => m_dataChannel.SendRTCMsg(voice);
 
         public void OnVoice(string dstID, string srcID, byte[] voiceBytes)
         {
             var player = m_voicePlayers[srcID] as VoiceChatPlayer;
-            if (player == null)
-            {
-                return;
-            }
+            if (player == null) return;
 
             byte[] voiceBuffer = Decompress(voiceBytes);
             float[] voice = new float[VOICE_BUFFER_SIZE];
@@ -209,17 +182,8 @@ namespace TLab.Network.VoiceChat
 
         private string GetMicrophone()
         {
-            string deviceList = "Currently connected device:\n";
-            foreach (string deveice in Microphone.devices)
-            {
-                deviceList += "\t" + deveice + "\n";
-            }
-            Debug.Log(THIS_NAME + deviceList);
-
             if (Microphone.devices.Length > 0)
-            {
                 return Microphone.devices[0];
-            }
 
             return null;
         }
@@ -241,23 +205,16 @@ namespace TLab.Network.VoiceChat
                 Debug.LogError(THIS_NAME + "Failed to recording, using " + m_microphoneName);
                 return false;
             }
-            else
-            {
-                Debug.Log(THIS_NAME + "Start recording, using " + m_microphoneName + ", samples: " + m_microphoneClip.samples + ", channels: " + m_microphoneClip.channels);
-            }
 
             return true;
         }
 
         public void StartVoiceChat()
         {
-            m_dataChannel.Join(this.gameObject.name, "VoiceChat");
+            m_dataChannel.Join(this.gameObject.name, m_roomName);
 
             m_recording = StartRecording();
-            if (!m_recording)
-            {
-                return;
-            }
+            if (!m_recording) return;
 
             if (m_loopBackSelf)
             {
@@ -265,8 +222,6 @@ namespace TLab.Network.VoiceChat
                 m_microphoneSource.clip = m_microphoneClip;
                 m_microphoneSource.loop = true;
                 m_microphoneSource.Play();
-
-                Debug.Log(THIS_NAME + "Sart Loop Back");
             }
 
             SetupBuffers();
@@ -356,27 +311,17 @@ namespace TLab.Network.VoiceChat
             var configuration = AudioSettings.GetConfiguration();
             configuration.dspBufferSize = VOICE_BUFFER_SIZE;
             AudioSettings.Reset(configuration);
-            Debug.Log(THIS_NAME + configuration.dspBufferSize);
         }
 
-        public void CloseRTC()
-        {
-            m_dataChannel.Exit();
-        }
+        public void CloseRTC() => m_dataChannel.Exit();
 
         private void Update()
         {
-            if (!m_recording)
-            {
-                return;
-            }
+            if (!m_recording) return;
 
             m_writeHead = Microphone.GetPosition(m_microphoneName);
 
-            if (m_readHead == m_writeHead || m_potBuffers == null || !m_isStreaming)
-            {
-                return;
-            }
+            if (m_readHead == m_writeHead || m_potBuffers == null || !m_isStreaming) return;
 
             // Say audio.clip.samples (S)  = 100
             // if w=1, r=0, we want 1 sample.  ( S + 1 - 0 ) % S = 1 YES
@@ -395,10 +340,7 @@ namespace TLab.Network.VoiceChat
                     m_microphoneClip.GetData(B.buf, m_readHead);
                     m_readHead = (m_readHead + n) % m_microphoneClip.samples;
 
-                    if (floatsInDelegate != null)
-                    {
-                        floatsInDelegate(B.buf);
-                    }
+                    if (floatsInDelegate != null) floatsInDelegate(B.buf);
 
                     B.Cycle();
                     nFloatsToGet -= n;
@@ -409,9 +351,7 @@ namespace TLab.Network.VoiceChat
         private void Reset()
         {
             if(m_dataChannel == null)
-            {
                 m_dataChannel = GetComponent<WebRTCDataChannel>();
-            }
         }
 
         private void Awake()
@@ -424,9 +364,7 @@ namespace TLab.Network.VoiceChat
         private void Start()
         {
             if(m_microphoneSource == null)
-            {
                 m_microphoneSource = GetComponent<AudioSource>();
-            }
         }
     }
 }
