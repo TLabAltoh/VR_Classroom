@@ -38,22 +38,12 @@ namespace TLab.XR.Interact
 
         protected static void Register(string id, ExclusiveController controller)
         {
-            if (!m_registry.ContainsKey(id))
-            {
-                m_registry[id] = controller;
-
-                Debug.Log(REGISTRY + "controller registered in the registry: " + id);
-            }
+            if (!m_registry.ContainsKey(id)) m_registry[id] = controller;
         }
 
         protected static new void UnRegister(string id)
         {
-            if (m_registry.ContainsKey(id))
-            {
-                m_registry.Remove(id);
-
-                Debug.Log(REGISTRY + "deregistered controller from the registry.: " + id);
-            }
+            if (m_registry.ContainsKey(id)) m_registry.Remove(id);
         }
 
         public static new void ClearRegistry()
@@ -271,8 +261,6 @@ namespace TLab.XR.Interact
                     action: WebAction.FORCERELEASE,
                     transform: new WebObjectInfo { id = m_id });
             }
-
-            Debug.Log(THIS_NAME + "force release");
         }
 
 
@@ -293,21 +281,17 @@ namespace TLab.XR.Interact
             mesh.CombineMeshes(combine);
 
             if (m_meshCollider != null)
-            {
                 m_meshCollider.sharedMesh = mesh;
-            }
         }
 
         public void Divide(bool active)
         {
-            if (!m_enableDivide)
-            {
-                return;
-            }
+            if (!m_enableDivide) return;
 
             var meshCollider = this.gameObject.GetComponent<MeshCollider>();
             if (meshCollider == null)
             {
+                Debug.LogError(THIS_NAME + "Mesh Collider Not Found");
                 return;
             }
 
@@ -316,42 +300,28 @@ namespace TLab.XR.Interact
             // TODO: GetComponentsInChildren以外のコレクションの収集方法を検討する
 
             var childs = GetComponentsInTargets<MeshCollider>(divideTargets);
-            foreach (var child in childs)
-            {
-                child.enabled = active;
-            }
+            foreach (var child in childs) child.enabled = active;
 
             // 結合/分割を切り替えたので，divideTargetsが持つRotetableの回転を止める
             var rotatables = this.gameObject.GetComponentsInChildren<Rotatable>();
-            foreach (var rotatable in rotatables)
-            {
-                rotatable.Stop();
-            }
+            foreach (var rotatable in rotatables) rotatable.Stop();
 
             // 結合/分割を切り替えたので，divideTargetsが持つExclusiveControllerを含めて
             // ExclusiveControllerを誰も掴んでいない状態にする
             var controllers = GetComponentsInTargets<ExclusiveController>(divideTargets);
-            foreach (var controller in controllers)
-            {
-                controller.ForceRelease(true);
-            }
+            foreach (var controller in controllers) controller.ForceRelease(true);
 
-            if (!active)
-            {
-                CreateCombineMeshCollider();
-            }
+            if (!active) CreateCombineMeshCollider();
         }
 
         public void Devide()
         {
-            if (!m_enableDivide)
-            {
-                return;
-            }
+            if (!m_enableDivide) return;
 
             var meshCollider = gameObject.GetComponent<MeshCollider>();
             if (meshCollider == null)
             {
+                Debug.LogError(THIS_NAME + "Mesh Collider Not Found");
                 return;
             }
 
@@ -366,10 +336,7 @@ namespace TLab.XR.Interact
 
         public void SetInitialChildTransform()
         {
-            if (!m_enableDivide)
-            {
-                return;
-            }
+            if (!m_enableDivide) return;
 
             int index = 0;
 
@@ -384,21 +351,16 @@ namespace TLab.XR.Interact
             }
 
             var rotatables = this.gameObject.GetComponentsInChildren<Rotatable>();
-            foreach (var rotatable in rotatables)
-            {
-                rotatable.Stop();   // 動作未検証
-            }
+            foreach (var rotatable in rotatables) rotatable.Stop();
 
             var meshCollider = gameObject.GetComponent<MeshCollider>();
             if (meshCollider == null)
             {
+                Debug.LogError(THIS_NAME + "Mesh Collider Not Found");
                 return;
             }
 
-            if (meshCollider.enabled)
-            {
-                CreateCombineMeshCollider();
-            }
+            if (meshCollider.enabled) CreateCombineMeshCollider();
         }
 
         private void GetInitialChildTransform()
@@ -422,25 +384,16 @@ namespace TLab.XR.Interact
 
         public HandType GetHandType(Interactor interactor)
         {
-            if(m_mainHand == interactor)
-            {
-                return HandType.MAIN_HAND;
-            }
+            if (m_mainHand == interactor) return HandType.MAIN_HAND;
 
-            if(m_subHand == interactor)
-            {
-                return HandType.SUB_HAND;
-            }
+            if (m_subHand == interactor) return HandType.SUB_HAND;
 
             return HandType.NONE;
         }
 
         public HandType OnGrabbed(Interactor interactor)
         {
-            if (m_locked || (!isFree && !grabbByMe))
-            {
-                return HandType.NONE;
-            }
+            if (m_locked || (!isFree && !grabbByMe)) return HandType.NONE;
 
             if (m_mainHand == null)
             {
@@ -450,8 +403,6 @@ namespace TLab.XR.Interact
 
                 MainHandGrabbStart();
 
-                Debug.Log(THIS_NAME + interactor.ToString() + " mainHand added");
-
                 return HandType.MAIN_HAND;
             }
             else if (m_subHand == null)
@@ -459,8 +410,6 @@ namespace TLab.XR.Interact
                 m_subHand = interactor;
 
                 SubHandGrabbStart();
-
-                Debug.Log(THIS_NAME + interactor.ToString() + " subHand added");
 
                 return HandType.SUB_HAND;
             }
@@ -486,8 +435,6 @@ namespace TLab.XR.Interact
 
                     MainHandGrabbStart();
 
-                    Debug.Log(THIS_NAME + "main released and sub added");
-
                     return true;
                 }
                 else
@@ -495,8 +442,6 @@ namespace TLab.XR.Interact
                     GrabbLock(false);
 
                     m_mainHand = null;
-
-                    Debug.Log(THIS_NAME + "main released");
 
                     return false;
                 }
@@ -508,8 +453,6 @@ namespace TLab.XR.Interact
                 m_subHand = null;
 
                 MainHandGrabbStart();
-
-                Debug.Log(THIS_NAME + "sub released");
 
                 return false;
             }

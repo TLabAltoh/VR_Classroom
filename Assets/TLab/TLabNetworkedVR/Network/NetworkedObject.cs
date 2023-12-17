@@ -16,22 +16,12 @@ namespace TLab.XR.Network
 
         protected static void Register(string id, NetworkedObject networkedObject)
         {
-            if (!m_registry.ContainsKey(id))
-            {
-                m_registry[id] = networkedObject;
-
-                Debug.Log(REGISTRY + "networkedObject registered in the registry: " + id);
-            }
+            if (!m_registry.ContainsKey(id)) m_registry[id] = networkedObject;
         }
 
         protected static void UnRegister(string id)
         {
-            if (m_registry.ContainsKey(id))
-            {
-                m_registry.Remove(id);
-
-                Debug.Log(REGISTRY + "deregistered networkedObject from the registry.: " + id);
-            }
+            if (m_registry.ContainsKey(id)) m_registry.Remove(id);
         }
 
         public static void ClearRegistry()
@@ -47,30 +37,21 @@ namespace TLab.XR.Network
                 gameobjects.Add(networkedObject.gameObject);
             }
 
-            for (int i = 0; i < gameobjects.Count; i++)
-            {
-                Destroy(gameobjects[i]);
-            }
+            for (int i = 0; i < gameobjects.Count; i++) Destroy(gameobjects[i]);
 
             m_registry.Clear();
         }
 
         public static void ClearObject(GameObject go)
         {
-            if (go.GetComponent<NetworkedObject>() != null)
-            {
-                Destroy(go);
-            }
+            if (go.GetComponent<NetworkedObject>() != null) Destroy(go);
         }
 
         public static void ClearObject(string id)
         {
             var go = GetById(id).gameObject;
 
-            if (go != null)
-            {
-                ClearObject(go);
-            }
+            if (go != null) ClearObject(go);
         }
 
         public static NetworkedObject GetById(string id) => m_registry[id] as NetworkedObject;
@@ -180,10 +161,7 @@ namespace TLab.XR.Network
 #if UNITY_EDITOR
         public virtual void UseRigidbody(bool rigidbody, bool gravity)
         {
-            if (EditorApplication.isPlaying)
-            {
-                return;
-            }
+            if (EditorApplication.isPlaying) return;
 
             m_useRigidbody = rigidbody;
             m_useGravity = gravity;
@@ -210,31 +188,20 @@ namespace TLab.XR.Network
         private IEnumerator RegistRigidbodyObject()
         {
             // if useGravity is false, doesn't regist this object to server
-            if (!m_useGravity)
-            {
-                yield break;
-            }
+            if (!m_useGravity) yield break;
 
             // Wait for connection is opened
-            while (!socketIsOpen)
-            {
-                yield return null;
-            }
+            while (!socketIsOpen) yield return null;
 
             SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST,
                 action: WebAction.REGISTRBOBJ,
                 transform: new WebObjectInfo { id = m_id });
-
-            Debug.Log(THIS_NAME + "send rigidbody object");
         }
 
         public virtual void SetGravity(bool active)
         {
-            if (m_rb == null || m_useRigidbody == false)
-            {
-                return;
-            }
+            if (m_rb == null || m_useRigidbody == false) return;
 
             active &= m_useGravity;
             m_gravityState = active;
@@ -267,9 +234,7 @@ namespace TLab.XR.Network
             {
                 // Rigidbodyを無効化し，同期される側でも速度を正しく計算できるようにする．
                 if (!m_rbAllocated && m_gravityState)
-                {
                     SetGravity(false);
-                }
 
                 m_rb.MovePosition(new Vector3(position.x, position.y, position.z));
                 m_rb.MoveRotation(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
@@ -286,10 +251,7 @@ namespace TLab.XR.Network
 
         public void SyncRTCTransform()
         {
-            if (!m_enableSync)
-            {
-                return;
-            }
+            if (!m_enableSync) return;
 
             // transform
             // (3 + 4 + 3) * 4 = 40 byte
@@ -346,10 +308,7 @@ namespace TLab.XR.Network
 
         public void SyncTransform()
         {
-            if (!m_enableSync)
-            {
-                return;
-            }
+            if (!m_enableSync) return;
 
             m_builder.Clear();
 
@@ -473,10 +432,7 @@ namespace TLab.XR.Network
 
         public void ClearTransform()
         {
-            if (!m_enableSync)
-            {
-                return;
-            }
+            if (!m_enableSync) return;
 
             SyncClient.Instance.SendWsMessage(
                 role: WebRole.GUEST,
@@ -496,15 +452,9 @@ namespace TLab.XR.Network
 
         public void Shutdown(bool deleteCache)
         {
-            if (m_shutdown || !socketIsOpen)
-            {
-                return;
-            }
+            if (m_shutdown || !socketIsOpen) return;
 
-            if (deleteCache)
-            {
-                ClearTransform();
-            }
+            if (deleteCache) ClearTransform();
 
             m_shutdown = true;
             m_enableSync = false;
@@ -521,10 +471,7 @@ namespace TLab.XR.Network
             m_hash = v.GetHashCode().ToString();
         }
 
-        protected virtual void OnValidate()
-        {
-
-        }
+        protected virtual void OnValidate(){}
 #endif
 
         protected virtual void Start()
@@ -554,14 +501,8 @@ namespace TLab.XR.Network
             m_didnotReachCount++;
         }
 
-        protected virtual void OnDestroy()
-        {
-            Shutdown(false);
-        }
+        protected virtual void OnDestroy() => Shutdown(false);
 
-        protected virtual void OnApplicationQuit()
-        {
-            Shutdown(false);
-        }
+        protected virtual void OnApplicationQuit() => Shutdown(false);
     }
 }

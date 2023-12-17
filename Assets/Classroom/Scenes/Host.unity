@@ -3181,6 +3181,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_rightHand: {fileID: 0}
   m_leftHand: {fileID: 0}
+  m_rightSkelton: {fileID: 0}
+  m_leftSkelton: {fileID: 0}
   m_layer:
     serializedVersion: 2
     m_Bits: 0
