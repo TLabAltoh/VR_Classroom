@@ -31,7 +31,7 @@ namespace TLab.VRClassroom
 
         [SerializeField] private SeatIdentifier m_identifier;
 
-        private NetworkedObject m_networkedObject;
+        private SyncTransformer m_syncTransformer;
 
         private TextControllerTransform m_initialTransform;
 
@@ -130,7 +130,7 @@ namespace TLab.VRClassroom
                 }
             }
 
-            m_networkedObject = GetComponent<NetworkedObject>();
+            m_syncTransformer = GetComponent<SyncTransformer>();
 
             this.transform.parent = null;
         }
@@ -151,7 +151,7 @@ namespace TLab.VRClassroom
 
             if (m_enableSync && m_autoUpdate)
             {
-                m_networkedObject.SyncRTCTransform();
+                m_syncTransformer.SyncRTCTransform();
             }
         }
     }

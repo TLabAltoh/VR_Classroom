@@ -5,7 +5,7 @@ using TLab.XR.Network;
 
 namespace TLab.XR.Humanoid
 {
-    public class BodyTracker : NetworkedObject
+    public class BodyTracker : SyncTransformer
     {
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
@@ -17,22 +17,12 @@ namespace TLab.XR.Humanoid
 
         protected static void Register(string id, BodyTracker tracker)
         {
-            if (!m_registry.ContainsKey(id))
-            {
-                m_registry[id] = tracker;
-
-                Debug.Log(REGISTRY + "body tracker registered in the registry: " + id);
-            }
+            if (!m_registry.ContainsKey(id)) m_registry[id] = tracker;
         }
 
         protected static new void UnRegister(string id)
         {
-            if (m_registry.ContainsKey(id))
-            {
-                m_registry.Remove(id);
-
-                Debug.Log(REGISTRY + "deregistered body tracker from the registry.: " + id);
-            }
+            if (m_registry.ContainsKey(id)) m_registry.Remove(id);
         }
 
         public static new void ClearRegistry()

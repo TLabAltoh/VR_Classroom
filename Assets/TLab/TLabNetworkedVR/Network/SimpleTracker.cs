@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TLab.XR.Network
 {
-    public class SimpleTracker : NetworkedObject
+    public class SimpleTracker : SyncTransformer
     {
         #region REGISTRY
 

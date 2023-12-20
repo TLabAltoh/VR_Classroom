@@ -33,7 +33,7 @@ namespace TLab.VRClassroom
         private IEnumerator ExitClassroomTask()
         {
             // clear networked objct
-            NetworkedObject.ClearRegistry();
+            SyncTransformer.ClearRegistry();
             SyncAnimator.ClearRegistry();
 
             yield return new WaitForSeconds(0.5f);

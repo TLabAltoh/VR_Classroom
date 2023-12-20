@@ -332,8 +332,8 @@ namespace TLab.XR.Network
                 // Sync transform
 
                 var webTransform = obj.transform;
-                var networkedObject = NetworkedObject.GetById(webTransform.id);
-                networkedObject?.SyncFromOutside(webTransform);
+                var syncTransformer = SyncTransformer.GetById(webTransform.id);
+                syncTransformer?.SyncFromOutside(webTransform);
 
             };
             receiveCallbacks[(int)WebAction.SYNCANIM] = (obj) => {
@@ -475,11 +475,11 @@ namespace TLab.XR.Network
 
         public void OnRTCMessage(string dst, string src, byte[] bytes)
         {
-            int offset = bytes[0];
-            int nOffset = 1 + offset;
-            int dataLen = bytes.Length - offset;
+            int nameBytesLen = bytes[0];
+            int subBytesStart = 1 + nameBytesLen;
+            int subBytesLen = bytes.Length - nameBytesLen;
 
-            byte[] nameBytes = new byte[offset];
+            byte[] nameBytes = new byte[nameBytesLen];
 
             unsafe
             {
@@ -487,7 +487,7 @@ namespace TLab.XR.Network
                 fixed (byte* iniP = nameBytes, iniD = bytes)
                 {
                     //for (byte* pt = iniP, pd = iniD + 1; pt < iniP + offset; pt++, pd++) *pt = *pd;
-                    LongCopy(iniD + 1, iniP, offset);
+                    LongCopy(iniD + 1, iniP, nameBytesLen);
                 }
             }
 
@@ -501,27 +501,10 @@ namespace TLab.XR.Network
                 return;
             }
 
-            float[] rtcTransform = new float[10];
+            byte[] subBytes = new byte[subBytesLen];
+            System.Array.Copy(bytes, subBytesStart, subBytes, 0, subBytesLen);
 
-            unsafe
-            {
-                // transform
-                fixed (byte* iniP = bytes)
-                fixed (float* iniD = &(rtcTransform[0]))
-                {
-                    //for (byte* pt = iniP + nOffset, pd = (byte*)iniD; pt < iniP + nOffset + dataLen; pt++, pd++) *pd = *pt;
-                    LongCopy(iniP + nOffset, (byte*)iniD, dataLen);
-                }
-            }
-
-            var webTransform = new WebObjectInfo
-            {
-                position = new WebVector3 { x = rtcTransform[0], y = rtcTransform[1], z = rtcTransform[2] },
-                rotation = new WebVector4 { x = rtcTransform[3], y = rtcTransform[4], z = rtcTransform[5], w = rtcTransform[6] },
-                scale = new WebVector3 { x = rtcTransform[7], y = rtcTransform[8], z = rtcTransform[9] }
-            };
-
-            networkedObject.SyncFromOutside(webTransform);
+            networkedObject.OnRTCMessage(dst, src, subBytes);
         }
 
         public void SendRTCMessage(byte[] bytes) => m_dataChannel.SendRTCMsg(bytes);

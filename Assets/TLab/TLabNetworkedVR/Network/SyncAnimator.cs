@@ -12,15 +12,10 @@ namespace TLab.XR.Network
         public int lastValueHash;
     }
 
-    public class SyncAnimator : MonoBehaviour
+    public class SyncAnimator : NetworkedObject
     {
-        [SerializeField] private Animator m_animator;
-
-        private Hashtable m_parameters = new Hashtable();
-
-        private string m_id = "";
-
-        private string THIS_NAME => "[" + this.GetType().Name + "] ";
+        // TODO: HumanoidをAnimatorで編集できるのか確認する．
+        // 編集できる場合は，SyncAnimatorを継承したWebRTCでパラメータを同期するコンポーネントを作成する．
 
         #region REGISTRY
 
@@ -28,9 +23,9 @@ namespace TLab.XR.Network
 
         public static void Register(string id, SyncAnimator syncAnimator) => m_registry[id] = syncAnimator;
 
-        public static void UnRegister(string id) => m_registry.Remove(id);
+        public static new void UnRegister(string id) => m_registry.Remove(id);
 
-        public static void ClearRegistry()
+        public static new void ClearRegistry()
         {
             var gameobjects = new List<GameObject>();
 
@@ -48,11 +43,17 @@ namespace TLab.XR.Network
             m_registry.Clear();
         }
 
-        public static SyncAnimator GetById(string id) => m_registry[id] as SyncAnimator;
+        public static new SyncAnimator GetById(string id) => m_registry[id] as SyncAnimator;
 
         #endregion REGISTRY
 
-        public void SyncAnim(AnimParameter parameter)
+        [SerializeField] private Animator m_animator;
+
+        private Hashtable m_parameters = new Hashtable();
+
+        private string THIS_NAME => "[" + this.GetType().Name + "] ";
+
+        public virtual void SyncAnim(AnimParameter parameter)
         {
             var obj = new TLabSyncJson
             {
@@ -86,9 +87,11 @@ namespace TLab.XR.Network
             }
 
             SyncClient.Instance.SendWsMessage(JsonUtility.ToJson(obj));
+
+            m_syncFromOutside = false;
         }
 
-        public void SyncAnimFromOutside(WebAnimInfo webAnimator)
+        public virtual void SyncAnimFromOutside(WebAnimInfo webAnimator)
         {
             switch (webAnimator.type)
             {
@@ -109,9 +112,11 @@ namespace TLab.XR.Network
                     // always false.GetHashCode()
                     break;
             }
+
+            m_syncFromOutside = true;
         }
 
-        public void ClearAnim()
+        public virtual void ClearAnim()
         {
             var obj = new TLabSyncJson
             {
@@ -122,47 +127,47 @@ namespace TLab.XR.Network
             SyncClient.Instance.SendWsMessage(JsonUtility.ToJson(obj));
         }
 
-        public void Shutdown(bool deleteCache)
-        {
-            if (deleteCache)
-            {
-                ClearAnim();
-            }
-
-            UnRegister(m_id);
-        }
-
-        private void OnChangeParameter(string paramName, int hashCode)
+        protected virtual void OnChangeParameter(string paramName, int hashCode)
         {
             var parameterInfo = m_parameters[paramName] as AnimParameter;
 
             if (parameterInfo == null)
             {
+                Debug.LogError("Animation Parameter Not Found:" + paramName);
                 return;
             }
 
             parameterInfo.lastValueHash = hashCode;
         }
 
-        public void SetInteger(string paramName, int value) => m_animator.SetInteger(paramName, value);
+        public virtual void SetInteger(string paramName, int value) => m_animator.SetInteger(paramName, value);
 
-        public void SetFloat(string paramName, float value) => m_animator.SetFloat(paramName, value);
+        public virtual void SetFloat(string paramName, float value) => m_animator.SetFloat(paramName, value);
 
-        public void SetBool(string paramName, bool value) => m_animator.SetBool(paramName, value);
+        public virtual void SetBool(string paramName, bool value) => m_animator.SetBool(paramName, value);
 
-        public void SetTrigger(string paramName) => m_animator.SetTrigger(paramName);
+        public virtual void SetTrigger(string paramName) => m_animator.SetTrigger(paramName);
 
-        void Reset()
+        public override void Shutdown(bool deleteCache)
         {
-            if (m_animator == null)
-            {
-                m_animator = GetComponent<Animator>();
-            }
+            if (m_shutdown || !socketIsOpen) return;
+
+            if (deleteCache) ClearAnim();
+
+            UnRegister(m_id);
+
+            base.Shutdown(deleteCache);
         }
 
-        void Start()
+        protected virtual void Reset()
         {
-            m_id = gameObject.name;
+            if (m_animator == null)
+                m_animator = GetComponent<Animator>();
+        }
+
+        protected override void Start()
+        {
+            base.Start();
 
             int parameterLength = m_animator.parameters.Length;
             for (int i = 0; i < parameterLength; i++)
@@ -196,8 +201,10 @@ namespace TLab.XR.Network
             Register(m_id, this);
         }
 
-        void Update()
+        protected override void Update()
         {
+            base.Update();
+
             foreach (AnimParameter parameter in m_parameters.Values)
             {
                 int prevValueHash = parameter.lastValueHash;
@@ -224,20 +231,12 @@ namespace TLab.XR.Network
                 }
 
                 if (prevValueHash != currentValueHash)
-                {
                     SyncAnim(parameter);
-                }
             }
         }
 
-        private void OnDestroy()
-        {
-            Shutdown(false);
-        }
+        protected override void OnDestroy() => Shutdown(false);
 
-        private void OnApplicationQuit()
-        {
-            Shutdown(false);
-        }
+        protected override void OnApplicationQuit() => Shutdown(false);
     }
 }

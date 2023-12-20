@@ -7,7 +7,7 @@ using static TLab.XR.ComponentExtention;
 
 namespace TLab.XR.Interact
 {
-    public class ExclusiveController : NetworkedObject
+    public class ExclusiveController : SyncTransformer
     {
         public enum HandType
         {
