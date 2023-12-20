@@ -27,6 +27,7 @@ Assets supporting synchronisation of objects in VR space
 - Unity 2021.3.23f1  
 - Oculus Integration (Install from asset store)  
 - node (v16.15.0)
+- [unity.webrtc](https://github.com/Unity-Technologies/com.unity.webrtc)
 - [NativeWebsocket](https://github.com/endel/NativeWebSocket)
 
 ### Installing
