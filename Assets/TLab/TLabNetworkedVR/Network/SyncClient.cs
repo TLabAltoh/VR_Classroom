@@ -15,7 +15,7 @@ namespace TLab.XR.Network
 
         [Header("Sync Server Address (port 5000)")]
         [SerializeField] private string m_serverAddr = "ws://192.168.11.10:5000";
-        [SerializeField] private string m_roomName = "VR_Classroom";
+        [SerializeField] private string m_roomID = "VR_Classroom";
 
         [Header("Body Tracker")]
         [SerializeField] private Transform m_cameraRig;
@@ -40,7 +40,7 @@ namespace TLab.XR.Network
 
         [Tooltip("Whether the user is Host")]
         [Header("User Role")]
-        [SerializeField] private bool m_isHost = false;
+        [SerializeField] private WebRole m_role = WebRole.GUEST;
 
         [SerializeField] private bool m_buildDebug = false;
 
@@ -82,7 +82,7 @@ namespace TLab.XR.Network
 
         public bool socketIsConnecting => socketIsNull ? false : m_websocket.State == WebSocketState.Connecting;
 
-        public bool isHost { get => m_isHost; set => m_isHost = value; }
+        public bool isHost { get => m_role == WebRole.HOST; set => m_role = value == true ? WebRole.HOST : WebRole.GUEST; }
 
         public string serverAddr => m_serverAddr;
 
@@ -118,31 +118,13 @@ namespace TLab.XR.Network
         /// Request the results of organized object information.
         /// </summary>
         /// <param name="reloadWorldData"></param>
-        public void ForceReflesh(bool reloadWorldData)
-        {
-            var obj = new TLabSyncJson
-            {
-                role = (int)WebRole.GUEST,
-                action = (int)WebAction.REFLESH,
-                active = reloadWorldData
-            };
-            SendWsMessage(JsonUtility.ToJson(obj));
-        }
+        public void ForceReflesh(bool reloadWorldData) => SendWsMessage(action: WebAction.REFLESH, active: reloadWorldData);
 
         /// <summary>
         /// Refresh only specific objects.
         /// </summary>
-        /// <param name="targetName"></param>
-        public void UniReflesh(string targetName)
-        {
-            var obj = new TLabSyncJson
-            {
-                role = (int)WebRole.GUEST,
-                action = (int)WebAction.UNIREFLESHTRANSFORM,
-                transform = new WebObjectInfo { id = targetName }
-            };
-            SendWsMessage(JsonUtility.ToJson(obj));
-        }
+        /// <param name="targetID"></param>
+        public void UniReflesh(string targetID) => SendWsMessage(action: WebAction.UNIREFLESHTRANSFORM, transform: new WebObjectInfo { id = targetID });
 
         #endregion REFLESH
 
@@ -159,17 +141,7 @@ namespace TLab.XR.Network
         /// Send exit notice to the server.
         /// Exit only and do not close the socket
         /// </summary>
-        public void Exit()
-        {
-            string json =
-                "{" +
-                    SyncClientConst.ROLE + (m_isHost ? ((int)WebRole.HOST).ToString() : ((int)WebRole.GUEST).ToString()) + SyncClientConst.COMMA +
-                    SyncClientConst.ACTION + ((int)WebAction.EXIT).ToString() + SyncClientConst.COMMA +
-                    SyncClientConst.SEATINDEX + (m_seatIndex.ToString()) +
-                "}";
-
-            SendWsMessage(json);
-        }
+        public void Exit() => SendWsMessage(WebAction.EXIT);
 
         /// <summary>
         /// Coroutine to connect to Websocket server asynchronously.
@@ -187,9 +159,9 @@ namespace TLab.XR.Network
 
                 // Permission to join is granted by the server
 
-                m_seatIndex = obj.seatIndex;
+                m_seatIndex = obj.dstIndex;
 
-                m_guestTable[obj.seatIndex] = true;
+                m_guestTable[m_seatIndex] = true;
 
                 // Enable sync own avator
 
@@ -198,14 +170,14 @@ namespace TLab.XR.Network
                     var parts = trackTarget.parts;
                     var target = trackTarget.target;
 
-                    var trackerName = GetBodyTrackerName("", obj.seatIndex, parts);
+                    var trackerName = GetBodyTrackerName("", m_seatIndex, parts);
                     target.name = trackerName;
 
                     var tracker = target.gameObject.AddComponent<BodyTracker>();
                     tracker.enableSync = true;
                     tracker.self = true;
 
-                    CacheAvator(obj.seatIndex, tracker.gameObject);
+                    CacheAvator(m_seatIndex, tracker.gameObject);
                 }
 
                 if (m_instantiateAnchor != null)
@@ -222,7 +194,7 @@ namespace TLab.XR.Network
 
                 // Connect to signaling server
                 var userID = gameObject.name + "_" + m_seatIndex.ToString();
-                var roomID = m_roomName;
+                var roomID = m_roomID;
                 m_dataChannel.Join(userID, roomID);
 
             };
@@ -231,31 +203,30 @@ namespace TLab.XR.Network
 
                 // Guest disconnected
 
-                // If guest is not exist
-                if (!m_guestTable[obj.seatIndex])
-                {
+                int guestIndex = obj.srcIndex;
+
+                if (!m_guestTable[guestIndex])
                     return;
-                }
 
-                DeleteAvator(obj.seatIndex);
+                DeleteAvator(guestIndex);
 
-                m_guestTable[obj.seatIndex] = false;
+                m_guestTable[guestIndex] = false;
 
                 foreach (var callback in m_customCallbacks)
-                {
-                    callback.OnGuestDisconnected(obj.seatIndex);
-                }
+                    callback.OnGuestDisconnected(guestIndex);
 
-                Debug.Log(THIS_NAME + "guest disconncted: " + obj.seatIndex.ToString());
+                Debug.Log(THIS_NAME + "guest disconncted: " + guestIndex.ToString());
 
             };
             receiveCallbacks[(int)WebAction.GUESTPARTICIPATION] = (obj) => {
 
                 // Processing when guest joins
 
-                if (m_guestTable[obj.seatIndex])
+                int guestIndex = obj.srcIndex;
+
+                if (m_guestTable[guestIndex])
                 {
-                    Debug.LogError("Guest Already Exists:" + obj.seatIndex);
+                    Debug.LogError("Guest Already Exists:" + guestIndex);
                     return;
                 }
 
@@ -270,20 +241,18 @@ namespace TLab.XR.Network
 
                     guestParts = m_instantiateAnchor != null ? Instantiate(prefab, m_instantiateAnchor.position, m_instantiateAnchor.rotation) : Instantiate(prefab);
 
-                    var trackerName = GetBodyTrackerName("", obj.seatIndex, parts);
+                    var trackerName = GetBodyTrackerName("", guestIndex, parts);
                     guestParts.name = trackerName;
 
-                    CacheAvator(obj.seatIndex, guestParts);
+                    CacheAvator(guestIndex, guestParts);
                 }
 
-                m_guestTable[obj.seatIndex] = true;
+                m_guestTable[guestIndex] = true;
 
                 foreach (var callback in m_customCallbacks)
-                {
-                    callback.OnGuestParticipated(obj.seatIndex);
-                }
+                    callback.OnGuestParticipated(guestIndex);
 
-                Debug.Log(THIS_NAME + "guest participated: " + obj.seatIndex.ToString());
+                Debug.Log(THIS_NAME + "guest participated: " + guestIndex.ToString());
 
                 return;
             };
@@ -302,10 +271,10 @@ namespace TLab.XR.Network
 
                 // Grabb lock from outside
 
-                var seatIndex = obj.seatIndex;
+                var grabIndex = obj.grabIndex;
                 var webTransform = obj.transform;
                 var controller = ExclusiveController.GetById(webTransform.id);
-                controller?.GrabbLock(seatIndex);
+                controller?.GrabbLock(grabIndex);
 
             };
             receiveCallbacks[(int)WebAction.FORCERELEASE] = (obj) => {
@@ -360,13 +329,7 @@ namespace TLab.XR.Network
 
             m_websocket.OnOpen += () =>
             {
-                string json =
-                    "{" +
-                        SyncClientConst.ROLE + (m_isHost ? ((int)WebRole.HOST).ToString() : ((int)WebRole.GUEST).ToString()) + SyncClientConst.COMMA +
-                        SyncClientConst.ACTION + ((int)WebAction.REGIST).ToString() +
-                    "}";
-
-                SendWsMessage(json);
+                SendWsMessage(action: WebAction.REGIST);
 
                 Debug.Log(THIS_NAME + "Connection open!");
             };
@@ -513,16 +476,23 @@ namespace TLab.XR.Network
 
         #region WEBSOCKET_MESSAGE
 
-        public void SendWsMessage(WebRole role, WebAction action,
-                                  int seatIndex = -1, bool active = false,
+        public void SendWsMessage(WebAction action, int dstIndex = -1, int grabIndex = -1, bool active = false,
                                   WebObjectInfo transform = null, WebAnimInfo animator = null, int customIndex = -1, string custom = "")
         {
             var obj = new TLabSyncJson
             {
-                role = (int)role, action = (int)action,
-                seatIndex = seatIndex, active = active,
+                roomID = m_roomID, action = (int)action, role = (int)m_role,
+                srcIndex = seatIndex, dstIndex = dstIndex, grabIndex = grabIndex, active = active,
                 transform = transform, animator = animator, customIndex = customIndex, custom = custom
             };
+            SendWsMessage(JsonUtility.ToJson(obj));
+        }
+
+        public void SendWsMessage(TLabSyncJson obj)
+        {
+            obj.roomID = m_roomID;
+            obj.role = (int)m_role;
+            obj.srcIndex = m_seatIndex;
             SendWsMessage(JsonUtility.ToJson(obj));
         }
 
@@ -564,15 +534,15 @@ namespace TLab.XR.Network
             ConnectServerAsync();
 
 #if UNITY_EDITOR
-            if (m_editorDebug) m_isHost = true;
+            if (m_editorDebug) isHost = true;
 #endif
 
             if (m_buildDebug)
             {
 #if UNITY_EDITOR
-                m_isHost = false;
+                isHost = false;
 #elif UNITY_ANDROID
-                m_isHost = true;
+                isHost = true;
 #endif
             }
         }

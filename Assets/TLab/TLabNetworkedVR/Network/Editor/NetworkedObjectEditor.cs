@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace TLab.XR.Network
+namespace TLab.XR.Network.Editor
 {
     [CustomEditor(typeof(NetworkedObject))]
     public class NetworkedObjectEditor : UnityEditor.Editor

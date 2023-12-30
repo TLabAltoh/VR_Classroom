@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Collections;
-using System.Text;
 using UnityEngine;
 using UnityEditor;
 
@@ -85,8 +84,6 @@ namespace TLab.XR.Network
         // https://www.fenet.jp/dotnet/column/language/4836/
         // A fast approach to string processing
 
-        private StringBuilder m_builder = new StringBuilder();
-
         public Rigidbody rb => m_rb;
 
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
@@ -135,7 +132,6 @@ namespace TLab.XR.Network
             while (!socketIsOpen) yield return null;
 
             SyncClient.Instance.SendWsMessage(
-                role: WebRole.GUEST,
                 action: WebAction.REGISTRBOBJ,
                 transform: new WebObjectInfo { id = m_id });
         }
@@ -273,122 +269,40 @@ namespace TLab.XR.Network
         {
             if (!m_enableSync) return;
 
-            m_builder.Clear();
+            TLabSyncJson obj = new TLabSyncJson
+            {
+                action = (int)WebAction.SYNCTRANSFORM,
 
-            m_builder.Append("{");
-            m_builder.Append(SyncClientConst.ROLE);
-            m_builder.Append(((int)WebRole.GUEST).ToString());
-            m_builder.Append(SyncClientConst.COMMA);
+                transform = new WebObjectInfo
+                {
+                    id = m_id,
 
-            m_builder.Append(SyncClientConst.ACTION);
-            m_builder.Append(((int)WebAction.SYNCTRANSFORM).ToString());
-            m_builder.Append(SyncClientConst.COMMA);
+                    rigidbody = m_useRigidbody,
+                    gravity = m_useGravity,
 
-            m_builder.Append(SyncClientConst.TRANSFORM);
-            m_builder.Append("{");
-            m_builder.Append(SyncClientConst.TRANSFORM_ID);
-            m_builder.Append("\"");
-            m_builder.Append(m_id);
-            m_builder.Append("\"");
-            m_builder.Append(SyncClientConst.COMMA);
+                    position = new WebVector3
+                    {
+                        x = transform.position.x,
+                        y = transform.position.y,
+                        z = transform.position.z
+                    },
+                    rotation = new WebVector4
+                    {
+                        x = transform.rotation.x,
+                        y = transform.rotation.y,
+                        z = transform.rotation.z,
+                        w = transform.rotation.w,
+                    },
+                    scale = new WebVector3
+                    {
+                        x = transform.localScale.x,
+                        y = transform.localScale.y,
+                        z = transform.localScale.z
+                    }
+                }
+            };
 
-            m_builder.Append(SyncClientConst.RIGIDBODY);
-            m_builder.Append((m_useRigidbody ? "true" : "false"));
-            m_builder.Append(SyncClientConst.COMMA);
-
-            m_builder.Append(SyncClientConst.GRAVITY);
-            m_builder.Append((m_useGravity ? "true" : "false"));
-            m_builder.Append(SyncClientConst.COMMA);
-
-            m_builder.Append(SyncClientConst.POSITION);
-            m_builder.Append("{");
-            m_builder.Append(SyncClientConst.X);
-            m_builder.Append((transform.position.x).ToString());
-            m_builder.Append(SyncClientConst.COMMA);
-
-            m_builder.Append(SyncClientConst.Y);
-            m_builder.Append((transform.position.y).ToString());
-            m_builder.Append(SyncClientConst.COMMA);
-
-            m_builder.Append(SyncClientConst.Z);
-            m_builder.Append((transform.position.z).ToString());
-            m_builder.Append("}");
-            m_builder.Append(SyncClientConst.COMMA);
-
-            m_builder.Append(SyncClientConst.ROTATION);
-            m_builder.Append("{");
-            m_builder.Append(SyncClientConst.X);
-            m_builder.Append((transform.rotation.x).ToString());
-            m_builder.Append(SyncClientConst.COMMA);
-
-            m_builder.Append(SyncClientConst.Y);
-            m_builder.Append((transform.rotation.y).ToString());
-            m_builder.Append(SyncClientConst.COMMA);
-
-            m_builder.Append(SyncClientConst.Z);
-            m_builder.Append((transform.rotation.z).ToString());
-            m_builder.Append(SyncClientConst.COMMA);
-
-            m_builder.Append(SyncClientConst.W);
-            m_builder.Append((transform.rotation.w).ToString());
-            m_builder.Append("}");
-            m_builder.Append(SyncClientConst.COMMA);
-
-            m_builder.Append(SyncClientConst.SCALE);
-            m_builder.Append("{");
-            m_builder.Append(SyncClientConst.X);
-            m_builder.Append((transform.localScale.x).ToString());
-            m_builder.Append(SyncClientConst.COMMA);
-
-            m_builder.Append(SyncClientConst.Y);
-            m_builder.Append((transform.localScale.y).ToString());
-            m_builder.Append(SyncClientConst.COMMA);
-
-            m_builder.Append(SyncClientConst.Z);
-            m_builder.Append((transform.localScale.z).ToString());
-            m_builder.Append("}");
-            m_builder.Append("}");
-            m_builder.Append("}");
-
-            string json = m_builder.ToString();
-
-            //TLabSyncJson obj = new TLabSyncJson
-            //{
-            //    role = (int)WebRole.GUEST,
-            //    action = (int)WebAction.SYNCTRANSFORM,
-
-            //    transform = new WebObjectInfo
-            //    {
-            //        id = m_id,
-
-            //        rigidbody = m_useRigidbody,
-            //        gravity = m_useGravity,
-
-            //        position = new WebVector3
-            //        {
-            //            x = transform.position.x,
-            //            y = transform.position.y,
-            //            z = transform.position.z
-            //        },
-            //        rotation = new WebVector4
-            //        {
-            //            x = transform.rotation.x,
-            //            y = transform.rotation.y,
-            //            z = transform.rotation.z,
-            //            w = transform.rotation.w,
-            //        },
-            //        scale = new WebVector3
-            //        {
-            //            x = transform.localScale.x,
-            //            y = transform.localScale.y,
-            //            z = transform.localScale.z
-            //        }
-            //    }
-            //};
-
-            //string json = JsonUtility.ToJson(obj);
-
-            SyncClient.Instance.SendWsMessage(json);
+            SyncClient.Instance.SendWsMessage(obj);
 
             m_syncFromOutside = false;
         }
@@ -398,9 +312,7 @@ namespace TLab.XR.Network
             if (!m_enableSync) return;
 
             SyncClient.Instance.SendWsMessage(
-                role: WebRole.GUEST,
                 action: WebAction.CLEARTRANSFORM,
-                seatIndex: SyncClient.Instance.seatIndex,
                 transform: new WebObjectInfo { id = m_id });
         }
 

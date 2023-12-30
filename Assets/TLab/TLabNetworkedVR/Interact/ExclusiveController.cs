@@ -159,11 +159,11 @@ namespace TLab.XR.Interact
         {
             m_rbAllocated = active;
 
-            bool allocated = m_grabbedIndex == FREE && active;
+            bool enableGravity = m_grabbedIndex == FREE && active;
 
-            SetGravity(allocated ? true : false);
+            SetGravity(enableGravity ? true : false);
 
-            Debug.Log(THIS_NAME + "rigidbody allocated:" + allocated + " - " + m_id);
+            Debug.Log(THIS_NAME + "rigidbody allocated:" + m_rbAllocated + ", enableGravity: " + enableGravity + ", id:" + m_id);
         }
 
         public void GrabbLock(bool active)
@@ -178,9 +178,8 @@ namespace TLab.XR.Interact
             SyncTransform();
 
             SyncClient.Instance.SendWsMessage(
-                role: WebRole.GUEST,
                 action: WebAction.GRABBLOCK,
-                seatIndex: m_grabbedIndex,
+                grabIndex: m_grabbedIndex,
                 transform: new WebObjectInfo { id = m_id });
 
             Debug.Log(THIS_NAME + "grabb lock: " + active);
@@ -235,10 +234,9 @@ namespace TLab.XR.Interact
             }
 
             SyncClient.Instance.SendWsMessage(
-                role: WebRole.GUEST,
                 action: WebAction.GRABBLOCK,
-                seatIndex: m_grabbedIndex,
-                transform: new WebObjectInfo { id = this.gameObject.name });
+                grabIndex: m_grabbedIndex,
+                transform: new WebObjectInfo { id = m_id });
 
             Debug.Log(THIS_NAME + "simple lock");
         }
@@ -257,7 +255,6 @@ namespace TLab.XR.Interact
             if (self)
             {
                 SyncClient.Instance.SendWsMessage(
-                    role: WebRole.GUEST,
                     action: WebAction.FORCERELEASE,
                     transform: new WebObjectInfo { id = m_id });
             }

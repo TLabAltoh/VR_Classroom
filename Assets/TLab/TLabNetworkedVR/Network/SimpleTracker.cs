@@ -94,9 +94,7 @@ namespace TLab.XR.Network
             base.Update();
 
             if (m_self)
-            {
                 SyncRTCTransform();
-            }
         }
 
         protected override void OnApplicationQuit()

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace TLab.XR.Network
+namespace TLab.XR.Network.Editor
 {
     [CustomEditor(typeof(SimpleTracker))]
     public class SimpleTrackerEditor : UnityEditor.Editor

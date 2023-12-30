@@ -12,6 +12,13 @@ namespace TLab.XR.Interact.Editor
     [CanEditMultipleObjects]
     public class ExclusiveControllerEditor : UnityEditor.Editor
     {
+        private ExclusiveController m_controller;
+
+        private void OnEnable()
+        {
+            m_controller = target as ExclusiveController;
+        }
+
         // Editor created on the assumption that the controller
         // uses the grabbableHandle and rotateble; modify as
         // appropriate to suit your needs.
@@ -65,19 +72,17 @@ namespace TLab.XR.Interact.Editor
         {
             base.OnInspectorGUI();
 
-            var controller = target as ExclusiveController;
-
-            var rotatable = controller.gameObject.GetComponent<Rotatable>();
+            var rotatable = m_controller.gameObject.GetComponent<Rotatable>();
             if (rotatable != null && GUILayout.Button("Initialize for Rotatable"))
             {
-                InitializeForRotateble(controller, rotatable);
+                InitializeForRotateble(m_controller, rotatable);
             }
 
-            if (controller.enableDivide && GUILayout.Button("Initialize for Devibable"))
+            if (m_controller.enableDivide && GUILayout.Button("Initialize for Devibable"))
             {
-                InitializeForDivibable(controller.gameObject, true);
+                InitializeForDivibable(m_controller.gameObject, true);
 
-                foreach (var divideTarget in controller.divideTargets)
+                foreach (var divideTarget in m_controller.divideTargets)
                 {
                     GameObjectUtility.RemoveMonoBehavioursWithMissingScript(divideTarget);
 
@@ -87,9 +92,16 @@ namespace TLab.XR.Interact.Editor
                 }
             }
 
+            if (Application.isPlaying)
+            {
+                EditorGUILayout.Space();
+                GUILayout.Label($"current grab index: {m_controller.grabbedIndex}", GUILayout.ExpandWidth(false));
+                EditorGUILayout.Space();
+            }
+
             if (GUILayout.Button("Create Hash ID"))
             {
-                controller.CreateHashID();
+                m_controller.CreateHashID();
             }
         }
     }

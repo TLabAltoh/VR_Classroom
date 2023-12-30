@@ -57,7 +57,6 @@ namespace TLab.XR.Network
         {
             var obj = new TLabSyncJson
             {
-                role = (int)WebRole.GUEST,
                 action = (int)WebAction.SYNCANIM,
                 animator = new WebAnimInfo
                 {
@@ -86,7 +85,7 @@ namespace TLab.XR.Network
                     break;
             }
 
-            SyncClient.Instance.SendWsMessage(JsonUtility.ToJson(obj));
+            SyncClient.Instance.SendWsMessage(obj);
 
             m_syncFromOutside = false;
         }
@@ -118,13 +117,9 @@ namespace TLab.XR.Network
 
         public virtual void ClearAnim()
         {
-            var obj = new TLabSyncJson
-            {
-                role = (int)WebRole.GUEST,
-                action = (int)WebAction.CLEARANIM,
-                animator = new WebAnimInfo { id = m_id }
-            };
-            SyncClient.Instance.SendWsMessage(JsonUtility.ToJson(obj));
+            SyncClient.Instance.SendWsMessage(
+                action: WebAction.CLEARANIM,
+                animator: new WebAnimInfo { id = m_id });
         }
 
         protected virtual void OnChangeParameter(string paramName, int hashCode)

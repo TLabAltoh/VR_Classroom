@@ -44,10 +44,14 @@ namespace TLab.XR.Network
     [System.Serializable]
     public class TLabSyncJson
     {
+        public string roomID = "";
+
         public int role;
         public int action;
 
-        public int seatIndex = -1;
+        public int srcIndex = -1;
+        public int dstIndex = -1;
+        public int grabIndex = -1;
 
         public bool active = false;
 
@@ -100,9 +104,12 @@ namespace TLab.XR.Network
     {
         // Top
         public const string COMMA = ",";
+        public const string ROOM_ID = "\"roomID\":";
         public const string ROLE = "\"role\":";
         public const string ACTION = "\"action\":";
-        public const string SEATINDEX = "\"seatIndex\":";
+        public const string SRCINDEX = "\"srcIndex\":";
+        public const string DSTINDEX = "\"dstIndex\":";
+        public const string GRABINDEX = "\"grabIndex\":";
         public const string ACTIVE = "\"active\":";
         public const string TRANSFORM = "\"transform\":";
         public const string ANIMATOR = "\"animator\":";
