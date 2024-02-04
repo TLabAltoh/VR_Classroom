@@ -59,11 +59,11 @@ namespace TLab.VRClassroom
         public void SetAddress(string name, string addr, string port = null)
         {
             var serverAddr = GetAddress(name);
-            if(serverAddr != null)
+            if (serverAddr != null)
             {
                 string newAddr = PROTOCOL[serverAddr.protocol] + "://" + addr;
 
-                if(port != null)
+                if (port != null)
                 {
                     newAddr += ":" + port;
                 }

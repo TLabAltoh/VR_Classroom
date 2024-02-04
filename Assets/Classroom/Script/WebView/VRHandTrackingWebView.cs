@@ -4,6 +4,7 @@ using TLab.Android.WebView;
 
 namespace TLab.VRClassroom
 {
+    [AddComponentMenu("TLab/VRClassroom/" + nameof(VRHandTrackingWebView) + " (TLab)")]
     public class VRHandTrackingWebView : Pointable
     {
         [Header("Target WebView")]
