@@ -79,7 +79,7 @@ namespace TLab.VRClassroom
         public void SendWsMessage(string customJson, int dstIndex)
         {
             SyncClient.Instance.SendWsMessage(
-                action: WebAction.CUSTOMACTION,
+                action: WebAction.CUSTOM_ACTION,
                 dstIndex: dstIndex,
                 customIndex: m_customIndex,
                 custom: customJson);

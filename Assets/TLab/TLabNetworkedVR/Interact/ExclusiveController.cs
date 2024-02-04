@@ -16,11 +16,13 @@ namespace TLab.XR.Interact
             NONE
         };
 
-        // Rigidbodyの同期にラグがあるとき，メッセージが届かない間はGravityを有効にしてローカルの環境で物理演算を行う．
-        // ただし，誰かがオブジェクトを掴んでいることが分かっているときは，推測の物理演算は行わない．
-
-        // Windows 12's Core i 9: 400 -----> Size: 10
-        // Oculsu Quest 2: 72 -----> Size: 10 * 72 / 400 = 1.8 ~= 2
+        /**
+         * Rigidbodyの同期にラグがあるとき，メッセージが届かない間はGravityを有効にしてローカルの環境で物理演算を行う．
+         * ただし，誰かがオブジェクトを掴んでいることが分かっているときは，推測の物理演算は行わない．
+         * 
+         * Windows 12's Core i 9: 400 -----> Size: 10
+         * Oculsu Quest 2: 72 -----> Size: 10 * 72 / 400 = 1.8 ~= 2
+         */
 
 #if UNITY_EDITOR
         private const int PACKET_LOSS_LIMIT = 10;
@@ -178,7 +180,7 @@ namespace TLab.XR.Interact
             SyncTransform();
 
             SyncClient.Instance.SendWsMessage(
-                action: WebAction.GRABBLOCK,
+                action: WebAction.GRABB_LOCK,
                 grabIndex: m_grabbedIndex,
                 transform: new WebObjectInfo { id = m_id });
 
@@ -215,16 +217,13 @@ namespace TLab.XR.Interact
 
         public void SimpleLock(bool active)
         {
-            /*
-                -1 : No one is grabbing
-                -2 : No one grabbed, but Rigidbody does not calculate
-            */
-
-            // Ensure that the object you are grasping does not cover
-            // If someone has already grabbed the object, overwrite it
-
-            // parse.seatIndex	: player index that is grabbing the object
-            // seatIndex		: index of the socket actually communicating
+            /**
+             * Ensure that the object you are grasping does not cover
+             * If someone has already grabbed the object, overwrite it
+             * 
+             * -1 : No one is grabbing
+             * -2 : No one grabbed, but Rigidbody does not calculate
+             */
 
             m_grabbedIndex = active ? FIXED : FREE;
 
@@ -234,7 +233,7 @@ namespace TLab.XR.Interact
             }
 
             SyncClient.Instance.SendWsMessage(
-                action: WebAction.GRABBLOCK,
+                action: WebAction.GRABB_LOCK,
                 grabIndex: m_grabbedIndex,
                 transform: new WebObjectInfo { id = m_id });
 
@@ -255,7 +254,7 @@ namespace TLab.XR.Interact
             if (self)
             {
                 SyncClient.Instance.SendWsMessage(
-                    action: WebAction.FORCERELEASE,
+                    action: WebAction.FORCE_RELEASE,
                     transform: new WebObjectInfo { id = m_id });
             }
         }
@@ -278,12 +277,17 @@ namespace TLab.XR.Interact
             mesh.CombineMeshes(combine);
 
             if (m_meshCollider != null)
+            {
                 m_meshCollider.sharedMesh = mesh;
+            }
         }
 
         public void Divide(bool active)
         {
-            if (!m_enableDivide) return;
+            if (!m_enableDivide)
+            {
+                return;
+            }
 
             var meshCollider = this.gameObject.GetComponent<MeshCollider>();
             if (meshCollider == null)
@@ -294,26 +298,46 @@ namespace TLab.XR.Interact
 
             meshCollider.enabled = !active;
 
-            // TODO: GetComponentsInChildren以外のコレクションの収集方法を検討する
-
             var childs = GetComponentsInTargets<MeshCollider>(divideTargets);
-            foreach (var child in childs) child.enabled = active;
+            foreach (var child in childs)
+            {
+                child.enabled = active;
+            }
 
-            // 結合/分割を切り替えたので，divideTargetsが持つRotetableの回転を止める
+            /**
+             * 結合/分割を切り替えたので，divideTargetsが持つRotetableの回転を止める
+             */
             var rotatables = this.gameObject.GetComponentsInChildren<Rotatable>();
-            foreach (var rotatable in rotatables) rotatable.Stop();
+            foreach (var rotatable in rotatables)
+            {
+                rotatable.Stop();
+            }
 
-            // 結合/分割を切り替えたので，divideTargetsが持つExclusiveControllerを含めて
-            // ExclusiveControllerを誰も掴んでいない状態にする
+            /**
+             * 結合/分割を切り替えたので，divideTargetsが持つExclusiveControllerを含めて
+             * ExclusiveControllerを誰も掴んでいない状態にする
+             */
             var controllers = GetComponentsInTargets<ExclusiveController>(divideTargets);
-            foreach (var controller in controllers) controller.ForceRelease(true);
+            foreach (var controller in controllers)
+            {
+                controller.ForceRelease(true);
+            }
 
-            if (!active) CreateCombineMeshCollider();
+            if (!active)
+            {
+                CreateCombineMeshCollider();
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Devide()
         {
-            if (!m_enableDivide) return;
+            if (!m_enableDivide)
+            {
+                return;
+            }
 
             var meshCollider = gameObject.GetComponent<MeshCollider>();
             if (meshCollider == null)
@@ -322,18 +346,26 @@ namespace TLab.XR.Interact
                 return;
             }
 
-            // rootのMeshColliderが有効になっている --> 
-            // rootのMeshColliderはdivideTargetsを結合したメッシュのコライダー -->
-            // 現在このGrabbableは各パーツが結合されている状態
+            /**
+             * rootのMeshColliderが有効になっている.
+             * つまり: rootのMeshColliderはdivideTargetsを結合したメッシュのコライダー
+             * つまり: 現在このGrabbableは各パーツが結合されている状態
+             */
             var current = meshCollider.enabled;
             var divide = current;
 
             Divide(divide);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void SetInitialChildTransform()
         {
-            if (!m_enableDivide) return;
+            if (!m_enableDivide)
+            {
+                return;
+            }
 
             int index = 0;
 
@@ -348,7 +380,10 @@ namespace TLab.XR.Interact
             }
 
             var rotatables = this.gameObject.GetComponentsInChildren<Rotatable>();
-            foreach (var rotatable in rotatables) rotatable.Stop();
+            foreach (var rotatable in rotatables)
+            {
+                rotatable.Stop();
+            }
 
             var meshCollider = gameObject.GetComponent<MeshCollider>();
             if (meshCollider == null)
@@ -357,9 +392,15 @@ namespace TLab.XR.Interact
                 return;
             }
 
-            if (meshCollider.enabled) CreateCombineMeshCollider();
+            if (meshCollider.enabled)
+            {
+                CreateCombineMeshCollider();
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void GetInitialChildTransform()
         {
             if (m_enableDivide)
@@ -379,18 +420,37 @@ namespace TLab.XR.Interact
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="interactor"></param>
+        /// <returns></returns>
         public HandType GetHandType(Interactor interactor)
         {
-            if (m_mainHand == interactor) return HandType.MAIN_HAND;
+            if (m_mainHand == interactor)
+            {
+                return HandType.MAIN_HAND;
+            }
 
-            if (m_subHand == interactor) return HandType.SUB_HAND;
+            if (m_subHand == interactor)
+            {
+                return HandType.SUB_HAND;
+            }
 
             return HandType.NONE;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="interactor"></param>
+        /// <returns></returns>
         public HandType OnGrabbed(Interactor interactor)
         {
-            if (m_locked || (!isFree && !grabbByMe)) return HandType.NONE;
+            if (m_locked || (!isFree && !grabbByMe))
+            {
+                return HandType.NONE;
+            }
 
             if (m_mainHand == null)
             {
@@ -457,6 +517,9 @@ namespace TLab.XR.Interact
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void Start()
         {
             base.Start();
@@ -470,26 +533,33 @@ namespace TLab.XR.Interact
             Register(m_id, this);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void Update()
         {
             base.Update();
 
-            // 条件
-            // 1. 重力が有効化されている
-            // 2. パケットが指定したフレーム連続して届かなかった
-
+            /**
+             * 条件
+             * 1. 重力が有効化されている
+             * 2. パケットが指定したフレーム連続して届かなかった
+             */
             if (m_useGravity && m_didnotReachCount > PACKET_LOSS_LIMIT)
             {
-                // 条件
-                // 1. grabbed == FREE       : 重力が有効化されているので，ルーム参加者の誰かが重力の計算を実行しているはず (ただしその結果が共有されていない)
-                // 2. rbAllocated == false  : このオブジェクトの重力の計算が自分の担当ではない (誰かが計算している)
-                // 3. gravityState == false : このデバイスは重力計算を実行していない (Rigidbody.useGravity == false)
-
+                /**
+                 * 条件
+                 * 1. grabbed == FREE       : 重力が有効化されているので，ルーム参加者の誰かが重力の計算を実行しているはず (ただしその結果が共有されていない)
+                 * 2. rbAllocated == false  : このオブジェクトの重力の計算が自分の担当ではない (誰かが計算している)
+                 * 3. gravityState == false : このデバイスは重力計算を実行していない (Rigidbody.useGravity == false)
+                 */
                 if (m_grabbedIndex == FREE && !m_rbAllocated && !m_gravityState)
                 {
                     SetGravity(true);
 
-                    // gravityState == trueになるので，この処理は次のフレーム以降実行されない
+                    /**
+                     * gravityState == trueになるので，この処理は次のフレーム以降実行されない
+                     */
                 }
             }
 
@@ -498,21 +568,29 @@ namespace TLab.XR.Interact
                 if (m_subHand != null)
                 {
                     m_position.UpdateTwoHandLogic();
-                    // TODO: rotationのTwoHandLogicも追加したい
                     m_scale.UpdateTwoHandLogic();
+
+                    /**
+                     * TODO: rotationのTwoHandLogicも追加したい
+                     */
                 }
                 else
                 {
                     m_position.UpdateOneHandLogic();
                     m_rotation.UpdateOneHandLogic();
-                    // TODO: scaleにOneHandLogicは必要ないかも ...
+
+                    /**
+                     * TODO: scaleにOneHandLogicは必要ないかも ...
+                     */
                 }
 
                 SyncRTCTransform();
             }
             else
             {
-                // ハンドルを掴んでオブジェクトのサイズを変更する処理
+                /**
+                 * ハンドルを掴んでオブジェクトのサイズを変更する処理
+                 */
                 if (isFree && m_scale.UpdateHandleLogic())
                 {
                     SyncRTCTransform();
@@ -520,6 +598,9 @@ namespace TLab.XR.Interact
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void Shutdown()
         {
             if (grabbByMe)
@@ -530,6 +611,9 @@ namespace TLab.XR.Interact
             UnRegister(m_id);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void OnDestroy()
         {
             Shutdown();
@@ -537,6 +621,9 @@ namespace TLab.XR.Interact
             base.OnDestroy();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void OnApplicationQuit()
         {
             Shutdown();

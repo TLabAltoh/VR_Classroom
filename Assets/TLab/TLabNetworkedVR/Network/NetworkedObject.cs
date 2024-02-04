@@ -14,12 +14,18 @@ namespace TLab.XR.Network
 
         protected static void Register(string id, NetworkedObject networkedObject)
         {
-            if (!m_registry.ContainsKey(id)) m_registry[id] = networkedObject;
+            if (!m_registry.ContainsKey(id))
+            {
+                m_registry[id] = networkedObject;
+            }
         }
 
         protected static void UnRegister(string id)
         {
-            if (m_registry.ContainsKey(id)) m_registry.Remove(id);
+            if (m_registry.ContainsKey(id))
+            {
+                m_registry.Remove(id);
+            }
         }
 
         public static void ClearRegistry()
@@ -35,21 +41,29 @@ namespace TLab.XR.Network
                 gameobjects.Add(networkedObject.gameObject);
             }
 
-            for (int i = 0; i < gameobjects.Count; i++) Destroy(gameobjects[i]);
+            for (int i = 0; i < gameobjects.Count; i++)
+            {
+                Destroy(gameobjects[i]);
+            }
 
             m_registry.Clear();
         }
 
         public static void ClearObject(GameObject go)
         {
-            if (go.GetComponent<NetworkedObject>() != null) Destroy(go);
+            if (go.GetComponent<NetworkedObject>() != null)
+            {
+                Destroy(go);
+            }
         }
 
         public static void ClearObject(string id)
         {
             var go = GetById(id).gameObject;
-
-            if (go != null) ClearObject(go);
+            if (go != null)
+            {
+                ClearObject(go);
+            }
         }
 
         public static NetworkedObject GetById(string id) => m_registry[id] as NetworkedObject;
@@ -119,7 +133,10 @@ namespace TLab.XR.Network
 
         public virtual void Shutdown(bool deleteCache)
         {
-            if (m_shutdown || !socketIsOpen) return;
+            if (m_shutdown || !socketIsOpen)
+            {
+                return;
+            }
 
             m_shutdown = true;
             m_enableSync = false;

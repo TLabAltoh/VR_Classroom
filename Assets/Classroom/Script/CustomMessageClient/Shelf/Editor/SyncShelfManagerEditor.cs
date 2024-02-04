@@ -39,19 +39,29 @@ namespace TLab.VRClassroom.Editor
                 using (var horizontalScope = new GUILayout.HorizontalScope("box"))
                 {
                     if (GUILayout.Button("Change Index"))
+                    {
                         m_instance.OnDropDownChanged(m_objIndex);
+                    }
 
                     if (GUILayout.Button("Takeout"))
+                    {
                         m_instance.TakeOut();
+                    }
 
                     if (GUILayout.Button("Putaway"))
+                    {
                         m_instance.PutAway();
+                    }
 
                     if (GUILayout.Button("Shere"))
+                    {
                         m_instance.Share();
+                    }
 
                     if (GUILayout.Button("Collect"))
+                    {
                         m_instance.Collect();
+                    }
                 }
             }
         }

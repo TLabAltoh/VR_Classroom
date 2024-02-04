@@ -11,16 +11,34 @@ namespace TLab.XR.Network
 
         private static Hashtable m_registry = new Hashtable();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="syncTransformer"></param>
         protected static void Register(string id, SyncTransformer syncTransformer)
         {
-            if (!m_registry.ContainsKey(id)) m_registry[id] = syncTransformer;
+            if (!m_registry.ContainsKey(id))
+            {
+                m_registry[id] = syncTransformer;
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
         protected static new void UnRegister(string id)
         {
-            if (m_registry.ContainsKey(id)) m_registry.Remove(id);
+            if (m_registry.ContainsKey(id))
+            {
+                m_registry.Remove(id);
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static new void ClearRegistry()
         {
             var gameobjects = new List<GameObject>();
@@ -31,23 +49,44 @@ namespace TLab.XR.Network
                 gameobjects.Add(syncTransformer.gameObject);
             }
 
-            for (int i = 0; i < gameobjects.Count; i++) Destroy(gameobjects[i]);
+            for (int i = 0; i < gameobjects.Count; i++)
+            {
+                Destroy(gameobjects[i]);
+            }
 
             m_registry.Clear();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="go"></param>
         public static new void ClearObject(GameObject go)
         {
-            if (go.GetComponent<SyncTransformer>() != null) Destroy(go);
+            if (go.GetComponent<SyncTransformer>() != null)
+            {
+                Destroy(go);
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
         public static new void ClearObject(string id)
         {
             var go = GetById(id).gameObject;
-
-            if (go != null) ClearObject(go);
+            if (go != null)
+            {
+                ClearObject(go);
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static new SyncTransformer GetById(string id) => m_registry[id] as SyncTransformer;
 
         #endregion REGISTRY
@@ -81,31 +120,56 @@ namespace TLab.XR.Network
 
         protected FixedQueue<Vector3> m_prebArgs = new FixedQueue<Vector3>(CASH_COUNT);
 
-        // https://www.fenet.jp/dotnet/column/language/4836/
-        // A fast approach to string processing
-
-        public Rigidbody rb => m_rb;
-
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public Rigidbody rb => m_rb;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool enableGravity => (m_rb == null) ? false : m_rb.useGravity;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool useRigidbody => m_useRigidbody;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool useGravity => m_useGravity;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool rbAllocated => m_rbAllocated;
 
 #if UNITY_EDITOR
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rigidbody"></param>
+        /// <param name="gravity"></param>
         public virtual void UseRigidbody(bool rigidbody, bool gravity)
         {
-            if (EditorApplication.isPlaying) return;
+            if (EditorApplication.isPlaying)
+            {
+                return;
+            }
 
             m_useRigidbody = rigidbody;
             m_useGravity = gravity;
         }
 #endif
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
         protected Vector3 GetMaxVector(FixedQueue<Vector3> target)
         {
             Vector3 maxVec = Vector3.zero;
@@ -123,22 +187,37 @@ namespace TLab.XR.Network
             return maxVec;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator RegistRigidbodyObject()
         {
-            // if useGravity is false, doesn't regist this object to server
-            if (!m_useGravity) yield break;
+            if (!m_useGravity)  // if useGravity is false, doesn't regist this object to server
+            {
+                yield break;
+            }
 
-            // Wait for connection is opened
-            while (!socketIsOpen) yield return null;
+            while (!socketIsOpen)   // Wait for connection is opened
+            {
+                yield return null;
+            }
 
             SyncClient.Instance.SendWsMessage(
-                action: WebAction.REGISTRBOBJ,
+                action: WebAction.REGIST_RB_OBJ,
                 transform: new WebObjectInfo { id = m_id });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="active"></param>
         public virtual void SetGravity(bool active)
         {
-            if (m_rb == null || m_useRigidbody == false) return;
+            if (m_rb == null || m_useRigidbody == false)
+            {
+                return;
+            }
 
             active &= m_useGravity;
             m_gravityState = active;
@@ -159,6 +238,10 @@ namespace TLab.XR.Network
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="srcTransform"></param>
         public void SyncFromOutside(WebObjectInfo srcTransform)
         {
             WebVector3 position = srcTransform.position;
@@ -171,7 +254,9 @@ namespace TLab.XR.Network
             {
                 // Rigidbodyを無効化し，同期される側でも速度を正しく計算できるようにする．
                 if (!m_rbAllocated && m_gravityState)
+                {
                     SetGravity(false);
+                }
 
                 m_rb.MovePosition(new Vector3(position.x, position.y, position.z));
                 m_rb.MoveRotation(new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
@@ -186,14 +271,19 @@ namespace TLab.XR.Network
             m_didnotReachCount = 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dst"></param>
+        /// <param name="src"></param>
+        /// <param name="bytes"></param>
         public override void OnRTCMessage(string dst, string src, byte[] bytes)
         {
             float[] rtcTransform = new float[10];
 
             unsafe
             {
-                // transform
-                fixed (byte* iniP = bytes)
+                fixed (byte* iniP = bytes)  // transform
                 fixed (float* iniD = &(rtcTransform[0]))
                 {
                     LongCopy(iniP, (byte*)iniD, bytes.Length);
@@ -210,9 +300,15 @@ namespace TLab.XR.Network
             SyncFromOutside(webTransform);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual void SyncRTCTransform()
         {
-            if (!m_enableSync) return;
+            if (!m_enableSync)
+            {
+                return;
+            }
 
             // transform
             // (3 + 4 + 3) * 4 = 40 byte
@@ -246,17 +342,15 @@ namespace TLab.XR.Network
 
             unsafe
             {
-                // id
-                fixed (byte* iniP = packet, iniD = id)
+                fixed (byte* iniP = packet, iniD = id)  // id
                 {
                     LongCopy(iniD, iniP + 1, nameBytesLen);
                 }
 
-                // transform
-                fixed (byte* iniP = packet)
+                fixed (byte* iniP = packet) // transform
                 fixed (float* iniD = &(rtcTransform[0]))
                 {
-                    LongCopy((byte*)iniD, iniP + nameBytesLen, subBytesLen);
+                    LongCopy((byte*)iniD, iniP + 1 + nameBytesLen, subBytesLen);
                 }
             }
 
@@ -265,13 +359,19 @@ namespace TLab.XR.Network
             m_syncFromOutside = false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual void SyncTransform()
         {
-            if (!m_enableSync) return;
+            if (!m_enableSync)
+            {
+                return;
+            }
 
             TLabSyncJson obj = new TLabSyncJson
             {
-                action = (int)WebAction.SYNCTRANSFORM,
+                action = (int)WebAction.SYNC_TRANSFORM,
 
                 transform = new WebObjectInfo
                 {
@@ -307,15 +407,24 @@ namespace TLab.XR.Network
             m_syncFromOutside = false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual void ClearTransform()
         {
-            if (!m_enableSync) return;
+            if (!m_enableSync)
+            {
+                return;
+            }
 
             SyncClient.Instance.SendWsMessage(
-                action: WebAction.CLEARTRANSFORM,
+                action: WebAction.CLEAR_TRANSFORM,
                 transform: new WebObjectInfo { id = m_id });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected virtual void CashRbVelocity()
         {
             if (m_rb != null)
@@ -325,17 +434,30 @@ namespace TLab.XR.Network
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="deleteCache"></param>
         public override void Shutdown(bool deleteCache)
         {
-            if (m_shutdown || !socketIsOpen) return;
+            if (m_shutdown || !socketIsOpen)
+            {
+                return;
+            }
 
-            if (deleteCache) ClearTransform();
+            if (deleteCache)
+            {
+                ClearTransform();
+            }
 
             UnRegister(m_id);
 
             base.Shutdown(deleteCache);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void Start()
         {
             base.Start();
@@ -356,6 +478,9 @@ namespace TLab.XR.Network
             Register(m_id, this);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void Update()
         {
             base.Update();
@@ -365,8 +490,14 @@ namespace TLab.XR.Network
             m_didnotReachCount++;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void OnDestroy() => Shutdown(false);
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void OnApplicationQuit() => Shutdown(false);
     }
 }

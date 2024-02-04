@@ -57,7 +57,7 @@ namespace TLab.XR.Network
         {
             var obj = new TLabSyncJson
             {
-                action = (int)WebAction.SYNCANIM,
+                action = (int)WebAction.SYNC_ANIM,
                 animator = new WebAnimInfo
                 {
                     id = m_id,
@@ -118,7 +118,7 @@ namespace TLab.XR.Network
         public virtual void ClearAnim()
         {
             SyncClient.Instance.SendWsMessage(
-                action: WebAction.CLEARANIM,
+                action: WebAction.CLEAR_ANIM,
                 animator: new WebAnimInfo { id = m_id });
         }
 

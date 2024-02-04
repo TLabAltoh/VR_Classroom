@@ -17,12 +17,18 @@ namespace TLab.XR.Humanoid
 
         protected static void Register(string id, BodyTracker tracker)
         {
-            if (!m_registry.ContainsKey(id)) m_registry[id] = tracker;
+            if (!m_registry.ContainsKey(id))
+            {
+                m_registry[id] = tracker;
+            }
         }
 
         protected static new void UnRegister(string id)
         {
-            if (m_registry.ContainsKey(id)) m_registry.Remove(id);
+            if (m_registry.ContainsKey(id))
+            {
+                m_registry.Remove(id);
+            }
         }
 
         public static new void ClearRegistry()
@@ -54,7 +60,6 @@ namespace TLab.XR.Humanoid
         public static new void ClearObject(string id)
         {
             var go = GetById(id).gameObject;
-
             if (go != null)
             {
                 ClearObject(go);

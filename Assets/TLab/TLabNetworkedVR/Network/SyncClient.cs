@@ -61,43 +61,86 @@ namespace TLab.XR.Network
         private int m_seatIndex = NOT_REGISTED;
         private bool[] m_guestTable = new bool[SEAT_LENGTH];
 
-        // 大文字にしたい
         private const string COMMA = ".";
         private const string PREFAB_NAME = "OVR_GUEST_ANCHOR";
         private Queue<GameObject>[] m_avatorInstanceQueue = new Queue<GameObject>[SEAT_LENGTH];
 
         private delegate void ReceiveCallback(TLabSyncJson obj);
 
-        ReceiveCallback[] receiveCallbacks = new ReceiveCallback[(int)WebAction.CUSTOMACTION + 1];
+        ReceiveCallback[] receiveCallbacks = new ReceiveCallback[(int)WebAction.CUSTOM_ACTION + 1];
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int seatIndex => m_seatIndex;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int seatLength => SEAT_LENGTH;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool socketIsNull => m_websocket == null;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool registed => socketIsNull ? false : m_seatIndex != NOT_REGISTED;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool socketIsOpen => socketIsNull ? false : m_websocket.State == WebSocketState.Open;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool socketIsConnecting => socketIsNull ? false : m_websocket.State == WebSocketState.Connecting;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool isHost { get => m_role == WebRole.HOST; set => m_role = value == true ? WebRole.HOST : WebRole.GUEST; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string serverAddr => m_serverAddr;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="addr"></param>
         public void SetServerAddr(string addr) => m_serverAddr = addr;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public bool IsGuestExist(int index) => m_guestTable[index];
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="seatIndex"></param>
+        /// <param name="go"></param>
         public void CacheAvator(int seatIndex, GameObject go)
         {
             if (m_avatorInstanceQueue[seatIndex] == null)
+            {
                 m_avatorInstanceQueue[seatIndex] = new Queue<GameObject>();
+            }
 
             m_avatorInstanceQueue[seatIndex].Enqueue(go);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="seatIndex"></param>
         public void DeleteAvator(int seatIndex)
         {
             var avatorInstanceQueue = m_avatorInstanceQueue[seatIndex];
@@ -124,16 +167,21 @@ namespace TLab.XR.Network
         /// Refresh only specific objects.
         /// </summary>
         /// <param name="targetID"></param>
-        public void UniReflesh(string targetID) => SendWsMessage(action: WebAction.UNIREFLESHTRANSFORM, transform: new WebObjectInfo { id = targetID });
+        public void UniReflesh(string targetID) => SendWsMessage(action: WebAction.UNI_REFLESH_TRANSFORM, transform: new WebObjectInfo { id = targetID });
 
         #endregion REFLESH
 
         #region CONNECT_SERVER
 
+        /// <summary>
+        /// playerNameは現在使用していない
+        /// </summary>
+        /// <param name="playerName"></param>
+        /// <param name="seatIndex"></param>
+        /// <param name="parts"></param>
+        /// <returns></returns>
         private string GetBodyTrackerName(string playerName, int seatIndex, AvatorConfig.BodyParts parts)
         {
-            // playerNameは現在使用していない
-
             return PREFAB_NAME + COMMA + seatIndex.ToString() + COMMA + parts.ToString();
         }
 
@@ -157,19 +205,26 @@ namespace TLab.XR.Network
             receiveCallbacks[(int)WebAction.REGECT] = (obj) => { };
             receiveCallbacks[(int)WebAction.ACEPT] = (obj) => {
 
-                // Permission to join is granted by the server
+                /**
+                 * Permission to join is granted by the server
+                 */
 
                 m_seatIndex = obj.dstIndex;
 
                 m_guestTable[m_seatIndex] = true;
 
-                // Enable sync own avator
-
+                /**
+                 * Enable sync own avator
+                 */
                 foreach (var trackTarget in m_trackTargets)
                 {
                     var parts = trackTarget.parts;
                     var target = trackTarget.target;
 
+                    /**
+                     * BodyTrackerを動的に追加するため，idのハッシュが使えない．
+                     * -----> 代わりに座席番号を使用する．
+                     */
                     var trackerName = GetBodyTrackerName("", m_seatIndex, parts);
                     target.name = trackerName;
 
@@ -192,45 +247,57 @@ namespace TLab.XR.Network
                 var anchor = m_respownAnchors[m_seatIndex];
                 m_cameraRig.SetPositionAndRotation(anchor.position, anchor.rotation);
 
-                // Connect to signaling server
+                /**
+                 * Connect to signaling server
+                 */
                 var userID = gameObject.name + "_" + m_seatIndex.ToString();
                 var roomID = m_roomID;
                 m_dataChannel.Join(userID, roomID);
 
             };
             receiveCallbacks[(int)WebAction.EXIT] = (obj) => { };
-            receiveCallbacks[(int)WebAction.GUESTDISCONNECT] = (obj) => {
+            receiveCallbacks[(int)WebAction.GUEST_DISCONNECT] = (obj) => {
 
-                // Guest disconnected
+                /**
+                 * Guest disconnected
+                 */
 
                 int guestIndex = obj.srcIndex;
 
                 if (!m_guestTable[guestIndex])
+                {
                     return;
+                }
 
                 DeleteAvator(guestIndex);
 
                 m_guestTable[guestIndex] = false;
 
                 foreach (var callback in m_customCallbacks)
+                {
                     callback.OnGuestDisconnected(guestIndex);
+                }
 
                 Debug.Log(THIS_NAME + "guest disconncted: " + guestIndex.ToString());
 
             };
-            receiveCallbacks[(int)WebAction.GUESTPARTICIPATION] = (obj) => {
+            receiveCallbacks[(int)WebAction.GUEST_PARTICIPATION] = (obj) => {
 
-                // Processing when guest joins
+                /**
+                 * Processing when guest joins
+                 */
 
                 int guestIndex = obj.srcIndex;
 
                 if (m_guestTable[guestIndex])
                 {
-                    Debug.LogError("Guest Already Exists:" + guestIndex);
+                    Debug.LogError(THIS_NAME + $"guest already exists: {guestIndex}");
                     return;
                 }
 
-                // Visualize avatars of newly joined players
+                /**
+                 * Visualize avatars of newly joined players
+                 */
 
                 foreach (var avatorParts in m_avatorConfig.body)
                 {
@@ -250,15 +317,19 @@ namespace TLab.XR.Network
                 m_guestTable[guestIndex] = true;
 
                 foreach (var callback in m_customCallbacks)
+                {
                     callback.OnGuestParticipated(guestIndex);
+                }
 
-                Debug.Log(THIS_NAME + "guest participated: " + guestIndex.ToString());
+                Debug.Log(THIS_NAME + $"guest participated: {guestIndex}");
 
                 return;
             };
-            receiveCallbacks[(int)WebAction.ALLOCATEGRAVITY] = (obj) => {
+            receiveCallbacks[(int)WebAction.ALLOCATE_GRAVITY] = (obj) => {
 
-                // Object's gravity allocation
+                /**
+                 * Object's gravity allocation
+                 */
 
                 var rigidbodyAllocated = obj.active;
                 var webTransform = obj.transform;
@@ -266,10 +337,12 @@ namespace TLab.XR.Network
                 controller?.AllocateGravity(rigidbodyAllocated);
 
             };
-            receiveCallbacks[(int)WebAction.REGISTRBOBJ] = (obj) => { };
-            receiveCallbacks[(int)WebAction.GRABBLOCK] = (obj) => {
+            receiveCallbacks[(int)WebAction.REGIST_RB_OBJ] = (obj) => { };
+            receiveCallbacks[(int)WebAction.GRABB_LOCK] = (obj) => {
 
-                // Grabb lock from outside
+                /**
+                 * Grabb lock from outside
+                 */
 
                 var grabIndex = obj.grabIndex;
                 var webTransform = obj.transform;
@@ -277,9 +350,11 @@ namespace TLab.XR.Network
                 controller?.GrabbLock(grabIndex);
 
             };
-            receiveCallbacks[(int)WebAction.FORCERELEASE] = (obj) => {
+            receiveCallbacks[(int)WebAction.FORCE_RELEASE] = (obj) => {
 
-                // Force release request
+                /**
+                 * Force release request
+                 */
 
                 var self = false;
                 var webTransform = obj.transform;
@@ -287,39 +362,45 @@ namespace TLab.XR.Network
                 controller?.ForceRelease(self);
 
             };
-            receiveCallbacks[(int)WebAction.DIVIDEGRABBER] = (obj) => {
+            receiveCallbacks[(int)WebAction.DIVIDE_GRABBER] = (obj) => {
 
-                // Divide grabbable object
+                /**
+                 * Divide grabbable object
+                 */
 
                 var webTransform = obj.transform;
                 var controller = ExclusiveController.GetById(webTransform.id);
                 controller?.Divide(obj.active);
 
             };
-            receiveCallbacks[(int)WebAction.SYNCTRANSFORM] = (obj) => {
+            receiveCallbacks[(int)WebAction.SYNC_TRANSFORM] = (obj) => {
 
-                // Sync transform
+                /**
+                 * Sync transform
+                 */
 
                 var webTransform = obj.transform;
                 var syncTransformer = SyncTransformer.GetById(webTransform.id);
                 syncTransformer?.SyncFromOutside(webTransform);
 
             };
-            receiveCallbacks[(int)WebAction.SYNCANIM] = (obj) => {
+            receiveCallbacks[(int)WebAction.SYNC_ANIM] = (obj) => {
 
-                // Sync animation
+                /**
+                 * Sync animation
+                 */
 
                 var webAnimator = obj.animator;
                 var syncAnim = SyncAnimator.GetById(webAnimator.id);
                 syncAnim?.SyncAnimFromOutside(webAnimator);
 
             };
-            receiveCallbacks[(int)WebAction.CLEARTRANSFORM] = (obj) => { };
-            receiveCallbacks[(int)WebAction.CLEARANIM] = (obj) => { };
+            receiveCallbacks[(int)WebAction.CLEAR_TRANSFORM] = (obj) => { };
+            receiveCallbacks[(int)WebAction.CLEAR_ANIM] = (obj) => { };
             receiveCallbacks[(int)WebAction.REFLESH] = (obj) => { };
-            receiveCallbacks[(int)WebAction.UNIREFLESHTRANSFORM] = (obj) => { };
-            receiveCallbacks[(int)WebAction.UNIREFLESHANIM] = (obj) => { };
-            receiveCallbacks[(int)WebAction.CUSTOMACTION] = (obj) => {
+            receiveCallbacks[(int)WebAction.UNI_REFLESH_TRANSFORM] = (obj) => { };
+            receiveCallbacks[(int)WebAction.UNI_REFLESH_ANIM] = (obj) => { };
+            receiveCallbacks[(int)WebAction.CUSTOM_ACTION] = (obj) => {
 
                 m_customCallbacks[obj.customIndex].OnMessage(obj.custom);
 
@@ -370,8 +451,10 @@ namespace TLab.XR.Network
         /// <returns></returns>
         private IEnumerator ConnectServerTaskStart()
         {
-            // I don't know how many frames it takes to close the Websocket client.
-            // So I'll wait for one frame anyway.
+            /**
+             * I don't know how many frames it takes to close the Websocket client.
+             * So I'll wait for one frame anyway.
+             */
 
             yield return null;
 
@@ -402,6 +485,12 @@ namespace TLab.XR.Network
 
         #region RTC_MESSAGE
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="src"></param>
+        /// <param name="dst"></param>
+        /// <param name="count"></param>
         private static unsafe void LongCopy(byte* src, byte* dst, int count)
         {
             // https://github.com/neuecc/MessagePack-CSharp/issues/117
@@ -436,20 +525,24 @@ namespace TLab.XR.Network
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dst"></param>
+        /// <param name="src"></param>
+        /// <param name="bytes"></param>
         public void OnRTCMessage(string dst, string src, byte[] bytes)
         {
             int nameBytesLen = bytes[0];
             int subBytesStart = 1 + nameBytesLen;
-            int subBytesLen = bytes.Length - nameBytesLen;
+            int subBytesLen = bytes.Length - subBytesStart;
 
             byte[] nameBytes = new byte[nameBytesLen];
 
             unsafe
             {
-                // id
-                fixed (byte* iniP = nameBytes, iniD = bytes)
+                fixed (byte* iniP = nameBytes, iniD = bytes)    // id
                 {
-                    //for (byte* pt = iniP, pd = iniD + 1; pt < iniP + offset; pt++, pd++) *pt = *pd;
                     LongCopy(iniD + 1, iniP, nameBytesLen);
                 }
             }
@@ -459,7 +552,7 @@ namespace TLab.XR.Network
             var networkedObject = NetworkedObject.GetById(targetName);
             if (networkedObject == null)
             {
-                Debug.LogError("Target Networked Object Not Found");
+                Debug.LogError($"Target Networked Object Not Found: {targetName}");
 
                 return;
             }
@@ -470,24 +563,51 @@ namespace TLab.XR.Network
             networkedObject.OnRTCMessage(dst, src, subBytes);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bytes"></param>
         public void SendRTCMessage(byte[] bytes) => m_dataChannel.SendRTCMsg(bytes);
 
         #endregion RTC_MESSAGE
 
         #region WEBSOCKET_MESSAGE
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="dstIndex"></param>
+        /// <param name="grabIndex"></param>
+        /// <param name="active"></param>
+        /// <param name="transform"></param>
+        /// <param name="animator"></param>
+        /// <param name="customIndex"></param>
+        /// <param name="custom"></param>
         public void SendWsMessage(WebAction action, int dstIndex = -1, int grabIndex = -1, bool active = false,
                                   WebObjectInfo transform = null, WebAnimInfo animator = null, int customIndex = -1, string custom = "")
         {
             var obj = new TLabSyncJson
             {
-                roomID = m_roomID, action = (int)action, role = (int)m_role,
-                srcIndex = seatIndex, dstIndex = dstIndex, grabIndex = grabIndex, active = active,
-                transform = transform, animator = animator, customIndex = customIndex, custom = custom
+                roomID = m_roomID,
+                action = (int)action,
+                role = (int)m_role,
+                srcIndex = seatIndex,
+                dstIndex = dstIndex,
+                grabIndex = grabIndex,
+                active = active,
+                transform = transform,
+                animator = animator,
+                customIndex = customIndex,
+                custom = custom
             };
             SendWsMessage(JsonUtility.ToJson(obj));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
         public void SendWsMessage(TLabSyncJson obj)
         {
             obj.roomID = m_roomID;
@@ -496,45 +616,79 @@ namespace TLab.XR.Network
             SendWsMessage(JsonUtility.ToJson(obj));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="json"></param>
         public async void SendWsMessage(string json)
         {
             if (socketIsOpen)
+            {
                 await m_websocket.SendText(json);
+            }
         }
 
         #endregion WEBSOCKET_MESSAGE
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void CloseRTC() => m_dataChannel.Exit();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void ConfirmRTCCallbackRegisted()
         {
             if (m_dataChannel == null)
+            {
                 m_dataChannel = GetComponent<WebRTCDataChannel>();
+            }
 
             if (m_dataChannel.eventCount == 0)
+            {
                 m_dataChannel.SetCallback(OnRTCMessage);
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         void Reset() => ConfirmRTCCallbackRegisted();
 
+        /// <summary>
+        /// 
+        /// </summary>
         void Awake()
         {
             Instance = this;
 
             if (m_dataChannel == null)
+            {
                 m_dataChannel = GetComponent<WebRTCDataChannel>();
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         void Start()
         {
             for (int i = 0; i < m_avatorInstanceQueue.Length; i++)
+            {
                 if (m_avatorInstanceQueue[i] != null)
+                {
                     m_avatorInstanceQueue[i] = new Queue<GameObject>();
+                }
+            }
 
             ConnectServerAsync();
 
 #if UNITY_EDITOR
-            if (m_editorDebug) isHost = true;
+            if (m_editorDebug)
+            {
+                isHost = true;
+            }
 #endif
 
             if (m_buildDebug)
@@ -547,24 +701,40 @@ namespace TLab.XR.Network
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         void Update()
         {
 #if !UNITY_WEBGL || UNITY_EDITOR
             if (m_websocket != null)
+            {
                 m_websocket.DispatchMessageQueue();
+            }
 #endif
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private async void CloseWebSocket()
         {
             if (m_websocket != null)
+            {
                 await m_websocket.Close();
+            }
 
             m_websocket = null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         void OnDestroy() => CloseWebSocket();
 
+        /// <summary>
+        /// 
+        /// </summary>
         void OnApplicationQuit() => CloseWebSocket();
     }
 }

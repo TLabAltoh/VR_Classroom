@@ -55,25 +55,29 @@ const SERVER = 0;
 const HOST = 1;
 const GUEST = 2;
 
+const BROAD_CAST = -1;
+const FREE = -1;
+const FIXED  = -2;
+
 const REGIST = 0;
 const REGECT = 1;
 const ACEPT = 2;
 const EXIT = 3;
-const GUESTDISCONNECT = 4;
-const GUESTPARTICIPATION = 5;
-const ALLOCATEGRAVITY = 6;
-const REGISTRBOBJ = 7;
-const GRABBLOCK = 8;
-const FORCERELEASE = 9;
-const DIVIDEGRABBER = 10;
-const SYNCTRANSFORM = 11;
-const SYNCANIM = 12;
-const CLEARTRANSFORM = 13;
-const CLEARANIM = 14;
+const GUEST_DISCONNECT = 4;
+const GUEST_PARTICIPATION = 5;
+const ALLOCATE_GRAVITY = 6;
+const REGIST_RB_OBJ = 7;
+const GRABB_LOCK = 8;
+const FORCE_RELEASE = 9;
+const DIVIDE_GRABBER = 10;
+const SYNC_TRANSFORM = 11;
+const SYNC_ANIM = 12;
+const CLEAR_TRANSFORM = 13;
+const CLEAR_ANIM = 14;
 const REFRESH = 15;
-const UNIREFRESHTRANSFORM = 16;
-const UNIREFRESHANIM = 17;
-const CUSTOMACTION = 18;
+const UNI_REFRESH_TRANSFORM = 16;
+const UNI_REFRESH_ANIM = 17;
+const CUSTOM_ACTION = 18;
 
 const OVR_GUEST_ANCHOR = "OVR_GUEST_ANCHOR";
 const COMMA = ".";
@@ -87,10 +91,11 @@ class unity_room {
 	seatFilled = 0;
 	seats = [];
 	socketTable = [];
-	grabbTable = [];
+	grabbTable = [];		// Table of objects directly grabbed by the player
+	simpleLockTable = [];	// Objects that are not in anyone's grasp but are protected by exclusion controls
 	waitApprovals = [];
 
-	syncObjects = {};	// list of updated transforms
+	syncObjects = {};	// List of updated transforms
 	syncAnims = {};		// List of updated animations
 	syncDivides = {};	// Devide State
 	rbObjects = {};		// List of gravity enabled objects
@@ -109,181 +114,169 @@ class unity_room {
 
 	onMessage(userInfo, parse, message) {
 
-		// Ensure that frequently used message types are placed on top.
+		/**
+		 * Ensure that frequently used message types are placed on top.
+		 */
 
-		if (parse.action === SYNCTRANSFORM) {
+		if (parse.action === SYNC_TRANSFORM) {
 
-			// summary:
-			// cache object transform
+			/**
+			 * summary:
+			 * cache object transform
+			 */
 
 			this.syncObjects[parse.transform.id] = parse;
 
 			return;
-		} else if (parse.action == GRABBLOCK) {
+		} else if (parse.action == GRABB_LOCK) {
 
-			// summary:
-			// update lock/unlock state grabb table
+			/**
+			 * summary:
+			 * update lock/unlock state grabb table
+			 */
 
 			this.updateGrabbTable(parse, message);
 
-			// broadcast
-			ws.clients.forEach(client => {
+			ws.clients.forEach(client => {	// broadcast
 				if (client != userInfo.socket) client.send(message);
 			});
 
 			return;
-		} else if (parse.action == REGISTRBOBJ) {
+		} else if (parse.action == REGIST_RB_OBJ) {
 
-			// summary:
-			// regist rigidbody obj
+			console.log("[log] registration of rigidbody id ", parse.transform.id, " with the server has been requested.");
 
-			// log regist target to console
-			console.log("regist rb object: " + parse.transform.id);
-
-			// add use gravity enabled object
-			this.rbObjects[parse.transform.id] = parse;
+			this.rbObjects[parse.transform.id] = parse;	// add use gravity enabled object
 
 			this.allocateRigidbody(false);
 
 			return;
-		} else if (parse.action == FORCERELEASE) {
+		} else if (parse.action == FORCE_RELEASE) {
 
-			// summary:
-			// force release object from player
+			console.log("[log] a forced release of object id ", parse.transform.id, " has been requested.");
 
-			// output console force release target
-			console.log("force release: " + this.grabbTable[userInfo.seatIndex].transform);
+			this.deleteObjFromGrabbTable(parse);	// delete from grabb table
 
-			// delete from grabb table
-			this.deleteObjFromGrabbTable(parse);
-
-			// broadcast
-			ws.clients.forEach(client => {
-				if (client != userInfo.socket) client.send(message);
+			ws.clients.forEach(client => {	// broadcast
+				if (client != userInfo.socket) {
+					client.send(message);
+				}
 			});
 
 			return;
-		} else if (parse.action == SYNCANIM) {
+		} else if (parse.action == SYNC_ANIM) {
 
-			// summary:
-			// sync animation
-
-			console.log("sync animation");
+			console.log("[log] animation id ", parse.animator.id, " has been synchronized from the client to the server.");
 
 			this.syncAnims[parse.animator.id] = parse;
 
 			ws.clients.forEach(client => {
-				if (client != userInfo.socket) client.send(message);
+				if (client != userInfo.socket) {
+					client.send(message);
+				}
 			});
 
 			return;
-		} else if (parse.action == CLEARTRANSFORM) {
+		} else if (parse.action == CLEAR_TRANSFORM) {
 
-			// summary:
-			// clear transform cache and devide state hash
-
-			console.log("delete transform cache");
+			console.log("[log] deletion of the cache for transform id ", parse.transform.id, " has been requested.");
 
 			delete this.syncObjects[parse.transform.id];
 			delete this.syncDivides[parse.transform.id];
 
 			return;
-		} else if (parse.action == CLEARANIM) {
+		} else if (parse.action == CLEAR_ANIM) {
 
-			// summary:
-			// clear anim state cache
+			console.log("[log] deletion of the cache for animation id ", parse.animator.id, " has been requested.");
 
-			console.log("delete anim cache");
-
-			delete this.syncAnims[parse.transform.id];
+			delete this.syncAnims[parse.animator.id];
 
 			return;
 		} else if (parse.action === REFRESH) {
 
-			// summary:
-			// reflesh all sync component
+			console.log("[log] a request has been made to synchronize the world information cached by the server.");
 
-			console.log("reflesh all sync component");
-
-			if (parse.active === true) this.sendCurrentWoldData(userInfo.socket);
+			if (parse.active === true) {
+				this.sendCurrentWoldData(userInfo.socket);
+			}
 
 			this.sendCurrentGrabbState(userInfo.socket);
 
 			this.allocateRigidbody(false);
 
 			return;
-		} else if (parse.action == UNIREFRESHTRANSFORM) {
+		} else if (parse.action == UNI_REFRESH_TRANSFORM) {
 
-			// summary:
-			// reflesh object
-
-			console.log("reflesh object: " + parse.transform.id);
+			console.log("[log] synchronization of transform id ", parse.transform.id, " is requested.");
 
 			this.sendSpecificTransform(parse.transform.id, userInfo.socket);
 
 			this.allocateRigidbody(false);
 
 			return;
-		} else if (parse.action == UNIREFRESHANIM) {
+		} else if (parse.action == UNI_REFRESH_ANIM) {
 
-			// summary:
-			// reflesh anim
-
-			console.log("reflesh anim: " + parse.animator.id);
+			console.log("[log] synchronization of animation id ", parse.animator.id, " is requested.");
 
 			this.sendSpecificAnim(parse.animator.id, userInfo.socket);
 
 			return;
-		} else if (parse.action == DIVIDEGRABBER) {
+		} else if (parse.action == DIVIDE_GRABBER) {
 
-			// summary:
-			// divide / combin grabber
+			console.log("[log] the object has been divided or combined: ", parse.transform.id);	// output divide target
 
-			// output divide target
-			console.log("divide obj: " + parse.transform.id);
+			this.syncDivides[parse.transform.id] = parse;	// update table with divide state
 
-			// update table with divide state
-			this.syncDivides[parse.transform.id] = parse;
-
-			// broadcast
-			ws.clients.forEach(client => {
-				if (client != userInfo.socket) client.send(message);
+			ws.clients.forEach(client => {	// broadcast
+				if (client != userInfo.socket) {
+					client.send(message);
+				}
 			});
 
 			return;
-		} else if (parse.action == CUSTOMACTION) {
-			// summary:
-			// custom action
+		} else if (parse.action == CUSTOM_ACTION) {
+			/**
+			 * summary:
+			 * custom action
+			 */
 
-			// output received custom message
-			console.log("custom message: " + message);
+			/**
+			 * output received custom message
+			 */
+			console.log("[log] custom message: ", message);
 
-			// relay packet
-			if (parse.dstIndex !== -1) {
-				// -1 is unicast
+			/**
+			 * relay packet
+			 */
+			if (parse.dstIndex !== BROAD_CAST) {	// -1 is unicast
 				var target = this.socketTable[parse.dstIndex];
 				if (target != null) {
 					target.send(message);
                 }
-			} else {
-				// boradcast
+			} else {	// boradcast
 				ws.clients.forEach(client => {
-					if (client != userInfo.socket) client.send(message);
+					if (client != userInfo.socket) {
+						client.send(message);
+					}
 				});
 			}
 			return;
 		} else if (parse.action === REGIST) {
-			// summary:
-			// regist client to seat table
 
-			console.log("\nreceived a request to join " + bar);
+			/**
+			 * summary:
+			 * regist client to seat table
+			 */
+
+			console.log("[log] received a request to join.");
 
 			this.waitApprovals.push(() => {
-				console.log("\napproval for client start" + bar);
+				console.log("[action] approval for client start.");
 
-				// check befor acept
-				if (parse.role === GUEST) {
-					// Guest Index : 1 ~ seatLength - 1
+				/**
+				 * check befor acept
+				 */
+				if (parse.role === GUEST) {	// Guest Index : 1 ~ seatLength - 1
 					for (var i = 1; i < this.seatLength; i++) {
 						if (this.seats[i] === false) {
 							userInfo.seatIndex = i;
@@ -292,8 +285,7 @@ class unity_room {
 							break;
 						}
 					}
-				} else if (parse.role === HOST) {
-					// Host Index: 0
+				} else if (parse.role === HOST) {	// Host Index: 0
 					if (this.seats[0] === false) {
 						userInfo.seatIndex = 0;
 						this.seats[0] = true;
@@ -301,9 +293,8 @@ class unity_room {
 					}
 				}
 
-				// send socket to result
-				if (userInfo.seatIndex === -1) {
-					console.log("declined to participate");
+				if (userInfo.seatIndex === -1) {	// send socket to result
+					console.log("[error] declined to participate.");
 					var obj = {
 						role: SERVER,
 						action: REGECT,
@@ -321,26 +312,28 @@ class unity_room {
 			return;
 		} else if (parse.action == EXIT) {
 
-			// summary:
-			// exit from room
+			/**
+			 * upon receiving an exit notification from a client, 
+			 * the system notifies other clients and deletes information about the client on the server.
+			 */
 
-			console.log("\nclient exit " + bar);
+			console.log("[log] client exit.");
 
-			if (seatIndex !== -1) {
-				// Notify players to leave
-				var obj = {
+			if (seatIndex !== -1) {	
+				var obj = {	// notify players to leave
 					role: SERVER,
-					action: GUESTDISCONNECT,
+					action: GUEST_DISCONNECT,
 					srcIndex: seatIndex,
 					dstIndex: -1
 				};
 				var json = JSON.stringify(obj);
 
 				ws.clients.forEach(client => {
-					if (client !== userInfo.socket) client.send(json);
+					if (client !== userInfo.socket){
+						client.send(json);
+					}
 				});
 
-				// Updating Tables
 				this.seats[userInfo.seatIndex] = false;
 				this.socketTable[userInfo.seatIndex] = null;
 				this.grabbTable[userInfo.seatIndex] = [];
@@ -358,26 +351,26 @@ class unity_room {
 
 	onClose(userInfo) {
 		if (userInfo.seatIndex !== -1) {
-			// Notify players to leave
-			var obj = {
+			var obj = {	// Notify players to leave
 				role: SERVER,
-				action: GUESTDISCONNECT,
+				action: GUEST_DISCONNECT,
 				srcIndex: userInfo.seatIndex,
-				sdtIndex: -1
+				dstIndex: -1
 			};
 			var json = JSON.stringify(obj);
 
 			ws.clients.forEach(client => {
-				if (client !== userInfo.socket) client.send(json);
+				if (client !== userInfo.socket) {
+					client.send(json);
+				}
 			});
 
-			// Updating Tables
-			this.seats[userInfo.seatIndex] = false;
+			this.seats[userInfo.seatIndex] = false;	// Updating Tables
 			this.socketTable[userInfo.seatIndex] = null;
 			this.grabbTable[userInfo.seatIndex] = [];
 			this.seatFilled -= 1;
 
-			console.log(this.seats);
+			console.log("[log] current sheet table: " + this.seats);
 
 			this.allocateRigidbody(true);
 
@@ -386,37 +379,36 @@ class unity_room {
 		return;
 	}
 
+	/**
+	 * Digesting the accumulated acceptance process
+	 * @returns 
+	 */
 	approvalToParticipate() {
 
-		// summary:
-		// Digesting the accumulated acceptance process
+		console.log("[action] try approval to participate ....");
 
-		console.log("try approval to participate ....");
-
-		// 1. waiting for allocateRigidbody to execute
-		// 2. waitApprovals is empty
+		/**
+		 * When the following conditions are satisfied, the process is interrupted and waits until the next timeout
+		 * 1. waiting for allocateRigidbody to execute
+		 * 2. waitApprovals is empty
+		 */
 		if (this.allocateFinished === false || this.waitApprovals.length == 0) {
+			console.log("[log] the program was not in a runnable state. we will try again in the next loop.");
 			setTimeout(this.approvalToParticipate.bind(this), 2 * 1000);
 			return;
 		}
 
-		// deque from wait approvals
-		var approval = this.waitApprovals.shift();
+		var approval = this.waitApprovals.shift();	// deque from wait approvals
 
-		// invoke
-		approval();
+		approval();	// invoke
 	}
 
 	allocateRigidbodyTask() {
 
-		// summary:
-		// 
+		console.log("[action] allocate rigidbody.");
 
-		console.log("re allocate rigidbody");
-
-		// player existence check
 		var check = false;
-		for (var j = 0; j < this.seatLength; j++) {
+		for (var j = 0; j < this.seatLength; j++) {	// player existence check
 			if (this.seats[j] === true) {
 				check = true;
 			}
@@ -425,25 +417,22 @@ class unity_room {
 			return;
         }
 
-		// Recalculate rigidbody allocation table
 		var rbObjValues = Object.values(this.rbObjects);
 		var seatIndex = 0;
-		rbObjValues.forEach(function (value) {
+		rbObjValues.forEach(function (value) {	// recalculate rigidbody allocation table
 			while (true) {
-				// Check if someone is in the seat
-				if (this.seats[seatIndex] === true) {
-					// When an object is held by someone else, the player holding the object continues to be in charge of the physics processing.
-					for (var i = 0; i < this.seatLength; i++)
-					for (var j = 0; j < this.grabbTable[i].length; j++) {
-						if (this.grabbTable[i][j].transform.id === value.transform.id) {
-							// this.rbTable[value.transform.id] = seatIndex;	// <--- It should be assigned by grabb lock and does not need to be executed
-							seatIndex = (seatIndex + 1) % this.seatLength;
-							return;
+				if (this.seats[seatIndex] === true) {	// check if someone is in the seat
+					for (var i = 0; i < this.seatLength; i++) {	// when an object is held by someone else, the player holding the object continues to be in charge of the physics processing.
+						for (var j = 0; j < this.grabbTable[i].length; j++) {
+							if (this.grabbTable[i][j].transform.id === value.transform.id) {
+								// this.rbTable[value.transform.id] = seatIndex;	// <--- it should be assigned by grabb lock and does not need to be executed
+								seatIndex = (seatIndex + 1) % this.seatLength;
+								return;
+							}
 						}
 					}
 
-					// If no one has grabbed this object, let this player compute the physics of this object.
-					this.rbTable[value.transform.id] = seatIndex;
+					this.rbTable[value.transform.id] = seatIndex;	// if no one has grabbed this object, let this player compute the physics of this object.
 					seatIndex = (seatIndex + 1) % this.seatLength;
 					return;
 				} else {
@@ -453,27 +442,21 @@ class unity_room {
 			}
 		}.bind(this));
 
-		// Re-allocate with updated tables
-		for (seatIndex = 0; seatIndex < this.seatLength; seatIndex++) {
-			// Check if someone is in the seat
-			if (this.seats[seatIndex] === false) {
+		for (seatIndex = 0; seatIndex < this.seatLength; seatIndex++) {	// re-allocate with updated tables
+			if (this.seats[seatIndex] === false) {	// check if someone is in the seat
 				continue;
             }
 
 			rbObjValues.forEach(function (value) {
-				// https://pisuke-code.com/javascript-foreach-continue/
-				// in foreach
-				// continue ---> return;
 				if (this.rbTable[value.transform.id] === undefined) {
 					return;
                 }
 
-				// Set useGravity to Off for rigidbodies that you are not in charge of
-				var obj = {
+				var obj = {	// set useGravity to Off for rigidbodies that you are not in charge of
 					role: SERVER,
 					srcIndex: -1,
 					dstIndex: seatIndex,
-					action: ALLOCATEGRAVITY,
+					action: ALLOCATE_GRAVITY,
 					active: (this.rbTable[value.transform.id] === seatIndex),
 					transform: { id: value.transform.id }
 				};
@@ -481,17 +464,15 @@ class unity_room {
 				this.socketTable[seatIndex].send(json);
 
 				console.log(
-					"seat " + seatIndex + ": " + value.transform.id +
-					", \tgrabb: " + this.grabbTable[value.transform.id] +
-					", \t" + ((this.rbTable[value.transform.id] === seatIndex) ? "allocated" : "not allocated"));
+					"[log] seat ", seatIndex, ": ", value.transform.id, ", \t",
+					((this.rbTable[value.transform.id] === seatIndex) ? "allocated" : "not allocated"));
 			}.bind(this));
 		}
+
+		console.log("[finish] rigidbody allocated.");
 	}
 
 	allocateRigidbody(isImidiate) {
-
-		// allocateFinished -> false:
-		// wait for allocateRigidbodyTask() invoked
 
 		if (isImidiate === true) {
 			this.allocateFinished = false;
@@ -500,7 +481,7 @@ class unity_room {
 			return;
 		}
 
-		if (this.allocateFinished == false) {
+		if (this.allocateFinished == false) {	// wait for allocateRigidbodyTask() invoked
 			return;
         }
 
@@ -513,42 +494,36 @@ class unity_room {
 	}
 
 	deleteObjFromGrabbTable(target) {
-
-		// summary:
-		// delete target obj from grabb table
-
 		for (var i = 0; i < this.seatLength; i++) {
 			this.grabbTable[i] = this.grabbTable[i].filter(function (value) {
 				return value.transform.id !== target.transform.id
 			});
         }
+
+		this.simpleLockTable = this.simpleLockTable.filter(function (value) {
+			return value.transform.id !== target.transform.id
+		});
 	}
 
 	updateGrabbTable(parse, message) {
 
-		/*
-			-1 : No one is grabbing
-			-2 : No one grabbed, but Rigidbody does not calculate
-		*/
-
-		// summary:
-		// Ensure that the object you are grasping does not cover
-		// If someone has already grabbed the object, overwrite it
-
-		// target.seatIndex	: player index that is grabbing the object
-		// seatIndex		: index of the socket actually communicating
+		/**
+		 * Ensure that the object you are grasping does not cover 
+		 * If someone has already grabbed the object, overwrite it
+		 * 
+		 * FREE : No one is grabbing
+		 * FIXED : No one grabbed, but Rigidbody does not calculate
+		 */
 
 		this.deleteObjFromGrabbTable(parse);
 
 		var grabIndex = parse.grabIndex;
 		var transform = parse.transform;
 
-		// output console grabb lock state and push to grabb table
-		if (parse.grabIndex !== -1) {
-			console.log("grabb lock: " + transform.id + ", grabindex: " + grabIndex);
+		if (parse.grabIndex !== FREE) {	// output console grabb lock state and push to grabb table
+			console.log("[action] grabb lock: " + transform.id + ", grabindex: " + grabIndex);
 
-			// If the grabbed object has gravity enabled, the player who grabbed it is authorized to calculate gravity.
-			if (transform.id in this.rbObjects) {
+			if (transform.id in this.rbObjects) {	// If the grabbed object has gravity enabled, the player who grabbed it is authorized to calculate gravity.
 
 				this.rbTable[transform.id] = grabIndex;
 
@@ -562,7 +537,7 @@ class unity_room {
 						role: SERVER,
 						srcIndex: -1,
 						dstIndex: -1,
-						action: ALLOCATEGRAVITY,
+						action: ALLOCATE_GRAVITY,
 						active: (this.rbTable[transform.id] === i),
 						transform: { id: transform.id }
 					};
@@ -572,98 +547,102 @@ class unity_room {
 				}
 			}
 
-			// push target obj to grabb table
-			this.grabbTable[grabIndex].push({ transform: transform, message: message });
+			if (parse.grabIndex === FIXED){
+				this.simpleLockTable.push({ transform: transform, message: message });	
+			}else{
+				this.grabbTable[grabIndex].push({ transform: transform, message: message });	// push target obj to grabb table
+			}
+
 		} else {
-			console.log("grabb unlock: " + transform);
+			console.log("[action] grabb unlock: ", transform.id);
         }
 
+		console.log("[finish] grabb table updated successfully");
 	}
 
 	sendCurrentWoldData(socket) {
 
-		// Load world transforms prior to rigidbody assignment
+		console.log("[action] sending current world data to socket.");
+
 		var syncObjValues = Object.values(this.syncObjects);
 		var syncAnimValues = Object.values(this.syncAnims);
 		var syncDivideValues = Object.values(this.syncDivides);
 
-		// send cached object transform
-		// https://pisuke-code.com/javascript-dictionary-foreach/
 		syncObjValues.forEach(function (value) {
 			var json = JSON.stringify(value);
 			socket.send(json);
 		}.bind(this));
 
-		// send cached animatoin state
-		syncAnimValues.forEach(function (value) {
+		syncAnimValues.forEach(function (value) {	// send cached animatoin state
 			var json = JSON.stringify(value);
 			socket.send(json);
 		}.bind(this));
 
-		// send cached divide state
-		syncDivideValues.forEach(function (value) {
+		syncDivideValues.forEach(function (value) {	// send cached divide state
 			var json = JSON.stringify(value);
 			socket.send(json);
 		}.bind(this));
+
+		console.log("[finish] send current grabb table.");
 	}
 
 	sendSpecificTransform(id, socket) {
 
-		// Transform
-		if (id in this.syncObjects) {
+		console.log("[action] synchronizes object id ", id, " to socket.");
+
+		if (id in this.syncObjects) {	// send transform state
 			var parse = this.syncObjects[id];
 			var json = JSON.stringify(parse);
 			socket.send(json);
 		}
 
-		// Divide State
-		if (id in this.syncDivides) {
+		if (id in this.syncDivides) {	// send divide state
 			var parse = this.syncDivides[id];
 			var json = JSON.stringify(parse);
 			socket.send(json);
 		}
+
+		console.log("[finish] synchronization is complete.");
 	}
 
 	sendSpecificAnim(id, socket) {
 
-		// Animator
-		if (id in this.syncAnims) {
+		console.log("[action] synchronizes animation id ", id, " to socket.");
+
+		if (id in this.syncAnims) {	// send animator state
 			var parse = this.syncAnims[id];
 			var json = JSON.stringify(parse);
 			socket.send(json);
 		}
+
+		console.log("[finish] synchronization is complete.");
 	}
 
 	sendCurrentGrabbState(socket) {
 
-		// get grabb object list from each paticipante
+		console.log("[action] synchronizes grabb table to socket.");
+
 		this.grabbTable.forEach(function (array) {
-
-			// for each item in grabb list
 			array.forEach(function (value) {
-
-				// send grabb message to target
 				socket.send(value.message);
-
-				// log console grabb message send
-				if (value != [] && value != undefined && value != null) {
-					console.log("send grabbed item: " + value.message);
-                }
 			}.bind(this))
 		}.bind(this));
+
+		this.simpleLockTable.forEach(function (value) {
+			socket.send(value.message);
+		}.bind(this));
+
+		console.log("[finish] synchronization is complete.");
 	}
 
 	onJoined(userInfo) {
 
-		// output console to current seat table
-		console.log("approved to participate");
-		console.log(this.seats);
+		console.log("[action] player has joined. starts the acceptance process.");
+		console.log("[log] current sheet table: " + this.seats);
 
-		// count up filled seat count
-		this.seatFilled += 1;
+		this.seatFilled += 1;	// count up filled seat count
 
-		// send acept message
-		var obj = {
+		var obj = {	// send acept message
 			role: SERVER,
 			action: ACEPT,
 			srcIndex: -1,
@@ -672,57 +651,67 @@ class unity_room {
 		var json = JSON.stringify(obj);
 		userInfo.socket.send(json);
 
-		console.log("sending current world data");
-
-		// Remove transforms for player body tracker that already exist
-		var commonString = OVR_GUEST_ANCHOR + COMMA + userInfo.seatIndex.toString() + COMMA;
+		var commonString = OVR_GUEST_ANCHOR + COMMA + userInfo.seatIndex.toString() + COMMA;	// remove transforms for player body tracker that already exist
 		delete this.syncObjects[commonString + R_HAND];
 		delete this.syncObjects[commonString + L_HAND];
 		delete this.syncObjects[commonString + HEAD];
 
 		this.sendCurrentWoldData(userInfo.socket);
 
-		console.log("send current grabb table");
-
-		// If you assign a rigidbody to a new participant, synchronization will start
-		// before determining who is holding the object, so notify who is holding which object first.
+		/**
+		 * if you assign a rigidbody to a new participant, synchronization will start
+		 * before determining who is holding the object, so notify who is holding which object first.
+		 */
 
 		this.sendCurrentGrabbState(userInfo.socket);
 
-		console.log("notify existing participants");
+		console.log("[log] send current grabb state");
+
+		console.log("[action] notify existing participants of a player's participation.");
 
 		obj = {
 			role: SERVER,
-			action: GUESTPARTICIPATION,
+			action: GUEST_PARTICIPATION,
 			srcIndex: userInfo.seatIndex,
 			dstIndex: -1
 		};
 		json = JSON.stringify(obj);
 
 		for (var index = 0; index < this.seatLength; index++) {
-			if (index === userInfo.seatIndex) continue;
+			if (index === userInfo.seatIndex) {
+				continue;
+			}
 			var dstSocket = this.socketTable[index];
-			if (dstSocket !== null) dstSocket.send(json);
+			if (dstSocket !== null) {
+				dstSocket.send(json);
+			}
 		}
 
-		console.log("notify new participants")
+		console.log("[log] existing participants have been notified.");
+
+		console.log("[action] share information about existing participants with new participants.");
 
 		for (var index = 0; index < this.seatLength; index++) {
-			if (index === userInfo.seatIndex) continue;
+			if (index === userInfo.seatIndex) {
+				continue;
+			}
 
 			var exists = this.socketTable[index];
 			if (exists !== null) {
 				obj = {
 					role: SERVER,
-					action: GUESTPARTICIPATION,
+					action: GUEST_PARTICIPATION,
 					srcIndex: index,
 					dstIndex: userInfo.seatIndex
 				};
 				json = JSON.stringify(obj);
-
 				userInfo.socket.send(json);
 			}
 		}
+
+		console.log("[log] information about existing participants is shared with new participants.");
+
+		console.log("[finish] new participant acceptance has been successfully processed.");
 	}
 }
 
@@ -730,26 +719,24 @@ var rooms = {};
 var roomIDs = {};
 
 ws.on("connection", function (socket) {
-	console.log("\nclient connected " + bar);
+	console.log("[log] client connected " + bar);
 
 	var userInfo = { seatIndex: -1, socket: socket };
 
 	socket.on("message", function (data, isBinary) {
 
 		const message = isBinary ? data : data.toString();
-
 		const parse = JSON.parse(message);
-
 		var room = rooms[parse.roomID];
 
 		if (room === undefined || room === null) {
-			console.log("create room: " + parse.roomID);
+			console.log("[action] create room: ", parse.roomID);
 			room = new unity_room();
 			rooms[parse.roomID] = room;
+			console.log("[finish] room created: ", parse.roomID);
 		}
 
-		if (!(socket in roomIDs)){
-			console.log("enter hash table legnth: " + Object.keys(roomIDs).length);
+		if (!(socket in roomIDs)) {	// connects the hash of the socket to the room id.
 			roomIDs[socket] = parse.roomID;
 		}
 
@@ -757,17 +744,14 @@ ws.on("connection", function (socket) {
 	});
 
 	socket.on('close', function close() {
-		console.log("\nclient closed " + bar);
+		console.log("[log] client closed " + bar);
 
 		var roomID = roomIDs[socket];
-
 		var room = rooms[roomID];
 
 		if (room !== undefined && room !== null) {
 			room.onClose(userInfo);
 			delete roomIDs[socket];
 		}
-
-		console.log("exit hash table legnth: " + Object.keys(roomIDs).length);
 	});
 });
