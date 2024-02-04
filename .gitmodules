@@ -10,3 +10,6 @@
 [submodule "Assets/TLab/Unityr-UI-Rounded-Corners-Extension"]
 	path = Assets/TLab/Unityr-UI-Rounded-Corners-Extension
 	url = https://github.com/TLabAltoh/Unityr-UI-Rounded-Corners-Extension.git
+[submodule "Assets/TLab/TLabNetworkedVR"]
+	path = Assets/TLab/TLabNetworkedVR
+	url = https://github.com/TLabAltoh/TLabNetworkedVR.git
