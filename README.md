@@ -10,7 +10,7 @@ Online classes in VR space using Websocket and WebRTC
 - Control of object sharing from the teacher's side  
 
 ## Note
-- Since ``` 28a838d ```, we have changed to manage libraries in projects by submodules. This may cause problems with git pulls for users who cloned the repository before ``` 28a838d ```. In that case, please consider cloning a new repository, also, if you pull changes in the future, please run ``` git submodule update init ``` to update the submodule to the version recommended by the project.
+- Since ``` 28a838d ```, we have changed to manage libraries in projects by submodules. This may cause problems with git pulls for users who cloned the repository before ``` 28a838d ```. In that case, please consider cloning a new repository, also, if you pull changes in the future, please run ``` git submodule update --init ``` to update the submodule to the version recommended by the project.
 
 ## Documentation
 [click here (hackmd)](https://hackmd.io/4d4vad8jT_igwNi_5GZrEQ)
