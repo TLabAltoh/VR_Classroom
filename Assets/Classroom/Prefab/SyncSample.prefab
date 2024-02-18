@@ -4273,6 +4273,11 @@ MonoBehaviour:
   m_serverAddr: ws://localhost:3001
   m_userID: 
   m_roomID: 
+  m_streamAudio: 0
+  m_voiceChat: {fileID: 0}
+  m_streamVideo: 0
+  m_videoStreamDst: {fileID: 0}
+  m_videoStreamSrc: {fileID: 0}
   m_onMessage:
     m_PersistentCalls:
       m_Calls:
@@ -4318,7 +4323,7 @@ MonoBehaviour:
   - {fileID: 3161772401705600758}
   - {fileID: 4367700361704887816}
   m_instantiateAnchor: {fileID: 2486983535769665680}
-  m_dataChannel: {fileID: 5814146283492665764}
+  m_webrtcClient: {fileID: 0}
   m_customCallbacks:
   - onMessage:
       m_PersistentCalls:
@@ -4427,8 +4432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_serverAddressBox: {fileID: 0}
   m_syncClient: {fileID: 1992072394669093082}
-  m_voiceChat: {fileID: 0}
-  m_syncTransform: {fileID: 5814146283492665764}
+  m_webrtcClient: {fileID: 5814146283492665764}
 --- !u!1 &1992072395166020666
 GameObject:
   m_ObjectHideFlags: 0
@@ -14458,6 +14462,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -31.90691
       objectReference: {fileID: 0}
+    - target: {fileID: 2559546592015856753, guid: cf5767a7a6501d04fb202c6ed3ef427c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2700780660479901755, guid: cf5767a7a6501d04fb202c6ed3ef427c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -16251,8 +16259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_colliderEnable: 1
   m_collider: {fileID: 7637414967018223530}
-  m_interactableChain:
-  - {fileID: 0}
+  m_interactableChain: []
   m_tlabWebView: {fileID: 5005082268075182235}
   m_webViewRect: {fileID: 648881711663509642}
 --- !u!224 &648881711663509642 stripped

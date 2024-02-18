@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 4027050243225658031}
   - component: {fileID: 4027050243232845149}
   - component: {fileID: 1317954215713218254}
+  - component: {fileID: 4096764830294014107}
   m_Layer: 8
   m_Name: OVRControllerPrefab.RTouch
   m_TagString: Untagged
@@ -204,6 +205,18 @@ MonoBehaviour:
   m_useGravity: 0
   m_rbAllocated: 0
   m_bodyParts: 2
+--- !u!114 &4096764830294014107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4027050243225435791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0741831496f601e40b3ccc06d967db69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4027050243225435793
 GameObject:
   m_ObjectHideFlags: 0

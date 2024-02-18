@@ -10,8 +10,7 @@ namespace TLab.VRClassroom
         [SerializeField] private ServerAddressBox m_serverAddressBox;
 
         [SerializeField] private SyncClient m_syncClient;
-        [SerializeField] private WebRTCDataChannel m_voiceChat;
-        [SerializeField] private WebRTCDataChannel m_syncTransform;
+        [SerializeField] private WebRTCClient m_webrtcClient;
 
         private string THIS_NAME => "[" + this.GetType().Name + "] ";
 
@@ -29,7 +28,7 @@ namespace TLab.VRClassroom
             m_syncClient?.SetServerAddr(addr);
 
 #if UNITY_EDITOR
-            if(m_syncClient != null)
+            if (m_syncClient != null)
             {
                 EditorUtility.SetDirty(m_syncClient);
             }
@@ -45,20 +44,14 @@ namespace TLab.VRClassroom
                 return;
             }
 
-            Debug.Log(THIS_NAME + "set signaling address: " + addr);
+            Debug.Log(THIS_NAME + "Set Signaling Address: " + addr);
 
-            m_voiceChat?.SetSignalingServerAddr(addr);
-            m_syncTransform?.SetSignalingServerAddr(addr);
+            m_webrtcClient?.SetSignalingServerAddr(addr);
 
 #if UNITY_EDITOR
-            if(m_voiceChat != null)
+            if (m_webrtcClient != null)
             {
-                EditorUtility.SetDirty(m_voiceChat);
-            }
-            
-            if(m_syncTransform != null)
-            {
-                EditorUtility.SetDirty(m_syncTransform);
+                EditorUtility.SetDirty(m_webrtcClient);
             }
 #endif
         }

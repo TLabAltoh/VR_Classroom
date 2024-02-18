@@ -29,8 +29,10 @@
 	<!--
     Important Notes
       1.  If your project contains a custom AndroidManifest.xml file, add permissions
-          <uses-permission android:name="android.permission.BLUETOOTH" />
-          <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+
+	<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" android:minSdkVersion="31" />
       
     2.  Otherwise, copy this file to this location in your project:
         Assets/Plugins/Android/AndroidManifest.xml.

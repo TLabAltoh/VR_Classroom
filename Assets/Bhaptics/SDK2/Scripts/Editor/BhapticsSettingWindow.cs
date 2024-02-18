@@ -130,7 +130,7 @@ namespace Bhaptics.SDK2.Editor
             if (!PlayerSettings.Android.forceInternetPermission)
             {
                 PlayerSettings.Android.forceInternetPermission = true;
-                Debug.Log("[bHaptics] Internet Access is set to Require");
+                BhapticsLogManager.Log("[bHaptics] Internet Access is set to Require");
             }
 
             var windowSize = new Vector2(WindowWidth, WindowHeight);
@@ -725,13 +725,13 @@ namespace Bhaptics.SDK2.Editor
                         }
                         else
                         {
-                            Debug.LogErrorFormat("[bHaptics] Not Valid format.");
+                            BhapticsLogManager.LogErrorFormat("[bHaptics] Not Valid format.");
                             errorMessage = "Not Valid format";
                         }
                     }
                     catch (System.Exception e)
                     {
-                        Debug.LogErrorFormat("[bHaptics] Exception: {0}", e.Message);
+                        BhapticsLogManager.LogErrorFormat("[bHaptics] Exception: {0}", e.Message);
                         errorMessage = "Exception: " + e.Message;
                     }
 
@@ -739,7 +739,7 @@ namespace Bhaptics.SDK2.Editor
                 }
             }
 
-            Debug.LogErrorFormat("[bHaptics] Error: {0}", BhapticsHelpers.ErrorCodeToMessage(code));
+            BhapticsLogManager.LogErrorFormat("[bHaptics] Error: {0}", BhapticsHelpers.ErrorCodeToMessage(code));
             errorMessage = BhapticsHelpers.ErrorCodeToMessage(code);
             return code;
         }
@@ -770,7 +770,7 @@ namespace Bhaptics.SDK2.Editor
             if (GUILayout.Button("", copyClipboardButtonStyle))
             {
                 GUIUtility.systemCopyBuffer = value;
-                Debug.LogFormat("[bHaptics] Copy to Clipboard: {0}", value);
+                BhapticsLogManager.LogFormat("[bHaptics] Copy to Clipboard: {0}", value);
             }
             GUILayout.EndVertical();
 
@@ -873,7 +873,7 @@ namespace Bhaptics.SDK2.Editor
             {
                 if (url == string.Empty)
                 {
-                    Debug.Log("[bHaptics] To be continue...");
+                    BhapticsLogManager.Log("[bHaptics] To be continue...");
                 }
                 else
                 {

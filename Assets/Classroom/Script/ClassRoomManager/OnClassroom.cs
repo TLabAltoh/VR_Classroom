@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using Oculus.Interaction;
 using TLab.InputField;
 using TLab.XR.Network;
-using TLab.Network.VoiceChat;
+using TLab.Network.WebRTC.Voice;
 
 namespace TLab.VRClassroom
 {

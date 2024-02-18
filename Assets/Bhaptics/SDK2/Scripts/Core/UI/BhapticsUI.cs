@@ -120,11 +120,13 @@ namespace Bhaptics.SDK2
                 noPairedDeviceUi.SetActive(true);
 
                 var deviceContainerRect = devicesContainer as RectTransform;
+                
                 deviceContainerRect.sizeDelta = defaultDeviceContainerSize;
 
+                var sizeDelta = mainPanel.sizeDelta;
                 mainPanel.sizeDelta = defaultMainPanelSize;
-                mainPanelCollider.center = new Vector3(0f, -mainPanel.sizeDelta.y * 0.5f, 0f);
-                mainPanelCollider.size = new Vector3(mainPanel.sizeDelta.x, mainPanel.sizeDelta.y, 1f);
+                mainPanelCollider.center = new Vector3(0f, - sizeDelta.y * 0.5f, 0f);
+                mainPanelCollider.size = new Vector3(sizeDelta.x, sizeDelta.y, 1f);
 
                 deviceListPageIndex = 0;
                 deviceListPageUi.gameObject.SetActive(false);

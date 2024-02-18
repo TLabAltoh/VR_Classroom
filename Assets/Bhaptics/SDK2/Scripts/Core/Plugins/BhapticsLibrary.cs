@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Bhaptics.SDK2
@@ -14,8 +13,36 @@ namespace Bhaptics.SDK2
         private static bool isAvailable = false;
         private static bool isAvailableChecked = false;
 
+        
+        private static bool enableUniversalConf = true;
+        private static RuntimePlatform[] excludeUniversalPlatforms =
+        {
+            RuntimePlatform.Android,
+            RuntimePlatform.WindowsPlayer,
+        };
+
+        public static bool enableUniversal = UniversalEnabled();
+
+        private static Universal.BhapticsTcpClient _client = new Universal.BhapticsTcpClient();
 
 
+        private static bool UniversalEnabled()
+        {
+            if (!enableUniversalConf)
+            {
+                return false;
+            }
+            
+            foreach (var excludeUniversalPlatform in excludeUniversalPlatforms)
+            {
+                if (Application.platform == excludeUniversalPlatform)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
 
         public static bool IsBhapticsAvailable(bool isAutoRunPlayer)
@@ -34,7 +61,7 @@ namespace Bhaptics.SDK2
             {
                 if (android == null)
                 {
-                    Debug.LogErrorFormat("[bHaptics] IsBhapticsAvailable() android object not initialized.");
+                    BhapticsLogManager.LogErrorFormat("IsBhapticsAvailable() android object not initialized.");
                     isAvailable = false;
                     return isAvailable;
                 }
@@ -45,7 +72,7 @@ namespace Bhaptics.SDK2
                 return isAvailable;
             }
 
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             if (!bhaptics_library.isPlayerInstalled())
             {
                 isAvailable = false;
@@ -55,12 +82,14 @@ namespace Bhaptics.SDK2
 
             if (!bhaptics_library.isPlayerRunning() && isAutoRunPlayer)
             {
-                Debug.LogFormat("[bHaptics] bHaptics Player(PC) is not running, so try launch it.");
+                BhapticsLogManager.LogFormat("bHaptics Player(PC) is not running, so try launch it.");
                 bhaptics_library.launchPlayer(true);
             }
 
+#endif
             isAvailable = true;
             isAvailableChecked = true;
+
             return isAvailable;
         }
 
@@ -77,11 +106,16 @@ namespace Bhaptics.SDK2
                 _initialized = true;
             }
 
+            if (enableUniversal)
+            {
+                _client.Initialize(appId, apiKey, json);
+            }
+
             if (Application.platform == RuntimePlatform.Android)
             {
                 if (android == null)
                 {
-                    Debug.Log("[bHaptics] BhapticsLibrary - Initialize ");
+                    BhapticsLogManager.Log("BhapticsLibrary - Initialize ");
                     android = new AndroidHaptic();
                     android.InitializeWithPermission(appId, apiKey, json, autoRequestBluetoothPermission);
                     _initialized = true;
@@ -90,15 +124,20 @@ namespace Bhaptics.SDK2
 
                 return false;
             }
-
+            
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+            
             if (bhaptics_library.wsIsConnected())
             {
-                Debug.Log("[bHaptics] BhapticsLibrary - connection already opened");
+                BhapticsLogManager.Log("BhapticsLibrary - connection already opened");
                 //return false;       // NOTE-230117      Temporary comment out for IL2CPP
             }
 
-            Debug.LogFormat("[bHaptics] BhapticsLibrary - Initialize() {0} {1}", apiKey, appId);
+            BhapticsLogManager.LogFormat("BhapticsLibrary - Initialize() {0} {1}", apiKey, appId);
             return bhaptics_library.registryAndInit(apiKey, appId, json);
+#endif
+
+            return false;
         }
 
         public static void Destroy()
@@ -114,8 +153,15 @@ namespace Bhaptics.SDK2
                 return;
             }
 
-            Debug.LogFormat("[bHaptics] Destroy()");
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+            BhapticsLogManager.LogFormat("Destroy()");
             bhaptics_library.wsClose();
+#endif
+
+            if (enableUniversal)
+            {
+                _client.Destroy();
+            }
 
             _initialized = false;
         }
@@ -142,6 +188,11 @@ namespace Bhaptics.SDK2
                 return -1;
             }
 
+            if (enableUniversal)
+            {
+                _client.Play(eventId);
+            }
+
             if (Application.platform == RuntimePlatform.Android)
             {
                 if (android != null)
@@ -151,8 +202,11 @@ namespace Bhaptics.SDK2
 
                 return -1;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.play(eventId);
+#endif
+
+            return -1;
         }
 
         public static int PlayParam(string eventId, float intensity, float duration, float angleX, float offsetY)
@@ -167,6 +221,12 @@ namespace Bhaptics.SDK2
                 return -1;
             }
 
+
+            if (enableUniversal)
+            {
+                _client.Play(eventId, intensity, duration, angleX, offsetY);
+            }
+
             if (Application.platform == RuntimePlatform.Android)
             {
                 if (android != null)
@@ -176,8 +236,11 @@ namespace Bhaptics.SDK2
 
                 return -1;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.playPosParam(eventId, 0, intensity, duration, angleX, offsetY);
+#endif
+
+            return -1;
         }
 
         public static int PlayMotors(int position, int[] motors, int durationMillis)
@@ -185,6 +248,11 @@ namespace Bhaptics.SDK2
             if (!isAvailable)
             {
                 return -1;
+            }
+
+            if (enableUniversal)
+            {
+                // TODO
             }
 
             if (Application.platform == RuntimePlatform.Android)
@@ -196,8 +264,10 @@ namespace Bhaptics.SDK2
 
                 return -1;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.playDot(position, durationMillis, motors, motors.Length);
+#endif
+            return -1;
         }
 
         public static int PlayWaveform(PositionType positionType, int[] motorValues, GlovePlayTime[] playTimeValues, GloveShapeValue[] shapeValues)
@@ -209,7 +279,7 @@ namespace Bhaptics.SDK2
 
             if (motorValues.Length != 6 || playTimeValues.Length != 6 || shapeValues.Length != 6)
             {
-                Debug.LogError("[bHaptics] BhapticsLibrary - PlayWaveform() 'motorValues, playTimeValues, shapeValues' necessarily require 6 values each.");
+                BhapticsLogManager.LogError("[bHaptics] BhapticsLibrary - PlayWaveform() 'motorValues, playTimeValues, shapeValues' necessarily require 6 values each.");
                 return -1;
             }
 
@@ -226,6 +296,11 @@ namespace Bhaptics.SDK2
                 shapeVals[i] = (int)shapeValues[i];
             }
 
+            if (enableUniversal)
+            {
+                // TODO
+            }
+
             if (Application.platform == RuntimePlatform.Android)
             {
                 if (android != null)
@@ -234,7 +309,10 @@ namespace Bhaptics.SDK2
                 }
                 return -1;
             }
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.playWaveform((int)positionType, motorValues, playTimes, shapeVals, 6);
+#endif
+            return -1;
         }
 
         public static int PlayPath(int position, float[] xValues, float[] yValues, int[] intensityValues, int duration)
@@ -242,6 +320,11 @@ namespace Bhaptics.SDK2
             if (!isAvailable)
             {
                 return -1;
+            }
+
+            if (enableUniversal)
+            {
+                // TODO
             }
 
             if (Application.platform == RuntimePlatform.Android)
@@ -253,8 +336,10 @@ namespace Bhaptics.SDK2
 
                 return -1;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.playPath(position, xValues, yValues, intensityValues, duration);
+#endif
+            return -1;
         }
 
         public static int PlayLoop(string eventId, float intensity, float duration, float angleX, float offsetY, int interval, int maxCount)
@@ -269,6 +354,11 @@ namespace Bhaptics.SDK2
                 return -1;
             }
 
+            if (enableUniversal)
+            {
+                // TODO
+            }
+
             if (Application.platform == RuntimePlatform.Android)
             {
                 if (android != null)
@@ -278,8 +368,10 @@ namespace Bhaptics.SDK2
 
                 return -1;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.playLoop(eventId, intensity, duration, angleX, offsetY, interval, maxCount);
+#endif
+            return -1;
         }
 
         public static bool StopByEventId(string eventId)
@@ -287,6 +379,11 @@ namespace Bhaptics.SDK2
             if (!isAvailable)
             {
                 return false;
+            }
+
+            if (enableUniversal)
+            {
+                _client.StopByEventId(eventId);
             }
 
             if (Application.platform == RuntimePlatform.Android)
@@ -298,8 +395,10 @@ namespace Bhaptics.SDK2
 
                 return false;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.stopByEventId(eventId);
+#endif
+            return false;
         }
 
         public static bool StopInt(int requestId)
@@ -307,6 +406,11 @@ namespace Bhaptics.SDK2
             if (!isAvailable)
             {
                 return false;
+            }
+
+            if (enableUniversal)
+            {
+                _client.StopByRequestId(requestId);
             }
 
             if (Application.platform == RuntimePlatform.Android)
@@ -318,8 +422,10 @@ namespace Bhaptics.SDK2
 
                 return false;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.stop(requestId);
+#endif
+            return false;
         }
 
         public static bool StopAll()
@@ -327,6 +433,11 @@ namespace Bhaptics.SDK2
             if (!isAvailable)
             {
                 return false;
+            }
+
+            if (enableUniversal)
+            {
+                _client.StopAll();
             }
 
             if (Application.platform == RuntimePlatform.Android)
@@ -338,8 +449,10 @@ namespace Bhaptics.SDK2
 
                 return false;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.stopAll();
+#endif
+            return false;
         }
 
         public static bool IsPlaying()
@@ -347,6 +460,12 @@ namespace Bhaptics.SDK2
             if (!isAvailable)
             {
                 return false;
+            }
+
+
+            if (enableUniversal)
+            {
+                // TODO ;
             }
 
             if (Application.platform == RuntimePlatform.Android)
@@ -358,14 +477,22 @@ namespace Bhaptics.SDK2
 
                 return false;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.isPlaying();
+#endif
+            return false;
         }
         public static bool IsPlayingByEventId(string eventId)
         {
             if (!isAvailable)
             {
                 return false;
+            }
+
+
+            if (enableUniversal)
+            {
+                // TODO ;
             }
 
             if (Application.platform == RuntimePlatform.Android)
@@ -377,8 +504,10 @@ namespace Bhaptics.SDK2
 
                 return false;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.isPlayingByEventId(eventId);
+#endif
+            return false;
         }
 
         public static bool IsPlayingByRequestId(int requestId)
@@ -397,8 +526,10 @@ namespace Bhaptics.SDK2
 
                 return false;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.isPlayingByRequestId(requestId);
+#endif
+            return false;
         }
 
         public static List<HapticDevice> GetDevices()
@@ -406,6 +537,12 @@ namespace Bhaptics.SDK2
             if (!isAvailable)
             {
                 return EmptyDevices;
+            }
+
+
+            if (enableUniversal)
+            {
+                // TODO ;
             }
 
             if (Application.platform == RuntimePlatform.Android)
@@ -418,7 +555,11 @@ namespace Bhaptics.SDK2
                 return EmptyDevices;
             }
 
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             return bhaptics_library.GetDevices();
+#endif
+
+            return EmptyDevices;
         }
 
         public static List<HapticDevice> GetConnectedDevices(PositionType pos)
@@ -493,8 +634,9 @@ namespace Bhaptics.SDK2
                 return;
             }
 
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             bhaptics_library.ping(targetDevice.Address);
-
+#endif
         }
 
         public static void PingAll()
@@ -513,8 +655,9 @@ namespace Bhaptics.SDK2
 
                 return;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             bhaptics_library.pingAll();
+#endif
         }
 
         public static void TogglePosition(HapticDevice targetDevice)
@@ -533,8 +676,9 @@ namespace Bhaptics.SDK2
 
                 return;
             }
-
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             bhaptics_library.swapPosition(targetDevice.Address);
+#endif
         }
 
         public static void OnApplicationFocus()
@@ -575,7 +719,7 @@ namespace Bhaptics.SDK2
             }
 
             var bytes = bhaptics_library.EditorGetSettings(appId, apiKey, lastVersion, out int code);
-            Debug.LogFormat("EditorGetSettings {0} {1}", code, bytes);
+            BhapticsLogManager.LogFormat("EditorGetSettings {0} {1}", code, bytes);
             status = code;
             return bytes;
         }
@@ -592,7 +736,7 @@ namespace Bhaptics.SDK2
                 return false;
             }
 
-            Debug.LogFormat("[bHaptics] BhapticsLibrary - ReInitialize() {0} {1}", apiKey, appId);
+            BhapticsLogManager.LogFormat("[bHaptics] BhapticsLibrary - ReInitialize() {0} {1}", apiKey, appId);
             return bhaptics_library.reInitMessage(apiKey, appId, json);
         }
 #endif

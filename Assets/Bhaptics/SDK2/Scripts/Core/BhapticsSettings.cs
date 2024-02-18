@@ -124,7 +124,7 @@ namespace Bhaptics.SDK2
                 return;
             }
 
-            Debug.LogFormat("[bHaptics] Reset App Setup: {0}", instance.AppName);
+            BhapticsLogManager.LogFormat("[bHaptics] Reset App Setup: {0}", instance.AppName);
             instance.appName = "";
             instance.appId = "";
             instance.apiKey = "";
@@ -143,7 +143,7 @@ namespace Bhaptics.SDK2
         {
             if (instance == null)
             {
-                Debug.LogFormat("[bHaptics] Load BhapticsSettings.asset");
+                BhapticsLogManager.LogFormat("Load BhapticsSettings.asset");
                 instance = Resources.Load<BhapticsSettings>("BhapticsSettings");
 
                 if (instance == null)

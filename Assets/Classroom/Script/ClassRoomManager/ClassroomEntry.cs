@@ -17,7 +17,7 @@ namespace TLab.VRClassroom
         public static string ENTRY_SCENE = "Entry";
         public static string HOST_SCENE = "Host";
         public static string GUEST_SCENE = "Guest";
-        public static string DEMO_SCENE = "Demo Scene";
+        public static string DEMO_SCENE = "Demo_Scene";
 
         public static string SHELF_SERVER = "Shelf";
         public static string SYNC_SERVER = "SyncServer";

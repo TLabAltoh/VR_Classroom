@@ -1,11 +1,7 @@
 {
     "name": "Bhaptics.SDK2",
     "references": [],
-    "includePlatforms": [
-        "Android",
-        "Editor",
-        "WindowsStandalone64"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

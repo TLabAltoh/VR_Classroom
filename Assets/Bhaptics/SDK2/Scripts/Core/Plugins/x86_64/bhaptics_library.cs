@@ -97,7 +97,7 @@ namespace Bhaptics.SDK2
 
             if (devicesStr.Length == 0)
             {
-                Debug.LogFormat("[bHaptics] GetDevices() empty. {0}", devicesStr);
+                BhapticsLogManager.LogFormat("GetDevices() empty. {0}", devicesStr);
                 return new List<HapticDevice>();
             }
             var hapticDevices = JsonUtility.FromJson<DeviceListMessage>("{\"devices\":" + devicesStr + "}");
@@ -116,7 +116,7 @@ namespace Bhaptics.SDK2
                 return mappingMessage.message;
             }
 
-            Debug.LogFormat("EditorGetEventList {0}", status);
+            BhapticsLogManager.LogFormat("EditorGetEventList {0}", status);
             return new List<MappingMetaData>();
         }
 

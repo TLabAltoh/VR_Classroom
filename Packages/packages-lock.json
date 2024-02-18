@@ -130,7 +130,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.6",
+      "version": "3.0.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -170,7 +170,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.webrtc": {
-      "version": "3.0.0-pre.5",
+      "version": "3.0.0-pre.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {

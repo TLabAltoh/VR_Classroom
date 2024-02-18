@@ -3365,6 +3365,18 @@ PrefabInstance:
       propertyPath: m_serverAddr
       value: ws://192.168.3.9:3001
       objectReference: {fileID: 0}
+    - target: {fileID: 183181524138373726, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+      propertyPath: m_client
+      value: 
+      objectReference: {fileID: 2084252503}
+    - target: {fileID: 183181524138373726, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+      propertyPath: m_isStreaming
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 183181524138373727, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 183181524888327456, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
       propertyPath: m_Name
       value: OVRCameraRig_Custom
@@ -3591,17 +3603,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
---- !u!114 &1577959519 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 183181524138373725, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
-  m_PrefabInstance: {fileID: 1577959518}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b07d1e184178bdd48ae423d746ced571, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1577959520 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 183181524138373726, guid: d997ea1304c2a0147abe1f5e81b83dca, type: 3}
@@ -4352,7 +4353,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2498
+  m_Name: pb_Mesh-13998
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4674,6 +4675,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &2084252503 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5814146283492665764, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+  m_PrefabInstance: {fileID: 1992072395091168998}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07d1e184178bdd48ae423d746ced571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &2099517027
 Mesh:
   m_ObjectHideFlags: 0
@@ -6097,7 +6109,7 @@ PrefabInstance:
       objectReference: {fileID: 2014581313}
     - target: {fileID: 1992072394071876174, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_VersionIndex
-      value: 8386
+      value: 8413
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394097134738, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_Name
@@ -6245,7 +6257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.3.9:5000
+      value: ws://192.168.3.7:5000
       objectReference: {fileID: 0}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_guestLTouch
@@ -6255,6 +6267,10 @@ PrefabInstance:
       propertyPath: m_guestRTouch
       value: 
       objectReference: {fileID: 1581749144712736, guid: 42d1e64a0d52e43429e79382007054e5, type: 3}
+    - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_webrtcClient
+      value: 
+      objectReference: {fileID: 2084252503}
     - target: {fileID: 1992072394669093082, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_rootTransform
       value: 
@@ -7610,7 +7626,7 @@ PrefabInstance:
     - target: {fileID: 3332692767466806577, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_voiceChat
       value: 
-      objectReference: {fileID: 1577959519}
+      objectReference: {fileID: 0}
     - target: {fileID: 3332692767466806577, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddrs
       value: 
@@ -9792,9 +9808,25 @@ PrefabInstance:
       value: ws://192.168.11.8:3001
       objectReference: {fileID: 0}
     - target: {fileID: 5814146283492665764, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_voiceChat
+      value: 
+      objectReference: {fileID: 1577959520}
+    - target: {fileID: 5814146283492665764, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_serverAddr
-      value: ws://192.168.3.9:3001
+      value: ws://192.168.3.7:3001
       objectReference: {fileID: 0}
+    - target: {fileID: 5814146283492665764, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_streamAudio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814146283492665764, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_streamVideo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814146283492665764, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
+      propertyPath: m_videoStreamSrc
+      value: 
+      objectReference: {fileID: 8400000, guid: 92a428731020b1c47b4353382857f2b7, type: 2}
     - target: {fileID: 5853952586142742067, guid: c26856fcc0fbd244982fcaa34364e616, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

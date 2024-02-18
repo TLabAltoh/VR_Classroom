@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -100,6 +99,31 @@ namespace Bhaptics.SDK2
 
     public class BhapticsHelpers
     {
+        [Serializable]
+        private class AndroidDeviceMessage
+        {
+            public Device[] items;
+        }
+
+        private static readonly HapticDevice[] HapticDevices =
+        {
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+            new HapticDevice(),
+        };
+        
         public static float Angle(Vector3 fwd, Vector3 targetDir)
         {
             var fwd2d = new Vector3(fwd.x, 0, fwd.z);
@@ -159,14 +183,29 @@ namespace Bhaptics.SDK2
             return "UNKNOWN CODE";
         }
 
-        public static List<HapticDevice> ConvertToBhapticsDevices(string[] deviceJson)
+        public static List<HapticDevice> ConvertToBhapticsDevices(string deviceJson)
         {
             var res = new List<HapticDevice>();
 
-            for (var i = 0; i < deviceJson.Length; i++)
+            var devices = JsonUtility.FromJson<AndroidDeviceMessage>(deviceJson);
+            for (var i = 0; i < devices.items.Length; i++)
             {
-                var device = JsonUtility.FromJson<Device>(deviceJson[i]);
-                res.Add(Convert(device));
+                var hDevice = HapticDevices[i];
+                var d = devices.items[i];
+                if (i >= 15)
+                {
+                    break;
+                }
+
+                hDevice.IsPaired = d.paired;
+                hDevice.IsConnected = d.connected;
+                hDevice.Address = d.address;
+                hDevice.Position = ToDeviceType(d.position);
+                hDevice.DeviceName = d.deviceName;
+                hDevice.Candidates = ToCandidates(d.position);
+                hDevice.Battery = d.battery;
+                hDevice.IsAudioJack = d.audioJackIn;
+                res.Add(hDevice);
             }
 
             return res;
@@ -201,34 +240,43 @@ namespace Bhaptics.SDK2
             };
         }
 
+        private static readonly PositionType[] HeadCandidates = { PositionType.Head };
+        private static readonly PositionType[] VestCandidates = { PositionType.Vest };
+        private static readonly PositionType[] ArmCandidates = { PositionType.ForearmL, PositionType.ForearmR };
+        private static readonly PositionType[] HandCandidates = { PositionType.HandL, PositionType.HandR };
+        private static readonly PositionType[] FootCandidates = { PositionType.FootR, PositionType.FootL };
+        private static readonly PositionType[] GloveLCandidates = { PositionType.GloveL };
+        private static readonly PositionType[] GloveRCandidates = { PositionType.GloveR };
+        private static readonly PositionType[] EmptyCandidates = {  };
+
         private static PositionType[] ToCandidates(int type)
         {
             switch (type)
             {
                 case 3:
-                    return new PositionType[] { PositionType.Head };
+                    return HeadCandidates;
                 case 0:
-                    return new PositionType[] { PositionType.Vest };
+                    return VestCandidates;
                 case 1:
-                    return new PositionType[] { PositionType.ForearmL, PositionType.ForearmR };
+                    return ArmCandidates;
                 case 2:
-                    return new PositionType[] { PositionType.ForearmL, PositionType.ForearmR };
+                    return ArmCandidates;
                 case 4:
-                    return new PositionType[] { PositionType.HandL, PositionType.HandR };
+                    return HandCandidates;
                 case 5:
-                    return new PositionType[] { PositionType.HandL, PositionType.HandR };
+                    return HandCandidates;
                 case 6:
-                    return new PositionType[] { PositionType.FootR, PositionType.FootL };
+                    return FootCandidates;
                 case 7:
-                    return new PositionType[] { PositionType.FootR, PositionType.FootL };
+                    return FootCandidates;
                 case 8:
-                    return new PositionType[] { PositionType.GloveL };
+                    return GloveLCandidates;
                 case 9:
-                    return new PositionType[] { PositionType.GloveL };
+                    return GloveRCandidates;
 
             }
 
-            return new PositionType[0];
+            return EmptyCandidates;
         }
 
         private static PositionType ToDeviceType(int type)

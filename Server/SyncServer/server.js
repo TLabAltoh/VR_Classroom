@@ -138,7 +138,9 @@ class unity_room {
 			this.updateGrabbTable(parse, message);
 
 			ws.clients.forEach(client => {	// broadcast
-				if (client != userInfo.socket) client.send(message);
+				if (client != userInfo.socket) {
+					client.send(message);
+				}
 			});
 
 			return;
@@ -319,11 +321,11 @@ class unity_room {
 
 			console.log("[log] client exit.");
 
-			if (seatIndex !== -1) {	
+			if (userInfo.seatIndex !== -1) {	
 				var obj = {	// notify players to leave
 					role: SERVER,
 					action: GUEST_DISCONNECT,
-					srcIndex: seatIndex,
+					srcIndex: userInfo.seatIndex,
 					dstIndex: -1
 				};
 				var json = JSON.stringify(obj);
@@ -339,7 +341,7 @@ class unity_room {
 				this.grabbTable[userInfo.seatIndex] = [];
 				this.seatFilled -= 1;
 
-				console.log(seats);
+				console.log(this.seats);
 
 				this.allocateRigidbody(true);
 

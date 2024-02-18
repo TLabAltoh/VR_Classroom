@@ -11,40 +11,40 @@ namespace Bhaptics.SDK2
         [Header("Only for PC")]
         [Tooltip("If bHaptics Player(PC) is not turned on when this program starts, it automatically runs bHaptics Player.")]
         [SerializeField] private bool autoRunBhapticsPlayer = false;
-
         private bool autoRequestBluetoothPermission = true;
+
         private BhapticsSettings bhapticsSettings;
 
 
 
         private void Awake()
         {
-            //if (instance != null)
-            //{
-            //    DestroyImmediate(this);
-            //    return;
-            //}
+            if (instance != null)
+            {
+                DestroyImmediate(this);
+                return;
+            }
 
             instance = this;
-            //DontDestroyOnLoad(this);
+            DontDestroyOnLoad(this);
 
             bhapticsSettings = BhapticsSettings.Instance;
 
             var hapticDevices = BhapticsLibrary.GetDevices();
-            Debug.LogFormat("[bHaptics] devices {0}", hapticDevices.Count);
+            BhapticsLogManager.LogFormat("[bHaptics] devices {0}", hapticDevices.Count);
 
             if (string.IsNullOrEmpty(bhapticsSettings.AppId))
             {
-                Debug.LogErrorFormat("[bHaptics] Please set API_ID.");
+                Debug.LogError("[bHaptics] Please set API_ID.");
                 return;
             }
 
-            Debug.LogFormat("[bHaptics] {0} {1}", bhapticsSettings.AppId, bhapticsSettings.ApiKey);
+            BhapticsLogManager.LogFormat("[bHaptics] {0} {1}", bhapticsSettings.AppId, bhapticsSettings.ApiKey);
             BhapticsLibrary.Initialize(bhapticsSettings.AppId, bhapticsSettings.ApiKey, bhapticsSettings.DefaultDeploy, autoRequestBluetoothPermission);
 
             var playerSetup = BhapticsLibrary.IsBhapticsAvailable(autoRunBhapticsPlayer);
-            Debug.LogFormat("[bHaptics] player IsBhapticsAvailable {0}", playerSetup);
-            Debug.LogFormat("[bHaptics] Initialized. ");
+            BhapticsLogManager.LogFormat("[bHaptics] player IsBhapticsAvailable {0}", playerSetup);
+            BhapticsLogManager.LogFormat("[bHaptics] Initialized. ");
         }
 
         private void OnApplicationFocus(bool pauseStatus)

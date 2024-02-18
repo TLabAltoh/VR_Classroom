@@ -7,51 +7,50 @@ namespace Bhaptics.SDK2
     public class AndroidHaptic
     {
         protected static AndroidJavaObject androidJavaObject;
+        
+        private readonly Dictionary<string, int> eventDictionary = new Dictionary<string, int>();
 
-        private static readonly object[] PlayParams = new object[1];
-        private static readonly object[] PlayParamParams = new object[6];
-        private static readonly object[] EmptyParams = new object[0];
-        private static readonly object[] IsPlayingParams = new object[1];
-        private static readonly object[] StopByRequestIdParams = new object[1];
-        private static readonly object[] StopByEventIdParams = new object[1];
+        private static readonly object[] GetEventIdParams = new object[1];
+        private static readonly object[] PlayGloveParams = new object[5];
+        private static readonly jvalue[] PlayEventParams = new jvalue[6];
+        private static readonly jvalue[] PlayLoopParams = new jvalue[8];
+        private static readonly jvalue[] EmptyParams = new jvalue[0];
+        private static readonly object[] PlayMotorsParams = new object[3];
+        private static readonly jvalue[] IsPlayingParams = new jvalue[1];
+        private static readonly jvalue[] IsPlayingByEventIdParams = new jvalue[1];
+        private static readonly jvalue[] StopByRequestIdParams = new jvalue[1];
+        private static readonly jvalue[] StopByEventIdParams = new jvalue[1];
         private static readonly object[] PingParams = new object[1];
+
+
         private List<HapticDevice> deviceList;
 
-        protected IntPtr AndroidJavaObjectPtr;
+        private readonly IntPtr bhapticsWrapperObjectPtr;
+        private readonly IntPtr bhapticsWrapperClassPtr;
 
-        protected IntPtr InitializePtr;
-        protected IntPtr InitializeRequestPermissionPtr;
+        private readonly IntPtr initializeRequestPermissionPtr;
 
-        protected IntPtr PlayPtr;
-        protected IntPtr PlayPosPtr;
-        protected IntPtr PlayParamPtr;
-        protected IntPtr PlayPosParamPtr;
+        private readonly IntPtr playEventPtr;
+        private readonly IntPtr playMotorsPtr;
+        private readonly IntPtr playLoopPtr;
+        private readonly IntPtr playGlovePtr;
+        
+        private readonly IntPtr getEventIdPtr;
 
-        protected IntPtr StopIntPtr;
-        protected IntPtr StopByEventIdPtr;
-        protected IntPtr StopAllPtr;
-        protected IntPtr SubmitRegisteredPtr;
-        protected IntPtr SubmitRegisteredWithTimePtr;
-        protected IntPtr RegisterPtr;
-        protected IntPtr RegisterReflectedPtr;
-        protected IntPtr PingPtr;
-        protected IntPtr PingAllPtr;
+        private readonly IntPtr stopIntPtr;
+        private readonly IntPtr stopByEventIdPtr;
+        private readonly IntPtr stopAllPtr;
+        private readonly IntPtr pingPtr;
+        private readonly IntPtr pingAllPtr;
 
         // bool methods
-        protected IntPtr IsRegisteredPtr;
-        protected IntPtr IsPlayingPtr;
-        protected IntPtr IsPlayingAnythingPtr;
-        protected IntPtr IsPlayingByEventIdPtr;
-        protected IntPtr IsPlayingByRequestIdPtr;
+        private readonly IntPtr isPlayingAnythingPtr;
+        private readonly IntPtr isBhapticsUserPtr;
+        private readonly IntPtr isPlayingByEventIdPtr;
+        private readonly IntPtr isPlayingByRequestIdPtr;
 
-        // Streaming methods
-        protected IntPtr ToggleStreamPtr;
-        protected IntPtr IsStreamingEnablePtr;
-        protected IntPtr GetStreamingHostsPtr;
-
-        // show bluetooth
-        protected IntPtr ShowBluetoothPtr;
-        protected IntPtr RefreshPairingInfoPtr;
+        private readonly IntPtr refreshPairingInfoPtr;
+        private readonly IntPtr getDeviceListPtr;
 
         public AndroidHaptic()
         {
@@ -62,44 +61,38 @@ namespace Bhaptics.SDK2
                 androidJavaObject =
                     new AndroidJavaObject("com.bhaptics.bhapticsunity.BhapticsManagerWrapper", currentActivity);
 
-                AndroidJavaObjectPtr = androidJavaObject.GetRawObject();
+                bhapticsWrapperObjectPtr = androidJavaObject.GetRawObject();
+                bhapticsWrapperClassPtr = androidJavaObject.GetRawClass();
 
-                InitializePtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "initialize");
+                initializeRequestPermissionPtr = AndroidJNIHelper.GetMethodID(
+                    androidJavaObject.GetRawClass(), 
+                    "initializeWithPermissionOption", 
+                    "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V");
 
-                InitializeRequestPermissionPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "initializeWithPermissionOption");
+                
+                playEventPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "playEvent", "(IIFFFF)I");
+                playGlovePtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "playGlove", "(I[I[I[II)I");
+                getEventIdPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "getEventId", "(Ljava/lang/String;)I");
+                playLoopPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "playLoop", "(IIFFFFII)I");
+                playMotorsPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "playMotors", "(II[I)I");
+                stopIntPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "stopInt");
+                stopByEventIdPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "stopByEventId", "(I)Z");
+                stopAllPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "stopAll");
 
-                PlayPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "play");
-                PlayPosPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "playPos");
-                PlayParamPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "playParam");
-                PlayPosParamPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "playPosParam");
-                StopIntPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "stopInt");
-                StopByEventIdPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "stopByEventId");
-                StopAllPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "stopAll");
+                pingPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "ping", "(Ljava/lang/String;)V");
+                pingAllPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "pingAll");
 
-                ToggleStreamPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "toggleStreamingEnable");
+                isPlayingAnythingPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "isAnythingPlaying", "()Z");
+                isPlayingByEventIdPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "isPlayingByEventId", "(I)Z");
+                isPlayingByRequestIdPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "isPlayingByRequestId", "(I)Z");
+                isBhapticsUserPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "isBhapticsUser");
 
-                SubmitRegisteredPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "submitRegistered");
-                SubmitRegisteredWithTimePtr =
-                    AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "submitRegisteredWithTime");
-                RegisterPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "register");
-                RegisterReflectedPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "registerReflected");
-                PingPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "ping");
-                PingAllPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "pingAll");
-
-                IsRegisteredPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "isRegistered");
-                IsPlayingPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "isPlaying");
-                IsPlayingAnythingPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "isAnythingPlaying");
-                IsPlayingByEventIdPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "isPlayingByEventId");
-                IsPlayingByRequestIdPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "isPlayingByRequestId");
-
-                IsStreamingEnablePtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "isStreamingEnable");
-                GetStreamingHostsPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "getStreamingHosts");
-                ShowBluetoothPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "showBluetoothSetting");
-                RefreshPairingInfoPtr = AndroidJNIHelper.GetMethodID(androidJavaObject.GetRawClass(), "refreshPairing");
+                refreshPairingInfoPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "refreshPairing");
+                getDeviceListPtr = AndroidJNIHelper.GetMethodID(bhapticsWrapperClassPtr, "getDeviceListString", "()Ljava/lang/String;");
             }
             catch (Exception e)
             {
-                Debug.LogErrorFormat("AndroidHaptic {0} {1} ", e.Message, e);
+                BhapticsLogManager.LogErrorFormat("AndroidHaptic {0} {1} ", e.Message, e);
             }
 
             deviceList = GetDevices();
@@ -111,9 +104,7 @@ namespace Bhaptics.SDK2
             {
                 return false;
             }
-            bool result = androidJavaObject.Call<bool>("isBhapticsUser");
-
-            return result;
+            return AndroidUtils.CallNativeBoolMethod(bhapticsWrapperObjectPtr, isBhapticsUserPtr, EmptyParams);
         }
 
         public void RefreshPairing()
@@ -123,42 +114,47 @@ namespace Bhaptics.SDK2
                 return;
             }
 
-            CallNativeVoidMethod(RefreshPairingInfoPtr, EmptyParams);
+            AndroidUtils.CallNativeVoidMethod(bhapticsWrapperObjectPtr, refreshPairingInfoPtr, EmptyParams);
 
+        }
+        private int GetEventId(string eventId)
+        {
+            if (androidJavaObject == null)
+            {
+                return -1;
+            }
+
+            GetEventIdParams[0] = eventId;
+            return AndroidUtils.CallNativeIntMethod(bhapticsWrapperObjectPtr, getEventIdPtr, GetEventIdParams);
         }
 
         public List<HapticDevice> GetDevices()
         {
             try
             {
-                string[] result = androidJavaObject.Call<string[]>("getDeviceList");
+                string result = AndroidUtils.CallNativeStringMethod(bhapticsWrapperObjectPtr, getDeviceListPtr, EmptyParams);
                 deviceList = BhapticsHelpers.ConvertToBhapticsDevices(result);
 
                 return deviceList;
             }
             catch (Exception e)
             {
-                // Debug.LogErrorFormat("[bHaptics] GetDevices() {0}", e.Message);
+                BhapticsLogManager.LogErrorFormat("[bHaptics] GetDevices() {0}", e.Message);
             }
 
             return new List<HapticDevice>();
         }
 
-        public void Initialize(string workspaceId, string sdkKey, string json)
-        {
-            Debug.LogFormat("[bHaptics] Initialize() {0} {1}", workspaceId, json);
-            CallNativeVoidMethod(InitializePtr, new object[] { workspaceId, sdkKey, json });
-        }
-
         public void InitializeWithPermission(string workspaceId, string sdkKey, string json, bool requestPermission)
         {
-            Debug.LogFormat("[bHaptics] InitializeWithPermission() {0} {1}", workspaceId, json);
-            CallNativeVoidMethod(InitializeRequestPermissionPtr, new object[] { workspaceId, sdkKey, json, requestPermission ? 1 : 0 });
+            BhapticsLogManager.LogFormat("[bHaptics] InitializeWithPermission() {0} {1}", workspaceId, json);
+            AndroidUtils.CallNativeVoidMethod(
+                bhapticsWrapperObjectPtr, initializeRequestPermissionPtr, 
+                new object[] { workspaceId, sdkKey, json, requestPermission ? 1 : 0 });
         }
 
         public bool IsConnect()
         {
-
             return false;
         }
 
@@ -169,7 +165,7 @@ namespace Bhaptics.SDK2
                 return false;
             }
 
-            return CallNativeBoolMethod(IsPlayingAnythingPtr, EmptyParams);
+            return AndroidUtils.CallNativeBoolMethod(bhapticsWrapperObjectPtr, isPlayingAnythingPtr, EmptyParams);
         }
 
         public bool IsPlayingByEventId(string eventId)
@@ -178,9 +174,9 @@ namespace Bhaptics.SDK2
             {
                 return false;
             }
-
-            IsPlayingParams[0] = eventId;
-            return CallNativeBoolMethod(IsPlayingByEventIdPtr, IsPlayingParams);
+            int eventIntValue = TryGetEventIntValue(eventId);
+            IsPlayingByEventIdParams[0].i = eventIntValue;
+            return AndroidUtils.CallNativeBoolMethod(bhapticsWrapperObjectPtr, isPlayingByEventIdPtr, IsPlayingParams);
         }
 
         public bool IsPlayingByRequestId(int requestId)
@@ -190,8 +186,8 @@ namespace Bhaptics.SDK2
                 return false;
             }
 
-            IsPlayingParams[0] = requestId;
-            return CallNativeBoolMethod(IsPlayingByRequestIdPtr, IsPlayingParams);
+            IsPlayingParams[0].i = requestId;
+            return AndroidUtils.CallNativeBoolMethod(bhapticsWrapperObjectPtr, isPlayingByRequestIdPtr, IsPlayingParams);
         }
 
         public void RefreshPairingInfo()
@@ -201,20 +197,14 @@ namespace Bhaptics.SDK2
                 return;
             }
 
-            CallNativeVoidMethod(RefreshPairingInfoPtr, EmptyParams);
+            AndroidUtils.CallNativeVoidMethod(bhapticsWrapperObjectPtr, refreshPairingInfoPtr, EmptyParams);
         }
 
 
 
         public int Play(string eventId)
         {
-            if (androidJavaObject == null)
-            {
-                return -1;
-            }
-
-            PlayParams[0] = eventId;
-            return CallNativeIntMethod(PlayPtr, PlayParams);
+            return PlayParam(eventId, 1f, 1f, 0f, 0f);
         }
 
         public int PlayParam(string eventId, float intensity, float duration, float angleX, float offsetY)
@@ -223,16 +213,19 @@ namespace Bhaptics.SDK2
             {
                 return -1;
             }
-            int pos = (int)0;
 
-            PlayParamParams[0] = eventId;
-            PlayParamParams[1] = pos;
-            PlayParamParams[2] = intensity;
-            PlayParamParams[3] = duration;
-            PlayParamParams[4] = angleX;
-            PlayParamParams[5] = offsetY;
+            int eventIntValue = TryGetEventIntValue(eventId);
+            int requestId = UnityEngine.Random.Range(0, int.MaxValue);
 
-            return CallNativeIntMethod(PlayPosParamPtr, PlayParamParams);
+            PlayEventParams[0].i = eventIntValue;
+            PlayEventParams[1].i = requestId;
+            PlayEventParams[2].f = intensity;
+            PlayEventParams[3].f = duration;
+            PlayEventParams[4].f = angleX;
+            PlayEventParams[5].f = offsetY;
+
+            return AndroidUtils.CallNativeIntMethod(bhapticsWrapperObjectPtr, playEventPtr, PlayEventParams);
+            
         }
 
         public int PlayMotors(int position, int[] motors, int durationMillis)
@@ -241,12 +234,12 @@ namespace Bhaptics.SDK2
             {
                 return -1;
             }
-            //
-            // PlayMotorsParams[0] = position;
-            // PlayMotorsParams[1] = durationMillis;
-            // PlayMotorsParams[2] = motors;
+            
+            PlayMotorsParams[0] = position;
+            PlayMotorsParams[1] = durationMillis;
+            PlayMotorsParams[2] = motors;
 
-            return androidJavaObject.Call<int>("playMotors", position, durationMillis, motors);
+            return AndroidUtils.CallNativeIntMethod(bhapticsWrapperObjectPtr, playMotorsPtr, PlayMotorsParams);
         }
 
         public int PlayGlove(int position, int[] motors, int[] playTimeValues, int[] shapeValues)
@@ -255,7 +248,14 @@ namespace Bhaptics.SDK2
             {
                 return -1;
             }
-            return androidJavaObject.Call<int>("playGlove", position, motors, playTimeValues, shapeValues, 6);
+
+            PlayGloveParams[0] = position;
+            PlayGloveParams[1] = motors;
+            PlayGloveParams[2] = playTimeValues;
+            PlayGloveParams[3] = shapeValues;
+            PlayGloveParams[4] = 6;
+
+            return AndroidUtils.CallNativeIntMethod(bhapticsWrapperObjectPtr, playGlovePtr, PlayGloveParams);
         }
 
         public int PlayPath(int position, float[] xValues, float[] yValues, int[] intensityValues, int duration)
@@ -276,8 +276,18 @@ namespace Bhaptics.SDK2
             {
                 return -1;
             }
+            int eventIntValue = TryGetEventIntValue(eventId);
+            int requestId = UnityEngine.Random.Range(0, int.MaxValue);
 
-            return androidJavaObject.Call<int>("playLoop", eventId, intensity, duration, angleX, offsetY, interval, maxCount);
+            PlayLoopParams[0].i = eventIntValue;
+            PlayLoopParams[1].i = requestId;
+            PlayLoopParams[2].f = intensity;
+            PlayLoopParams[3].f = duration;
+            PlayLoopParams[4].f = angleX;
+            PlayLoopParams[5].f = offsetY;
+            PlayLoopParams[6].i = interval;
+            PlayLoopParams[7].i = maxCount;
+            return AndroidUtils.CallNativeIntMethod(bhapticsWrapperObjectPtr, playLoopPtr, PlayLoopParams);
         }
 
         public bool StopByRequestId(int key)
@@ -287,8 +297,8 @@ namespace Bhaptics.SDK2
                 return false;
             }
 
-            StopByRequestIdParams[0] = key;
-            return CallNativeBoolMethod(StopIntPtr, StopByRequestIdParams);
+            StopByRequestIdParams[0].i = key;
+            return AndroidUtils.CallNativeBoolMethod(bhapticsWrapperObjectPtr, stopIntPtr, StopByRequestIdParams);
         }
 
         public bool StopByEventId(string eventId)
@@ -300,15 +310,32 @@ namespace Bhaptics.SDK2
 
             try
             {
-                StopByEventIdParams[0] = eventId;
-                return CallNativeBoolMethod(StopByEventIdPtr, StopByEventIdParams);
+                int eventIntValue = TryGetEventIntValue(eventId);
+                StopByEventIdParams[0].i = eventIntValue;
+                return AndroidUtils.CallNativeBoolMethod(bhapticsWrapperObjectPtr, stopByEventIdPtr, StopByEventIdParams);
             }
             catch (Exception e)
             {
-                // Debug.LogErrorFormat("[bHaptics] StopByEventId() : {0}", e.Message);
+                BhapticsLogManager.LogErrorFormat("[bHaptics] StopByEventId() : {0}", e.Message);
             }
 
             return false;
+        }
+
+        private int TryGetEventIntValue(string eventId)
+        {
+            int eventIntValue = -1;
+            if (eventDictionary.TryGetValue(eventId, out var value))
+            {
+                eventIntValue = value;
+            }
+            else
+            {
+                eventIntValue = GetEventId(eventId);
+                eventDictionary[eventId] = eventIntValue;
+            }
+
+            return eventIntValue;
         }
 
         public bool Stop()
@@ -317,11 +344,11 @@ namespace Bhaptics.SDK2
             {
                 try
                 {
-                    return CallNativeBoolMethod(StopAllPtr, EmptyParams);
+                    return AndroidUtils.CallNativeBoolMethod(bhapticsWrapperObjectPtr, stopAllPtr, EmptyParams);
                 }
                 catch (Exception e)
                 {
-                    // Debug.LogErrorFormat("[bHaptics] Stop() : {0}", e.Message);
+                    BhapticsLogManager.LogErrorFormat("[bHaptics] Stop() : {0}", e.Message);
                 }
             }
 
@@ -358,7 +385,7 @@ namespace Bhaptics.SDK2
                 return;
             }
 
-            CallNativeVoidMethod(PingAllPtr, EmptyParams);
+            AndroidUtils.CallNativeVoidMethod(bhapticsWrapperObjectPtr, pingAllPtr, EmptyParams);
         }
 
         public void Ping(string address)
@@ -369,73 +396,66 @@ namespace Bhaptics.SDK2
             }
 
             PingParams[0] = address;
-            CallNativeVoidMethod(PingPtr, PingParams);
-        }
-
-
-        private void CallNativeVoidMethod(IntPtr methodPtr, object[] param)
-        {
-            if (androidJavaObject == null)
-            {
-                return;
-            }
-
-            AndroidUtils.CallNativeVoidMethod(AndroidJavaObjectPtr, methodPtr, param);
-        }
-
-
-        private bool CallNativeBoolMethod(IntPtr methodPtr, object[] param)
-        {
-            if (androidJavaObject == null)
-            {
-                return false;
-            }
-
-            return AndroidUtils.CallNativeBoolMethod(AndroidJavaObjectPtr, methodPtr, param);
-        }
-
-        private int CallNativeIntMethod(IntPtr methodPtr, object[] param)
-        {
-            if (androidJavaObject == null)
-            {
-                return -1;
-            }
-
-            return AndroidUtils.CallNativeIntMethod(AndroidJavaObjectPtr, methodPtr, param);
+            AndroidUtils.CallNativeVoidMethod(bhapticsWrapperObjectPtr, pingPtr, PingParams);
         }
     }
 
-    class AndroidUtils
+    internal static class AndroidUtils
     {
-        public static void CallNativeVoidMethod(IntPtr androidObjPtr, IntPtr methodPtr, object[] param)
+        internal static void CallNativeVoidMethod(IntPtr androidObjPtr, IntPtr methodPtr, object[] param)
         {
             jvalue[] args = AndroidJNIHelper.CreateJNIArgArray(param);
             try
             {
-                AndroidJNI.CallVoidMethod(androidObjPtr, methodPtr, args);
+                CallNativeVoidMethod(androidObjPtr, methodPtr, args);
             }
             catch (Exception e)
             {
-                // Debug.LogErrorFormat("[bHaptics] CallNativeVoidMethod() : {0}", e.Message);
+                BhapticsLogManager.LogErrorFormat("[bHaptics] CallNativeVoidMethod() : {0}", e.Message);
             }
             finally
             {
                 AndroidJNIHelper.DeleteJNIArgArray(param, args);
             }
         }
+        internal static void CallNativeVoidMethod(IntPtr androidObjPtr, IntPtr methodPtr, jvalue[] param)
+        {
+            try
+            {
+                AndroidJNI.CallVoidMethod(androidObjPtr, methodPtr, param);
+            }
+            catch (Exception e)
+            {
+                BhapticsLogManager.LogErrorFormat("[bHaptics] CallNativeVoidMethod() : {0}", e.Message);
+            }
+        }
+
+        internal static string CallNativeStringMethod(IntPtr androidObjPtr, IntPtr methodPtr, jvalue[] param)
+        {
+            try
+            {
+                return AndroidJNI.CallStringMethod(androidObjPtr, methodPtr, param);
+            }
+            catch (Exception e)
+            {
+                BhapticsLogManager.LogErrorFormat("[bHaptics] CallNativeStringMethod() : {0}", e.Message);
+            }
+
+            return "";
+        }
 
 
-        public static bool CallNativeBoolMethod(IntPtr androidObjPtr, IntPtr methodPtr, object[] param)
+        internal static bool CallNativeBoolMethod(IntPtr androidObjPtr, IntPtr methodPtr, object[] param)
         {
             jvalue[] args = AndroidJNIHelper.CreateJNIArgArray(param);
             bool res = false;
             try
             {
-                res = AndroidJNI.CallBooleanMethod(androidObjPtr, methodPtr, args);
+                res = CallNativeBoolMethod(androidObjPtr, methodPtr, args);
             }
             catch (Exception e)
             {
-                // Debug.LogErrorFormat("[bHaptics] CallNativeBoolMethod() : {0}", e.Message);
+                BhapticsLogManager.LogErrorFormat("[bHaptics] CallNativeBoolMethod() : {0}", e.Message);
             }
             finally
             {
@@ -444,22 +464,50 @@ namespace Bhaptics.SDK2
 
             return res;
         }
+        internal static bool CallNativeBoolMethod(IntPtr androidObjPtr, IntPtr methodPtr, jvalue[] param)
+        {   
+            bool res = false;
+            try
+            {
+                res = AndroidJNI.CallBooleanMethod(androidObjPtr, methodPtr, param);
+            }
+            catch (Exception e)
+            {
+                BhapticsLogManager.LogErrorFormat("[bHaptics] CallNativeBoolMethod() : {0}", e.Message);
+            }
 
-        public static int CallNativeIntMethod(IntPtr androidObjPtr, IntPtr methodPtr, object[] param)
+            return res;
+        }
+
+        internal static int CallNativeIntMethod(IntPtr androidObjPtr, IntPtr methodPtr, object[] param)
         {
             jvalue[] args = AndroidJNIHelper.CreateJNIArgArray(param);
             int res = -1;
             try
             {
-                res = AndroidJNI.CallIntMethod(androidObjPtr, methodPtr, args);
+                res = CallNativeIntMethod(androidObjPtr, methodPtr, args);
             }
             catch (Exception e)
             {
-                // Debug.LogErrorFormat("[bHaptics] CallNativeIntMethod() : {0}", e.Message);
+                BhapticsLogManager.LogErrorFormat("[bHaptics] CallNativeIntMethod() : {0}", e.Message);
             }
             finally
             {
                 AndroidJNIHelper.DeleteJNIArgArray(param, args);
+            }
+
+            return res;
+        }
+        internal static int CallNativeIntMethod(IntPtr androidObjPtr, IntPtr methodPtr, jvalue[] param)
+        {
+            int res = -1;
+            try
+            {
+                res = AndroidJNI.CallIntMethod(androidObjPtr, methodPtr, param);
+            }
+            catch (Exception e)
+            {
+                BhapticsLogManager.LogErrorFormat("[bHaptics] CallNativeIntMethod() : {0}", e.Message);
             }
 
             return res;

@@ -153,13 +153,11 @@ namespace Bhaptics.SDK2
 
 
 
-
-
-
         private void Start()
         {
             currentSettings = BhapticsSettings.Instance;
             CheckApplicationSetting();
+
         }
 
         private void OnDisable()
@@ -168,8 +166,6 @@ namespace Bhaptics.SDK2
 
             onClickPlayCoroutine = null;
         }
-
-
 
 
 
@@ -216,21 +212,15 @@ namespace Bhaptics.SDK2
 
 
 
-
-
-
-
-
         private void PlayHaptic(string eventName, float intensity, float duration, float angleX, float offsetY)
         {
             this.eventName = eventName;
-            Debug.LogFormat("PlayHapticParam {0}", eventName);
             requestId = BhapticsLibrary.PlayParam(eventName, intensity, duration, angleX, offsetY);
         }
 
         private void StopHaptic()
         {
-            Debug.LogFormat("Stop {0}", requestId);
+            BhapticsLogManager.LogFormat("Stop {0}", requestId);
             BhapticsLibrary.StopInt(requestId);
 
             if (onClickPlayCoroutine != null)
@@ -279,7 +269,7 @@ namespace Bhaptics.SDK2
         private void SetupApplicationData()
         {
             events = currentSettings.EventData;
-            Debug.LogFormat("[bHaptics] eventSize {0}", events.Length);
+            BhapticsLogManager.LogFormat("[bHaptics] eventSize {0}", events.Length);
 
             eventsDropdown.options = new List<Dropdown.OptionData>();
 

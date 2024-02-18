@@ -49,16 +49,18 @@ Online classes in VR space using Websocket and WebRTC
 
 ## Getting Started
 ### Prerequisites
+#### Unity Editor
 - Unity 2021.3.23f1  
-- Oculus Integration (Install from asset store)  
-- ProBuilder (Install from asset store)  
-- Android Logcat (Install from upm)  
-- [Unity-UI-Rounded-Corners](https://github.com/kirevdokimov/Unity-UI-Rounded-Corners.git)  
+#### Package Manager and Asset Store
+- [Oculus Integration](https://assetstore.unity.com/packages/tools/integration/oculus-integration-deprecated-82022)  
 - [SDF Toolkit](https://assetstore.unity.com/packages/tools/utilities/sdf-toolkit-free-50191)  
-- node (v16.15.0)  
-- [unity.webrtc](https://github.com/Unity-Technologies/com.unity.webrtc)
-- [bHaptics](https://assetstore.unity.com/packages/tools/integration/bhaptics-haptic-plugin-76647)
+- [ProBuilder](https://github.com/Unity-Technologies/com.unity.probuilder.git)  
+- [unity.webrtc](https://github.com/Unity-Technologies/com.unity.webrtc)  
+- [bHaptics](https://assetstore.unity.com/packages/tools/integration/bhaptics-haptic-plugin-76647)  
 - [NativeWebsocket](https://github.com/endel/NativeWebSocket)
+- Android Logcat (Build in)  
+#### Server
+- node (v16.15.0)  
 
 ### Installing
 Clone the repository to any directory with the following command  
@@ -68,12 +70,27 @@ git clone https://github.com/TLabAltoh/VR_Kensyu.git --recursive
 
 ### Set up
 1. Execute the following commands in Server/SyncServer
+
 ```
 npm start
 ```
+
+or  
+
+```
+start.bat
+```
+
 2. Execute the following commands in Server/WebRTCSignaling
+
 ```
 npm start
+```
+
+or  
+
+```
+start.bat
 ```
 
 3. Set the SignalingServer and SyncServer addresses in Unity

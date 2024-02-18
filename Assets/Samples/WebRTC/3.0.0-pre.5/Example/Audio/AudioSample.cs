@@ -58,7 +58,7 @@ namespace Unity.WebRTC
             { "Best Performance", 1024 },
         };
 
-    void Start()
+        void Start()
         {
             StartCoroutine(WebRTC.Update());
             StartCoroutine(LoopStatsCoroutine());
@@ -87,7 +87,7 @@ namespace Unity.WebRTC
             // best latency is default
             OnDSPBufferSizeChanged(dropdownDSPBufferSize.value);
 
-            dropdownAudioCodecs.AddOptions(new List<string>{"Default"});
+            dropdownAudioCodecs.AddOptions(new List<string> { "Default" });
             var codecs = RTCRtpSender.GetCapabilities(TrackKind.Audio).codecs;
 
             var excludeCodecTypes = new[] { "audio/CN", "audio/telephone-event" };
@@ -130,7 +130,9 @@ namespace Unity.WebRTC
                 m_deviceName = dropdownMicrophoneDevices.captionText.text;
                 m_clipInput = Microphone.Start(m_deviceName, true, m_lengthSeconds, m_samplingFrequency);
                 // set the latency to “0” samples before the audio starts to play.
-                while (!(Microphone.GetPosition(m_deviceName) > 0)) {}
+                while (!(Microphone.GetPosition(m_deviceName) > 0)) { }
+
+                Debug.Log($"[audio_sample] clip input: {m_clipInput.frequency}, channel: {m_clipInput.channels}");
             }
             else
             {
@@ -197,7 +199,7 @@ namespace Unity.WebRTC
             if (dropdownAudioCodecs.value == 0)
             {
                 var error = transceiver1.SetCodecPreferences(this.availableCodecs.ToArray());
-                if(error != RTCErrorType.None)
+                if (error != RTCErrorType.None)
                     Debug.LogError(error);
             }
             else
@@ -208,6 +210,8 @@ namespace Unity.WebRTC
                     Debug.LogError(error);
 
             }
+
+            Debug.Log("[audio_sample] call");
         }
 
         void OnPause()
@@ -232,11 +236,16 @@ namespace Unity.WebRTC
 
         void OnAddTrack(MediaStreamTrackEvent e)
         {
+            Debug.Log($"[audio_sample] OnAddTrack: {e.Track}");
+
             var track = e.Track as AudioStreamTrack;
             outputAudioSource.SetTrack(track);
             outputAudioSource.loop = true;
             outputAudioSource.Play();
 
+            track.onReceived += (float[] data, int channels, int sampleRate) =>
+            {
+            };
         }
 
         void OnHangUp()
@@ -337,6 +346,8 @@ namespace Unity.WebRTC
 
         IEnumerator PeerNegotiationNeeded(RTCPeerConnection pc)
         {
+            Debug.Log("[audio_sample] create offer");
+
             var op = pc.CreateOffer();
             yield return op;
 
@@ -363,6 +374,8 @@ namespace Unity.WebRTC
 
         private IEnumerator OnCreateOfferSuccess(RTCPeerConnection pc, RTCSessionDescription desc)
         {
+            Debug.Log($"[audio_sample] offer sdp: {desc.sdp}");
+
             var op = pc.SetLocalDescription(ref desc);
             yield return op;
 
@@ -395,6 +408,8 @@ namespace Unity.WebRTC
 
         IEnumerator OnCreateAnswerSuccess(RTCPeerConnection pc, RTCSessionDescription desc)
         {
+            Debug.Log($"[audio_sample] answer sdp: {desc.sdp}");
+
             var op = pc.SetLocalDescription(ref desc);
             yield return op;
 
