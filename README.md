@@ -65,7 +65,7 @@ Online classes in VR space using Websocket and WebRTC
 ### Installing
 Clone the repository to any directory with the following command  
 ```
-git clone https://github.com/TLabAltoh/VR_Kensyu.git --recursive
+git clone https://github.com/TLabAltoh/VR_Classroom.git --recursive
 ```
 
 ### Set up
