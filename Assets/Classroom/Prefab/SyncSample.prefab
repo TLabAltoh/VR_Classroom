@@ -4290,7 +4290,6 @@ GameObject:
   - component: {fileID: 1992072394669093083}
   - component: {fileID: 5814146283492665764}
   - component: {fileID: 1992072394669093082}
-  - component: {fileID: 3332692767466806577}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -4327,12 +4326,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07d1e184178bdd48ae423d746ced571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_serverAddr: ws://localhost:3001
+  m_signalingServerAddr: {fileID: 11400000, guid: c4e3374df0fa86e4391ef746adc80256, type: 2}
   m_userID: 
   m_roomID: 
-  m_streamAudio: 0
+  m_streamAudioOnConnect: 0
   m_voiceChat: {fileID: 0}
-  m_streamVideo: 0
+  m_streamVideoOnConnect: 0
   m_videoStreamDst: {fileID: 0}
   m_videoStreamSrc: {fileID: 0}
   m_onMessage:
@@ -4362,8 +4361,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733600070a3a0cd4dab889fcf8fc9c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_serverAddr: ws://192.168.3.13:5000
-  m_roomID: VR_Classroom
+  m_roomConfig: {fileID: 0}
+  m_clientName: Default Client
   m_cameraRig: {fileID: 0}
   m_trackTargets:
   - parts: 1
@@ -4372,7 +4371,7 @@ MonoBehaviour:
     target: {fileID: 0}
   - parts: 0
     target: {fileID: 0}
-  m_avatorConfig: {fileID: 11400000, guid: 5f91d02073a649346bdbfc50ffd85514, type: 2}
+  m_guestAvatorConf: {fileID: 0}
   m_respownAnchors:
   - {fileID: 1082589660096402943}
   - {fileID: 4853837590586330987}
@@ -4475,21 +4474,6 @@ MonoBehaviour:
   m_role: 2
   m_buildDebug: 0
   m_editorDebug: 0
---- !u!114 &3332692767466806577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1992072394669093087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7282d1f275acf4a43b0dc07b98b54b18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_serverAddressBox: {fileID: 0}
-  m_syncClient: {fileID: 1992072394669093082}
-  m_webrtcClient: {fileID: 5814146283492665764}
 --- !u!1 &1992072395166020666
 GameObject:
   m_ObjectHideFlags: 0

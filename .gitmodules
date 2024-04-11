@@ -13,3 +13,6 @@
 [submodule "Assets/TLab/TLabNetworkedVR"]
 	path = Assets/TLab/TLabNetworkedVR
 	url = https://github.com/TLabAltoh/TLabNetworkedVR.git
+[submodule "TLabNetworkedVR-Server"]
+	path = TLabNetworkedVR-Server
+	url = https://github.com/TLabAltoh/TLabNetworkedVR-Server.git

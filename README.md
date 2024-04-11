@@ -4,10 +4,10 @@ Online classes in VR space using Websocket and WebRTC
 ## Feature
 - Combination of WebSocket and WebRTC according to the importance of messages in communication
 - Hand tracking support  
-- Support for bHaptics tactile gloves  
-- WebView support (Android builds only)  
+- WebView support  
 - Download object from external server (using AssetBundle)  
 - Control of object sharing from the teacher's side  
+- Support for bHaptics tactile gloves  
 
 ## Note
 - Since ``` 28a838d ```, we have changed to manage libraries in projects by submodules. This may cause problems with git pulls for users who cloned the repository before ``` 28a838d ```. In that case, please consider cloning a new repository, also, if you pull changes in the future, please run ``` git submodule update --init ``` to update the submodule to the version recommended by the project.
@@ -19,31 +19,15 @@ Online classes in VR space using Websocket and WebRTC
 [![Youtube](Media/VR_Classroom.jpg)](https://www.youtube.com/watch?v=SZBbz0wVcFc)  
 <table>
 <tr>
-   <td> 
-      <img src="Media/tlab-grabbable-controller.gif" width="256">
-   </td>
-   <td> 
-      <img src="Media/tlab-grabbable-handtracking.gif" width="256">
-   </td>
-</tr>
-</table>
-
-<table>
-<tr>
-   <td> 
-      <img src="Media/vkensyu.jpeg" width="256">
-   </td>
-   <td> 
-      <img src="Media/student.jpg" width="256">
-   </td>
-</tr>
-</table>
-
-<table>
-<tr>
-   <td> 
-      <img src="Media/support-webview.jpg" width="256">
-   </td>
+	<td> 
+  <img src="Media/vkensyu.jpeg" width="256">
+ 	</td>
+  <td> 
+  	<img src="Media/student.jpg" width="256">
+  </td>
+	<td> 
+		<img src="Media/support-webview.jpg" width="256">
+	</td>
 </tr>
 </table>
 
@@ -55,11 +39,9 @@ Online classes in VR space using Websocket and WebRTC
 - [Oculus Integration](https://assetstore.unity.com/packages/tools/integration/oculus-integration-deprecated-82022)  
 - [SDF Toolkit](https://assetstore.unity.com/packages/tools/utilities/sdf-toolkit-free-50191)  
 - [ProBuilder](https://github.com/Unity-Technologies/com.unity.probuilder.git)  
-- [unity.webrtc](https://github.com/Unity-Technologies/com.unity.webrtc)  
 - [bHaptics](https://assetstore.unity.com/packages/tools/integration/bhaptics-haptic-plugin-76647)  
+- [unity.webrtc](https://github.com/Unity-Technologies/com.unity.webrtc)  
 - [NativeWebsocket](https://github.com/endel/NativeWebSocket)
-- Android Logcat (Build in)  
-#### Server
 - node (v16.15.0)  
 
 ### Installing
@@ -68,43 +50,85 @@ Clone the repository to any directory with the following command
 git clone https://github.com/TLabAltoh/VR_Classroom.git --recursive
 ```
 
-### Set up
-1. Execute the following commands in Server/SyncServer
+### Project Set Up
+- Build Settings
+
+| Property      | Value   |
+| ------------- | ------- |
+| Platform      | Android |
+
+- Project Settings
+
+| Property          | Value                                 |
+| ----------------- | ------------------------------------- |
+| Color Space       | Linear                                |
+| Graphics          | OpenGLES3                             |
+| Minimum API Level | 29                                    |
+| Target API Level  | 30 (Unity 2021), 31 ~ 32 (Unity 2022) |
+
+
+- Add the following symbols to Project Settings --> Player --> Other Settings (to be used at build time)
+
 
 ```
-npm start
+UNITYWEBVIEW_ANDROID_SUPPORT_OCULUS
+```
+```
+UNITYWEBVIEW_ANDROID_USES_CLEARTEXT_TRAFFIC
+```
+```
+UNITYWEBVIEW_ANDROID_ENABLE_CAMERA
+```
+```
+UNITYWEBVIEW_ANDROID_ENABLE_MICROPHONE
 ```
 
-or  
+- XR Plug-in Management
 
-```
-start.bat
-```
+| Property        | Value               |
+| --------------- | ------------------- |
+| Plugin Provider | Oculus (not OpenXR) |
 
-2. Execute the following commands in Server/WebRTCSignaling
+## Server Set Up
 
-```
-npm start
-```
-
-or  
-
-```
-start.bat
-```
-
-3. Set the SignalingServer and SyncServer addresses in Unity
+1. Set the SignalingServer and SyncServer addresses in Unity
 <table>
 <tr>
    <td> 
       <img src="Media/server-setup.png" width="256">
    </td>
-   <td> 
-      <img src="Media/server-address-manager.png" width="256">
-   </td>
 </tr>
+   <td> 
+      <img src="Media/server-address-sync.png" width="256">
+   </td>
+   <td> 
+      <img src="Media/server-address-signaling.png" width="256">
+   </td>
 </table>
-4. Launch the game from UnityEditor or the built file
+
+2. Execute the following commands in TLabNetworkedVR-Server/SyncServer
+
+```
+npm start
+```
+
+or  
+
+```
+start.bat
+```
+
+3. Execute the following commands in TLabNetworkedVR-Server/WebRTCSignaling
+
+```
+npm start
+```
+
+or  
+
+```
+start.bat
+```
 
 ### How to play
 #### Enter Room
@@ -132,15 +156,6 @@ start.bat
    </td>
    <td> 
       <img src="Media/world-sync.png" width="256">
-   </td>
-</tr>
-</table>
-
-### Object Divide
-<table>
-<tr>
-   <td> 
-      <img src="Media/object-divide.png" width="256">
    </td>
 </tr>
 </table>

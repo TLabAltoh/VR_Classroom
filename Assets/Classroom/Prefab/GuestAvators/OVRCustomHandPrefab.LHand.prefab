@@ -2144,8 +2144,9 @@ MonoBehaviour:
   m_hash: 
   m_useRigidbody: 0
   m_useGravity: 0
-  m_rbAllocated: 0
-  m_bodyParts: 1
+  m_partsType: 1
+  m_self: 0
+  m_initializeOnStartUp: 1
 --- !u!114 &213698901300113468
 MonoBehaviour:
   m_ObjectHideFlags: 0

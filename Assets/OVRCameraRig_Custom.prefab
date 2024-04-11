@@ -2495,7 +2495,6 @@ GameObject:
   - component: {fileID: 183181524138373712}
   - component: {fileID: 183181524138373724}
   - component: {fileID: 183181524138373726}
-  - component: {fileID: 183181524138373727}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -2627,21 +2626,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_client: {fileID: 0}
-  loopBackSelf: 0
   isStreaming: 0
---- !u!114 &183181524138373727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 183181524138373713}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b98da84cce6425e49ace1fbe2dc58e49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_voiceChat: {fileID: 183181524138373726}
+  m_frequency: 16000
 --- !u!1 &183181524144818715
 GameObject:
   m_ObjectHideFlags: 0
