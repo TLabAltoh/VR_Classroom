@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Sync Home (ServerAddress)
   m_EditorClassIdentifier: 
   name: Sync
-  addr: ws://192.168.3.9:5000
+  addr: ws://192.168.3.10:5000
   protocol: 0

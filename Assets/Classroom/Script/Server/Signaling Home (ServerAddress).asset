@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Signaling Home (ServerAddress)
   m_EditorClassIdentifier: 
   name: Signaling
-  addr: ws://192.168.3.9:3100
+  addr: ws://192.168.3.10:3100
   protocol: 0

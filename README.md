@@ -10,7 +10,12 @@ Online classes in VR space using Websocket and WebRTC
 - Support for bHaptics tactile gloves  
 
 ## Note
+<details><summary>please see here</summary>
+
 - Since ``` 28a838d ```, we have changed to manage libraries in projects by submodules. This may cause problems with git pulls for users who cloned the repository before ``` 28a838d ```. In that case, please consider cloning a new repository, also, if you pull changes in the future, please run ``` git submodule update --init ``` to update the submodule to the version recommended by the project.
+- The Oculus SDK has now been updated for Oculus integration SDK to Meta XR All in One SDK, this sdk requires Unity Editor 2021.26f1 ~.
+
+</details>
 
 ## Documentation
 [click here (hackmd)](https://hackmd.io/4d4vad8jT_igwNi_5GZrEQ)
@@ -18,25 +23,25 @@ Online classes in VR space using Websocket and WebRTC
 ## Screenshot
 [![Youtube](Media/VR_Classroom.jpg)](https://www.youtube.com/watch?v=SZBbz0wVcFc)  
 <table>
-<tr>
-	<td> 
-  <img src="Media/vkensyu.jpeg" width="256">
- 	</td>
-  <td> 
-  	<img src="Media/student.jpg" width="256">
-  </td>
-	<td> 
-		<img src="Media/support-webview.jpg" width="256">
-	</td>
-</tr>
+	<tr>
+		<td> 
+	  <img src="Media/vkensyu.jpeg" width="256">
+	 	</td>
+	  <td> 
+  		<img src="Media/student.jpg" width="256">
+	  </td>
+		<td> 
+			<img src="Media/support-webview.jpg" width="256">
+		</td>
+	</tr>
 </table>
 
 ## Getting Started
 ### Prerequisites
 #### Unity Editor
-- Unity 2021.3.23f1  
+- Unity 2021.3.37f1 (meta xr sdk requires Unity Editor 2021.26f1 ~.)  
 #### Package Manager and Asset Store
-- [Oculus Integration](https://assetstore.unity.com/packages/tools/integration/oculus-integration-deprecated-82022)  
+- [meta-xr-all-in-one-sdk](https://assetstore.unity.com/packages/tools/integration/meta-xr-all-in-one-sdk-269657)  
 - [SDF Toolkit](https://assetstore.unity.com/packages/tools/utilities/sdf-toolkit-free-50191)  
 - [ProBuilder](https://github.com/Unity-Technologies/com.unity.probuilder.git)  
 - [bHaptics](https://assetstore.unity.com/packages/tools/integration/bhaptics-haptic-plugin-76647)  
@@ -106,7 +111,7 @@ UNITYWEBVIEW_ANDROID_ENABLE_MICROPHONE
    </td>
 </table>
 
-2. Execute the following commands in TLabNetworkedVR-Server/SyncServer
+2. Execute the following commands in ```TLabNetworkedVR-Server/SyncServer```
 
 ```
 npm start
@@ -118,7 +123,7 @@ or
 start.bat
 ```
 
-3. Execute the following commands in TLabNetworkedVR-Server/WebRTCSignaling
+3. Execute the following commands in ```TLabNetworkedVR-Server/WebRTCSignaling```
 
 ```
 npm start
@@ -150,12 +155,12 @@ start.bat
 ## System Design Overview
 ### Network
 <table>
-<tr>
-   <td> 
-      <img src="Media/webrtc-signaling.png" width="256">
-   </td>
-   <td> 
-      <img src="Media/world-sync.png" width="256">
-   </td>
-</tr>
+	<tr>
+  	 <td> 
+    	  <img src="Media/webrtc-signaling.png" width="256">
+	   </td>
+  	 <td> 
+    	  <img src="Media/world-sync.png" width="256">
+	   </td>
+	</tr>
 </table>

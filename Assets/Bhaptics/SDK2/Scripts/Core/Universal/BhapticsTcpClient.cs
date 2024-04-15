@@ -235,6 +235,7 @@ namespace Bhaptics.SDK2.Universal
             BhapticsLogManager.Log("[bhaptics-universal] UdpBroadcastingListenLoop");
             var udpEndPoint = new IPEndPoint(IPAddress.Any, 15884);
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             socket.Bind(udpEndPoint);
 
             while (_isListening)
@@ -269,6 +270,7 @@ namespace Bhaptics.SDK2.Universal
                 BhapticsLogManager.LogFormat("[bhaptics-universal] UdpBroadcastingListenLoop ip: {0}:{1}, userId: {2}", endPoint.Address.ToString(), endPoint.Port , message.userId);
             }
 
+            socket.Close();
             udpThread = null;
         }
         
