@@ -121,7 +121,6 @@ MonoBehaviour:
   m_hash: 512655487
   m_useRigidbody: 0
   m_useGravity: 0
-  m_rbAllocated: 0
   m_locked: 0
   m_position:
     m_enabled: 1
@@ -176,7 +175,6 @@ MonoBehaviour:
   m_collider: {fileID: 8193367324612923846}
   m_interactableChain:
   - {fileID: 1338221328907739113}
-  m_rotateSpeed: 10
 --- !u!114 &1338221328907739113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +284,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -373,7 +372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5206\u5272/\u7D50\u5408"
+  m_text: Divide/Fix
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
   m_sharedMaterial: {fileID: 8868489198506428640, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
@@ -563,7 +562,6 @@ MonoBehaviour:
   m_hash: 1241528610
   m_useRigidbody: 0
   m_useGravity: 0
-  m_rbAllocated: 0
   m_locked: 0
   m_position:
     m_enabled: 1
@@ -618,7 +616,6 @@ MonoBehaviour:
   m_collider: {fileID: 3392903405383077720}
   m_interactableChain:
   - {fileID: 8131025252168979948}
-  m_rotateSpeed: 10
 --- !u!114 &8131025252168979948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,7 +704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.5, y: -1.750001}
+  m_AnchoredPosition: {x: 2.5, y: -1.75}
   m_SizeDelta: {x: -179, y: -84.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6400539787249672071
@@ -738,7 +735,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u53F3\u80BA"
+  m_text: right lung
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
   m_sharedMaterial: {fileID: 8868489198506428640, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
@@ -765,8 +762,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 9
+  m_fontSizeBase: 9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -873,7 +870,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5DE6\u80BA"
+  m_text: left lung
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
   m_sharedMaterial: {fileID: 8868489198506428640, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
@@ -1224,6 +1221,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1514,7 +1512,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6C17\u7BA1"
+  m_text: trachea
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
   m_sharedMaterial: {fileID: 8868489198506428640, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
@@ -1783,7 +1781,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30EA\u30BB\u30C3\u30C8"
+  m_text: Reset
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
   m_sharedMaterial: {fileID: 8868489198506428640, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
@@ -1959,6 +1957,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2145,7 +2144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc682126205afac47964f0d123b26b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_seatIndex: -1
 --- !u!114 &8826481839643745224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2162,7 +2160,6 @@ MonoBehaviour:
   m_hash: 1651134531
   m_useRigidbody: 0
   m_useGravity: 0
-  m_rbAllocated: 0
   m_locked: 0
   m_position:
     m_enabled: 1
@@ -2204,7 +2201,6 @@ MonoBehaviour:
   m_colliderEnable: 1
   m_collider: {fileID: 6465065568114591467}
   m_interactableChain: []
-  m_rotateSpeed: 10
 --- !u!114 &6500042702223303192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2375,7 +2371,6 @@ MonoBehaviour:
   m_hash: 597735510
   m_useRigidbody: 0
   m_useGravity: 0
-  m_rbAllocated: 0
   m_locked: 0
   m_position:
     m_enabled: 1
@@ -2430,7 +2425,6 @@ MonoBehaviour:
   m_collider: {fileID: 6019880283197050423}
   m_interactableChain:
   - {fileID: 529375027845593629}
-  m_rotateSpeed: 10
 --- !u!114 &529375027845593629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2591,6 +2585,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2684,6 +2679,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
