@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Classroom (Room Config)
   m_EditorClassIdentifier: 
   m_id: Default
-  m_syncServerAddr: {fileID: 11400000, guid: a75aa8b6d455a6648a171e86ece66051, type: 2}
-  m_signalingServerAddr: {fileID: 11400000, guid: c4e3374df0fa86e4391ef746adc80256, type: 2}
+  m_syncServerAddr: {fileID: 11400000, guid: 8700003048a222a42add61e456c8a81b, type: 2}
+  m_signalingServerAddr: {fileID: 11400000, guid: e4fff1f75940e1a4e86142c8fad75ba7, type: 2}
   m_password: 
   m_passwordHash: 03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4
