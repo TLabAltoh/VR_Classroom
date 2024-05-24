@@ -111,6 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee24d13571ebd94582e9f24366c925a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_enableSync: 0
+  m_hash: 
   m_animator: {fileID: 3702738534947088680}
 --- !u!1 &180982712842493674
 GameObject:
@@ -1064,6 +1066,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee24d13571ebd94582e9f24366c925a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_enableSync: 0
+  m_hash: 
   m_animator: {fileID: 6154088828918694383}
 --- !u!1 &3003854245577701200
 GameObject:
@@ -1261,6 +1265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee24d13571ebd94582e9f24366c925a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_enableSync: 0
+  m_hash: 
   m_animator: {fileID: 3632168426208077318}
 --- !u!1 &3447616728938037112
 GameObject:
@@ -1421,7 +1427,6 @@ MonoBehaviour:
   m_hash: 806073707
   m_useRigidbody: 0
   m_useGravity: 0
-  m_rbAllocated: 0
 --- !u!114 &9002223327466481160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1705,6 +1710,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee24d13571ebd94582e9f24366c925a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_enableSync: 0
+  m_hash: 
   m_animator: {fileID: 4703893256659218995}
 --- !u!1 &5706534303927534929
 GameObject:
@@ -1907,7 +1914,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7B54\u3048\u5408\u308F\u305B"
+  m_text: Check
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
   m_sharedMaterial: {fileID: 8868489198506428640, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
@@ -2571,8 +2578,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u3053\u306E\u90E8\u4F4D\u306E\u540D\u79F0\u3092\u4EE5\u4E0B\u306E\u9078\u629E\u3057\u304B\u3089\u9078\u3079\n1.
-    \u5DE6\u80BA, 2. \u53F3\u80BA\n3. \u5DE6\u80BA\u5BA4, 4. \u53F3\u80BA\u5BA4"
+  m_text: 'Choose the name of this region from the following options
+
+    1. left
+    lung, 2. right lung
+
+    3. left lung chamber, 4. right lung chamber'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
   m_sharedMaterial: {fileID: 8868489198506428640, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
@@ -3153,7 +3164,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5C0F\u30C6\u30B9\u30C8"
+  m_text: Mini test
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
   m_sharedMaterial: {fileID: 8868489198506428640, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
@@ -3610,6 +3621,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -3709,6 +3721,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee24d13571ebd94582e9f24366c925a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_enableSync: 0
+  m_hash: 
   m_animator: {fileID: 6413540607921959474}
 --- !u!1 &5706534305602052721
 GameObject:
@@ -4333,7 +4347,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u554F\u984C\u306B\u623B\u308B"
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
   m_sharedMaterial: {fileID: 8868489198506428640, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
@@ -4686,7 +4700,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u96C6\u8A08"
+  m_text: Aggregate
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
   m_sharedMaterial: {fileID: 8868489198506428640, guid: fb8dd4899febc2c4e84f32bbf885a667, type: 2}
@@ -4872,4 +4886,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc682126205afac47964f0d123b26b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_seatIndex: -1
